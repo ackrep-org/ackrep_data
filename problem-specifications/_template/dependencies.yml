@@ -1,0 +1,15 @@
+# This file specifies all dependencies
+# Expected format is as follows
+
+
+---
+python:
+    # see https://pip.pypa.io/en/latest/reference/pip_install/#requirements-file-format
+    - numpy >=1.0,<2.0
+    - some_other_python_package1
+    - some_other_python_package2
+
+# note: currently not sure how to specify dependencies for other languages
+c:
+    - some_c_library
+
