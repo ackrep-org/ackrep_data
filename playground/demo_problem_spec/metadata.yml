@@ -1,0 +1,21 @@
+key: PW1AZ
+predecessor_key: ''
+type: problem_specification
+name: demo problem
+short_description: very simple demo problem
+version: 0.1.0
+tag_list:
+    - ''
+creator: ''
+editor_list:
+    - ''
+creation_date: ''
+related_doc_list:
+    - ''
+related_dataset_list:
+    - ''
+external_references: ''
+problem_file: problem.py
+notes: ''
+problemclass_list:
+    - ''
