@@ -13,13 +13,13 @@ solution-modules are checked automatically against the respective problems. To f
 operation of this process, some metadata and some other components are also managed in this repo.
 Alltogether there are the following entities:
 
-- problem-class
+- problem class
     - e.g. Trajectory Planning for Mechanical Systems
-- problem-specification
+- problem specification
     - e.g. Swingup control for the Acrobot with specific parameters
-- problem-solution
+- problem solution
     - e.g. Invocation of an allgorithm which calculates a swingup trajectory for the acrobot
-- method
+- method package
     - e.g. A collection of functions which together implement an algorithm to calculate state space
     transitions for dynamical systems
 - docs
@@ -159,17 +159,17 @@ def evaluate_solution(solution_data):
     - &lt;generic metadata&gt;
     - solved_problem_list
         - (list of keys)
-    - used_method_list
-        - (list of keys; only these methods will be available to the software)
+    - method_package_list
+        - (list of keys; only these method packagess will be available to the software)
     - related_dataset_list
         - (list of keys; only these datasets will be available to the software)
     - compatible_environment_list
         - (list of keys)
-    - estimated_runtime
+    - estimated_runtime:
         - (string of format `hh:mm:ss`; refers to a single core process on a "usual" PC)
-
-- `solution.py`
-- `postprocessing.py` (optional)
+    - solution_file:
+        - e.g.  `solution.py`
+    - postprocessing_file: e.g. `postprocessing.py` (optional)
 - `README.md`
 - `dependencies.yml`
 - `_solution_data/`
@@ -191,7 +191,7 @@ def solve(problem_spec)
 ```
 ---
 
-### Method
+### Method Package
 - `metadata.yml`
     - &lt;generic metadata&gt;
     - compatible_environments

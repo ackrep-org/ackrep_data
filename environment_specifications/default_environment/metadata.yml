@@ -1,5 +1,6 @@
 ---
 pk: YJBOX
+type: environment_specification
 name: default_environment
 short_description: original working default_environment of the ackrep maintainer
 version: 0.1.0
