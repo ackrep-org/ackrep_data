@@ -1,0 +1,18 @@
+key: UENQQ
+predecessor_key: ''
+type: method_package
+name: PyTrajectory
+short_description: package for trajectory planning of dynamical systems using collocation method
+version: 0.1.0
+tag_list:
+    - ''
+creator: ''
+editor_list:
+    - ''
+creation_date: ''
+related_doc_list:
+    - ''
+external_references: ''
+notes: ''
+compatible_environment_list:
+    - ''
