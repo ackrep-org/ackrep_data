@@ -18,8 +18,7 @@ solved_problem_list:
     - 4ZZ9J
 method_package_list:
     - UENQQ
-compatible_environment_list:
-    - ''
+compatible_environment:
 estimated_runtime: ''
 solution_file: solution.py
 postprocessing_file: ''
