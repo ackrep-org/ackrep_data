@@ -8,4 +8,5 @@ This file is a collection of issues, ideas and questions for the maintainer. Cur
 - Can we specify our data models like a django models? This would make consistency checks simple
 - add email adresses in this format: <firstname.lastname(et)provider(dot)org>.
 - every object should have an base_path attribute
+- it would preferably to place ackrep_core_django_settings inside ackrep_core but this is complicated due to djangos automatic app configuration
 

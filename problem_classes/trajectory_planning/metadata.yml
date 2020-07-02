@@ -1,5 +1,5 @@
 ---
-pk: QGWSY
+key: QGWSY
 type: problem_class
 name: trajectory planning for a dynamical system
 short_description: finding the time-function of the systems input such that the system reaches a desired state
