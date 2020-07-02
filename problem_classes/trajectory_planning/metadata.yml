@@ -1,0 +1,15 @@
+---
+pk: QGWSY
+type: problem_class
+name: trajectory planning for a dynamical system
+short_description: finding the time-function of the systems input such that the system reaches a desired state
+version: 0.1.0
+creator: Carsten Knoll <carsten.knoll{ät}posteo.de>
+editor_list:
+creation_date: 2020-06-25 00:57:24
+related_doc_list:
+related_dataset_list:
+external_references:
+tag_list:
+    - draft
+notes:
