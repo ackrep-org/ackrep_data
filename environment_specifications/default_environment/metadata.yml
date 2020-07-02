@@ -5,12 +5,12 @@ name: default_environment
 short_description: original working default_environment of the ackrep maintainer
 version: 0.1.0
 creator: Carsten Knoll <carsten.knoll{ät}posteo.de>
-editors:
+editor_list:
 creation_date: 2020-06-24 21:34:36
-related_docs:
-related_datasets:
+related_doc_list:
+related_dataset_list:
 external_references:
-tags:
+tag_list:
     - draft
     - python
 notes: >
