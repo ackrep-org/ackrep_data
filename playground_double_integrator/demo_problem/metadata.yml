@@ -1,7 +1,7 @@
-key: JUNSG
+key: UKJZI
 predecessor_key: ''
 type: problem_solution
-name: ''
+name: double integrator transition using PyTrajectory
 short_description: ''
 version: 0.1.0
 tag_list:
@@ -15,7 +15,7 @@ related_doc_list:
 external_references: ''
 notes: ''
 solved_problem_list:
-    - PW1AZ
+    - 4ZZ9J
 method_list:
     - ''
 related_dataset_list:

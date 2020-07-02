@@ -1,8 +1,8 @@
-key: PW1AZ
+key: 4ZZ9J
 predecessor_key: ''
 type: problem_specification
-name: demo problem
-short_description: very simple demo problem
+name: double integrator transition
+short_description: double integrator transition
 version: 0.1.0
 tag_list:
     - ''
@@ -15,7 +15,7 @@ related_doc_list:
 related_dataset_list:
     - ''
 external_references: ''
-problem_file: problem.py
 notes: ''
 problemclass_list:
-    - ''
+    - QGWSY
+problem_file: problem.py
