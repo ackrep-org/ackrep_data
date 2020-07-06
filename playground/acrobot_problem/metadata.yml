@@ -1,0 +1,19 @@
+key: VAPUO
+predecessor_key: ''
+type: problem_specification
+name: acrobot
+short_description: ''
+version: 0.1.0
+tag_list:
+    - ''
+creator: ''
+editor_list:
+    - ''
+creation_date: ''
+related_doc_list:
+    - ''
+external_references: ''
+notes: ''
+problemclass_list:
+    - ''
+problem_file: problem.py

@@ -1,0 +1,24 @@
+key: HPICZ
+predecessor_key: ''
+type: problem_solution
+name: acrobot
+short_description: ''
+version: 0.1.0
+tag_list:
+    - ''
+creator: ''
+editor_list:
+    - ''
+creation_date: ''
+related_doc_list:
+    - ''
+external_references: ''
+notes: ''
+solved_problem_list:
+    - VAPUO
+method_package_list:
+    - UENQQ
+compatible_environment: ''
+estimated_runtime: ''
+solution_file: solution.py
+postprocessing_file: ''
