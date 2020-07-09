@@ -85,7 +85,7 @@ def save_plot(problem_spec, solution_data):
     uu = np.array([solution_data.u_func(t)[0] for t in tt])
     xx = np.array([solution_data.x_func(t) for t in tt])
 
-    plt.figure(figsize=(8,8))
+    plt.figure(figsize=(5,5))
     ax1 = plt.subplot(211)
     plt.plot(tt, xx[:, 0], label=r"$\theta_2$ [rad]")
     plt.plot(tt, xx[:, 1], label=r"$\dot \theta_2$ [rad/s]")
@@ -99,9 +99,11 @@ def save_plot(problem_spec, solution_data):
     plt.ylabel(r"input | $\ddot \theta_2$ [rad/s²]")
     plt.xlabel('$t$ [s]')
 
+    plt.tight_layout()
+
     sol_dir = os.path.join(os.path.dirname(__file__), '_solution_data')
 
     if not os.path.isdir(sol_dir):
         os.mkdir(sol_dir)
     
-    plt.savefig(os.path.join(sol_dir, 'plot.pdf'))
+    plt.savefig(os.path.join(sol_dir, 'plot.png'), dpi=96*2)
