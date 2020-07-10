@@ -2,10 +2,14 @@
 This example of the double integrator demonstrates how to pass constraints to PyTrajectory.
 """
 # imports
-from pytrajectory import TransitionProblem
+import os
 import numpy as np
+import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
 from ipydex import IPS
+
+# method-specific
+from pytrajectory import TransitionProblem
 
 
 def f(xx, uu, uuref, t, pp):
@@ -32,7 +36,6 @@ class SolutionData():
     pass
 
 
-
 def solve(problem_spec):
     # system state boundary values for a = 0.0 [s] and b = 2.0 [s]
     xa = problem_spec.xx_start
@@ -53,4 +56,35 @@ def solve(problem_spec):
     solution_data.x_func = x
     solution_data.u_func = u
 
+    save_plot(problem_spec, solution_data)
+
     return solution_data
+
+
+def save_plot(problem_spec, solution_data):
+    tt = np.linspace(0, problem_spec.T_transition, 1000)
+
+    uu = np.array([solution_data.u_func(t)[0] for t in tt])
+    xx = np.array([solution_data.x_func(t) for t in tt])
+
+    plt.figure(figsize=(5, 5))
+    ax1 = plt.subplot(211)
+    plt.plot(tt, xx[:, 0], label=r"$x$")
+    plt.plot(tt, xx[:, 1], label=r"$\dot x$")
+    plt.legend()
+    plt.ylabel('state')
+
+    plt.subplot(212, sharex=ax1)
+    plt.plot(tt, uu, label=r"$u = \ddot x$ (input)")
+    plt.ylabel(r"$u$")
+    plt.xlabel('$t$ [s]')
+    plt.legend()
+
+    plt.tight_layout()
+
+    sol_dir = os.path.join(os.path.dirname(__file__), '_solution_data')
+
+    if not os.path.isdir(sol_dir):
+        os.mkdir(sol_dir)
+
+    plt.savefig(os.path.join(sol_dir, 'plot.png'), dpi=96*2)
