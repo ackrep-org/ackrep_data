@@ -91,6 +91,7 @@ def save_plot(problem_spec, solution_data):
     plt.plot(tt, xx[:, 1], label=r"$\dot \theta_2$ [rad/s]")
     plt.plot(tt, xx[:, 2], label=r"$\theta_1$ [rad]")
     plt.plot(tt, xx[:, 3], label=r"$\dot \theta_1$ [rad/s]")
+    plt.ylim(-18, 10)  # make room for legend
     plt.legend()
     plt.ylabel('state')
 
