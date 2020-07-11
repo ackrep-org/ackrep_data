@@ -9,6 +9,7 @@ from sympy import cos, sin
 import os
 
 import matplotlib.pyplot as plt
+from matplotlib.gridspec import GridSpec
 
 
 class SolutionData():
@@ -90,8 +91,9 @@ def save_plot(problem_spec, solution_data):
 
     result_dict = dict(tt=tt, uu=uu, xx=xx)
     
-    fig = plt.figure(figsize=(5,8))
-    ax1 = plt.subplot(311)
+    fig = plt.figure(figsize=(6,5))
+    gs = GridSpec(2, 2, width_ratios=(3, 1))
+    ax1 = plt.subplot(gs[0,0])
     plt.plot(tt, xx[:, 0], label=r"$\theta_2$ [rad]")
     plt.plot(tt, xx[:, 1], label=r"$\dot \theta_2$ [rad/s]")
     plt.plot(tt, xx[:, 2], label=r"$\theta_1$ [rad]")
@@ -100,7 +102,7 @@ def save_plot(problem_spec, solution_data):
     plt.legend()
     plt.ylabel('state')
 
-    plt.subplot(312, sharex=ax1)
+    plt.subplot(gs[1, 0], sharex=ax1)
     plt.plot(tt, uu)
     plt.ylabel(r"input | $\ddot \theta_2$ [rad/s²]")
     plt.xlabel('$t$ [s]')
@@ -113,10 +115,10 @@ def save_plot(problem_spec, solution_data):
     p1 = p0 + l * sympy.Matrix([cos(ttheta[0]), sin(ttheta[0])])
     p2 = p1 + l * sympy.Matrix([cos(ttheta[0] + ttheta[1]), sin(ttheta[0] + ttheta[1])])
 
-    vis = vt.Visualiser(ttheta, xlim=(-1.2, 1.2), ylim=(-1.2, 1.2), aspect='equal')
+    vis = vt.Visualiser(ttheta, xlim=(-0.5, 0.6), ylim=(-1.2, 1.2), aspect='equal')
     vis.add_linkage([p0, p1, p2], color='black')
 
-    _, ax = vis.create_default_axes(fig=fig, add_subplot_args=313)
+    _, ax = vis.create_default_axes(fig=fig, add_subplot_args=gs[:,1])
     plt.sca(ax)
     plt.axis('off')
     ax.grid(False)
