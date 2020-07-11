@@ -1,24 +1,22 @@
 key: JUNSG
 predecessor_key: ''
 type: problem_solution
-name: ''
+name: 'directly solve demo problem (simple addition)'
 short_description: ''
 version: 0.1.0
 tag_list:
-    - ''
-creator: ''
+    - 'testing'
+creator: 'Carsten Knoll <carsten.knoll{ät}posteo.de>'
 editor_list:
     - ''
-creation_date: ''
-related_doc_list:
-    - ''
+creation_date: '2020-07-02'
 external_references: ''
-notes: ''
+notes: 'This entity servers only for demonstration and testing.'
 solved_problem_list:
     - PW1AZ
 method_package_list:
     - ''
 compatible_environment:
-estimated_runtime: ''
+estimated_runtime: '1s'
 solution_file: solution.py
 postprocessing_file: ''
