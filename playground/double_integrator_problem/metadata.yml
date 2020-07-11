@@ -2,14 +2,15 @@ key: 4ZZ9J
 predecessor_key: ''
 type: problem_specification
 name: double integrator transition
-short_description: double integrator transition
+short_description: perform a transition from state (0,0) to (1,0)
 version: 0.1.0
 tag_list:
-    - ''
-creator: ''
+    - 'testing'
+    - 'trajectory planning'
+creator: 'Robert Heedt <...>'
 editor_list:
-    - ''
-creation_date: ''
+    - 'Carsten Knoll <carsten.knoll{ät}posteo.de>'
+creation_date: '2020-07-02'
 external_references: ''
 notes: ''
 problemclass_list:

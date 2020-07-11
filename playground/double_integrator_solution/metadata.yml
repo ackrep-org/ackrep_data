@@ -5,11 +5,12 @@ name: double integrator transition using PyTrajectory
 short_description: ''
 version: 0.1.0
 tag_list:
-    - ''
-creator: ''
+    - 'testing'
+    - 'trajectory planning'
+creator: 'Robert Heedt <...>'
 editor_list:
-    - ''
-creation_date: ''
+    - 'Carsten Knoll <carsten.knoll{ät}posteo.de>'
+creation_date: '2020-07-02'
 external_references: ''
 notes: ''
 solved_problem_list:
@@ -17,6 +18,6 @@ solved_problem_list:
 method_package_list:
     - UENQQ
 compatible_environment:
-estimated_runtime: ''
+estimated_runtime: '3s'
 solution_file: solution.py
 postprocessing_file: ''

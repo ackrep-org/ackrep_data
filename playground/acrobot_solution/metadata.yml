@@ -1,15 +1,15 @@
 key: HPICZ
 predecessor_key: ''
 type: problem_solution
-name: acrobot
+name: acrobot swingup with pytrajecotry
 short_description: ''
 version: 0.1.0
 tag_list:
-    - ''
-creator: ''
+    - 'trajectory planning'
+creator: 'Robert Heedt <...>'
 editor_list:
     - ''
-creation_date: ''
+creation_date: '2020-07-06'
 external_references: ''
 notes: ''
 solved_problem_list:
@@ -17,6 +17,6 @@ solved_problem_list:
 method_package_list:
     - UENQQ
 compatible_environment: ''
-estimated_runtime: ''
+estimated_runtime: '30s'
 solution_file: solution.py
 postprocessing_file: ''

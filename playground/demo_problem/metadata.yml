@@ -1,8 +1,8 @@
 key: JUNSG
 predecessor_key: ''
 type: problem_solution
-name: 'directly solve demo problem (simple addition)'
-short_description: ''
+name: 'perform addition '
+short_description: 'directly solve addition problem'
 version: 0.1.0
 tag_list:
     - 'testing'

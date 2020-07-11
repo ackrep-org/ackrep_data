@@ -1,17 +1,17 @@
 key: VAPUO
 predecessor_key: ''
 type: problem_specification
-name: acrobot
-short_description: ''
+name: 'acrobot swing up'
+short_description: 'swing up the acrobot from lowest to highest equilibrium'
 version: 0.1.0
 tag_list:
-    - ''
-creator: ''
+    - 'trajectory planning'
+creator: 'Robert Heedt <...>'
 editor_list:
     - ''
-creation_date: ''
+creation_date: '2020-07-06'
 external_references: ''
 notes: ''
 problemclass_list:
-    - ''
+    - '' # TODO: introduce trajectory planning of mechanical systems
 problem_file: problem.py
