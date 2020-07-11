@@ -13,5 +13,5 @@ creation_date: '2020-07-06'
 external_references: ''
 notes: ''
 problemclass_list:
-    - '' # TODO: introduce trajectory planning of mechanical systems
+    - 'QGWSY'
 problem_file: problem.py
