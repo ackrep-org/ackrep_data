@@ -1,5 +1,4 @@
 import numpy as np
-from numpy import sin, cos
 from scipy.integrate import odeint
 
 from ackrep_core import ResultContainer
@@ -26,6 +25,15 @@ class ProblemSpecification(object):
         :param pp:       additionial free parameters  (not used)
         :return:        xdot
         """
+        if isinstance(xx, np.ndarray):
+            # Function should be evaluated numerically
+            from numpy import sin, cos
+            from numpy import array as vector
+        else:
+            # Evaluate function symbolically
+            from sympy import sin, cos
+            from sympy import Matrix as vector
+
         x1, x2, x3, x4 = xx
         u1, = uu
         
@@ -42,11 +50,11 @@ class ProblemSpecification(object):
         d12 = m*(lc**2+l*lc*cos(x1))+I
         phi1 = (m*lc+m*l)*g*cos(x3)+m*lc*g*cos(x1+x3)
 
-        ff = np.array([     x2,
-                            u1,
-                            x4,
+        ff = vector([x2,
+                     u1,
+                     x4,
                     -1/d11*(h1+phi1+d12*u1)
-                    ])
+                     ])
         
         return ff
 
