@@ -29,6 +29,9 @@ def solve(problem_spec):
     def f_pytrajectory(xx, uu, uuref, t, pp):
         """ Right hand side of the vectorfield defining the system dynamics
 
+        This function wraps the rhs-function of the problem_spec to make it compatible to
+        pytrajectory.
+
         :param xx:       state
         :param uu:       input
         :param uuref:    reference input (not used)
