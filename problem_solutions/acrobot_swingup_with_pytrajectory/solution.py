@@ -31,6 +31,10 @@ def solve(problem_spec):
 
     def f_pytrajectory(xx, uu, uuref, t, pp):
         """ Right hand side of the vectorfield defining the system dynamics
+
+        This function wraps the rhs-function of the problem_spec to make it compatible to
+        pytrajectory.
+
         :param xx:       state
         :param uu:       input
         :param uuref:    reference input (not used)
@@ -40,7 +44,7 @@ def solve(problem_spec):
         """
 
         return problem_spec.rhs(xx, uu)
-    
+
     first_guess = problem_spec.first_guess
 
     # create the trajectory object
@@ -67,7 +71,7 @@ def save_plot(problem_spec, solution_data):
     xx = np.array([solution_data.x_func(t) for t in tt])
 
     result_dict = dict(tt=tt, uu=uu, xx=xx)
-    
+
     fig = plt.figure(figsize=(6,5))
     gs = GridSpec(2, 2, width_ratios=(3, 1))
     ax1 = plt.subplot(gs[0,0])
@@ -112,5 +116,5 @@ def save_plot(problem_spec, solution_data):
 
     if not os.path.isdir(sol_dir):
         os.mkdir(sol_dir)
-    
+
     plt.savefig(os.path.join(sol_dir, 'plot.png'), dpi=96*2)
