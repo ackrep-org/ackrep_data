@@ -222,6 +222,12 @@ def solve(problem_spec)
 
 ---
 
+# Contributing:
+
+See guide: [Contributing.md](Contributing.md).
+
+---
+
 # License
 
 This repo might contain source code under different free software licenses. Contributors are encouraged to choose *GPLv3-or-later*. Alternatively other official recognized Free Software licenses like *MIT license*, *BSD license* or *Apache license* would also be OK. For any file in this repo, the license is applicable (in this order) which a) noted inside the file itself, b) in a `LICENSE`-file inside the same directory or c) in the nearest parent directory containing a`LICENSE`-file. As the root directory contains a `LICENSE`-file with GPLv3-or-later, this is the default for all subdirectories.
