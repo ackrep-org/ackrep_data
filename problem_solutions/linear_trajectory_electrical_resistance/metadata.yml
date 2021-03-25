@@ -1,0 +1,24 @@
+key: NRRYR
+predecessor_key: ''
+type: problem_solution
+name: 'linear trajectory planning for electrical resistance'
+short_description: ''
+version: 0.1.0
+tag_list:
+    - 'linear trajectory planning electrical resistance'
+creator: 'A student supervised by Carsten Knoll <carsten.knoll{ät}posteo.de>'
+editor_list:
+    - ''
+creation_date: '2020-12-30'
+external_references: ''
+notes: 'Created during a student project'
+solved_problem_list:
+    - MHCPN
+method_package_list:
+    - DEI1Q
+    - 79A0X
+    - OYNK3
+compatible_environment: ''
+estimated_runtime: '10s'
+solution_file: solution.py
+postprocessing_file: ''

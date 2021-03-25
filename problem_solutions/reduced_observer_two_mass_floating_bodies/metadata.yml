@@ -1,0 +1,23 @@
+key: AZFKT
+predecessor_key: ''
+type: problem_solution
+name: 'reduced observer design'
+short_description: ''
+version: 0.1.0
+tag_list:
+    - 'reduced observer two mass floating bodies'
+creator: 'A student supervised by Carsten Knoll <carsten.knoll{ät}posteo.de>'
+editor_list:
+    - ''
+creation_date: '2020-12-30'
+external_references: ''
+notes: 'Created during a student project'
+solved_problem_list:
+    - XTWZS
+method_package_list:
+    - DEI1Q
+    - KUXCW
+compatible_environment: ''
+estimated_runtime: '10s'
+solution_file: solution.py
+postprocessing_file: ''
