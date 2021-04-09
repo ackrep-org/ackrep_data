@@ -6,13 +6,14 @@ short_description: perform a transition from state (0,0) to (1,0)
 version: 0.1.0
 tag_list:
     - 'testing'
-    - 'trajectory planning'
+    - 'ocse:Trajectory_Generation'
+    - 'ocse:Linear_State_Space_System'
 creator: 'Robert Heedt <...>'
 editor_list:
     - 'Carsten Knoll <carsten.knoll{ät}posteo.de>'
 creation_date: '2020-07-02'
 external_references: ''
-notes: ''
+notes: 'This problem entity serves mainly as simple demonstration for the ackrep aproach.'
 problemclass_list:
     - QGWSY
 problem_file: problem.py
