@@ -91,7 +91,7 @@
     - System_Indentification:
         SubClassOf: Task_Type
         annotations: construct a generalizable model of a dynamical system from (measurement/simulation) data
-    - Qunatity_Estimation:
+    - Quantity_Estimation:
         SubClassOf: Task_Type
         annotations: usually done by an observer or a Kalman Filter
     - Property_Analysis:
@@ -140,7 +140,7 @@
     # Quantities
     - System_Quantity:
         SubClassOf: Mathematical_Quantity
-        annotations: A system quantity of a dynamical system. Might change over time
+        annotations: A system quantity of a dynamical system. The quantity might change over time.
     - External_Quantity:
         SubClassOf: Mathematical_Quantity
     - External_Disturbance_Quantity:
@@ -198,12 +198,45 @@
 
 - owl_object_property:
     represented_by:
-
         Domain:
             - OCSE_Entity
 
         Range:
             - OCSE_Entity
+
+# ACKREP specific properties
+
+- owl_object_property:
+    has_ontological_tag:
+        Domain:
+            - ACKREP_Entity
+        Range:
+            - OCSE_Entity
+
+
+- owl_data_property:
+    has_entity_key:
+        Domain: ACKREP_Entity
+        Range: str
+        Characteristics:
+            - Functional
+
+# Generic individuals (workarround due to the lack of metaclass support in owlready)
+- owl_class:
+      Generic_Individual:
+          SubClassOf: "owl:Thing"
+
+- owl_individual:
+    iTrajectory_Generation:
+      types:
+        - Trajectory_Generation
+        # - Generic_Individual
+
+- owl_individual:
+    iLinear_State_Space_System:
+      types:
+        - Linear_State_Space_System
+        # - Generic_Individual
 
 # usorted list of candidate terms
 #- system
