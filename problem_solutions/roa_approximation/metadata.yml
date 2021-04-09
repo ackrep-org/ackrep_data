@@ -1,0 +1,23 @@
+key: HRA9W
+merge_request: ''
+predecessor_key: ''
+type: problem_solution
+name: 'Region of Attractivity approximation using local adaptive grid refinement'
+short_description: ''
+version: 0.1.0
+tag_list:
+    - ''
+creator: ''
+editor_list:
+    - ''
+creation_date: ''
+external_references: ''
+notes: ''
+solved_problem_list:
+    - 'IJ15T'
+method_package_list:
+    - ''
+compatible_environment: ''
+estimated_runtime: '10s'
+solution_file: solution.py
+postprocessing_file: ''
