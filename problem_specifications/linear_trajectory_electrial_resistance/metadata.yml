@@ -1,0 +1,17 @@
+key: MHCPN
+predecessor_key: ''
+type: problem_specification
+name: 'controller design by using linear trajectory planning'
+short_description: 'to be done'
+version: 0.1.0
+tag_list:
+    - ''
+creator: 'A student supervised by Carsten Knoll <carsten.knoll{ät}posteo.de>'
+editor_list:
+    - ''
+creation_date: '2020-12-30'
+external_references: ''
+notes: 'Created during a student project'
+problemclass_list:
+    - ''
+problem_file: problem.py
