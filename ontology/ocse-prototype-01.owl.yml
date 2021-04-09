@@ -207,7 +207,7 @@
 # ACKREP specific properties
 
 - owl_object_property:
-    has_ontological_tag:
+    has_ontology_based_tag:
         Domain:
             - ACKREP_Entity
         Range:
@@ -221,22 +221,10 @@
         Characteristics:
             - Functional
 
-# Generic individuals (workarround due to the lack of metaclass support in owlready)
-- owl_class:
-      Generic_Individual:
-          SubClassOf: "owl:Thing"
+# Note: behind the scenes some "Generic individuals" will be created (workarround due to the lack of metaclass support in owlready)
+# see ackrep_core.core for more info
 
-- owl_individual:
-    iTrajectory_Generation:
-      types:
-        - Trajectory_Generation
-        # - Generic_Individual
 
-- owl_individual:
-    iLinear_State_Space_System:
-      types:
-        - Linear_State_Space_System
-        # - Generic_Individual
 
 # usorted list of candidate terms
 #- system
