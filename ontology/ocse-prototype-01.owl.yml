@@ -1,0 +1,297 @@
+---
+
+# This yaml-file represents some core concepts of control systems engineering
+
+- iri: "https://ackrep.org/draft/ocse-prototype01#"
+
+- multiple_owl_classes:
+    - OCSE_Entity:
+        SubClassOf: "owl:Thing"
+    - Mathematical_Object:
+        SubClassOf: "owl:Thing"
+    # ackrep related entities (will probably be moved to a separate ontology in the future)
+    - ACKREP_Entity:
+        SubClassOf: "owl:Thing"
+        annotations: Base class for all ACKREP-entities
+
+    - Mathematical_Function:
+        SubClassOf: Mathematical_Object
+    - SISO_Mathematical_Function:
+        SubClassOf: Mathematical_Function
+        annotations: Scalar Input Scalar Output function ($\mathbb{C} \rightarrow \mathbb{C}$)
+    - Real_SISO_Mathematical_Function:
+        SubClassOf: Mathematical_Function
+        annotations: Scalar Input Scalar Output function ($\mathbb{R} \rightarrow \mathbb{R}$)
+
+    - Polynomial:
+        SubClassOf: Mathematical_Function
+    - Rational_Function:
+        SubClassOf: SISO_Mathematical_Function
+        annotations: Implictly assumed to be scalar
+    - Monovariate_Polynomial:
+        SubClassOf:
+            - Polynomial
+            # - SISO_Mathematical_Function # this should be inferred by the reasoner
+
+    - Singularity:
+        SubClassOf: Mathematical_Object
+    - Pole:
+        SubClassOf: Singularity
+        annotations: Ordinary pole like in 1/(s + 5)
+
+    - Mapping_Property:
+        SubClassOf: Mathematical_Object
+    - Affinity:
+        SubClassOf: Mapping_Property
+    - Linearity:
+        SubClassOf: Affinity
+
+    # ackrep related entities (will probably be moved to a separate ontology in the future)
+    - ACKREP_ProblemSpecification:
+        SubClassOf: ACKREP_Entity
+    - ACKREP_ProblemSolution:
+        SubClassOf: ACKREP_Entity
+    - ACKREP_MethodPackage:
+        SubClassOf: ACKREP_Entity
+    - ACKREP_EnvironmentSpecification:
+        SubClassOf: ACKREP_Entity
+    - ACKREP_Documentation:
+        SubClassOf: ACKREP_Entity
+    - ACKREP_Comment:
+        SubClassOf: ACKREP_Entity
+
+    - Mathematical_Model:
+        SubClassOf: OCSE_Entity
+        annotations: a model of a dynamical system
+    - Mathematical_Quantity:
+        SubClassOf: OCSE_Entity
+        annotations: General Quantity
+    - Dynamical_Behavior:
+        annotations: A behavior which might be exposed by a dynamical system
+        SubClassOf: OCSE_Entity
+    - Dynamical_System:
+        SubClassOf: OCSE_Entity
+    - Control_Law:
+        SubClassOf: OCSE_Entity
+    - Signal_Type:
+        SubClassOf: OCSE_Entity
+    - Task_Type:
+        SubClassOf: OCSE_Entity
+        annotations: Type of control problem or challenge
+    - System_Property:
+        SubClassOf: OCSE_Entity
+        annotations: General Property
+
+    # Task Types
+    - Trajectory_Generation:
+        SubClassOf: Task_Type
+        annotations: also known as Open_Loop_Control, Trajectory_Planning
+    - Closed_Loop_Control:
+        SubClassOf: Task_Type
+    - System_Indentification:
+        SubClassOf: Task_Type
+        annotations: construct a generalizable model of a dynamical system from (measurement/simulation) data
+    - Qunatity_Estimation:
+        SubClassOf: Task_Type
+        annotations: usually done by an observer or a Kalman Filter
+    - Property_Analysis:
+        SubClassOf: Task_Type
+        annotations: determine whether a system admits a special property (controlability, flatness...)
+
+    # System Properties
+    - Stabilizeability:
+        SubClassOf: System_Property
+        annotations: The unstable subsystem is controllable
+    - Detectability:
+        SubClassOf: System_Property
+        annotations: The unstable subsystem is observable
+    - Controlability:
+        SubClassOf: Stabilizeability
+    - Observability:
+        SubClassOf: Detectability
+
+
+    # Mathematical Models
+    - DAE_System:
+        SubClassOf: Mathematical_Model
+    - ODE_System:
+        SubClassOf: Mathematical_Model
+    - PDE_System:
+        SubClassOf: Mathematical_Model
+    - ODE_PDE_System:
+        SubClassOf: Mathematical_Model
+    - DC_Hybrid_System:
+        SubClassOf: Mathematical_Model
+        annotations: Hybrid System with discrete-valued and continuous-valued system quantities
+    - Transfer_Function:
+        SubClassOf: Mathematical_Model
+    - Rational_Transfer_Function:
+        # this should be modeled as a `represented_by` relation
+        SubClassOf:
+            - Transfer_Function
+            # - Rational_Function
+    - State_Space_System:
+        SubClassOf: ODE_System
+    - Linear_State_Space_System:
+        # todo: what about inputs and outputs
+        # how to associate this class with linearity?
+        SubClassOf: State_Space_System
+
+    # Quantities
+    - System_Quantity:
+        SubClassOf: Mathematical_Quantity
+        annotations: A system quantity of a dynamical system. Might change over time
+    - External_Quantity:
+        SubClassOf: Mathematical_Quantity
+    - External_Disturbance_Quantity:
+        SubClassOf: External_Quantity
+    - External_Reference_Quantity:
+        SubClassOf: External_Quantity
+
+    # Signal Types
+    - Step_Function:
+        SubClassOf:
+            # - Signal_Type -> represented_by
+            - SISO_Mathematical_Function
+        annotations: Also named 'Heavyside-Function'.
+    - Dirac_Distribution:
+        SubClassOf: Signal_Type
+        annotations: Also named 'Delta-Distribution'.
+    - Harmonic_Function:
+        SubClassOf:
+            # - Signal_Type -> represented_by
+            - SISO_Mathematical_Function
+    - Noise:
+        SubClassOf: Signal_Type
+
+    # Dynamical_Behaviors
+    - Convergence:
+        SubClassOf: Dynamical_Behavior
+    - Convergence_To_Strange_Attractor:
+        SubClassOf: Convergence
+    - Convergence_To_Limit_Cycle:
+        SubClassOf: Convergence
+    - Convergence_To_Equilibrium:
+        SubClassOf: Convergence
+    - Overshooting:
+        SubClassOf: Convergence_To_Equilibrium
+    - Undershooting:
+        SubClassOf: Convergence_To_Equilibrium
+
+    # Controller types
+    - Controller:
+        SubClassOf: Control_Law
+    - PID_Controller:
+        SubClassOf: Controller
+    - PD_Controller:
+        SubClassOf: Controller
+    - PI_Controller:
+        SubClassOf: Controller
+    - P_Controller:
+        SubClassOf: Controller
+    - Plant:
+        SubClassOf: Dynamical_System
+
+
+
+
+
+- owl_object_property:
+    represented_by:
+
+        Domain:
+            - OCSE_Entity
+
+        Range:
+            - OCSE_Entity
+
+# usorted list of candidate terms
+#- system
+#- modell
+#- regler
+#- regelstrecke
+#- regelkreis
+#- prozess
+#- übertragungsfunktion
+#- übertragungsglied
+#- rückführung
+#- überschwingen
+#- unterschwingen
+#- eingangsgröße
+#- ausgangsgröße
+#- siso
+#- gleichung
+#- stabilität
+#- stabilisierung
+#- sollwert
+#- rauschen
+#---
+#- trajektorie
+#- differentialgleichung
+    #- gewöhnliche
+    #- partielle
+#- lösung
+#- fluss
+#- vektorfeld
+#- dimension
+#- vektorraum
+#- zustand
+#- zustandsraum
+#- beobachter
+#- regelgesetz
+#- folgeregler
+#- kostenfunktion
+#- gütemaß
+#- parameter
+#- unbestimmtheit
+#- robustheit
+#- koeffizient
+#- polynom
+#- ljapunov-funktion
+#- verstärkung
+#- störgröße
+#- mimo
+#- mechanischer freiheitsgrad
+#- entwurfsfreiheitsgrad
+#- arbeitspunkt
+#- (lokales) optimum
+
+#---
+
+
+#- eigenwert
+#- polstelle
+#- nullstelle
+#- linearisierung
+#- matrix
+#- relativer grad
+
+#---
+
+#- linear
+#- nichtlinear
+#- bilinear
+#- quadratisch (matrix),
+#- quadratisch (Polynom)
+#- positiv definit
+#- konservativ
+#- passiv
+#- lokal
+#- global
+#- minimalphasig
+#- differenziell unabhängig
+#- differenziell abhängig
+#- differenziell flach
+#- eingangsableitung
+#- zeitableitung
+#- Lie-Ableigung
+#- Vektorfeld
+#- signal
+#- ableitungsordnung
+#- differenzierbarkeit (glattheit)
+#- differenzierbarkeitsanforderung
+#- schwache lösung
+#- modale approximation
+#- LMI
+#- Jordanstruktur
+#- Polplatzierung
