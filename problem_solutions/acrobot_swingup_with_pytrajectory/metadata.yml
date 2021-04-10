@@ -5,7 +5,11 @@ name: acrobot swingup with pytrajecotry
 short_description: ''
 version: 0.1.0
 tag_list:
-    - 'trajectory planning'
+    - 'ocse:Convergence_To_Desired_Trajectory'
+    - 'ocse:Trajectory_Generation'
+    - 'ocse:Closed_Loop_Control'
+    - 'ocse:State_Space_System'
+    - 'ocse:Linear_State_Feedback'
 creator: 'Robert Heedt <...>'
 editor_list:
     - ''

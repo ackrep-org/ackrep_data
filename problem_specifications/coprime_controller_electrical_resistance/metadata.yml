@@ -5,7 +5,10 @@ name: 'control the temperature of the resistor to 310K'
 short_description: 'to be done'
 version: 0.1.0
 tag_list:
-    - ''
+    - 'ocse:Closed_Loop_Control'
+    - 'ocse:Convergence_To_Equilibrium'
+    - 'ocse:Rational_Transfer_Function'
+    - 'ocse:Asymptotic_Stability'
 creator: 'A student supervised by Carsten Knoll <carsten.knoll{ät}posteo.de>'
 editor_list:
     - ''

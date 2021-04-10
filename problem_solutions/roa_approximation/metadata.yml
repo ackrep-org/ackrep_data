@@ -6,7 +6,10 @@ name: 'Region of Attractivity approximation using local adaptive grid refinement
 short_description: ''
 version: 0.1.0
 tag_list:
-    - ''
+    - 'ocse:State_Space_System'
+    - 'ocse:Property_Analysis'
+    - 'ocse:Attractivity'
+    - 'ocse:Local_Property'
 creator: ''
 editor_list:
     - ''

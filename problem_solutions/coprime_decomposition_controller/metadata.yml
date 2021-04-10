@@ -5,7 +5,12 @@ name: 'controller design via coprime decomposition'
 short_description: ''
 version: 0.1.0
 tag_list:
-    - 'coprime decomposition controller'
+    - 'ocse:Closed_Loop_Control'
+    - 'ocse:Convergence_To_Equilibrium'
+    - 'ocse:Rational_Transfer_Function'
+    - 'ocse:Asymptotic_Stability'
+    - 'ocse:Coprime_Decomposition'
+    - 'ocse:Output_Feedback'
 creator: 'A student supervised by Carsten Knoll <carsten.knoll{ät}posteo.de>'
 editor_list:
     - ''

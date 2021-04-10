@@ -5,7 +5,10 @@ name: 'reduced observer design'
 short_description: ''
 version: 0.1.0
 tag_list:
-    - 'reduced observer two mass floating bodies'
+    - 'ocse:Quantity_Estimation'
+    - 'ocse:Reduced_State_Observer'
+    - 'ocse:State_Space_System'
+    - 'ocse:Luenberger_Observer'
 creator: 'A student supervised by Carsten Knoll <carsten.knoll{ät}posteo.de>'
 editor_list:
     - ''

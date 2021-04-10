@@ -5,7 +5,10 @@ name: 'controller design via full state feedback'
 short_description: ''
 version: 0.1.0
 tag_list:
-    - 'full state feedback controller'
+    - 'ocse:State_Feedback'
+    - 'ocse:Closed_Loop_Control'
+    - 'ocse:State_Space_System'
+    - 'ocse:Pole_Placement'
 creator: 'A student supervised by Carsten Knoll <carsten.knoll{ät}posteo.de>'
 editor_list:
     - ''

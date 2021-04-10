@@ -5,7 +5,8 @@ name: 'tracking controller design and nonlinear trajectory planning for a two ma
 short_description: ''
 version: 0.1.0
 tag_list:
-    - 'nonlinear trajectory two mass floating bodies'
+    - 'ocse:State_Space_System'
+    - 'ocse:Trajectory_Generation'
 creator: 'A student supervised by Carsten Knoll <carsten.knoll{ät}posteo.de>'
 editor_list:
     - ''
