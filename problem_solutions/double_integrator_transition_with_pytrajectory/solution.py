@@ -12,26 +12,6 @@ from ipydex import IPS
 from pytrajectory import TransitionProblem
 
 
-def f(xx, uu, uuref, t, pp):
-    """ Right hand side of the vectorfield defining the system dynamics
-
-    :param xx:       state
-    :param uu:       input
-    :param uuref:    reference input (not used)
-    :param t:        time (not used)
-    :param pp:       additionial free parameters  (not used)
-
-    :return:        xdot
-    """
-    x1, x2 = xx
-    u1, = uu
-    
-    ff = [x2,
-          u1]
-    
-    return ff
-
-
 class SolutionData():
     pass
 
@@ -46,8 +26,25 @@ def solve(problem_spec):
     # constraints dictionary
     con = problem_spec.constraints
 
+    def f_pytrajectory(xx, uu, uuref, t, pp):
+        """ Right hand side of the vectorfield defining the system dynamics
+
+        This function wraps the rhs-function of the problem_spec to make it compatible to
+        pytrajectory.
+
+        :param xx:       state
+        :param uu:       input
+        :param uuref:    reference input (not used)
+        :param t:        time (not used)
+        :param pp:       additionial free parameters  (not used)
+
+        :return:        xdot
+        """
+
+        return problem_spec.rhs(xx, uu)
+
     # create the trajectory object
-    S = TransitionProblem(f, a=0.0, b=T_end, xa=xa, xb=xb, constraints=con, use_chains=False)
+    S = TransitionProblem(f_pytrajectory, a=0.0, b=T_end, xa=xa, xb=xb, constraints=con, use_chains=False)
 
     # start
     x, u = S.solve()

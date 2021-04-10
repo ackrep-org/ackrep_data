@@ -1,0 +1,16 @@
+key:  KUXCW
+predecessor_key: ''
+type: method_package
+name: method_trajectory_planning
+short_description: "code for full and reduced observer"
+version: 0.1.0
+tag_list:
+    - ''
+creator: 'Xinyu Wang'
+editor_list:
+    - ''
+creation_date: '2020-12-30'
+external_references: ''
+notes: 'Created during a student project'
+compatible_environment_list:
+    - ''

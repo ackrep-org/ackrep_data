@@ -11,6 +11,7 @@ _solution_data
 __pycache__/
 *.py[cod]
 *$py.class
+_build/
 
 # C extensions
 *.so

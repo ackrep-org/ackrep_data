@@ -1,0 +1,16 @@
+key:  IEINI
+predecessor_key: ''
+type: method_package
+name: full_state_feedback_controller
+short_description: "code for controller design based on the method 'LQR'"
+version: 0.1.0
+tag_list:
+    - ''
+creator: 'A student supervised by Carsten Knoll <carsten.knoll{ät}posteo.de>'
+editor_list:
+    - ''
+creation_date: '2020-12-30'
+external_references: ''
+notes: 'Created during a student project'
+compatible_environment_list:
+    - ''
