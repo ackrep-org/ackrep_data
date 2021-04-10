@@ -5,7 +5,8 @@ name: 'choose die position of CuZn ball as the output.Then let the real trajecto
 short_description: 'to be done'
 version: 0.1.0
 tag_list:
-    - ''
+    - 'ocse:State_Space_System'
+    - 'ocse:Trajectory_Generation'
 creator: 'A student supervised by Carsten Knoll <carsten.knoll{ät}posteo.de>'
 editor_list:
     - ''

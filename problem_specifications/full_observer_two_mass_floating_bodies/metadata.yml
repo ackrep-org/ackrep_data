@@ -5,7 +5,9 @@ name: 'design of a full observer to estimate all states of the system'
 short_description: 'to be done'
 version: 0.1.0
 tag_list:
-    - ''
+    - 'ocse:Quantity_Estimation'
+    - 'ocse:Full_State_Observer'
+    - 'ocse:State_Space_System'
 creator: 'A student supervised by Carsten Knoll <carsten.knoll{ät}posteo.de>'
 editor_list:
     - ''

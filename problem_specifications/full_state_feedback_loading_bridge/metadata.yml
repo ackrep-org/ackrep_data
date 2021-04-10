@@ -5,7 +5,9 @@ name: 'design of a full state feedback controller to controlthe x-position of th
 short_description: 'to be done'
 version: 0.1.0
 tag_list:
-    - ''
+    - 'ocse:State_Feedback'
+    - 'ocse:Closed_Loop_Control'
+    - 'ocse:State_Space_System'
 creator: 'A student supervised by Carsten Knoll <carsten.knoll{ät}posteo.de>'
 editor_list:
     - ''

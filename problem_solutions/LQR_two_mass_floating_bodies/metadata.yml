@@ -5,7 +5,10 @@ name: 'controller design via LQR for a two mass floating-body system'
 short_description: ''
 version: 0.1.0
 tag_list:
-    - 'LQR two mass floating bodies'
+    - 'ocse:State_Space_System'
+    - 'ocse:Closed_Loop_Control'
+    - 'ocse:State_Feedback'
+    - 'ocse:Linear_Quadratic_Control'
 creator: 'A student supervised by Carsten Knoll <carsten.knoll{ät}posteo.de>'
 editor_list:
     - ''
