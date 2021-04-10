@@ -88,7 +88,7 @@
         annotations: also known as Open_Loop_Control, Trajectory_Planning
     - Closed_Loop_Control:
         SubClassOf: Task_Type
-    - System_Indentification:
+    - System_Identification:
         SubClassOf: Task_Type
         annotations: construct a generalizable model of a dynamical system from (measurement/simulation) data
     - Quantity_Estimation:
@@ -99,13 +99,13 @@
         annotations: determine whether a system admits a special property (controlability, flatness...)
 
     # System Properties
-    - Stabilizeability:
+    - Stabilizability:
         SubClassOf: System_Property
         annotations: The unstable subsystem is controllable
     - Detectability:
         SubClassOf: System_Property
         annotations: The unstable subsystem is observable
-    - Controlability:
+    - Controllability:
         SubClassOf: Stabilizeability
     - Observability:
         SubClassOf: Detectability
