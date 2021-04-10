@@ -71,14 +71,14 @@
         SubClassOf: OCSE_Entity
     - Dynamical_System:
         SubClassOf: OCSE_Entity
-    - Control_Law:
+    - Feedback-Law:
         SubClassOf: OCSE_Entity
     - Signal_Type:
         SubClassOf: OCSE_Entity
     - Task_Type:
         SubClassOf: OCSE_Entity
         annotations: Type of control problem or challenge
-    - System_Property:
+    - Dynamic_System_Property:
         SubClassOf: OCSE_Entity
         annotations: General Property
 
@@ -96,19 +96,39 @@
         annotations: usually done by an observer or a Kalman Filter
     - Property_Analysis:
         SubClassOf: Task_Type
-        annotations: determine whether a system admits a special property (controlability, flatness...)
+        annotations: determine whether a system admits a special property (controllability, flatness...)
+    - System_Modelling:
+        SubClassOf: Task_Type
 
     # System Properties
     - Stabilizability:
-        SubClassOf: System_Property
+        SubClassOf: Dynamic_System_Property
         annotations: The unstable subsystem is controllable
     - Detectability:
-        SubClassOf: System_Property
+        SubClassOf: Dynamic_System_Property
         annotations: The unstable subsystem is observable
     - Controllability:
-        SubClassOf: Stabilizeability
+        SubClassOf: Stabilizability
     - Observability:
         SubClassOf: Detectability
+    - Global_Property:
+        SubClassOf: Dynamic_System_Property
+    - Local_Property:
+        SubClassOf: Dynamic_System_Property
+    - System_Linearity:
+        SubClassOf: Dynamic_System_Property
+    - Time_Variance:
+        SubClassOf: Dynamic_System_Property
+    - Time_Continuity:
+        SubClassOf: Dynamic_System_Property
+    - Attractivity:
+        SubClassOf: Dynamic_System_Property
+    - Stability:
+        SubClassOf: Dynamic_System_Property
+    - Asymptotic_Stability:
+        SubClassOf: Stability
+    - Exponential_Stability:
+        SubClassOf: Asymptotic_Stability
 
 
     # Mathematical Models
@@ -154,9 +174,8 @@
             # - Signal_Type -> represented_by
             - SISO_Mathematical_Function
         annotations: Also named 'Heavyside-Function'.
-    - Dirac_Distribution:
+    - Deterministic_Signal:
         SubClassOf: Signal_Type
-        annotations: Also named 'Delta-Distribution'.
     - Harmonic_Function:
         SubClassOf:
             # - Signal_Type -> represented_by
@@ -173,24 +192,61 @@
         SubClassOf: Convergence
     - Convergence_To_Equilibrium:
         SubClassOf: Convergence
+    - Convergence_To_Desired_Trajectory:
+        SubClassOf: Convergence
     - Overshooting:
         SubClassOf: Convergence_To_Equilibrium
     - Undershooting:
         SubClassOf: Convergence_To_Equilibrium
 
-    # Controller types
-    - Controller:
-        SubClassOf: Control_Law
+    # Linear_Feedback_Law types
+    - Linear_Feedback_Law:
+        SubClassOf: Feedback-Law
     - PID_Controller:
-        SubClassOf: Controller
+        SubClassOf: Linear_Feedback_Law
     - PD_Controller:
-        SubClassOf: Controller
+        SubClassOf: Linear_Feedback_Law
     - PI_Controller:
-        SubClassOf: Controller
+        SubClassOf: Linear_Feedback_Law
     - P_Controller:
-        SubClassOf: Controller
+        SubClassOf: Linear_Feedback_Law
+    - Linear_State_Feedback:
+        SubClassOf: Linear_Feedback_Law
     - Plant:
         SubClassOf: Dynamical_System
+
+    - Observer_Type:
+        SubClassOf: OCSE_Entity
+    - Full_State_Observer:
+        SubClassOf: Observer_Type
+    - Reduced_State_Observer:
+        SubClassOf: Observer_Type
+    - Luenberger_Observer:
+        SubClassOf: Observer_Type
+    - Kalman_Filter:
+        SubClassOf: Observer_Type
+    - Extended_Kalman_Filter:
+        SubClassOf: Observer_Type
+
+    - Feedback_Type:
+        SubClassOf: OCSE_Entity
+    - Output_Feedback:
+        SubClassOf: Feedback_Type
+    - State_Feedback:
+        SubClassOf: Feedback_Type
+    - Static_Feedback:
+        SubClassOf: Feedback_Type
+    - Dynamic_Feedback:
+        SubClassOf: Feedback_Type
+
+    - Controller_Design_Methods:
+        SubClassOf: OCSE_Entity
+    - Linear_Quadratic_Control:
+        SubClassOf: Controller_Design_Methods
+    - Pole_Placement:
+        SubClassOf: Controller_Design_Methods
+    - Coprime_Decomposition:
+        SubClassOf: Controller_Design_Methods
 
 
 
@@ -220,11 +276,6 @@
         Range: str
         Characteristics:
             - Functional
-
-# Generic individuals (workarround due to the lack of metaclass support in owlready)
-- owl_class:
-      Generic_Individual:
-          SubClassOf: "owl:Thing"
 
 - owl_individual:
     iTrajectory_Generation:
