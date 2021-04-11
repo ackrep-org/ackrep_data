@@ -1,12 +1,17 @@
 ---
 
 # This yaml-file represents some core concepts of control systems engineering
+# it uses yamlpyowl to interpret yaml as owl.
 
 - iri: "https://ackrep.org/draft/ocse-prototype01#"
+
+- annotation: >
+    This ontology was created in context of the ACKREP project, see (https://ackrep.org). To the best knowledge of the authors it is the first atempt, to formalize control theoretic concepts by means of an owl ontology. Its current incomplete state has three causes: 1. Limited resources. 2. Limited expressiveness of OWL and SWRL. 3. Principal infeasibility of a *complete* representation of any nontrivial domain-knowledge.
 
 - multiple_owl_classes:
     - OCSE_Entity:
         SubClassOf: "owl:Thing"
+        __create_proxy_individual: recursive  # see docs (or source) of yamlpyowl
     - Mathematical_Object:
         SubClassOf: "owl:Thing"
     # ackrep related entities (will probably be moved to a separate ontology in the future)
@@ -277,18 +282,15 @@
         Characteristics:
             - Functional
 
+# Note: behind the scenes some "Generic individuals" will be created (workarround due to the lack of metaclass support in owlready)
+# See ackrep_core.core for more info (search for generic individuals).
 
-- owl_individual:
-    iTrajectory_Generation:
-      types:
-        - Trajectory_Generation
-        # - Generic_Individual
 
-- owl_individual:
-    iLinear_State_Space_System:
-      types:
-        - Linear_State_Space_System
-        # - Generic_Individual
+# Note: Tags should be as specific as possible, e.g. if applicable `Linear_State_Space_System` is prefererred over `State_Space_System`. However, as every Linear_State_Space_System also is a State_Space_System, a search for the latter (more general tag) should also contain entities which are tagged with the former (more special tag). The following rule associates tags of parent classes to entities which already have a tag of the child class.
+
+
+
+
 
 # usorted list of candidate terms
 #- system
