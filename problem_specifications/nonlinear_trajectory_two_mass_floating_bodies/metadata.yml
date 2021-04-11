@@ -1,8 +1,8 @@
 key: AQZOF
 predecessor_key: ''
 type: problem_specification
-name: 'choose die position of CuZn ball as the output.Then let the real trajectory of these ball converge towards the target trajectory by using the tracking controller based on error dynamics'
-short_description: 'to be done'
+name: 'trajectory tracking of a two mass hovering system'
+short_description: 'There is an iron body and a non-iron body (CuZn), coupled with a spring. The iron body is actuated via an electromagnet. The non-iron body should follow a desired trajectory. Choose the position of CuZn body as the output. Then let the real trajectory of this body converge towards the target trajectory by using the tracking controller based on error dynamics.'
 version: 0.1.0
 tag_list:
     - 'ocse:State_Space_System'
