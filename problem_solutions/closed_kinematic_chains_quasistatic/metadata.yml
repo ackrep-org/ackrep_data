@@ -1,0 +1,24 @@
+key: Z7HZY
+merge_request: ''
+predecessor_key: ''
+type: problem_solution
+name: 'Motion planning for closed kinematic chains using a quasistatic approach'
+short_description: 'Demonstrate motion planning for mechanical closed kinematic chains. The example used is
+an assisted standing up motion found in geriatric care. Created during supervision of student thesis.'
+version: 0.1.0
+tag_list:
+    - ''
+creator: 'Carsten Knoll <carsten.knoll{ät}posteo.de>, Robert Heedt <robert.heedt{ät}tu-dresden.de> and Jia Xuehua <xuehua.jia{ät}mailbox.tu-dresden.de>'
+editor_list:
+    - ''
+creation_date: ''
+external_references: ''
+notes: ''
+solved_problem_list:
+    - GYLTC
+method_package_list:
+    - ''
+compatible_environment: ''
+estimated_runtime: '30s'
+solution_file: solution.py
+postprocessing_file: ''

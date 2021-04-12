@@ -1,0 +1,19 @@
+key: GYLTC
+merge_request: ''
+predecessor_key: ''
+type: problem_specification
+name: 'Motion planning for closed kinematic chains'
+short_description: 'Demonstrate motion planning for mechanical closed kinematic chains. The example used is
+an assisted standing up motion found in geriatric care. Created during supervision of student thesis.'
+version: 0.1.0
+tag_list:
+    - ''
+creator: 'Carsten Knoll <carsten.knoll{ät}posteo.de>, Robert Heedt <robert.heedt{ät}tu-dresden.de> and Jia Xuehua <xuehua.jia{ät}mailbox.tu-dresden.de>'
+editor_list:
+    - ''
+creation_date: ''
+external_references: ''
+notes: ''
+problemclass_list:
+    - ''
+problem_file: problem.py
