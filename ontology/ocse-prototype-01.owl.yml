@@ -14,6 +14,7 @@
         __create_proxy_individual: recursive  # see docs (or source) of yamlpyowl
     - Mathematical_Object:
         SubClassOf: "owl:Thing"
+        __create_proxy_individual: recursive  # see docs (or source) of yamlpyowl
     # ackrep related entities (will probably be moved to a separate ontology in the future)
     - ACKREP_Entity:
         SubClassOf: "owl:Thing"
