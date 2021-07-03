@@ -23,7 +23,7 @@ class ProblemSpecification(object):
     # in this case Ta = 293.15 K
     eqrt = [(p1, 293.15), (U, 2)]
     xx0 = np.array([280])  # initial condition
-    yr = 100  # reference temperature
+    yr = 100  # reference temperature (w.r.t to equilibrium)
     tt = np.linspace(0, 10, 1000)  # vector for the time axis for simulation
     q = np.diag([650])  # desired poles
     r = np.diag([0.002])  # initial condition
@@ -31,6 +31,8 @@ class ProblemSpecification(object):
     @staticmethod
     def rhs(xx, uu):
         """ Right hand side of the equation of motion in nonlinear state space form
+        as symbolic expression
+
         :param xx:   system states
         :param uu:   system input
         :return:     nonlinear state space
@@ -76,5 +78,6 @@ def evaluate_solution(solution_data):
     :return:
     """
     P = ProblemSpecification
-    success = all(abs(solution_data.yy[900:] - 293.15 * P.yr) < 1e-1)
+    yy_lin = solution_data.yy[900:] - 293.15
+    success = np.allclose(yy_lin[900:], P.yr,  1e-1)
     return ResultContainer(success=success, score=1.0)
