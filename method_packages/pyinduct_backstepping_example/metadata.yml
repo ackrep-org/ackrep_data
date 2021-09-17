@@ -1,0 +1,16 @@
+key:  GHUBE
+predecessor_key: ''
+type: method_package
+name: 'PyInduct backstepping example, shared functions'
+short_description: ""
+version: 0.1.0
+tag_list:
+    - ''
+creator: 'Stefan Ecklebe <stefan.ecklebe@tu-dresden.de>'
+editor_list:
+    - ''
+creation_date: '2021-09-17'
+external_references: ''
+notes: ''
+compatible_environment_list:
+    - ''
