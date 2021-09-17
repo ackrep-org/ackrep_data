@@ -9,6 +9,7 @@ from symbtools.modeltools import Rz
 import symbtools.modeltools as mt
 import pickle
 import os
+import sys
 import casadi as cs
 import ipydex
 from scipy.interpolate import splrep, splev, interp1d
@@ -102,18 +103,21 @@ def solve(problem_spec):
 
     external_forces = [tau1, tau2, tau3, tau4, tau5, tau6]
 
-    fname = "7L-dae-2020-07-15.pcl"
+    dir_of_this_file = os.path.dirname(os.path.abspath(sys.modules.get(__name__).__file__))
+    fpath = os.path.join(dir_of_this_file, "7L-dae-2020-07-15.pcl")
 
-    if not os.path.isfile(fname):
-        mod = mt.generate_symbolic_model(T, V, ttheta, external_forces, constraints=[G3 - G3b])
+    if not os.path.isfile(fpath):
+        # if model is not present it could be regenerated
+        # however this might take long (approx. 20min)
+        mod = mt.generate_symbolic_model(T, V, ttheta, external_forces, constraints=[G3 - G3b], simplify=False)
         mod.calc_state_eq(simplify=False)
 
         mod.f_sympy = mod.f.subs(parameter_values)
         mod.G_sympy = mod.g.subs(parameter_values)
-        with open(fname, "wb") as pfile:
+        with open(fpath, "wb") as pfile:
             pickle.dump(mod, pfile)
     else:
-        with open(fname, "rb") as pfile:
+        with open(fpath, "rb") as pfile:
             mod = pickle.load(pfile)
 
     # calculate DAE equations from symbolic model

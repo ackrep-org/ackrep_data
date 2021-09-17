@@ -13,7 +13,7 @@ editor_list:
     - ''
 creation_date: ''
 external_references: ''
-notes: ''
+notes: 'This solution depends on the file `7L-dae-2020-07-15.pcl` which contains a pickled version of the symbolic model (sympy objects) of the considered 7-Link-system. If this file is not available, the model is created by means of Lagrange equations but this is quite slow and thus not recommended for the server.'
 solved_problem_list:
     - GYLTC
 method_package_list:
