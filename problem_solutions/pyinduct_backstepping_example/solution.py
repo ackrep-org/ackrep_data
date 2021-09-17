@@ -5,6 +5,10 @@ from problem import ProblemSpecification
 from feedback import (AnalyticBacksteppingController,
                       ApproximatedBacksteppingController)
 
+import pyinduct as pi
+import matplotlib.pyplot as plt
+
+import os
 
 class SolutionData:
     pass
@@ -39,9 +43,30 @@ def solve(problem_spec: ProblemSpecification):
                                                          n_modal,
                                                          spatial_domain,
                                                          fem_sys)
+
     sol_data = SolutionData()
     sol_data.u = analytic_cont
-    # sol_data.u = approx_cont_fem
-    # sol_data.u = approx_cont_mod
+
+    sys = problem_spec.fem_sys.get_system(sol_data.u)
+    ics = problem_spec.fem_sys.get_initial_state(problem_spec.initial_profile,
+                                            sol_data.u)
+    t_sim, q_sim = pi.simulate_state_space(sys, ics, problem_spec.temp_domain)
+    x_sim = problem_spec.fem_sys.get_results(q_sim,
+                                        sol_data.u,
+                                        t_sim,
+                                        problem_spec.spatial_domain,
+                                        "FEM Simulation")
+    
+    sol_data.x = x_sim
+
+    # visualization
+    pi.surface_plot(x_sim, title="Surface plots")
+
+    sol_dir = os.path.join(os.path.dirname(__file__), '_solution_data')
+
+    if not os.path.isdir(sol_dir):
+        os.mkdir(sol_dir)
+
+    plt.savefig(os.path.join(sol_dir, 'plot.png'), dpi=96*2)
 
     return sol_data
