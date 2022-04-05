@@ -1,0 +1,17 @@
+key: OUA6M
+predecessor_key: ''
+type: problem_specification
+name: 'simple multiplication problem'
+short_description: 'multiply two numbers'
+version: 0.1.0
+tag_list:
+    - ''
+creator: 'Julius Fiedler <julius.fiedler{ät}mailbox.tu-dresden.de>'
+editor_list:
+    - ''
+creation_date: '2022-04-05'
+external_references: ''
+problem_file: problem.py
+notes: 'For testing and demonstration only.'
+problemclass_list:
+    - ''
