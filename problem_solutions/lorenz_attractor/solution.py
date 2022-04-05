@@ -46,4 +46,4 @@ def save_plot(problem_spec, solution_data):
         os.mkdir(sol_dir)
 
     plt.savefig(os.path.join(sol_dir, 'plot.png'), dpi=96 * 2)
-    plt.show()
+    # plt.show()
