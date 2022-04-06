@@ -1,15 +1,15 @@
-key: S2V8V
+key: BCPXM
 predecessor_key: ''
 type: problem_specification
-name: 'lorenz attractor problem'
-short_description: 'create model for lorenz attractor ODEs'
+name: 'PVTOL problem'
+short_description: 'create model for PVTOL'
 version: 0.1.0
 tag_list:
-    - 'lorenz'
+    - 'PVTOL'
 creator: 'Julius Fiedler <julius.fiedler{ät}mailbox.tu-dresden.de>'
 editor_list:
     - ''
-creation_date: '2022-04-05'
+creation_date: '2022-04-06'
 external_references: ''
 problem_file: problem.py
 notes: ''

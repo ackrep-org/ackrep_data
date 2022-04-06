@@ -19,7 +19,7 @@ class ProblemSpecification(object):
     # xx = sp.Matrix([x, y, z])  # states of system
     xx0 = np.array([0.1, 0.1, 0.1])  # initial condition
 
-    tt = times = np.linspace(0, 30, 10000) # vector of times for simulation
+    tt = np.linspace(0, 30, 10000) # vector of times for simulation
 
 
     @staticmethod
