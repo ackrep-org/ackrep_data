@@ -47,3 +47,9 @@ def save_plot(problem_spec, solution_data):
 
     plt.savefig(os.path.join(sol_dir, 'plot.png'), dpi=96 * 2)
     # plt.show()
+    import shutil
+    destination_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "_solution_data"))
+    try:
+        shutil.copy(problem_spec.pdf_path, destination_path)
+    except:
+        print("copying failed")
