@@ -25,14 +25,20 @@ class ProblemSpecification(object):
     
     
     parentpath = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)),os.pardir,os.pardir,os.pardir))
-    print(parentpath)
+    # print(parentpath)
     sys.path.insert(1, parentpath)
 
     import Catalog_of_dynamical_and_control_system_models._02_Implementations.Lorenz_Attractor.Lorenz_Attractor_class as ModelClass
 
     model = ModelClass.Model()
-
+    rhs_symbolic = model.get_rhs_symbolic()
     rhs = model.get_rhs_func()
+    print("Copy-pastable code equations:\n")
+    for i, eq in enumerate(rhs_symbolic):
+        print(f"dot_x{i}=", eq)
+    # M:\Uni\SHK_Wissensrep\Catalog_of_dynamical_and_control_system_models\_01_Models\Lorenz_Attractor\Lorenz_Attractor_Documentation.pdf
+    pdf_path = os.path.join(parentpath, "Catalog_of_dynamical_and_control_system_models", "_01_Models", "Lorenz_Attractor","Lorenz_Attractor_Documentation.pdf")
+    
     # @staticmethod
     # def rhs(t, xx):
     #     """ Right hand side of the ODEs
