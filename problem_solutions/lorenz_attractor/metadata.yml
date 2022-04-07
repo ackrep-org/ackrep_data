@@ -1,0 +1,22 @@
+key: LPTFJ
+predecessor_key: ''
+type: problem_solution
+name: 'lorenz attractor model'
+short_description: 'creates model for lorenz attractor'
+version: 0.1.0
+tag_list:
+    - 'lorenz'
+creator: 'Julius Fiedler <julius.fiedler{ät}mailbox.tu-dresden.de>'
+editor_list:
+    - ''
+creation_date: '2022-04-05'
+external_references: ''
+notes: ''
+solved_problem_list:
+    - S2V8V
+method_package_list:
+    - ''
+compatible_environment:
+estimated_runtime: '1s'
+solution_file: solution.py
+postprocessing_file: ''

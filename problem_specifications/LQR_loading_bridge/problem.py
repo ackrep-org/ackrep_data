@@ -26,7 +26,7 @@ class ProblemSpecification(object):
     # equilibrium point
     eqrt = [(p1, 0), (p2, 0), (pdot1, 0), (pdot2, 0), (F, 0)]
     xx0 = np.array([0.2, pi / 6, 0.5, 0.2])  # initial condition
-    yr = 0.5  # reference temperature
+    yr = 0.5  # reference position
     tt = np.linspace(0, 8, 1000)  # vector for the time axis for simulating
     q = np.diag([15, 15, 12, 13])  # desired poles
     r = np.diag([1])  # initial condition
