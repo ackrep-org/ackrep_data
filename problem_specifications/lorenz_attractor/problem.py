@@ -29,7 +29,7 @@ class ProblemSpecification(object):
     sys.path.insert(1, parentpath)
 
     import Catalog_of_dynamical_and_control_system_models._02_Implementations.Lorenz_Attractor.Lorenz_Attractor_class as ModelClass
-
+#
     model = ModelClass.Model()
     rhs_symbolic = model.get_rhs_symbolic()
     rhs = model.get_rhs_func()
