@@ -1,0 +1,39 @@
+
+---
+key: 
+predecessor_key: 
+model_implementation_key: 
+type: Model         
+name: Lorenz Attractor                           
+short_description: 
+creator: Jonathan Rockstroh   
+creation_date: 21.05.2021
+editor_list: 
+    - 
+notes: 
+external_references: 
+    -> Lorenz, E. N.; Deterministic Nonperiodic Flow, Journal of Atmospheric Sciences, Vol 20, pp. 130-142, 1963 
+tag_list: 
+    - States: 3
+    - Chaotical_Behaviour: True
+    - Time_Continuitiy: True
+    - Time_Variance: False
+    - Autonomous: True
+    - Explicit_First_Order_ODE: True
+    - Strictly_Non_Linear: True
+    - Observer_Design: True
+model_graphics_file: 
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+

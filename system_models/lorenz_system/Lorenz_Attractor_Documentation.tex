@@ -1,0 +1,74 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+
+%< > ... dummy content zur Veranschaulichung
+
+\begin{document}
+	\part*{Model Documentation of the:}
+	\section*{Lorentz Attractor} % MUST - Add Model Name 
+	
+	%%%%%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Nomenclature} % MUST
+	\subsection{Nomenclature for Model Equations} % MUST
+	
+	%variables for model equations
+	\begin{tabular}{ll}
+		$x$ & is proportional to convection motions \\
+		$y$ & is proportional to temperature difference between ascending and descending currents\\
+		$z$ & is proportional to distortion of vertical temperature profile from linearity\\
+		$\sigma$ & Prandtl Number \\
+		$r$ & quotient of Raileigh Number and a critical value (see \cite{LOR63})\\
+		$b$ & parameter
+	\end{tabular}
+	
+	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Model Equations} % MUST
+	State Vector and Input Vector:
+	\begin{align*}
+		\underline{x} &= (x_1 \ x_2 \ x_3)^T = (x \ y \ z )^T \\
+		\underline{u} &= \emptyset
+	\end{align*}
+
+	\noindent Model Equations:
+	\begin{subequations}
+	\begin{align}
+		\dot{x} &= -\sigma x + \sigma y 	\\      % possible ways to write d/dt
+		\dot{y} &= -xz + rx - y 	\\
+		\dot{z} &= xy - bz	
+	\end{align}
+	\end{subequations}
+
+	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\noindent
+	Parameters: $\sigma,~r,~b$ % variables with constant, predefined value
+	\\
+	Outputs:  % MAY
+	
+	%%%%%%%%%%%%%%%%%%%%%% ASSUMPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\subsection{Exemplary parameter values}
+	\input{parameters.tex}
+
+	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\section{Derivation and Explanation} % SHOULD
+	
+	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\begin{thebibliography}{10}		
+		\bibitem{LOR63}Lorenz, E. N.: 
+		\textit{Deterministic Nonperiodic Flow}, p. 135, Journal of Atmospheric Sciences 1963
+	\end{thebibliography}
+
+\end{document}
