@@ -27,13 +27,16 @@ def simulate():
     # Initial State values       
     xx0 = [0.1, 0.1, 0.1]
 
-
     t_end = 30
     tt = np.linspace(0, t_end, 10000) # vector of times for simulation
     sol = solve_ivp(latt_rhs, (0, t_end), xx0, t_eval=tt)
     
+    save_plot(sol)
 
-    plt.plot(sol.y[0], sol.y[1], label='', lw=1)
+    return sol
+
+def save_plot(simulation_data):
+    plt.plot(simulation_data.y[0], simulation_data.y[1], label='', lw=1)
 
     plt.title('x-y Phaseplane')
     plt.xlabel('x',fontsize= 15)
@@ -41,17 +44,15 @@ def simulate():
     plt.legend()
     plt.grid()
     plt.tight_layout()
-    # plt.show()
 
-    sol_dir = os.path.dirname(__file__)
-    plt.savefig(os.path.join(sol_dir, 'plot.png'), dpi=96 * 2)
+    plot_dir = os.path.join(os.path.dirname(__file__), '_simulation_data')
 
-    return sol
+    plt.savefig(os.path.join(plot_dir, 'plot.png'), dpi=96 * 2)
 
 def evaluate_simulation(simulation_data):
     """
     
-    :param solution_data: solution data of problem of solution
+    :param simulation_data: simulation_data of system_model
     :return:
     """
 
