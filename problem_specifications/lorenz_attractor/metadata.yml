@@ -15,3 +15,5 @@ problem_file: problem.py
 notes: ''
 problemclass_list:
     - ''
+related_system_models_list:
+    - UXMFA

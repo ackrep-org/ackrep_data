@@ -15,3 +15,5 @@ problem_file: problem.py
 notes: 'For testing and demonstration only.'
 problemclass_list:
     - ''
+related_system_models_list:
+    - ''
