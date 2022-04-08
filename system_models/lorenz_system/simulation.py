@@ -45,7 +45,7 @@ def save_plot(simulation_data):
     plt.grid()
     plt.tight_layout()
 
-    plot_dir = os.path.join(os.path.dirname(__file__), '_simulation_data')
+    plot_dir = os.path.join(os.path.dirname(__file__), '_system_model_data')
 
     plt.savefig(os.path.join(plot_dir, 'plot.png'), dpi=96 * 2)
 
