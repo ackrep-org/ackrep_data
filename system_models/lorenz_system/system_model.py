@@ -21,7 +21,7 @@ from ackrep_core.system_model_management import GenericModel
 
 try:
     import parameters
-except:
+except ImportError:
     from . import parameters
 params = parameters
 
