@@ -8,31 +8,17 @@ Created on Wed Jun  9 13:33:34 2021
 import sympy as sp
 import symbtools as st
 import importlib
-import sys
+import sys, os
 from ipydex import IPS, activate_ips_on_exception  # for debugging only
 
-
-from ackrep_core.system_model_management import GenericModel
-
+from ackrep_core.system_model_management import GenericModel, import_parameters
+from ackrep_core.core import get_metadata_from_file
 # Import parameter_file
-# Name of the parameter file without ending -- MODEL DEPENDENT
-# parameter_file_name = 'lorenz_parameter'
 
+yml_path = os.path.join(os.path.dirname(__file__), "metadata.yml")
+md = get_metadata_from_file(yml_path)
+params = import_parameters(md["key"])
 
-try:
-    import parameters
-except ImportError:
-    from . import parameters
-params = parameters
-
-# try to find ModuleSpecs
-# param_module = importlib.util.find_spec(parameter_file_name)
-# # if ModuleSpecs are found, paramters_package can be loaded
-# if param_module is not None:
-#     params = importlib.import_module(parameter_file_name)
-#     print("module specs found successfully!")
-# else:
-#     print("no module specs found!")
 
 class Model(GenericModel): 
 

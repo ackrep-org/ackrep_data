@@ -81,43 +81,6 @@ end_columns_list = []
 pp_nv = list(sp.Matrix(pp_sf).subs(pp_subs_list))
 pp_dict = {pp_symb[i]:pp_nv[i] for i in range(len(pp_symb))}
 
-def main():
-    # ------ CREATE RAMAINING PART OF THE LATEX TABULAR AND WRITE IT TO FILE
-    # Define "Symbol" column
-    pp_dict_key_list = list(pp_dict.keys())
-    p_symbols = [sp.latex(pp_dict_key_list[i], symbol_names=latex_names) 
-                 for i in range(len(pp_dict))]
-    # set cells in math-mode
-    for i in range(len(p_symbols)):
-        p_symbols[i] = "$" + p_symbols[i] + "$"
-    
-    # Define "Value" column
-    p_values = [sp.latex(p_sf) for p_sf in pp_sf]
-    # set cells in math-mode
-    for i in range(len(p_values)):
-        p_values[i] = "$" + p_values[i] + "$"
-    
-    # Create list, which contains the content of the table body
-    table_body_list = np.array([*start_columns_list, p_symbols, p_values, 
-                                *end_columns_list])
-    # Convert list of column entries to list of row entries
-    table = table_body_list.transpose()
-    
-    # Create string which contains the latex-code of the tabular
-    tex = tab.tabulate(table, tabular_header, tablefmt = 'latex_raw', 
-                       colalign = col_alignment)
-    
-    # Change Directory to the Folder of the Model. 
-    cwd = os.path.dirname(os.path.abspath(__file__))
-    parent2_cwd = os.path.dirname(os.path.dirname(cwd))
-    #TODO: path
-    path_base = os.path.join(parent2_cwd, "01_Models", model_name) 
-    os.chdir(path_base)
-    # Write tabular to Parameter File.
-    file = open("parameters.tex", 'w')
-    file.write(tex)
-    file.close()
-
 
 # ----------- GET DEFAULT PARAMETERS ---------- # 
 
@@ -135,7 +98,3 @@ def get_symbolic_parameters():
     :return:(list) with symbolic parameters
     """
     return pp_symb
-
-
-if __name__ == "__main__":
-    main()
