@@ -76,25 +76,3 @@ end_columns_list = []
 
 #### -- END: CODE WHICH MUST BE ADJUSTED FOR EACH MODEL -- ####
 
-# --------- GET NUMERICAL DEFAULT VALUES OF THE PARAMETERS
-# Substitute all remaining symbolic parameters
-pp_nv = list(sp.Matrix(pp_sf).subs(pp_subs_list))
-pp_dict = {pp_symb[i]:pp_nv[i] for i in range(len(pp_symb))}
-
-
-# ----------- GET DEFAULT PARAMETERS ---------- # 
-
-def get_default_parameters():
-    """
-    :return:(dict) with parameter_symbol:parameter_value pairs
-    """
-    return pp_dict
-
-
-# ----------- GET SYMBOLIC PARAMETERS ---------- # 
-
-def get_symbolic_parameters():
-    """
-    :return:(list) with symbolic parameters
-    """
-    return pp_symb
