@@ -39,7 +39,7 @@ class Model(GenericModel):
         self.has_params = True
         try:
             params.get_default_parameters()
-        except NameError:
+        except AttributeError:
             self.has_params = False     
         # Define number of inputs -- MODEL DEPENDENT
         self.u_dim = 0
