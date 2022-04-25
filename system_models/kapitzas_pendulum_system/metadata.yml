@@ -1,0 +1,18 @@
+key: U6B7N
+predecessor_key: ''
+type: system_model
+name: "Kapitza's Pendulum"
+short_description: 'nonlinear physical system, rigid pendulum in which the pivot point vibrates in a vertical direction'
+version: 0.1.0
+tag_list:
+    - 'kapitza'
+    - 'pendulum'
+creator: 'Anne Harloff <anne.harloff{ät}mailbox.tu-dresden.de>'
+editor_list:
+    - ''
+creation_date: '2022-04-21'
+external_references: ''
+notes: ''
+estimated_runtime: '1s'
+system_model_file: system_model.py
+simulation_file: simulation.py

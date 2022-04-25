@@ -1,0 +1,96 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+
+%< > ... dummy content zur Veranschaulichung
+
+\begin{document}
+	\part*{Model Documentation of the:}
+	\section*{Kapitza's Pendulum} % MUST - Add Model Name 
+	
+	%%%%%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Nomenclature} % MUST
+	\subsection{Nomenclature for Model Equations} % MUST
+	
+	%variables for model equations
+	\begin{tabular}{ll}
+		$\gamma$ & Dampening factor \\
+		$l$ & length of the pendulum \\
+		$g$ & acceleration due to gravity \\
+		$\varphi$ & angle of deflection from the equilibrium position \\
+		$a$ & magnitude of the harmonic oscillation of the suspension point \\
+		$\omega$ & frequency of the harmonic oscillation of the suspension point
+				
+	\end{tabular}
+	
+	\subsection{Nomenclature for Derivation} % SHOULD 
+	
+	%variables which are used additional to those in the model equations
+	\begin{tabular}{ll}
+
+	\end{tabular}
+	
+	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Model Equations} % MUST
+	
+	State Vector: 
+		State Vector and Input Vector:
+	\begin{align*}
+		\underline{x} &= (x_1 \ x_2)^T = (\varphi \ \dot{\varphi})^T \\
+		\underline{u} &= \emptyset
+	\end{align*}
+	
+	\noindent System Equations:			
+	\begin{subequations}
+	\begin{align}
+		\dot{x}_1 &= x_2 \\
+		\dot{x}_2 &= -2\gamma x_2 - \left(\frac{g}{l} - \frac{a}{l}\omega^2\cos(\omega t)\right)\sin(x_1)
+	\end{align}
+	\end{subequations}
+
+	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent
+	Parameters: $\omega, ~a, ~l, ~g, ~\gamma$ % variables with constant, predefined value
+	\\
+	Outputs: $\varphi$ % MAY
+	
+	%%%%%%%%%%%%%%%%%%%%%% ASSUMPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\subsection{Assumptions} % MAY 
+		\begin{enumerate} %possible list type for the Assumptions - mögliche Formatierung für die Annahmen
+			\item Mass of the pendulum is a pointmass 
+		\end{enumerate}
+	
+	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\subsection{Exemplary parameter values}
+	\input{parameters.tex}
+%	\begin{tabular}{lcl} 
+%		Parameter & Symbol & Value \\ \hline
+%		Pendulum length & l & 10cm \\
+%		Amplitude of Oscillation & a & 2cm \\
+%		Frequency of Oscillation & $\omega$ & $16\omega_0$ \\
+%		Dampening Factor & $\gamma$ & $0.1\omega_0$
+%	\end{tabular}
+	\\
+	with $\omega_0$ = $\sqrt{\frac{g}{l}}$
+
+	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\section{Derivation and Explanation} % SHOULD
+	
+	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\begin{thebibliography}{10}		
+		\bibitem{But21}Butikov, E. I.: 
+		\textit{Kapitza’s Pendulum: A Physically Transparent Simple Treatment}, published 2021
+	\end{thebibliography}
+
+\end{document}
