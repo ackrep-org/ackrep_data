@@ -37,7 +37,7 @@ def simulate():
 
 def save_plot(simulation_data):
     plt.plot(simulation_data.y[0], simulation_data.y[1], label='', lw=1)
-
+    print("description of plot")
     plt.title('x-y Phaseplane')
     plt.xlabel('x',fontsize= 15)
     plt.ylabel('y',fontsize= 15)
