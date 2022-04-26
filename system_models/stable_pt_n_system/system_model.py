@@ -54,7 +54,7 @@ class Model(GenericModel):
         self.has_params = True
         try:
             params.get_default_parameters()
-        except NameError:
+        except AttributeError:
             self.has_params = False                  
         # Set self.n
         self._set_dimension(sys_dim)        
