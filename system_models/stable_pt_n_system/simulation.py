@@ -34,7 +34,7 @@ def simulate():
         rhs_xx_pp_symb = model[i].get_rhs_symbolic()
         print("Computational Equations PT"+str(i+1)+":\n")
         for i, eq in enumerate(rhs_xx_pp_symb):
-            print(f"dot_x{i} =", eq, "\n")
+            print(f"dot_x{i+1} =", eq, "\n")
 
 
     # Initial State values  

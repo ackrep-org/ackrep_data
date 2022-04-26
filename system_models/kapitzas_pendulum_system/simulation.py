@@ -19,7 +19,7 @@ def simulate():
     rhs_xx_pp_symb = model.get_rhs_symbolic()
     print("Computational Equations:\n")
     for i, eq in enumerate(rhs_xx_pp_symb):
-        print(f"dot_x{i} =", eq)
+        print(f"dot_x{i+1} =", eq)
 
     rhs = model.get_rhs_func()
 
@@ -78,7 +78,7 @@ def evaluate_simulation(simulation_data):
     :return:
     """
     
-    target_states = [3.279798177840721, 1.0376084184537915]
+    target_states = [3.1206479177994066, 0.22532090507016805]
 
     success = all(abs(simulation_data.y[i][-1] - target_states[i]) < 1e-2 for i in np.arange(0, len(simulation_data.y)))
     
