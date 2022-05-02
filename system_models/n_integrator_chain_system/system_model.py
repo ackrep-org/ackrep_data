@@ -17,7 +17,7 @@ from ackrep_core.core import get_metadata_from_file
 # Import parameter_file
 yml_path = os.path.join(os.path.dirname(__file__), "metadata.yml")
 md = get_metadata_from_file(yml_path)
-params = import_parameters(md["key"])
+params = None
 
 class Model(GenericModel): 
     
