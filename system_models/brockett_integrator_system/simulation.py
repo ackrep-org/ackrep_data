@@ -15,7 +15,7 @@ import os
 
 def simulate():
 
-    
+
     model = bi.Model()
 
     rhs_xx_pp_symb = model.get_rhs_symbolic()
@@ -60,12 +60,12 @@ def save_plot(sol):
 
 def evaluate_simulation(simulation_data):
     """
-    
+
     :param simulation_data: simulation_data of system_model
     :return:
     """
     
-    target_states = [-10.000036458333291, 4.5572916645753025e-05, 166.6662109374996]
+    target_states = [1.5126199035042642e-05, -1.6950186169609194e-05, 0.7956450415081588]
     
 
     success = all(abs(simulation_data.y[i][-1] - target_states[i]) < 1e-2 for i in np.arange(0, len(simulation_data.y)))
