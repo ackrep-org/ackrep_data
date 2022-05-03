@@ -46,11 +46,11 @@ class Model(GenericModel):
         # check existance of params file -> if not: System is defined to hasn't 
         # parameters
         self.has_params = True
-        
+        self.params = params
         
         # Initialize      
         super().__init__()    
-        self.params = params
+        
 
 
     # ----------- SET DEFAULT INPUT FUNCTION ---------- # 
@@ -119,8 +119,8 @@ class Model(GenericModel):
         #--- MODEL DEPENDENT 
         # possible to include, not necessary                         
         # Check if values are in required range                          
-        #assert not any(flag <= 0 for flag in p_value_list), \
-                        #":param pp: does have values <= 0"
+        assert not any(flag <= 0 for flag in p_value_list), \
+                        ":param pp: does have values <= 0"
 
 
 
