@@ -1,0 +1,54 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+
+%< > ... dummy content zur Veranschaulichung
+
+\begin{document}
+	\part*{Model Documentation of the:}
+	\section*{Brockett Integrator} % MUST - Add Model Name 
+	
+	%%%%%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Nomenclature} % MUST
+	\subsection{Nomenclature for Model Equations} % MUST
+	
+	%variables for model equations
+	\begin{tabular}{ll}
+		$u_1$, $u_2$ & Inputs		
+	\end{tabular}
+
+	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Model Equations} % MUST
+	
+	\noindent Model Equations:
+	
+	\begin{subequations}
+	\begin{align}
+		\dot{x_1} &= u1 \\      % possible ways to write d/dt
+		\dot{x_2} &= u2 \\
+		\dot{x_3} &= x_2 u_1 - x_1 u_2
+	\end{align}
+	\end{subequations}
+
+	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\noindent
+	Parameters:  
+	\\
+	Outputs:
+	
+	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\begin{thebibliography}{10}		
+		\bibitem{BRW}Brockett, R. W.: 
+		\textit{Asymptotic Stability and feedback stabilization}, 1983
+	\end{thebibliography}
+
+\end{document}
