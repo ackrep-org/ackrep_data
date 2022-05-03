@@ -51,7 +51,7 @@ class Model(GenericModel):
         self.params = params
 
         # Initialize     
-        super().__init__()
+        super().__init__(x_dim=x_dim, u_func=u_func, pp=pp)
         
 
 

@@ -53,7 +53,7 @@ class Model(GenericModel):
         self.params = params
 
         # Initialize     
-        super().__init__(x_dim=None, u_func=None, pp=None)
+        super().__init__(x_dim=x_dim, u_func=u_func, pp=pp)
         
 
     # ----------- _CREATE_N_DIM_SYMB_PARAMETERS ---------- #
@@ -158,3 +158,51 @@ class Model(GenericModel):
         # Check if values are in required range                          
         assert not any(flag <= 0 for flag in p_value_list), \
                         ":param pp: does have values <= 0"
+
+    
+    
+    # ----------- CREATE_FACTOR ---------- # 
+    # --------------- Exclusivly made for this model
+    
+    def _create_factor(self, pp_symb, deriv_nr):
+        '''Auxiliary Function to create the symb function of the pt_n element
+        returns the factor infront of the state, which represents the 
+        deriv_nr-th derivation of y. Take a look at product in the equation 
+        for dx_n_dt in the model documentation.
+        
+        :param pp_symb: list of sympy variables
+            symbolic parameter vectorm, which only contains the time coefficients
+        :param deriv_nr: int >= 0
+            number of the state of the dxn_dt solution for which the leading factor
+            shall be calculated
+            
+        :return summand: sympy function
+            returns the summand of
+    
+        '''
+        # assure, that deriv_nr is a proper value
+        assert deriv_nr >= 0, "deriv_nr needs to be positive or zero"
+    
+        assert deriv_nr <= len(pp_symb), "deriv_nr can't be greater than the \
+                                            length of the pp_symb list"
+        # initialize summand
+        factor = 0
+        # Solve Special case of deriv_nr = 0
+        if deriv_nr == 0:
+            factor = 1
+        # create factor for deriv_nr > 0
+        else:
+            # create list of all deriv_nr-element combinations 
+            subsummand_vec = list(comb(pp_symb, deriv_nr))
+            # save length of the sublists, to improve performance
+            sublist_len = len(subsummand_vec[0])
+            # iterate over the combinations and create summand = sum of subsummands
+            for i in range(len(subsummand_vec)):
+                subsummand = 1
+                # create one summand of the factor
+                for j in range(sublist_len):
+                    subsummand = subsummand * subsummand_vec[i][j]
+                # add subsummand to factor    
+                factor = factor + subsummand
+                
+        return factor

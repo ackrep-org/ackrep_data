@@ -50,8 +50,8 @@ class Model(GenericModel):
         self.has_params = True
         self.params = params
 
-        # Initialize      
-        super().__init__()
+        # Initialize     
+        super().__init__(x_dim=x_dim, u_func=u_func, pp=pp)
         
 
         
