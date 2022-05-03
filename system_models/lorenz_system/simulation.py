@@ -20,7 +20,7 @@ def simulate():
     rhs_xx_pp_symb = lorenz_att.get_rhs_symbolic()
     print("Computational Equations:\n")
     for i, eq in enumerate(rhs_xx_pp_symb):
-        print(f"dot_x{i} =", eq)
+        print(f"dot_x{i+1} =", eq)
 
     latt_rhs = lorenz_att.get_rhs_func()
 

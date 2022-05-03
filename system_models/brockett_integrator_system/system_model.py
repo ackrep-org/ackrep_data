@@ -13,15 +13,14 @@ from ipydex import IPS, activate_ips_on_exception  # for debugging only
 
 from ackrep_core.system_model_management import GenericModel, import_parameters
 from ackrep_core.core import get_metadata_from_file
-# Import parameter_file
 
+# Import parameter_file
 yml_path = os.path.join(os.path.dirname(__file__), "metadata.yml")
 md = get_metadata_from_file(yml_path)
-params = import_parameters(md["key"])
-
+params = None
 
 class Model(GenericModel): 
-
+    
     def __init__(self, x_dim=None, u_func=None, pp=None):
         """
         :param x_dim:(int, positive) dimension of the state vector 
@@ -33,9 +32,8 @@ class Model(GenericModel):
         :return:
         """
         
-          
         # Define number of inputs -- MODEL DEPENDENT
-        self.u_dim = 0
+        self.u_dim = 2
 
         # Set "sys_dim" to constant value, if system dimension is constant 
         # else set "sys_dim" to x_dim -- MODEL DEPENDENT
@@ -44,16 +42,15 @@ class Model(GenericModel):
         # Adjust sys_dim to dimension fitting to default parameters
         # only needed for n extendable systems -- MODEL DEPENDENT
         self.default_param_sys_dim = None
-
+        
         # check existance of params file -> if not: System is defined to hasn't 
         # parameters
         self.has_params = True
         self.params = params
-
-        # Initialize     
-        super().__init__(x_dim=x_dim, u_func=u_func, pp=pp)
         
-
+        # Initialize     
+        super().__init__(x_dim=x_dim, u_func=u_func, pp=pp)    
+        
 
 
     # ----------- SET DEFAULT INPUT FUNCTION ---------- # 
@@ -66,9 +63,14 @@ class Model(GenericModel):
         :param xx_nv: (vector or array of vectors) state vector with 
                                                     numerical values at time t      
         :return:(function with 2 args - t, xx_nv) default input function 
-        """ 
-        def uu_rhs(t, xx_nv):            
-            return []
+        """         
+        def uu_rhs(t, xx_nv):
+            u1 = 0
+            u2 = 0
+            if t > 0:
+                u1 = sp.sin(4*sp.pi*t)
+                u2 = sp.cos(4*sp.pi*t)  
+            return [u1, u2]
         
         return uu_rhs
 
@@ -82,20 +84,27 @@ class Model(GenericModel):
         """
         if self.dxx_dt_symb is not None:
             return self.dxx_dt_symb
-        x, y, z = self.xx_symb
-        r, b, sigma = self.pp_symb
-        # create symbolic rhs function vector
-        dx1_dt = - sigma*x + sigma*y
-        dx2_dt = -x*z + r*x - y
-        dx3_dt = x*y - b*z
+        x1, x2, x3 = self.xx_symb
+        # u0 = input force     
+        u1, u2 = self.uu_symb
+        # create symbolic rhs functions
+        dx1_dt = u1
+        dx2_dt = u2
+        dx3_dt = x2*u1 - x1*u2 
         
+        # put rhs functions into a vector
         self.dxx_dt_symb = [dx1_dt, dx2_dt, dx3_dt]
         
         return self.dxx_dt_symb
- 
+    
+
+
+
+
     
     # ----------- VALIDATE PARAMETER VALUES ---------- #
     # -------------- MODEL DEPENDENT 
+    
     
     def _validate_p_values(self, p_value_list):
         """ raises exception if values in list aren't valid 
@@ -106,10 +115,13 @@ class Model(GenericModel):
         except ValueError:
                 raise Exception(":param pp: Values are not valid. \
                                 (aren't convertible to float)")
-                                 
+
         #--- MODEL DEPENDENT 
         # possible to include, not necessary                         
         # Check if values are in required range                          
         assert not any(flag <= 0 for flag in p_value_list), \
                         ":param pp: does have values <= 0"
-                                
+
+
+
+    

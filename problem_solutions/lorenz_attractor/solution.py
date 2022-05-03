@@ -16,13 +16,6 @@ def solve(problem_spec):
     xx_res = solve_ivp(problem_spec.rhs, [problem_spec.tt[0], problem_spec.tt[-1]],
                                      problem_spec.xx0, method='RK45', t_eval=problem_spec.tt)
                                      
-    # todo why does problem_spec.tt work
-
-    # print("x[-1]", xx_res.y[0][-1])
-    # print("y[-1]", xx_res.y[1][-1])
-    # print("z[-1]", xx_res.y[2][-1])
-
-
     solution_data = SolutionData()
     solution_data.res = xx_res  # states of system
 
@@ -46,10 +39,4 @@ def save_plot(problem_spec, solution_data):
         os.mkdir(sol_dir)
 
     plt.savefig(os.path.join(sol_dir, 'plot.png'), dpi=96 * 2)
-    # plt.show()
-    import shutil
-    destination_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "_solution_data"))
-    # try:
-    #     shutil.copy(problem_spec.pdf_path, destination_path)
-    # except:
-    #     print("copying failed")
+

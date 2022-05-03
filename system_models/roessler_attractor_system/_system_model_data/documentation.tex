@@ -1,0 +1,66 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+
+%< > ... dummy content zur Veranschaulichung
+
+\begin{document}
+	\part*{Model Documentation of the:}
+	\section*{Roessler Attractor - Equation 1 of 1979} % MUST - Add Model Name 
+	
+	%%%%%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Nomenclature} % MUST
+	\subsection{Nomenclature for Model Equations} % MUST
+	
+	%variables for model equations
+	\begin{tabular}{ll}
+		$a,~b,~c$ & constants		
+	\end{tabular}
+	
+	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Model Equations} % MUST
+	
+	State Vector and Input Vector:
+	\begin{align*}
+		\underline{x} &= (x_1 \ x_2 \ x_3) = (x \ y \ z)^T \\
+		\underline{u} &= \emptyset
+	\end{align*}
+	
+	\noindent Model Equations:
+	\begin{subequations}
+	\begin{align}
+		\dot{x}_1 &= - y - z	\\
+		\dot{x}_2 &= x + ay \\
+		\dot{x}_3 &= bx - cz + xz    
+	\end{align}
+	\end{subequations}
+
+	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent
+	Parameters: $a, \ b, \ c$ % variables with constant, predefined value
+	\\
+	Outputs: 
+	
+	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\subsection{Exemplary parameter values}
+	\input{parameters.tex}
+
+	
+	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\begin{thebibliography}{10}		
+		\bibitem{ROE79}Roessler, O. E.: 
+		\textit{Continuous chaos - four prototype equations}, Ann . NY Acad. Sci. 316, p. 381, 1979
+		\bibitem{GP05}Gaspard, P.: 
+		\textit{Roessler Systems, Encyclopedia of Nonlinear Science}, pp. 808-811, New York, 2005
+	\end{thebibliography}
+
+\end{document}
