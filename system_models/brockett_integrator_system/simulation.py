@@ -19,6 +19,8 @@ def simulate():
     model = bi.Model()
 
     rhs_xx_pp_symb = model.get_rhs_symbolic()
+
+    print("Simulation with input functions: u1 = sin(omega*t), u2 = cos(omega*t)\n")
     print("Computational Equations:\n")
     for i, eq in enumerate(rhs_xx_pp_symb):
         print(f"dot_x{i+1} =", eq)
