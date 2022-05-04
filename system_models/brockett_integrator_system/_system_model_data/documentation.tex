@@ -7,11 +7,10 @@
 \usepackage{graphicx}
 \usepackage{float}
 
-%< > ... dummy content zur Veranschaulichung
+
 
 \begin{document}
-	\part*{Model Documentation of the:}
-	\section*{Brockett Integrator} % MUST - Add Model Name 
+	\part*{Model Documentation of the \\ Brockett Integrator} % MUST - Add Model Name 
 	
 	%%%%%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
@@ -27,28 +26,41 @@
 	
 	\section{Model Equations} % MUST
 	
+	State Vector and Input Vector:
+	\begin{align*}
+		\underline{x} &= (x_1 \ x_2 \ x_3)^T  \\
+		\underline{u} &= (u_1 \ u_2)^T 
+	\end{align*}
+	
+	
 	\noindent Model Equations:
 	
 	\begin{subequations}
 	\begin{align}
-		\dot{x_1} &= u1 \\      % possible ways to write d/dt
-		\dot{x_2} &= u2 \\
-		\dot{x_3} &= x_2 u_1 - x_1 u_2
+		\dot{x}_1 &= u_1 \\      % possible ways to write d/dt
+		\dot{x}_2 &= u_2 \\
+		\dot{x}_3 &= x_2 u_1 - x_1 u_2
 	\end{align}
 	\end{subequations}
 
 	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	\noindent
-	Parameters:  
+	Parameters: \textit{\textlangle not defined\textrangle} 
 	\\
-	Outputs:
+	Outputs: \textit{\textlangle not defined\textrangle} 
+	
+	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\section{Derivation and Explanation} % SHOULD
+	
+	\textit{Not available}
 	
 	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	\begin{thebibliography}{10}		
 		\bibitem{BRW}Brockett, R. W.: 
-		\textit{Asymptotic Stability and feedback stabilization}, 1983
+		\textit{Asymptotic Stability and feedback stabilization} In: R. W. Brockett, R. S. 		Millman and H. J. Sussmann, eds., Differential Geometric Control Theory, 					Birkhauser, Boston, 1983
 	\end{thebibliography}
 
 \end{document}
