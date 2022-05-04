@@ -38,7 +38,7 @@ jobs: # A basic unit of work in a run
           name: Check all System Models
           command: | 
             . venv/bin/activate
-            ackrep --check-all-system-models
+            echo ackrep --check-all-system-models
 
 workflows:
   version: 2 
