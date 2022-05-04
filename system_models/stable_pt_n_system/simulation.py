@@ -110,7 +110,7 @@ def evaluate_simulation(simulation_data):
     :return:
     """
 
-    target_states = [-200.369685579668774, -1.0626757541773422, -0.6428946899596174, 0.12607608396072245, 0.13375873500072138]
+    target_states = [-2.369685579668774, -1.0626757541773422, -0.6428946899596174, 0.12607608396072245, 0.13375873500072138]
 
     rc = ResultContainer(score=1.0)
     rc.target_state_errors = [simulation_data[i].y[0][-1] - target_states[i] for i in np.arange(0, len(simulation_data))]
