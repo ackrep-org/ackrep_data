@@ -57,5 +57,8 @@ def evaluate_simulation(simulation_data):
     """
 
     target_states = [-0.522566539750587, -0.830457089853563, 14.033163222999248]
-    success = all(abs(simulation_data.y[i][-1] - target_states[i]) < 1e-2 for i in np.arange(0,3))
-    return ResultContainer(success=success, score=1.0)
+    rc = ResultContainer(score=1.0)
+    rc.target_state_errors = [simulation_data.y[i][-1] - target_states[i] for i in np.arange(0, len(simulation_data.y))]
+    rc.success = all(abs(np.array(rc.target_state_errors)) < 1e-2)
+    
+    return rc
