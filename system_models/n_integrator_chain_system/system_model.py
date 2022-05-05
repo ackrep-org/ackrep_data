@@ -109,23 +109,3 @@ class Model(GenericModel):
         return self.dxx_dt_symb
 
 
-
-    
-    # ----------- VALIDATE PARAMETER VALUES ---------- #
-    # -------------- MODEL DEPENDENT 
-    
-    def _validate_p_values(self, p_value_list):
-        """ raises exception if values in list aren't valid 
-        :param p_value_list:(float) list of parameter values
-        """
-        # Check for convertability to float
-        try: float(p_value_list)
-        except ValueError:
-                raise Exception(":param pp: Values are not valid. \
-                                (aren't convertible to float)")
-                                 
-        #--- MODEL DEPENDENT 
-        # possible to include, not necessary                         
-        # Check if values are in required range                          
-        assert not any(flag <= 0 for flag in p_value_list), \
-                        ":param pp: does have values <= 0"
