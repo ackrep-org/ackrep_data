@@ -12,6 +12,6 @@ editor_list:
 creation_date: '2022-05-09'
 external_references: ''
 notes: ''
-estimated_runtime: '6 min'
+estimated_runtime: '7 min'
 system_model_file: system_model.py
 simulation_file: simulation.py

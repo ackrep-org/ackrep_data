@@ -44,6 +44,7 @@ tabular_header = ["Symbol", "Value"]
 # Define column text alignments
 col_alignment = ["center", "left"]
 
+col_1=[]
 
 # contains all lists of the columns before the "Symbol" Column
 start_columns_list = []
