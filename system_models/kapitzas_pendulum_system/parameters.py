@@ -18,13 +18,12 @@ model_name = "Kapitzas_Pendulum"
 pp_symb = [l, g, a, omega, gamma] = sp.symbols('l, g, a, omega, gamma', real = True)
 
 # -------- CREATE AUXILIARY SYMBOLIC PARAMETERS 
-# (parameters, which shall not numerical represented in the parameter tabular)
+# (parameters, which shall not be numerical represented in the parameter tabular)
 omega_0 = sp.Symbol('omega_0')
 
 # --------- SYMBOLIC PARAMETER FUNCTIONS
 # ------------ parameter values can be constant/fixed values OR 
-# ------------ set in relation to other parameters (for example: a = 2*b)
-# ------------ useful for a clean looking parameter table in the Documentation     
+# ------------ set in relation to other parameters (for example: a = 2*b)  
 l_sf = 30/100
 g_sf = 9.81
 a_sf = 1/5 * l
@@ -46,9 +45,11 @@ pp_subs_list = [(l, l_sf), (omega_0, omega_0_nv)]
 # useful for example for complex variables: {Z: r"\underline{Z}"}
 latex_names = {}
 
-# ---------- CREATE BEGIN OF LATEX TABULAR
-# Define tabular Header 
 
+
+# ---------- CREATE BEGIN OF LATEX TABULAR
+
+# Define tabular Header 
 # DON'T CHANGE FOLLOWING ENTRIES: "Symbol", "Value"
 tabular_header = ["Parameter Name", "Symbol", "Value", "Unit"]
 
