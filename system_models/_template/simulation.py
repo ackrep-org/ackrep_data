@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Jun  7 19:06:37 2021
 
-@author: Rocky
-"""
 
 import numpy as np
 import system_model
@@ -23,13 +18,15 @@ def simulate():
 
     rhs = model.get_rhs_func()
 
-    ## TODO: ---- paste simulation data of from ..._test.py here----------
+    # --------------------------------------------------------------------
+    
     # Initial State values  
     xx0 = ...
 
     t_end = ...
     tt = ...
     sim = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
+
     # if inputfunction exists:
     uu = ...
     sim.uu = uu
@@ -39,16 +36,18 @@ def simulate():
     
     save_plot(sim)
 
-    return sim
+    return sim  
 
 def save_plot(simulation_data):
-    ## TODO: ---- paste plotting data of ..._test.py here ----------------
+
+    # --------------------------------------------------------------------
+
+    # plot of your data
     # access to data via:
     simulation_data.t
     simulation_data.y
     simulation_data.uu
     plt.plot(...)
-    # etc.
 
 
     # --------------------------------------------------------------------
@@ -67,9 +66,9 @@ def evaluate_simulation(simulation_data):
     :param simulation_data: simulation_data of system_model
     :return:
     """
-    ## TODO: --- calculate final states of simulation --------------------
-    # run ..._test.py and print final states y[i][-1]
-    # copy paste those values to target_states
+    #--------------------------------------------------------------------
+    # fill in final states of simulation to check your model
+    # simulation_data.y[i][-1]
     target_states = [...]
     
     # --------------------------------------------------------------------
