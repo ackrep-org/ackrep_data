@@ -1,0 +1,18 @@
+key: OHW5Z
+predecessor_key: ''
+type: system_model
+name: 'PVTOL with 2 forces'
+short_description: 'the planar vertical take-off and landing, an underactuated nonlinear unmanned aerial vehicle'
+version: 0.1.0
+tag_list:
+    - 'pvtol'
+    - 'uav'
+creator: 'Anne Harloff, <anne.harloff{ät}mailbox.tu-dresden.de>'
+editor_list:
+    - ''
+creation_date: '2022-05-09'
+external_references: ''
+notes: ''
+estimated_runtime: '1s'
+system_model_file: system_model.py
+simulation_file: simulation.py
