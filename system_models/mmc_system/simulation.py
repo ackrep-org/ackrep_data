@@ -62,7 +62,7 @@ def save_plot(sol):
     # print in axes top left
     axs[0, 0].plot(sol.t, np.real(sol.y[1] ), label = 'Re' )
     axs[0, 0].set_ylabel('ed0') # y-label Nr 1
-    axs[0, 0].set_xlabel('Zeit[t]') # x-Label für Figure linke Seite
+    axs[0, 0].set_xlabel('Time[s]') # x-Label für Figure linke Seite
     axs[0, 0].grid()
     axs[0, 0].legend()
 
@@ -70,7 +70,7 @@ def save_plot(sol):
     axs[1, 0].plot(sol.t, np.real(sol.y[2] ), label = 'Re')
     axs[1, 0].plot(sol.t, np.imag(sol.y[2] ), label = 'Im')
     axs[1, 0].set_ylabel('es') # y-label Nr 1
-    axs[1, 0].set_xlabel('Zeit[t]') # x-Label für Figure linke Seite
+    axs[1, 0].set_xlabel('Time[s]') # x-Label für Figure linke Seite
     axs[1, 0].grid()
     axs[1, 0].legend()
 
@@ -78,7 +78,7 @@ def save_plot(sol):
     axs[0, 1].plot(sol.t, np.real(sol.y[3] ), label = 'Re')
     axs[0, 1].plot(sol.t, np.imag(sol.y[3] ), label = 'Im')
     axs[0, 1].set_ylabel('ed') # y-label Nr 1
-    axs[0, 1].set_xlabel('Zeit[t]') # x-Label für Figure linke Seite
+    axs[0, 1].set_xlabel('Time[s]') # x-Label für Figure linke Seite
     axs[0, 1].grid()
     axs[0, 1].legend()
 
@@ -86,7 +86,7 @@ def save_plot(sol):
     axs[1, 1].plot(sol.t, sol.uu[0] , label = 'vy')
     axs[1, 1].plot(sol.t, sol.uu[1] , label = 'vy0')
     axs[1, 1].set_ylabel('') # y-label Nr 1
-    axs[1, 1].set_xlabel('Zeit[t]') # x-Label für Figure linke Seite
+    axs[1, 1].set_xlabel('Time[s]') # x-Label für Figure linke Seite
     axs[1, 1].grid()
     axs[1, 1].legend()
 

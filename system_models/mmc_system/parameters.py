@@ -25,10 +25,10 @@ pp_symb = [vdc, vg, omega, Lz, Mz, R, L] \
 vdc_sf = 300
 vg_sf = 235
 omega_sf = 2*sp.pi*5
-Lz_sf = 1.5
-Mz_sf = 0.94
+Lz_sf = 1.5/1000
+Mz_sf = 0.94/1000
 R_sf = 26
-L_sf = 3
+L_sf = 3/1000
 # List of symbolic parameter functions
 pp_sf = [vdc_sf, vg_sf, omega_sf, Lz_sf, Mz_sf, R_sf, L_sf]
 
