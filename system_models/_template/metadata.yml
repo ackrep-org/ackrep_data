@@ -1,3 +1,6 @@
+#link to documentation with examples: 
+#
+
 key: 
 predecessor_key: ''
 type: system_model
@@ -12,6 +15,6 @@ editor_list:
 creation_date: ''
 external_references: ''
 notes: ''
-estimated_runtime: '1s'
+estimated_runtime: ''
 system_model_file: system_model.py
 simulation_file: simulation.py

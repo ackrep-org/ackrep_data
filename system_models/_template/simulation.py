@@ -8,7 +8,17 @@ from ackrep_core import ResultContainer
 import matplotlib.pyplot as plt
 import os
 
+#link to documentation with examples: 
+#
+
+
 def simulate():
+    """
+    simulate the system model with scipy.integrate.solve_ivp
+         
+    :return: result of solve_ivp, might contains input function
+    """ 
+
     model = system_model.Model()
 
     rhs_xx_pp_symb = model.get_rhs_symbolic()
@@ -18,43 +28,41 @@ def simulate():
 
     rhs = model.get_rhs_func()
 
-    # --------------------------------------------------------------------
-    
-    # Initial State values  
+    # ---------start of edit section--------------------------------------
+    # initial state values  
     xx0 = ...
 
     t_end = ...
     tt = ...
-    sim = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
+    simulation_data = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
 
-    # if inputfunction exists:
-    uu = ...
-    sim.uu = uu
-
-
-    # --------------------------------------------------------------------
+    # define inputfunction
+    uu = ...        #uu = model.uu_func(sim.t, sim.y)
+    simulation_data.uu = uu
+    # ---------end of edit section----------------------------------------
     
-    save_plot(sim)
+    save_plot(simulation_data)
 
-    return sim  
+    return simulation_data  
 
 def save_plot(simulation_data):
+    """
+    save plot
+    access to data via: simulation_data.t   array of time values
+                        simulation_data.y   array of data components 
+                        simulation_data.uu  array of input values 
 
-    # --------------------------------------------------------------------
-
+    :param simulation_data: simulation_data of system_model     
+    :return: None
+    """ 
+    # ---------start of edit section--------------------------------------
     # plot of your data
-    # access to data via:
-    simulation_data.t
-    simulation_data.y
-    simulation_data.uu
     plt.plot(...)
 
-
-    # --------------------------------------------------------------------
+    # ---------end of edit section----------------------------------------
 
     plt.tight_layout()
 
-    ## static
     plot_dir = os.path.join(os.path.dirname(__file__), '_system_model_data')
     if not os.path.isdir(plot_dir):
         os.mkdir(plot_dir)
@@ -62,19 +70,20 @@ def save_plot(simulation_data):
 
 def evaluate_simulation(simulation_data):
     """
-    
+    assert that the simulation results are as expected
+
     :param simulation_data: simulation_data of system_model
     :return:
     """
-    #--------------------------------------------------------------------
+    # ---------start of edit section--------------------------------------
     # fill in final states of simulation to check your model
     # simulation_data.y[i][-1]
-    target_states = [...]
+    expected_final_state = [...]
     
-    # --------------------------------------------------------------------
+    # ---------end of edit section----------------------------------------
 
     rc = ResultContainer(score=1.0)
-    rc.target_state_errors = [simulation_data.y[i][-1] - target_states[i] for i in np.arange(0, len(simulation_data.y))]
-    rc.success = all(abs(np.array(rc.target_state_errors)) < 1e-2)
+    simulated_final_state = simulation_data.y[:, -1]
+    rc.success = np.allclose(expected_final_state, simulated_final_state)
     
     return rc
