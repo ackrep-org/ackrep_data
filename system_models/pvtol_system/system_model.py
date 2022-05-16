@@ -18,17 +18,12 @@ params = import_parameters(md["key"])
 class Model(GenericModel): 
     
     
-    def __init__(self, x_dim=None, u_func=None, pp=None):
+    def initialize(self):
         """
-        :param x_dim:(int, positive) dimension of the state vector 
-                                - has no effect for non-extendible systems
-        :param u_func:(callable) input function, args: time, state vector
-                        return: list of numerical input values 
-                        - has no effect for autonomous systems    
-        :param pp:(vector or dict-type with floats>0) parameter values
-        :return:
+        this function is called by the constructor of GenericModel
+
+        :return: None
         """
-        
 
         # Define number of inputs -- MODEL DEPENDENT
         self.u_dim = 2
@@ -37,20 +32,11 @@ class Model(GenericModel):
         # else set "sys_dim" to x_dim -- MODEL DEPENDENT
         self.sys_dim = 6
 
-        # Adjust sys_dim to dimension fitting to default parameters
-        # only needed for n extendable systems -- MODEL DEPENDENT
-        self.default_param_sys_dim = None
-       
-
         # check existance of params file
         self.has_params = True
         self.params = params
         
-        # Initialize     
-        super().__init__(x_dim=x_dim, u_func=u_func, pp=pp)
                                 
-
-
     # ----------- SET DEFAULT INPUT FUNCTION ---------- # 
     # --------------- Only for non-autonomous Systems
     # --------------- MODEL DEPENDENT
