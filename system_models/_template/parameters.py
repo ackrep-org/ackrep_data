@@ -18,14 +18,6 @@ model_name = ".."
 # ---------- create symbolic parameters
 pp_symb = [.., .., ..] = sp.symbols(".., .., ..", real=True)
 
-# symbolic parameter functions
-# parameter values can be constant/fixed values OR set in relation to other parameters (for example: a = 2*b)  
-.._sf = ..
-
-# list of symbolic parameter functions
-# trailing "_sf" stands for "symbolic parameter function"
-pp_sf = [.._sf, .._sf, .._sf]
-
 
 # ---------- create auxiliary symbolic parameters 
 # (parameters, which shall not be numerical represented in the parameter table)
@@ -34,6 +26,15 @@ pp_sf = [.._sf, .._sf, .._sf]
 # set numerical values of auxiliary parameters
 # trailing "_nv" stands for "numerical value"
 .._nv = ..
+
+
+# ---------- create symbolic parameter functions
+# parameter values can be constant/fixed values OR set in relation to other parameters (for example: a = 2*b)  
+.._sf = ..
+
+# list of symbolic parameter functions
+# trailing "_sf" stands for "symbolic parameter function"
+pp_sf = [.._sf, .._sf, .._sf]
 
 
 #  ---------- list for substitution

@@ -57,7 +57,7 @@ class Model(GenericModel):
 
             :param t:(scalar or vector) time
             :param xx_nv:(vector or array of vectors) numeric state vector
-            :return:(vector) numeric inputs 
+            :return:(list) numeric inputs 
             """ 
             
             return [..]
@@ -80,9 +80,9 @@ class Model(GenericModel):
 
         # ---------start of edit section--------------------------------------
         x1, x2, .. = self.xx_symb   #state components
-        x1, x2, .. = self.pp_symb   #parameters
+        p1, p2, .. = self.pp_symb   #parameters
     
-        x1, x2, .. = self.uu_symb   # inputs
+        u1, u2, .. = self.uu_symb   # inputs
 
         # define symbolic rhs functions
         dx1_dt = ..
