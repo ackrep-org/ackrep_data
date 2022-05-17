@@ -30,7 +30,7 @@ def simulate():
     t_end = 5
     tt = times = np.linspace(0,t_end,10000) 
     sim = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
-    # if inputfunction exists:
+
     uu = model.uu_func(sim.t, xx0)[0] *0.005 +180
     sim.uu = uu
 
@@ -78,8 +78,10 @@ def evaluate_simulation(simulation_data):
     :return:
     """
     
-    target_states = [3.1206479177994066, 0.22532090507016805]
+    expected_final_state = [3.1206479177994066, 0.22532090507016805]
 
-    success = all(abs(simulation_data.y[i][-1] - target_states[i]) < 1e-2 for i in np.arange(0, len(simulation_data.y)))
-    
-    return ResultContainer(success=success, score=1.0)
+    rc = ResultContainer(score=1.0)
+    simulated_final_state = simulation_data.y[:, -1]
+    rc.success = np.allclose(expected_final_state, simulated_final_state)
+
+    return rc

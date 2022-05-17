@@ -21,24 +21,16 @@ params = None
 
 class Model(GenericModel): 
     
-    def __init__(self, x_dim=1, u_func=None, pp=None):
+    def initialize(self):
         """
-        :param x_dim:(int, positive) dimension of the state vector 
-                                - has no effect for non-extendible systems
-        :param u_func:(callable) input function, args: time, state vector
-                        return: list of numerical input values 
-                        - has no effect for autonomous systems    
-        :param pp:(vector or dict-type with floats>0) parameter values
-        :return:
+        this function is called by the constructor of GenericModel
+
+        :return: None
         """
         
         
         # Define number of inputs -- MODEL DEPENDENT
         self.u_dim = 1
-
-        # Set "sys_dim" to constant value, if system dimension is constant 
-        # else set "sys_dim" to x_dim -- MODEL DEPENDENT
-        self.sys_dim = x_dim
 
         # Adjust sys_dim to dimension fitting to default parameters
         # only needed for n extendable systems -- MODEL DEPENDENT
@@ -49,12 +41,6 @@ class Model(GenericModel):
         self.has_params = True
         self.params = params
 
-        # Initialize     
-        super().__init__(x_dim=x_dim, u_func=u_func, pp=pp)
-        
-
-
-                                
 
     # ----------- SET DEFAULT INPUT FUNCTION ---------- # 
     # --------------- Only for non-autonomous Systems
@@ -80,9 +66,9 @@ class Model(GenericModel):
         # Wrapper function to unify function arguments
         def uu_rhs(t, xx_nv):
             """
-            :param t:(scalar or vector) Time
+            :param t:(vector) time
             :param xx_nv:(vector or array of vectors) numeric state vector
-            :return:(scalar or vector) numeric inputs 
+            :return:(vector) numeric inputs 
             """
             res = transition_func(t)
             return res
@@ -109,23 +95,3 @@ class Model(GenericModel):
         return self.dxx_dt_symb
 
 
-
-    
-    # ----------- VALIDATE PARAMETER VALUES ---------- #
-    # -------------- MODEL DEPENDENT 
-    
-    def _validate_p_values(self, p_value_list):
-        """ raises exception if values in list aren't valid 
-        :param p_value_list:(float) list of parameter values
-        """
-        # Check for convertability to float
-        try: float(p_value_list)
-        except ValueError:
-                raise Exception(":param pp: Values are not valid. \
-                                (aren't convertible to float)")
-                                 
-        #--- MODEL DEPENDENT 
-        # possible to include, not necessary                         
-        # Check if values are in required range                          
-        assert not any(flag <= 0 for flag in p_value_list), \
-                        ":param pp: does have values <= 0"

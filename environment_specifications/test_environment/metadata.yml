@@ -1,0 +1,15 @@
+---
+key: CDAMA
+type: environment_specification
+name: test_environment
+short_description: almost the same as default environment
+version: 0.1.0
+creator: Julius Fiedler <julius.fiedler@mailbox.tu-dresden.de
+editor_list:
+creation_date: 2022-05-17 14:27:00
+external_references:
+tag_list:
+    - draft
+    - python
+notes: >
+    This is a rough stub version of an environment specification. It needs to be completed in the future

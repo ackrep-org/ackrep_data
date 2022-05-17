@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Jun 11 13:51:06 2021
 
-@author: Jonathan Rockstroh
-"""
 import sys
 import os
 import numpy as np
@@ -14,26 +9,27 @@ import tabulate as tab
 
 # Trailing "_nv" stands for "numerical value"
 
+# SET MODEL NAME
+model_name = "PVTOL with 2 forces"
 
-model_name = "Lorenz_Attractor"
 
 # CREATE SYMBOLIC PARAMETERS
-pp_symb = [r, b, sigma] = sp.symbols('r, b, sigma', real = True)
+pp_symb = [g, l, m, J] = sp.symbols('g, l, m, J', real = True)
 
 
-
-# SYMBOLIC PARAMETER FUNCTIONS  
-r_sf = 35
-b_sf = 2
-sigma_sf = 20
-
+# SYMBOLIC PARAMETER FUNCTIONS
+# parameter values can be constant/fixed values OR set in relation to other parameters (for example: a = 2*b)  
+g_sf = 9.81
+l_sf = 0.1
+m_sf = 0.25
+J_sf = 0.00076
 
 # List of symbolic parameter functions
-pp_sf = [r_sf, b_sf, sigma_sf]
+pp_sf = [g_sf,l_sf,m_sf,J_sf]
 
-
-# List for Substitution 
 pp_subs_list = []
+
+
 
 # OPTONAL: Dictionary which defines how certain variables shall be written
 # in the tabular - key: Symbolic Variable, Value: LaTeX Representation/Code
@@ -42,21 +38,22 @@ latex_names = {}
 
 
 
-
 # ---------- CREATE BEGIN OF LATEX TABULAR
-# Define tabular Header 
 
+# Define tabular Header 
 # DON'T CHANGE FOLLOWING ENTRIES: "Symbol", "Value"
-tabular_header = ["Parameter Name", "Symbol", "Value"]
+tabular_header = ["Parametername", "Symbol", "Value", "Unit"]
 
 # Define column text alignments
-col_alignment = ["left", "center", "left"]
+col_alignment = ["left", "center", "left", "center"]
+
 
 # Define Entries of all columns before the Symbol-Column
 # --- Entries need to be latex code
-col_1 = ["Prandtl Number", 
-         "Raileight coeff",
-         "Parameter"
+col_1 = ["acceleration due to gravity", 
+         "distance of forces to mass center",
+         "mass",
+         "moment of inertia"
          ] 
 
 # contains all lists of the columns before the "Symbol" Column
@@ -64,7 +61,15 @@ col_1 = ["Prandtl Number",
 start_columns_list = [col_1]
 
 
+# Define Entries of the columns after the Value-Column
+# --- Entries need to be latex code
+col_4 = [r"$\frac{\mathrm{m}}{\mathrm{s}^2}$", 
+         "m",
+         "kg",
+         r"$\mathrm{kg} \cdot \mathrm{m}^2$"
+         ]
+
 # contains all lists of columns after the FIX ENTRIES
 # --- Empty list, if there are no columns after the "Value" column
-end_columns_list = []
+end_columns_list = [col_4]
 

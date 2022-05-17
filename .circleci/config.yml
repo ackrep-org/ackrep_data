@@ -6,7 +6,7 @@ jobs: # A basic unit of work in a run
       # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
       - image: cimg/python:3.8
         environment: # environment variables for primary container
-          SKIP_TEST_CREATE_PDF: "True"
+          NO_IPS_EXCEPTHOOK: "True"
     steps: # steps that comprise the `build` job
       - checkout # check out source code to working directory
       - run:
@@ -29,7 +29,6 @@ jobs: # A basic unit of work in a run
             pip install -r requirements.txt
             pip install -e .
             python manage.py makemigrations
-            ackrep --bootstrap-db
       - save_cache: # cache Python dependencies using checksum of requirements as the cache-key
           key: deps1--{{ checksum "../ackrep_core/requirements.txt" }}
           paths:
@@ -38,6 +37,8 @@ jobs: # A basic unit of work in a run
           name: Check all System Models
           command: | 
             . venv/bin/activate
+            ackrep --bootstrap-db
+            ackrep -l .
             ackrep --check-all-system-models
 
 workflows:
