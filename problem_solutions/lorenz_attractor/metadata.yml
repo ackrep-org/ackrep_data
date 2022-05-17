@@ -16,7 +16,7 @@ solved_problem_list:
     - S2V8V
 method_package_list:
     - ''
-compatible_environment:
+compatible_environment: "CDAMA"
 estimated_runtime: '1s'
 solution_file: solution.py
 postprocessing_file: ''
