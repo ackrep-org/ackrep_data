@@ -15,7 +15,7 @@ import tabulate as tab
 model_name = "Kapitzas_Pendulum"
 
 # --------- CREATE SYMBOLIC PARAMETERS
-pp_symb = [l, g, a, omega, gamma] = sp.symbols('l, g, a, omega, gamma', real = True)
+pp_symb = [l, g, a, omega, gamma] = sp.symbols('l, g, a, omega, gamma', real=True)
 
 # -------- CREATE AUXILIARY SYMBOLIC PARAMETERS 
 # (parameters, which shall not be numerical represented in the parameter tabular)

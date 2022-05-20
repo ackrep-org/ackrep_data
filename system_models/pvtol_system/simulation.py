@@ -94,12 +94,13 @@ def evaluate_simulation(simulation_data):
     :return:
     """
     # fill in the final states y[i][-1] to check your model
-    target_states = [-44.216119976296774, -3.680370979746213, 45.469521639337344, -43.275661598545256, -0.00037156407418776797, -0.00033632680535548506]
+    expected_final_state = [-44.216119976296774, -3.680370979746213, 45.469521639337344, -43.275661598545256, -0.00037156407418776797, -0.00033632680535548506]
     
     # --------------------------------------------------------------------
 
     rc = ResultContainer(score=1.0)
-    rc.target_state_errors = [simulation_data.y[i][-1] - target_states[i] for i in np.arange(0, len(simulation_data.y))]
-    rc.success = all(abs(np.array(rc.target_state_errors)) < 1e-2)
+    simulated_final_state = simulation_data.y[:, -1]
+    rc.target_state_errors = [simulated_final_state[i] - expected_final_state[i] for i in np.arange(0, len(simulated_final_state))]
+    rc.success = np.allclose(expected_final_state, simulated_final_state)
     
     return rc

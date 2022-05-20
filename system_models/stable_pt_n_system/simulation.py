@@ -110,10 +110,13 @@ def evaluate_simulation(simulation_data):
     :return:
     """
 
-    target_states = [-2.369685579668774, -1.0626757541773422, -0.6428946899596174, 0.12607608396072245, 0.13375873500072138]
+    expected_final_state = [-2.369685579668774, -1.0626757541773422, -0.6428946899596174, 0.12607608396072245, 0.13375873500072138]
 
     rc = ResultContainer(score=1.0)
-    rc.target_state_errors = [simulation_data[i].y[0][-1] - target_states[i] for i in np.arange(0, len(simulation_data))]
-    rc.success = all(abs(np.array(rc.target_state_errors)) < 1e-2)
+    simulated_final_state = np.zeros(len(simulation_data))
+    for i in range (len(simulation_data)):
+        simulated_final_state[i] = simulation_data[i].y[0][-1]
+    rc.target_state_errors = [simulated_final_state[i] - expected_final_state[i] for i in np.arange(0, len(simulated_final_state))]
+    rc.success = np.allclose(expected_final_state, simulated_final_state)
     
     return rc

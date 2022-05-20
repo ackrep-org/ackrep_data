@@ -32,7 +32,6 @@ class Model(GenericModel):
         # Define number of inputs -- MODEL DEPENDENT
         self.u_dim = 1
 
-        # Adjust sys_dim to dimension fitting to default parameters
         # only needed for n extendable systems -- MODEL DEPENDENT
         self.default_param_sys_dim = 3
      

@@ -22,7 +22,7 @@ def simulate():
     
     
     xx0 = [0, 0, 0+0j, 0+0j, 0+0j, 0, 0+0j, 0]
-    t_end = 4
+    t_end = 3
     tt = np.linspace(0, t_end, 10000)
     # use separate written model/rhs functions
     #sol = solve_ivp(MMC_NP.MMC_model, (0, t_end), xx0, t_eval=tt)
@@ -115,12 +115,13 @@ def evaluate_simulation(simulation_data):
     #--------------------------------------------------------------------
     # fill in final states of simulation to check your model
     # simulation_data.y[i][-1]
-    target_states = [56.00010840992848+0j, 9.241054675268499+0j, 9.463364142654473-18.73632876714279j, -47.55520379428192+131.90680874695636j, 0j, 16.504924039370916+0j, 9.99999999999999+1.7084490323538374e-17j, 125.66370614359165+0j]
+    expected_final_state = [56.00010840992848+0j, 9.241054675268499+0j, 9.463364142654473-18.73632876714279j, -47.55520379428192+131.90680874695636j, 0j, 16.504924039370916+0j, 9.99999999999999+1.7084490323538374e-17j, 125.66370614359165+0j]
     
     # --------------------------------------------------------------------
 
     rc = ResultContainer(score=1.0)
-    rc.target_state_errors = [simulation_data.y[i][-1] - target_states[i] for i in np.arange(0, len(simulation_data.y))]
-    rc.success = all(abs(np.array(rc.target_state_errors)) < 1e-2)
+    simulated_final_state = simulation_data.y[:, -1]
+    rc.target_state_errors = [simulated_final_state[i] - expected_final_state[i] for i in np.arange(0, len(simulated_final_state))]
+    rc.success = np.allclose(expected_final_state, simulated_final_state)
     
     return rc
