@@ -37,7 +37,7 @@ def simulate():
     simulation_data = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
 
     # define inputfunction
-    uu = ...        #uu = model.uu_func(sim.t, sim.y)
+    uu = ...        #uu = model.uu_func(simulation_data.t, ...)
     simulation_data.uu = uu
     # ---------end of edit section----------------------------------------
     
@@ -47,7 +47,7 @@ def simulate():
 
 def save_plot(simulation_data):
     """
-    save plot
+    plot your data and save the plot
     access to data via: simulation_data.t   array of time values
                         simulation_data.y   array of data components 
                         simulation_data.uu  array of input values 
