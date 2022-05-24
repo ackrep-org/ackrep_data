@@ -23,7 +23,7 @@ def simulate():
 
     rhs_xx_pp_symb = model.get_rhs_symbolic()
 
-    print("The input function only consists of the upper half wave of a sinus function. Otherwise it is zero.\n")
+    print("The input function only consists of the positive half wave of a sinus function. Otherwise it is zero.\n")
 
     print("Computational Equations:\n")
     for i, eq in enumerate(rhs_xx_pp_symb):

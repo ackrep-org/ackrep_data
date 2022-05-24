@@ -12,6 +12,7 @@ import symbtools as st
 import matplotlib.pyplot as plt
 import method_trajectory_planning as tp  # noqa
 from pyblocksim import *
+import os
 
 
 class SolutionData:
@@ -64,6 +65,8 @@ def solve(problem_spec):
     solution_data.y_func = y_func
     solution_data.tt = t1
 
+    save_plot(problem_spec, solution_data)
+
     return solution_data
 
 
@@ -83,4 +86,12 @@ def save_plot(problem_spec, solution_data):
     plt.xlabel('time [s]')
     plt.ylabel('force [N]')
     plt.title('external force')
-    plt.show()
+    
+    plt.tight_layout()
+
+    sol_dir = os.path.join(os.path.dirname(__file__), '_solution_data')
+
+    if not os.path.isdir(sol_dir):
+        os.mkdir(sol_dir)
+
+    plt.savefig(os.path.join(sol_dir, 'plot.png'), dpi=96*2)
