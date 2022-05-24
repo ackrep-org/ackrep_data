@@ -50,7 +50,7 @@ class Model(GenericModel):
         :return:(function with 2 args - t, xx_nv) default input function 
         """ 
         T = 5
-        f1 = 5*sp.sin(2*sp.pi*self.t_symb/T)
+        f1 = 2000*sp.sin(2*sp.pi*self.t_symb/T)
         u_symb_func = st.piece_wise((0, self.t_symb < 0), (f1, self.t_symb < T),
                                    (0, self.t_symb < 2*T), (f1, self.t_symb < 3*T),
                                    (0, self.t_symb < 4*T), (f1, self.t_symb < 5*T),

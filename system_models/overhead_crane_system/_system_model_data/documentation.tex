@@ -9,7 +9,7 @@
 
 %< > ... dummy content zur Veranschaulichung
 \begin{document}
-	\part*{Model Documentation of the \\ system-model-name} % MUST - Add Model Name 
+	\part*{Model Documentation of the \\ Overhead Crane} % MUST - Add Model Name 
 	
 	%%%%%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
@@ -18,8 +18,14 @@
 	
 	%variables for model equations
 	\begin{tabular}{ll}
-		$a$ & description \\
-		
+		$x_m$ & way of the load \\
+		$x_M$ & way of the wagon \\
+		$\varphi$ & angle of deflection of the load in relation to the center of the wagon\\
+		$m$ & mass of the load \\
+		$M$ & mass of the wagon \\
+		$l$ & rope length \\
+		$g$ & acceleration due to gravitation \\
+		$f$ & force that pushes the wagon \\
 				
 	\end{tabular}
 	 
@@ -35,29 +41,33 @@
 	
 	State Vector and Input Vector:
 	\begin{align*}
-		\underline{x} &= (x_1 \ x_2)^T \\
-		\underline{u} &= u_1
+		\underline{x} &= (x_1 \ x_2 \ x_3 \ x_4)^T = (x_M\ \varphi\ \dot{x}_M \ \dot{\varphi})^T\\
+		\underline{u} &= f
 	\end{align*}
 	
 	\noindent System Equations:			
 	\begin{subequations}
 	\begin{align}
-		\dot{x}_1 &= x_2 \\
-		\dot{x}_2 &= u_1x_1+a
+		\dot{x}_1 &= x_3 \\
+		\dot{x}_2 &= x_4 \\
+		\dot{x}_3 &= g\frac{m}{M}x_2 + \frac{1}{M}u \\
+		\dot{x}_4 &= -\frac{g}{l}(1 + \frac{m}{M})x_2 -  \frac{1}{lM}u
 	\end{align}
 	\end{subequations}
 
 	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\noindent
-	Parameters: $a$ % variables with constant, predefined value
+	Parameters: $m$ $M$ $l$ $g$ % variables with constant, predefined value
 	\\
-	Outputs: \textit{\textlangle not defined\textrangle} % MAY
+	Outputs: $x_m$ $x_M$ % MAY
 	
 	%%%%%%%%%%%%%%%%%%%%%% ASSUMPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	\subsection{Assumptions} % MAY 
 		\begin{enumerate} %possible list type for the Assumptions
-			\item Assumption 
+			\item The friction is neglected
+			\item Mass of the load is a pointmass
+			\item Mass of the wagon is a pointmass 
 		\end{enumerate}
 	
 	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%	
@@ -74,8 +84,7 @@
 	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	\begin{thebibliography}{10}		
-		\bibitem{But21}Author: 
-		\textit{titel}, published year
+		
 	\end{thebibliography}
 
 \end{document}

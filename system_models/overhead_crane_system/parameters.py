@@ -12,7 +12,7 @@ import tabulate as tab
 
 
 # set model name
-model_name = "overhead crane"
+model_name = "Overhead Crane"
 
 
 # ---------- create symbolic parameters
@@ -23,9 +23,9 @@ pp_symb = [m, M, l, g] = sp.symbols("m, M, l, g", real=True)
 
 # ---------- create symbolic parameter functions
 # parameter values can be constant/fixed values OR set in relation to other parameters (for example: a = 2*b)  
-m_sf = 20
-M_sf = 100
-l_sf = 3
+m_sf = 3000
+M_sf = 8000
+l_sf = 2
 g_sf = 9.81
 
 # list of symbolic parameter functions
@@ -51,15 +51,15 @@ latex_names = {}
 tabular_header = ["Parameter Name", "Symbol", "Value", "Unit"]
 
 # Define column text alignments
-col_alignment = ["left", "center", "left", "left"]
+col_alignment = ["left", "center", "left", "center"]
 
 
 # Define Entries of all columns before the Symbol-Column
 # --- Entries need to be latex code
-col_1 = ["mass of the last"
+col_1 = ["mass of the load",
          "mass of the wagon",
          "rope length", 
-         "acceleration due to gravitation",] 
+         "acceleration due to gravitation"] 
 
 # contains all lists of the columns before the "Symbol" Column
 # --- Empty list, if there are no columns before the "Symbol" Column

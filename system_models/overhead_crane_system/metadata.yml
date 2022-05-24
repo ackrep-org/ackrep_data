@@ -1,6 +1,3 @@
-#link to documentation with examples: 
-#
-
 key: BID9I
 predecessor_key: ''
 type: system_model
@@ -19,3 +16,6 @@ estimated_runtime: '10s'
 compatible_environment: ""
 system_model_file: system_model.py
 simulation_file: simulation.py
+
+#link to documentation with examples: 
+#

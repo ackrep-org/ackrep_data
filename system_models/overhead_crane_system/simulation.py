@@ -22,6 +22,9 @@ def simulate():
     model = system_model.Model()
 
     rhs_xx_pp_symb = model.get_rhs_symbolic()
+
+    print("The input function only consists of the upper half wave of a sinus function. Otherwise it is zero.\n")
+
     print("Computational Equations:\n")
     for i, eq in enumerate(rhs_xx_pp_symb):
         print(f"dot_x{i+1} =", eq)
@@ -35,6 +38,7 @@ def simulate():
     t_end = 30
     tt = np.linspace(0, t_end, 10000)
     simulation_data = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
+
 
     # define inputfunction
     #uu = ...        #uu = model.uu_func(simulation_data.t, ...)
@@ -88,7 +92,7 @@ def evaluate_simulation(simulation_data):
     # ---------start of edit section--------------------------------------
     # fill in final states of simulation to check your model
     # simulation_data.y[i][-1]
-    expected_final_state = [10, 10, 2, 2]
+    expected_final_state = [2.1728497064448518, 0.0009423970877500188, 0.01637704443827534, -0.029823575895959846]
     
     # ---------end of edit section----------------------------------------
 
