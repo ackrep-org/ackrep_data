@@ -1,7 +1,7 @@
 key: BID9I
 predecessor_key: ''
 type: system_model
-name: 'Overhead Crane'
+name: 'Loading Bridge'
 short_description: 'four ODEs and one input'
 version: 0.1.0
 tag_list:
