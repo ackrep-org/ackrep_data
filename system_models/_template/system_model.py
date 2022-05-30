@@ -14,8 +14,7 @@ md = get_metadata_from_file(yml_path)
 params = import_parameters(md["key"])
 
 
-#link to documentation with examples: 
-#
+#link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
 
 
 class Model(GenericModel): 

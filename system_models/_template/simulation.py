@@ -8,8 +8,7 @@ from ackrep_core import ResultContainer
 import matplotlib.pyplot as plt
 import os
 
-#link to documentation with examples: 
-#
+#link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
 
 
 def simulate():
