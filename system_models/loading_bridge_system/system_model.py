@@ -95,8 +95,8 @@ class Model(GenericModel):
         # define symbolic rhs functions
         dx1_dt = x3
         dx2_dt = x4
-        dx3_dt = g*m/M*x2 + u1/M 
-        dx4_dt = -g/l*(1+m/M)*x2 - 1/(l*M)*u1
+        dx3_dt = (u1 + (g * m * sp.sin(2 * x2))/2 + l*m*x4**2*sp.sin(x2)) / (M + m*(sp.sin(x2)**2))
+        dx4_dt = - (g * (M + m) * sp.sin(x2) + (u1 + l * m * x4 ** 2 * sp.sin(x2))* sp.cos(x2)) / (l * (M + m * (sp.sin(x2) ** 2)))
         
         # rhs functions list
         self.dxx_dt_symb = [dx1_dt, dx2_dt, dx3_dt, dx4_dt]

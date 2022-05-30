@@ -2,14 +2,14 @@ key: BID9I
 predecessor_key: ''
 type: system_model
 name: 'Loading Bridge'
-short_description: 'four ODEs and one input'
+short_description: 'nonlinear model, four ODEs and one input'
 version: 0.1.0
 tag_list:
     - 'crane'
 creator: 'Anne Harloff <anne.harloff{ät}mailbox.tu-dresden.de>'
 editor_list:
     - ''
-creation_date: '2022-05-24'
+creation_date: '2022-05-30'
 external_references: ''
 notes: ''
 estimated_runtime: '10s'

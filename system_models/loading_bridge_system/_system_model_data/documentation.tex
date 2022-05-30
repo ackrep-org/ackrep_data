@@ -50,8 +50,8 @@
 	\begin{align}
 		\dot{x}_1 &= x_3 \\
 		\dot{x}_2 &= x_4 \\
-		\dot{x}_3 &= g\frac{m}{M}x_2 + \frac{1}{M}u \\
-		\dot{x}_4 &= -\frac{g}{l}(1 + \frac{m}{M})x_2 -  \frac{1}{lM}u
+		\dot{x}_3 &= \frac{u_1 + \frac{gm\sin(2x_2)}{2} + lmx_42\sin(x_2)}{M + m\sin^2(x_2)} \\
+		\dot{x}_4 &= - \frac{g(M + m)\sin(x_2) + (u_1 + lmx_4^2\sin(x_2))\cos(x_2)}{l(M + m\sin^2(x_2))}
 	\end{align}
 	\end{subequations}
 
@@ -83,8 +83,9 @@
 	
 	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
-	\begin{thebibliography}{10}		
-		
+	\begin{thebibliography}{10}	
+		\bibitem{But21}Institut für Regelungs- und Steuerungstheorie TU Dresden: 
+		\textit{Regelungstechnik II, Übungsmaterial}, published in OPAL April 2020.	
 	\end{thebibliography}
 
 \end{document}
