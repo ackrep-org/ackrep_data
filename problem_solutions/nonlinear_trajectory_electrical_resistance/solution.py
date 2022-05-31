@@ -7,6 +7,7 @@ import sympy as sp
 import symbtools as st
 import matplotlib.pyplot as plt
 import method_trajectory_planning as tp  # noqa
+import os
 
 from scipy.integrate import odeint
 
@@ -59,6 +60,8 @@ def solve(problem_spec):
     solution_data.res = res
     solution_data.p2_func = tem_func
 
+    save_plot(problem_spec, solution_data)
+
     return solution_data
 
 
@@ -77,4 +80,11 @@ def save_plot(problem_spec, solution_data):
         plt.xlabel(problem_spec.x_label)
         plt.ylabel(problem_spec.y_label_state[i])
     plt.tight_layout()
-    plt.show()
+    
+    # save image
+    sol_dir = os.path.join(os.path.dirname(__file__), '_solution_data')
+
+    if not os.path.isdir(sol_dir):
+        os.mkdir(sol_dir)
+
+    plt.savefig(os.path.join(sol_dir, 'plot.png'), dpi=96*2)

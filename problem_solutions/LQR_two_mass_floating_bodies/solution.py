@@ -18,6 +18,7 @@ import matplotlib.pyplot as plt
 import symbtools as st
 from scipy.integrate import odeint
 import sympy as sp
+import os
 
 
 class SolutionData:
@@ -88,6 +89,8 @@ def solve(problem_spec):
     solution_data.poles = LQR_res.poles_lqr
     solution_data.xx1 = res2
 
+    save_plot(problem_spec, solution_data)
+
     return solution_data
 
 
@@ -108,4 +111,11 @@ def save_plot(problem_spec, solution_data):
             plt.ylabel('velocity m/s')
         plt.legend()
     plt.tight_layout()
-    plt.show()
+    
+    # save image
+    sol_dir = os.path.join(os.path.dirname(__file__), '_solution_data')
+
+    if not os.path.isdir(sol_dir):
+        os.mkdir(sol_dir)
+
+    plt.savefig(os.path.join(sol_dir, 'plot.png'), dpi=96*2)

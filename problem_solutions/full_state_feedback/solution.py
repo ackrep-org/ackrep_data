@@ -14,7 +14,7 @@ import symbtools as st
 from scipy.integrate import odeint
 import sympy as sp
 import matplotlib.pyplot as plt
-
+import os
 
 class SolutionData:
     pass
@@ -80,6 +80,8 @@ def solve(problem_spec):
     solution_data.input_fun = sfb.input_func  # controller function
     solution_data.yy = yy[0][0]  # system output
 
+    save_plot(problem_spec, solution_data)
+
     return solution_data
 
 
@@ -105,4 +107,11 @@ def save_plot(problem_spec, solution_data):
         plt.xlabel(problem_spec.x_label)
         plt.ylabel(problem_spec.y_label_output[i])
         plt.tight_layout()
-        plt.show()
+    
+    # save image
+    sol_dir = os.path.join(os.path.dirname(__file__), '_solution_data')
+
+    if not os.path.isdir(sol_dir):
+        os.mkdir(sol_dir)
+
+    plt.savefig(os.path.join(sol_dir, 'plot.png'), dpi=96*2)

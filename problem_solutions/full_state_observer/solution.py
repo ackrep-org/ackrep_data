@@ -17,7 +17,7 @@ from scipy.integrate import odeint
 import sympy as sp
 import numpy as np
 import matplotlib.pyplot as plt
-
+import os
 
 class SolutionData:
     pass
@@ -90,6 +90,8 @@ def solve(problem_spec):
     solution_data.observer_gain = observer_res.observer_gain  # observer gains
     solution_data.pre_filter = observer_res.pre_filter  # pre-filter
 
+    save_plot(problem_spec, solution_data)
+
     return solution_data
 
 
@@ -106,4 +108,11 @@ def save_plot(problem_spec, solution_data):
         plt.xlabel(problem_spec.x_label)
         plt.ylabel(problem_spec.y_label_state[i])
     plt.tight_layout()
-    plt.show()
+    
+    # save image
+    sol_dir = os.path.join(os.path.dirname(__file__), '_solution_data')
+
+    if not os.path.isdir(sol_dir):
+        os.mkdir(sol_dir)
+
+    plt.savefig(os.path.join(sol_dir, 'plot.png'), dpi=96*2)
