@@ -116,7 +116,7 @@ def evaluate_simulation(simulation_data):
     simulated_final_state = np.zeros(len(simulation_data))
     for i in range (len(simulation_data)):
         simulated_final_state[i] = simulation_data[i].y[0][-1]
-    rc.target_state_errors = [simulated_final_state[i] - expected_final_state[i] for i in np.arange(0, len(simulated_final_state))]
+    rc.final_state_errors = [simulated_final_state[i] - expected_final_state[i] for i in np.arange(0, len(simulated_final_state))]
     rc.success = np.allclose(expected_final_state, simulated_final_state)
     
     return rc

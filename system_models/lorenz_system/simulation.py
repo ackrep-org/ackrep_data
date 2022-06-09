@@ -59,7 +59,7 @@ def evaluate_simulation(simulation_data):
     expected_final_state = [-0.522566539750587, -0.830457089853563, 14.033163222999248]
     rc = ResultContainer(score=1.0)
     simulated_final_state = simulation_data.y[:, -1]
-    rc.target_state_errors = [simulated_final_state[i] - expected_final_state[i] for i in np.arange(0, len(simulated_final_state))]
+    rc.final_state_errors = [simulated_final_state[i] - expected_final_state[i] for i in np.arange(0, len(simulated_final_state))]
     rc.success = np.allclose(expected_final_state, simulated_final_state)
     
     return rc
