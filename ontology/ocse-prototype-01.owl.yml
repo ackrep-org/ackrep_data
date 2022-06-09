@@ -57,6 +57,8 @@
         SubClassOf: ACKREP_Entity
     - ACKREP_ProblemSolution:
         SubClassOf: ACKREP_Entity
+    - ACKREP_SystemModel:
+        SubClassOf: ACKREP_Entity
     - ACKREP_MethodPackage:
         SubClassOf: ACKREP_Entity
     - ACKREP_EnvironmentSpecification:
