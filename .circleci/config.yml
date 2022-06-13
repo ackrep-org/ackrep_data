@@ -56,19 +56,19 @@ jobs: # A basic unit of work in a run
             echo 3
             docker run --volumes-from dummy --entrypoint "/bin/ls" ghcr.io/ackrep-org/default_environment -n ../
       - run:
-          name: Check all System Models
-          command: | 
-            . venv/bin/activate
-            ackrep --bootstrap-db
-            ackrep -l .
-            ackrep --check-all-system-models
-      - run:
           name: Check all Solutions
           command: | 
             . venv/bin/activate
             ackrep --bootstrap-db
             ackrep -l .
             ackrep --check-all-solutions
+      - run:
+          name: Check all System Models
+          command: | 
+            . venv/bin/activate
+            ackrep --bootstrap-db
+            ackrep -l .
+            ackrep --check-all-system-models
 workflows:
   version: 2 
   build_and_test:
