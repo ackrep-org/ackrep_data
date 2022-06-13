@@ -36,6 +36,7 @@ def simulate():
     tt = np.linspace(0, t_end, 10000)
     simulation_data = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
 
+
     # define inputfunction
     #uu = ...        #uu = model.uu_func(simulation_data.t, ...)
     #simulation_data.uu = uu
@@ -82,7 +83,7 @@ def evaluate_simulation(simulation_data):
     # ---------start of edit section--------------------------------------
     # fill in final states of simulation to check your model
     # simulation_data.y[i][-1]
-    expected_final_state = [0, 0, 0, 0]
+    expected_final_state = [7842.281652263154, 7837.14937259626, 368.1695835700449, 421.78612604425365]
     
     # ---------end of edit section----------------------------------------
 
