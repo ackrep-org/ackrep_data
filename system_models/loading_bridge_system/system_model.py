@@ -3,6 +3,7 @@ import sympy as sp
 import symbtools as st
 import importlib
 import sys, os
+import numpy as np
 #from ipydex import IPS, activate_ips_on_exception  
 
 from ackrep_core.system_model_management import GenericModel, import_parameters
@@ -50,7 +51,7 @@ class Model(GenericModel):
         :return:(function with 2 args - t, xx_nv) default input function 
         """ 
         T = 5
-        f1 = 2000*sp.sin(2*sp.pi*self.t_symb/T)
+        f1 = 2*sp.sin(2*sp.pi*self.t_symb/T)
         u_symb_func = st.piece_wise((0, self.t_symb < 0), (f1, self.t_symb < T),
                                    (0, self.t_symb < 2*T), (f1, self.t_symb < 3*T),
                                    (0, self.t_symb < 4*T), (f1, self.t_symb < 5*T),
@@ -80,7 +81,7 @@ class Model(GenericModel):
         """
         define symbolic rhs function
 
-        :return: list of symbolic rhs-functions
+        :return: matrix of symbolic rhs-functions
         """
         if self.dxx_dt_symb is not None:
             return self.dxx_dt_symb
@@ -98,8 +99,8 @@ class Model(GenericModel):
         dx3_dt = (u1 + (g * m * sp.sin(2 * x2))/2 + l*m*x4**2*sp.sin(x2)) / (M + m*(sp.sin(x2)**2))
         dx4_dt = - (g * (M + m) * sp.sin(x2) + (u1 + l * m * x4 ** 2 * sp.sin(x2))* sp.cos(x2)) / (l * (M + m * (sp.sin(x2) ** 2)))
         
-        # rhs functions list
-        self.dxx_dt_symb = [dx1_dt, dx2_dt, dx3_dt, dx4_dt]
+        # rhs functions matrix
+        self.dxx_dt_symb = sp.Matrix([dx1_dt, dx2_dt, dx3_dt, dx4_dt])
         # ---------end of edit section----------------------------------------
 
 

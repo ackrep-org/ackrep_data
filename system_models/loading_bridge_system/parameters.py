@@ -23,9 +23,9 @@ pp_symb = [m, M, l, g] = sp.symbols("m, M, l, g", real=True)
 
 # ---------- create symbolic parameter functions
 # parameter values can be constant/fixed values OR set in relation to other parameters (for example: a = 2*b)  
-m_sf = 3000
-M_sf = 8000
-l_sf = 2
+m_sf = 0.25
+M_sf = 1
+l_sf = 1
 g_sf = 9.81
 
 # list of symbolic parameter functions

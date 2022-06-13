@@ -20,6 +20,8 @@ from scipy.integrate import odeint
 import sympy as sp
 import os
 
+from ipydex import IPS
+
 
 class SolutionData:
     pass
@@ -54,7 +56,7 @@ def solve(problem_spec):
     sys_f_body.tau = problem_spec.u  # inputs of the system
 
     # original nonlinear system functions
-    sys_f_body.n_state_func = problem_spec.rhs(problem_spec.xx, problem_spec.u)
+    sys_f_body.n_state_func = problem_spec.rhs(problem_spec.model)        
 
     # original output functions
     sys_f_body.n_out_func = problem_spec.output_func(problem_spec.xx, problem_spec.u)
@@ -63,6 +65,7 @@ def solve(problem_spec):
     # linearize nonlinear system around the chosen equilibrium point
     sys_f_body.sys_linerazition(parameter_values=None)
     tuple_system = (sys_f_body.aa, sys_f_body.bb, sys_f_body.cc, sys_f_body.dd)  # system tuple
+
 
     # calculate controller function
     LQR_res = mlqr.lqr_method(tuple_system, problem_spec.q, problem_spec.r, problem_spec.xx, problem_spec.eqrt,
