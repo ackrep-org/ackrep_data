@@ -56,6 +56,14 @@ jobs: # A basic unit of work in a run
             echo 3
             docker run --volumes-from dummy --entrypoint "/bin/ls" ghcr.io/ackrep-org/default_environment -n ../
       - run:
+          name: Show Versions
+          command: | 
+            echo default env version:
+            docker run --volumes-from dummy --entrypoint "tail" ghcr.io/ackrep-org/default_environment -1 ../Dockerfile_default_environment
+            echo core last commit:
+            cd ../ackrep_core
+            git log -1
+      - run:
           name: Check all Solutions
           command: | 
             . venv/bin/activate
