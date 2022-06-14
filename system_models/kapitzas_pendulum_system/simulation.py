@@ -27,14 +27,14 @@ def simulate():
     # Initial State values  
     xx0 = [200/360*2*np.pi,0]
 
-    t_end = 5
+    t_end = 10
     tt = times = np.linspace(0,t_end,10000) 
     sim = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
 
     uu = model.uu_func(sim.t, xx0)[0] *0.005 +180
     sim.uu = uu
 
-    
+
     save_plot(sim)
 
     return sim
@@ -78,7 +78,7 @@ def evaluate_simulation(simulation_data):
     :return:
     """
     
-    expected_final_state = [3.1206479177994066, 0.22532090507016805]
+    expected_final_state = [3.1432908256013783, -0.014961262100684384]
 
     rc = ResultContainer(score=1.0)
     simulated_final_state = simulation_data.y[:, -1]
