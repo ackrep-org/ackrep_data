@@ -54,7 +54,7 @@ def solve(problem_spec):
     sys_f_body.tau = problem_spec.u  # inputs of the system
 
     # original nonlinear system functions
-    sys_f_body.n_state_func = problem_spec.rhs(problem_spec.xx, problem_spec.u)
+    sys_f_body.n_state_func = problem_spec.rhs(problem_spec.model)
 
     # original output functions
     sys_f_body.n_out_func = problem_spec.output_func(problem_spec.xx, problem_spec.u)
