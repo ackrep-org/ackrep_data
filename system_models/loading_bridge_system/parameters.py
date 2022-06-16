@@ -57,7 +57,7 @@ col_alignment = ["left", "center", "left", "center"]
 # Define Entries of all columns before the Symbol-Column
 # --- Entries need to be latex code
 col_1 = ["mass of the load",
-         "mass of the wagon",
+         "mass of the cart",
          "rope length", 
          "acceleration due to gravitation"] 
 
