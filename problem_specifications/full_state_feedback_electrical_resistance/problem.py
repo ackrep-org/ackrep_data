@@ -50,7 +50,7 @@ class ProblemSpecification(object):
         Tr = 303.15  # reference temperature in [K]
         alpha = 3.93e-3  # temperature coefficient in [1/K]
         Ta = 293.15  # environment temperature in [K]
-        sigma = 5.67e-8  # Stefan–Boltzmann constant in [W/m**2/k**4]
+        sigma = 5.67e-8  # Stefan–Boltzmann constant in [W/(m**2 * K**4)]
         A = 0.0025  # surface area of resistance m ** 2
         c = 87  # heat capacity in [J/k]
         '''
