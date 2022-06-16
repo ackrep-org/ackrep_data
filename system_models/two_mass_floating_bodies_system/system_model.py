@@ -77,7 +77,7 @@ class Model(GenericModel):
         """
         define symbolic rhs function
 
-        :return: list of symbolic rhs-functions
+        :return: matrix of symbolic rhs-functions
         """
         if self.dxx_dt_symb is not None:
             return self.dxx_dt_symb
@@ -96,7 +96,7 @@ class Model(GenericModel):
         dx4_dt = (g*m2 + kf*(x1 - x2)) / m2
 
         # rhs functions list
-        self.dxx_dt_symb = [dx1_dt, dx2_dt, dx3_dt, dx4_dt]
+        self.dxx_dt_symb = sp.Matrix([dx1_dt, dx2_dt, dx3_dt, dx4_dt])
         # ---------end of edit section----------------------------------------
 
 

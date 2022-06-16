@@ -101,7 +101,7 @@ class Model(GenericModel):
     
     def get_rhs_symbolic(self):
         """
-        :return:(scalar or array) symbolic rhs-functions
+        :return:(matrix) symbolic rhs-functions
         """
         if self.dxx_dt_symb is not None:
             return self.dxx_dt_symb
@@ -121,7 +121,7 @@ class Model(GenericModel):
         dx6_dt = l/J * (u2 - u1) *2*sp.pi/360
         
         # put rhs functions into a vector
-        self.dxx_dt_symb = [dx1_dt, dx2_dt, dx3_dt, dx4_dt, dx5_dt, dx6_dt]
+        self.dxx_dt_symb = sp.Matrix([dx1_dt, dx2_dt, dx3_dt, dx4_dt, dx5_dt, dx6_dt])
         
         return self.dxx_dt_symb
     
