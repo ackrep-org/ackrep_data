@@ -5,8 +5,9 @@ from problem import ProblemSpecification
 from feedback import (AnalyticBacksteppingController,
                       ApproximatedBacksteppingController)
 
-import pyinduct as pi
 import matplotlib.pyplot as plt
+import matplotlib
+import pyinduct as pi
 
 import os
 
@@ -60,7 +61,10 @@ def solve(problem_spec: ProblemSpecification):
     sol_data.x = x_sim
 
     # visualization
-    pi.surface_plot(x_sim, title="Surface plots")
+    # avoid qt since there are problems when running headless in docker container
+    matplotlib.use('Agg')
+    pi.surface_plot(x_sim)#, title="Surface plots")
+    # pi.surface_plot(x_sim, title="Surface plots")
 
     sol_dir = os.path.join(os.path.dirname(__file__), '_solution_data')
 
