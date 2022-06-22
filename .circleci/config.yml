@@ -65,13 +65,15 @@ jobs: # A basic unit of work in a run
             git log -1
       - run:
           name: Check all Solutions
-          command: | 
+          command: |
             . venv/bin/activate
             ackrep --bootstrap-db
             ackrep -l .
             # ackrep --check-all-solutions
             mkdir /tmp/artifacts
             ackrep --test-ci
+            cd ../ackrep_core
+            ls
       # - run:
       #     name: Check all System Models
       #     command: | 
