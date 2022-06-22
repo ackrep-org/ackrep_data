@@ -79,6 +79,8 @@ jobs: # A basic unit of work in a run
       #       ackrep --bootstrap-db
       #       ackrep -l .
       #       ackrep --check-all-system-models
+      - store_test_results:
+          path: ../ackrep_core/ci_results.yaml
       - store_artifacts:
           path: ../ackrep_core/ci_results.yaml
 workflows:
