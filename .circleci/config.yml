@@ -70,7 +70,8 @@ jobs: # A basic unit of work in a run
             ackrep --bootstrap-db
             ackrep -l .
             # ackrep --check-all-solutions
-            ackrep --test-ci
+            mkdir /tmp/artifacts
+            ackrep --test-ci > /tmp/artifacts/art_1
       # - run:
       #     name: Check all System Models
       #     command: | 
