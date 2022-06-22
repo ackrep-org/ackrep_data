@@ -72,8 +72,8 @@ jobs: # A basic unit of work in a run
             # ackrep --check-all-solutions
             mkdir /tmp/artifacts
             ackrep --test-ci
-            cd ../ackrep_core
-            ls
+            ls ../ackrep_core
+            ls 
       # - run:
       #     name: Check all System Models
       #     command: | 
@@ -82,9 +82,9 @@ jobs: # A basic unit of work in a run
       #       ackrep -l .
       #       ackrep --check-all-system-models
       - store_test_results:
-          path: ../ackrep_core/ci_results.yaml
+          path: ci_results.yaml
       - store_artifacts:
-          path: ../ackrep_core/ci_results.yaml
+          path: ci_results.yaml
 workflows:
   version: 2 
   build_and_test:
