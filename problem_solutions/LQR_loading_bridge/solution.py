@@ -18,6 +18,9 @@ import matplotlib.pyplot as plt
 import symbtools as st
 from scipy.integrate import odeint
 import sympy as sp
+import os
+
+from ipydex import IPS
 
 
 class SolutionData:
@@ -53,7 +56,7 @@ def solve(problem_spec):
     sys_f_body.tau = problem_spec.u  # inputs of the system
 
     # original nonlinear system functions
-    sys_f_body.n_state_func = problem_spec.rhs(problem_spec.xx, problem_spec.u)
+    sys_f_body.n_state_func = problem_spec.rhs(problem_spec.model)        
 
     # original output functions
     sys_f_body.n_out_func = problem_spec.output_func(problem_spec.xx, problem_spec.u)
@@ -62,6 +65,7 @@ def solve(problem_spec):
     # linearize nonlinear system around the chosen equilibrium point
     sys_f_body.sys_linerazition(parameter_values=None)
     tuple_system = (sys_f_body.aa, sys_f_body.bb, sys_f_body.cc, sys_f_body.dd)  # system tuple
+
 
     # calculate controller function
     LQR_res = mlqr.lqr_method(tuple_system, problem_spec.q, problem_spec.r, problem_spec.xx, problem_spec.eqrt,
@@ -82,6 +86,8 @@ def solve(problem_spec):
     solution_data.state_feedback = LQR_res.state_feedback  # controller gain
     solution_data.poles = LQR_res.poles_lqr
     solution_data.yy = yy[0][0]
+
+    save_plot(problem_spec, solution_data)
 
     return solution_data
 
@@ -105,7 +111,7 @@ def save_plot(problem_spec, solution_data):
         else:
             plt.ylabel('angular velocity [rad/s]')
     plt.tight_layout()
-    plt.show()
+    
 
     plt.figure(2)
     plt.plot(problem_spec.tt, solution_data.yy)
@@ -114,4 +120,11 @@ def save_plot(problem_spec, solution_data):
     plt.ylabel('position [m]')
     plt.title('x-position of pendulum')
     plt.tight_layout()
-    plt.show()
+    
+    # save image
+    sol_dir = os.path.join(os.path.dirname(__file__), '_solution_data')
+
+    if not os.path.isdir(sol_dir):
+        os.mkdir(sol_dir)
+
+    plt.savefig(os.path.join(sol_dir, 'plot.png'), dpi=96*2)

@@ -34,39 +34,39 @@ def solve(problem_spec):
 
 
 def save_plot(problem_spec, solution_data):
-    fig1, axs = plt.subplots(nrows=2, ncols=2, figsize=(12.8,9.6))
+    fig1, axs = plt.subplots(nrows=3, ncols=1, figsize=(12.8,12))
 
     # print in axes top left 
-    axs[0, 0].plot(solution_data.res.t, np.real(solution_data.res.y[0] ), label = 'x-Position' )
-    axs[0, 0].plot(solution_data.res.t, np.real(solution_data.res.y[2] ), label = 'y-Position' )
-    axs[0, 0].plot(solution_data.res.t, np.real(solution_data.res.y[4]*180/np.pi ), label = 'angle' )
-    axs[0, 0].set_title('Position')
-    axs[0, 0].set_ylabel('Position [m]') # y-label Nr 1
-    axs[0, 0].set_xlabel('Time [s]') # x-Label für Figure linke Seite
-    axs[0, 0].grid()
-    axs[0, 0].legend()
+    axs[0].plot(solution_data.res.t, np.real(solution_data.res.y[0] ), label = 'x-Position' )
+    axs[0].plot(solution_data.res.t, np.real(solution_data.res.y[2] ), label = 'y-Position' )
+    axs[0].plot(solution_data.res.t, np.real(solution_data.res.y[4]*180/np.pi ), label = 'angle' )
+    axs[0].set_title('Position')
+    axs[0].set_ylabel('Position [m]') # y-label Nr 1
+    axs[0].set_xlabel('Time [s]') # x-Label für Figure linke Seite
+    axs[0].grid()
+    axs[0].legend()
 
-    axs[0, 1].plot(solution_data.res.t, solution_data.res.y[1], label = r'$v_x$')
-    axs[0, 1].plot(solution_data.res.t, solution_data.res.y[3], label = r'$v_y$')
-    axs[0, 1].plot(solution_data.res.t, solution_data.res.y[5]*180/np.pi , label = 'angular velocity')
-    axs[0, 1].set_title('Velocities')
-    axs[0, 1].set_ylabel('Velocity [m/s]')
-    axs[0, 1].set_xlabel('Time [s]')
-    axs[0, 1].grid()
-    axs[0, 1].legend()
+    axs[1].plot(solution_data.res.t, solution_data.res.y[1], label = r'$v_x$')
+    axs[1].plot(solution_data.res.t, solution_data.res.y[3], label = r'$v_y$')
+    axs[1].plot(solution_data.res.t, solution_data.res.y[5]*180/np.pi , label = 'angular velocity')
+    axs[1].set_title('Velocities')
+    axs[1].set_ylabel('Velocity [m/s]')
+    axs[1].set_xlabel('Time [s]')
+    axs[1].grid()
+    axs[1].legend()
 
     # print in axes bottom left
     uu = problem_spec.uu_func(solution_data.res.t, solution_data.res.y)
     g = 9.81  # m/s^2
     m = 0.25 # kg
     uu = np.array(uu)/(g*m)
-    axs[1, 0].plot(solution_data.res.t, uu[0] , label = 'Force left')
-    axs[1, 0].plot(solution_data.res.t, uu[1] , label = 'Force right')
-    axs[1, 0].set_title('Normalized Input Forces')
-    axs[1, 0].set_ylabel(r'Forces normalized to $F_g$') # y-label Nr 1
-    axs[1, 0].set_xlabel('Time [s]') # x-Label für Figure linke Seite
-    axs[1, 0].grid()
-    axs[1, 0].legend()
+    axs[2].plot(solution_data.res.t, uu[0] , label = 'Force left')
+    axs[2].plot(solution_data.res.t, uu[1] , label = 'Force right')
+    axs[2].set_title('Normalized Input Forces')
+    axs[2].set_ylabel(r'Forces normalized to $F_g$') # y-label Nr 1
+    axs[2].set_xlabel('Time [s]') # x-Label für Figure linke Seite
+    axs[2].grid()
+    axs[2].legend()
 
     # adjust subplot positioning and show the figure
     #fig1.suptitle('', fontsize=16)

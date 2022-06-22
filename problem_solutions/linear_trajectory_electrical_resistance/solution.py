@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 import method_trajectory_planning as tp  # noqa
 import control
 from control import matlab
-
+import os
 
 class SolutionData:
     pass
@@ -81,6 +81,8 @@ def solve(problem_spec):
     solution_data.y_2 = y_2[1]
     solution_data.y_func = y_func
 
+    save_plot(problem_spec, solution_data)
+
     return solution_data
 
 
@@ -93,4 +95,11 @@ def save_plot(problem_spec, solution_data):
     plt.ylabel('position [m]')
     plt.title('x-position of pendulum')
     plt.legend(loc=2)
-    plt.show()
+    
+    # save image
+    sol_dir = os.path.join(os.path.dirname(__file__), '_solution_data')
+
+    if not os.path.isdir(sol_dir):
+        os.mkdir(sol_dir)
+
+    plt.savefig(os.path.join(sol_dir, 'plot.png'), dpi=96*2)

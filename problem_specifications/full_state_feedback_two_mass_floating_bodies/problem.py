@@ -11,19 +11,21 @@ position of the both balls.
 import numpy as np
 import sympy as sp
 from ackrep_core import ResultContainer
+from system_models.two_mass_floating_bodies_system.system_model import Model
 
 j = 1j  # imaginary unit
 
 
 class ProblemSpecification(object):
     # system symbols for setting up the equation of motion
-    p1, p2, pdot1, pdot2 = sp.symbols("p1, p2, pdot1, pdot2")
-    xx = sp.Matrix([p1, p2, pdot1, pdot2])  # states of system
-    i = sp.Symbol("i")
-    u = [i]  # input of system
+    model = Model()
+    x1, x2, x3, x4 = model.xx_symb
+    xx = sp.Matrix(model.xx_symb)  # states of system
+    u1 = model.uu_symb[0] # input of system
+    u = [u1]
 
     # equilibrium points for linearization of the nonlinear system
-    eqrt = [(p1, 0.01), (p2, 0.049), (pdot1, 0), (pdot2, 0), (i, 5)]
+    eqrt = [(x1, 0.01), (x2, 0.049), (x3, 0), (x4, 0), (u1, 5)]
     xx0 = np.array([0.02, 0.05, 0, 0])  # initial condition
     tt = np.linspace(0, 10, 1000)  # vector for the time axis for simulating
     yr = 0  # reference output
@@ -40,32 +42,14 @@ class ProblemSpecification(object):
     graph_color = 'r'
     row_number = 2  # the number of images in each row
 
-    @staticmethod
-    def rhs(xx, uu):
+    def rhs(model):
         """ Right hand side of the equation of motion in nonlinear state space form
-        :param xx:   system states x1: position of Fe-ball, x2: position of CuZn-ball
+        :param xx:   system states
         :param uu:   system input
         :return:     nonlinear state space
         """
-        m1 = 0.05  # mass of the iron ball in kg
-        m2 = 0.04  # mass of the brass ball in kg
-        kf = 10  # Spring constant in N/m
-        g = 9.8  # acceleration of gravity in m/s^2
-        k1 = 4e-5  # geometry constant
-        k2 = 0.005  # air gap of magnet in m
-
-        x1, x2, x3, x4 = xx
-        u = uu
-
-        p1_dot = (g * m1 - u[0] * k1 / (k2 + x1) ** 2 - kf * (x1 - x2)) / m1
-        p2_dot = (g * m2 + kf * (x1 - x2)) / m2
-
-        ff = sp.Matrix([x3,
-                        x4,
-                        p1_dot,
-                        p2_dot])
-
-        return ff
+        
+        return sp.Matrix(model.get_rhs_symbolic_num_params())
 
     @staticmethod
     def output_func(xx, uu):
