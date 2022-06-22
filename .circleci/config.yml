@@ -60,7 +60,7 @@ jobs: # A basic unit of work in a run
           command: | 
             echo default env version:
             docker run --volumes-from dummy --entrypoint "tail" ghcr.io/ackrep-org/default_environment -1 ../Dockerfile_default_environment
-            echo core last commit:
+            printf "\ncore last commit\n:"
             cd ../ackrep_core
             git log -1
       - run:
@@ -69,14 +69,15 @@ jobs: # A basic unit of work in a run
             . venv/bin/activate
             ackrep --bootstrap-db
             ackrep -l .
-            ackrep --check-all-solutions
-      - run:
-          name: Check all System Models
-          command: | 
-            . venv/bin/activate
-            ackrep --bootstrap-db
-            ackrep -l .
-            ackrep --check-all-system-models
+            # ackrep --check-all-solutions
+            ackrep --test-ci
+      # - run:
+      #     name: Check all System Models
+      #     command: | 
+      #       . venv/bin/activate
+      #       ackrep --bootstrap-db
+      #       ackrep -l .
+      #       ackrep --check-all-system-models
 workflows:
   version: 2 
   build_and_test:
