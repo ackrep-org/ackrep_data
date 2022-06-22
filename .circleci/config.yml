@@ -19,7 +19,7 @@ jobs: # A basic unit of work in a run
             cd ../
             git clone https://github.com/ackrep-org/ackrep_core.git
             cd ackrep_core
-            git checkout Celery
+            git checkout develop
       - restore_cache:
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
           key: deps1--{{ checksum "../ackrep_core/requirements.txt" }}
@@ -78,6 +78,10 @@ jobs: # A basic unit of work in a run
       #       ackrep --bootstrap-db
       #       ackrep -l .
       #       ackrep --check-all-system-models
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: /tmp/artifacts
 workflows:
   version: 2 
   build_and_test:
