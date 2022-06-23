@@ -51,8 +51,9 @@ jobs: # A basic unit of work in a run
           command: |
             echo old images:
             docker images
-            echo remove all old images
-            docker rmi -f $(docker images -aq)
+            echo pulling default image
+            docker pull ghcr.io/ackrep-org/default_environment:latest
+            docker image prune -f
             docker images
             echo 1
             docker create -v /code/ackrep_data_for_unittests --name dummy alpine:3.4 /bin/true
