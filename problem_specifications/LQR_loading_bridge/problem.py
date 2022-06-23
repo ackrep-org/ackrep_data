@@ -43,9 +43,8 @@ class ProblemSpecification(object):
         
         return sp.Matrix(model.get_rhs_symbolic_num_params())
 
-
-    @staticmethod
-    def output_func(xx, uu):
+    @classmethod
+    def output_func(cls, xx, uu):
         """ output equation of the system
         :param xx:   system states
         :param uu:   system input (not used in this case)
@@ -53,7 +52,7 @@ class ProblemSpecification(object):
         """
         x1, x2, x3, x4 = xx
         u = uu
-        l = 1  # geometry constant
+        l = cls.model.pp_str_dict["l"]  # geometry constant
 
         return sp.Matrix([x1 + l * sin(x2)])
 
