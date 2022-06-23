@@ -21,23 +21,28 @@ def simulate():
     model = system_model.Model()
 
     rhs_xx_pp_symb = model.get_rhs_symbolic()
-    print("Computational Equations:\n")
-    for i, eq in enumerate(rhs_xx_pp_symb):
-        print(f"dot_x{i+1} =", eq)
+    print("Constraints:\n")
+    for i, eq in enumerate(rhs_xx_pp_symb[1]):
+        print(eq)
+    print("\n")
+    print("DAEs:\n")
+    for i, eq in enumerate(rhs_xx_pp_symb[0]):
+        print(eq)
 
     rhs = model.get_rhs_func()
 
     # ---------start of edit section--------------------------------------
     # initial state values  
-    xx0 = ...
+    xx0 = np.zeros(8)
 
     t_end = 10
     tt = np.linspace(0, t_end, 10000)
     simulation_data = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
+    
 
     # define inputfunction
-    uu = ...        #uu = model.uu_func(simulation_data.t, ...)
-    simulation_data.uu = uu
+    #uu = ...        #uu = model.uu_func(simulation_data.t, ...)
+    #simulation_data.uu = uu
     # ---------end of edit section----------------------------------------
     
     save_plot(simulation_data)
@@ -56,7 +61,19 @@ def save_plot(simulation_data):
     """ 
     # ---------start of edit section--------------------------------------
     # plot of your data
-    plt.plot(...)
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 7)); plt.sca(ax1)
+
+    ax1.plot(simulation_data.t, simulation_data.y[0])
+    ax1.plot(simulation_data.t, simulation_data.y[1])
+    ax1.plot(simulation_data.t, simulation_data.y[2])
+    ax1.set_title("angles")
+    ax1.grid()
+
+    ax2.plot(simulation_data.t, simulation_data.y[3])
+    ax2.plot(simulation_data.t, simulation_data.y[4])
+    ax2.plot(simulation_data.t, simulation_data.y[5])
+    ax2.set_title("angular velocities")
+    ax2.grid()
 
     # ---------end of edit section----------------------------------------
 
@@ -77,7 +94,7 @@ def evaluate_simulation(simulation_data):
     # ---------start of edit section--------------------------------------
     # fill in final states of simulation to check your model
     # simulation_data.y[i][-1]
-    expected_final_state = [...]
+    expected_final_state = np.zeros(8)
     
     # ---------end of edit section----------------------------------------
 
