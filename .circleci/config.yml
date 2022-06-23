@@ -80,7 +80,7 @@ jobs: # A basic unit of work in a run
       #       ackrep -l .
       #       ackrep --check-all-system-models
       - store_artifacts:
-          path: ../ackrep_ci_results
+          path: ../ackrep_ci_results/history
 workflows:
   version: 2 
   build_and_test:
