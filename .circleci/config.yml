@@ -56,9 +56,9 @@ jobs: # A basic unit of work in a run
             docker image prune -f
             docker images
             echo 1
-            docker create -v /code/ackrep_data_for_unittests --name dummy alpine:3.4 /bin/true
+            docker create -v /code/ackrep_data --name dummy alpine:3.4 /bin/true
             echo 2
-            docker cp /home/circleci/ackrep_data_for_unittests dummy:/code
+            docker cp /home/circleci/ackrep_data dummy:/code
             echo 3
             docker run --volumes-from dummy --entrypoint "/bin/ls" ghcr.io/ackrep-org/default_environment:latest -n ../
       - run:
