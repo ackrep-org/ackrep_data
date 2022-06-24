@@ -42,24 +42,21 @@ class ProblemSpecification(object):
     graph_color = 'r'
     row_number = 2  # the number of images in each row
 
-    def rhs(model):
+    @classmethod
+    def rhs(cls):
         """ Right hand side of the equation of motion in nonlinear state space form
-        :param xx:   system states
-        :param uu:   system input
         :return:     nonlinear state space
         """
         
-        return sp.Matrix(model.get_rhs_symbolic_num_params())
+        return sp.Matrix(cls.model.get_rhs_symbolic_num_params())
 
-    @staticmethod
-    def output_func(xx, uu):
+    @classmethod
+    def output_func(cls):
         """ output equation of the system
-        :param xx:   system states
-        :param uu:   system input (not used in this case)
         :return:     output equation y = x1
         """
-        x1, x2, x3, x4 = xx
-        u = uu
+        x1, x2, x3, x4 = cls.xx
+        u = cls.u
 
         return sp.Matrix([x1])
 

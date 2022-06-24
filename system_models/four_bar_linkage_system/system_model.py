@@ -1,10 +1,13 @@
 
 import sympy as sp
-from sympy import sin, cos
+from sympy import sin, cos, pi
 import symbtools as st
 import importlib
 import sys, os
-#from ipydex import IPS, activate_ips_on_exception  
+#from ipydex import IPS, activate_ips_on_exception 
+
+import symbtools.modeltools as mt
+ 
 
 from ackrep_core.system_model_management import GenericModel, import_parameters
 from ackrep_core.core import get_metadata_from_file
@@ -54,7 +57,9 @@ class Model(GenericModel):
     
         :return:(function with 2 args - t, xx_nv) default input function 
         """ 
-        
+        T = 10
+        f1 = 1*sp.sin(2*sp.pi*self.t_symb/T)
+        u_num_func = st.expr_to_func(self.t_symb, f1)
         # ---------start of edit section--------------------------------------
         def uu_rhs(t, xx_nv):
             """
@@ -65,7 +70,8 @@ class Model(GenericModel):
             :return:(list) numeric inputs 
             """ 
             
-            return [..]
+            u = u_num_func(t)
+            return [u]
         # ---------end of edit section----------------------------------------
 
         return uu_rhs
@@ -75,9 +81,8 @@ class Model(GenericModel):
 
     def get_rhs_symbolic(self):
         """
-        define symbolic rhs function
+        define symbolic model of odes
 
-        :return: matrix of symbolic rhs-functions
         """
         if self.dxx_dt_symb is not None:
             return self.dxx_dt_symb
@@ -88,28 +93,36 @@ class Model(GenericModel):
         p1, p2, q1, pdot1, pdot2, qdot1, lambda_1, lambda_2 = self.xx_symb   
         s1, s2, s3, m1, m2, m3, J1, J2, J3, l1, l2, l3, l4, kappa1, kappa2, g = self.pp_symb   #parameters
     
-        tau1 = self.uu_symb   # inputs
+        tau1 = self.uu_symb[0]   # inputs
 
-        pddot1, pddot2, qddot1 = sp.Symbols('pddot1, pddot2')
+        pddot1, pddot2, qddot1 = sp.symbols('pddot1, pddot2, qddot1')
+        ydot1, ydot2, ydot3, ydot4, ydot5, ydot6, ydot7, ydot8 = sp.symbols('ydot1, ydot2, ydot3, ydot4, ydot5, ydot6, ydot7, ydot8')
 
+        parameter_values = self.pp_dict
 
-        constraints = sp.Matrix([[l1*cos(q1) + l2*cos(p1 + q1) - l3*cos(p2) - l4], [l1*sin(q1) + l2*sin(p1 + q1) - l3*sin(p2)]])
+        mod = mt.SymbolicModel()
 
-        odes = sp.Matrix([[J2*pddot1 + J2*qddot1 + g*m2*s2*cos(p1 + q1) + l1*m2*qddot1*s2*cos(p1) + l1*m2*qdot1**2*s2*sin(p1) + 
-                            l2*lambda_1*sin(p1 + q1) - l2*lambda_2*cos(p1 + q1) + m2*pddot1*s2**2 + m2*qddot1*s2**2], 
-                         [J3*pddot2 + g*m3*s3*cos(p2) - l3*lambda_1*sin(p2) + l3*lambda_2*cos(p2) + m3*pddot2*s3**2], 
-                         [J1*qddot1 + J2*pddot1 + J2*qddot1 + g*l1*m2*cos(q1) + g*m1*s1*cos(q1) + g*m2*s2*cos(p1 + q1) + l1**2*m2*qddot1 + 
-                            l1*lambda_1*sin(q1) - l1*lambda_2*cos(q1) + l1*m2*pddot1*s2*cos(p1) - l1*m2*pdot1**2*s2*sin(p1) - 
-                            2*l1*m2*pdot1*qdot1*s2*sin(p1) + 2*l1*m2*qddot1*s2*cos(p1) + l2*lambda_1*sin(p1 + q1) - l2*lambda_2*cos(p1 + q1) + 
-                            m1*qddot1*s1**2 + m2*pddot1*s2**2 + m2*qddot1*s2**2 - tau1]])
+        mod.constraints = sp.Matrix([[l1*cos(q1) + l2*cos(p1 + q1) - l3*cos(p2) - l4], [l1*sin(q1) + l2*sin(p1 + q1) - l3*sin(p2)]])
 
-        
-        # rhs functions matrix
-        self.eqns = odes
-        self.constraints = constraints
+        eqns1 = [J2*pddot1 + J2*qddot1 + g*m2*s2*cos(p1 + q1) + l1*m2*qddot1*s2*cos(p1) + l1*m2*qdot1**2*s2*sin(p1) 
+                + l2*lambda_1*sin(p1 + q1) - l2*lambda_2*cos(p1 + q1) + m2*pddot1*s2**2 + m2*qddot1*s2**2]
+        eqns2 = [J3*pddot2 + g*m3*s3*cos(p2) - l3*lambda_1*sin(p2) + l3*lambda_2*cos(p2) + m3*pddot2*s3**2]
+        eqns3 = [J1*qddot1 + J2*pddot1 + J2*qddot1 + g*l1*m2*cos(q1) + g*m1*s1*cos(q1) + g*m2*s2*cos(p1 + q1) 
+                + l1**2*m2*qddot1 + l1*lambda_1*sin(q1) - l1*lambda_2*cos(q1) + l1*m2*pddot1*s2*cos(p1) 
+                - l1*m2*pdot1**2*s2*sin(p1) - 2*l1*m2*pdot1*qdot1*s2*sin(p1) + 2*l1*m2*qddot1*s2*cos(p1) 
+                + l2*lambda_1*sin(p1 + q1) - l2*lambda_2*cos(p1 + q1) + m1*qddot1*s1**2 + m2*pddot1*s2**2 
+                + m2*qddot1*s2**2 - tau1]
+        mod.eqns = sp.Matrix([eqns1, eqns2, eqns3])
+
+        mod.llmd = sp.Matrix([[lambda_1], [lambda_2]])
+        mod.tt = sp.Matrix([[p1], [p2], [q1]])
+        mod.ttd = sp.Matrix([[pdot1], [pdot2], [qdot1]])
+        mod.ttdd = sp.Matrix([[pddot1], [pddot2], [qddot1]])
+        mod.tau = sp.Matrix([[tau1]])
+
 
         # ---------end of edit section----------------------------------------
 
 
-        return [self.eqns, self.constraints]
+        return mod
     
