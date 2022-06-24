@@ -75,8 +75,8 @@ jobs: # A basic unit of work in a run
             . venv/bin/activate
             ackrep --bootstrap-db
             ackrep -l .
-            # ackrep --check-all-solutions
-            ackrep --test-ci
+            ackrep --check-all-entities
+
 
       # - run:
       #     name: Check all System Models
