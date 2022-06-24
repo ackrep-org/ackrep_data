@@ -8,6 +8,9 @@ from ackrep_core import ResultContainer
 import matplotlib.pyplot as plt
 import os
 
+from assimulo.solvers import IDA 
+from assimulo.problem import Implicit_Problem 
+
 #link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
 
 
@@ -20,29 +23,40 @@ def simulate():
 
     model = system_model.Model()
 
-    rhs_xx_pp_symb = model.get_rhs_symbolic()
+    mod = model.get_rhs_symbolic()
     print("Constraints:\n")
-    for i, eq in enumerate(rhs_xx_pp_symb[1]):
+    for i, eq in enumerate(mod.constraints):
         print(eq)
     print("\n")
-    print("DAEs:\n")
-    for i, eq in enumerate(rhs_xx_pp_symb[0]):
+    print("ODEs:\n")
+    for i, eq in enumerate(mod.eqns):
         print(eq)
 
-    rhs = model.get_rhs_func()
 
     # ---------start of edit section--------------------------------------
     # initial state values  
-    xx0 = np.zeros(8)
+    dae = mod.calc_dae_eq(model.pp_dict)
+    dae.generate_eqns_funcs()
 
-    t_end = 10
-    tt = np.linspace(0, t_end, 10000)
-    simulation_data = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
-    
+    (yy0, yyd0) = ([ 0.3       ,  1.74961317,  0.50948621,  0.        ,  0.        ,  0.        , -0.27535424,  0.5455313 ],
+                [  0.        ,   0.        ,   0.        ,  23.53968609,   2.82766884, -14.48960943,  -0.        ,   0.        ])
 
-    # define inputfunction
-    #uu = ...        #uu = model.uu_func(simulation_data.t, ...)
-    #simulation_data.uu = uu
+    t0 = 0
+
+    model = Implicit_Problem(dae.model_func, yy0, yyd0, t0)
+
+    sim = IDA(model)
+    sim.verbosity = 0
+
+    tfinal = 10.0        
+    ncp = 500            
+
+    tt_sol, yy_sol, yyd_sol = sim.simulate(tfinal, ncp) 
+
+    ttheta_sol = yy_sol[:, :mod.dae.ntt]
+    ttheta_d_sol = yy_sol[:, mod.dae.ntt:mod.dae.ntt*2]
+
+    simulation_data = [tt_sol, yy_sol, yyd_sol, ttheta_sol, ttheta_d_sol]
     # ---------end of edit section----------------------------------------
     
     save_plot(simulation_data)
@@ -63,17 +77,11 @@ def save_plot(simulation_data):
     # plot of your data
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 7)); plt.sca(ax1)
 
-    ax1.plot(simulation_data.t, simulation_data.y[0])
-    ax1.plot(simulation_data.t, simulation_data.y[1])
-    ax1.plot(simulation_data.t, simulation_data.y[2])
+    ax1.plot(simulation_data[0], simulation_data[3])
     ax1.set_title("angles")
-    ax1.grid()
 
-    ax2.plot(simulation_data.t, simulation_data.y[3])
-    ax2.plot(simulation_data.t, simulation_data.y[4])
-    ax2.plot(simulation_data.t, simulation_data.y[5])
+    ax2.plot(simulation_data[0], simulation_data[4])
     ax2.set_title("angular velocities")
-    ax2.grid()
 
     # ---------end of edit section----------------------------------------
 
