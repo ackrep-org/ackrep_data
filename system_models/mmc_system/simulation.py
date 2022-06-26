@@ -8,6 +8,8 @@ from ackrep_core import ResultContainer
 import matplotlib.pyplot as plt
 import os
 
+import time
+
 def simulate():
     model = system_model.Model()
 
@@ -19,19 +21,17 @@ def simulate():
     rhs = model.get_rhs_func()
 
     # --------------------------------------------------------------------
-    
+    start = time.time()
     
     xx0 = [0, 0, 0+0j, 0+0j, 0+0j, 0, 0+0j, 0]
     t_end = 3
     tt = np.linspace(0, t_end, 10000)
-    # use separate written model/rhs functions
-    #sol = solve_ivp(MMC_NP.MMC_model, (0, t_end), xx0, t_eval=tt)
     # use model class rhs
     sol = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
+
+    print("Dauer[s]: ", time.time() - start)
   
-
-    #y = np.abs(sol.y)
-
+    start = time.time()
     i = 0
     uu = [[], [], [], []]
 
@@ -45,6 +45,8 @@ def simulate():
 
 
     sol.uu = uu
+
+    print("Dauer[s]: ", time.time() - start)
 
     # --------------------------------------------------------------------
     
