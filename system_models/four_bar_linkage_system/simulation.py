@@ -1,6 +1,7 @@
 
 
 import numpy as np
+import sympy as sp
 import system_model
 from scipy.integrate import solve_ivp
 
@@ -10,6 +11,8 @@ import os
 
 from assimulo.solvers import IDA 
 from assimulo.problem import Implicit_Problem 
+
+from ipydex import IPS, activate_ips_on_exception 
 
 #link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
 
@@ -35,7 +38,9 @@ def simulate():
 
     # ---------start of edit section--------------------------------------
     # initial state values  
+    #parameter_values = model.pp_dict
     dae = mod.calc_dae_eq(model.pp_dict)
+
     dae.generate_eqns_funcs()
 
     (yy0, yyd0) = ([ 0.3       ,  1.74961317,  0.50948621,  0.        ,  0.        ,  0.        , -0.27535424,  0.5455313 ],
