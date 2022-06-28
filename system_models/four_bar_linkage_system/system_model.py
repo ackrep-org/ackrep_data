@@ -37,8 +37,6 @@ class Model(GenericModel):
         # Set "sys_dim" to constant value, if system dimension is constant 
         self.sys_dim = 8
 
-        #Set model type for calculation 
-        self.state_space_model = False
 
         # ---------end of edit section----------------------------------------
 
@@ -91,12 +89,15 @@ class Model(GenericModel):
         # ---------start of edit section--------------------------------------
 
         x1, x2, x3, xdot1, xdot2, xdot3,lambda_1, lambda_2= sp.symbols('x1, x2, x3, xdot1, xdot2, xdot3, lambda_1, lambda_2')  
-        s1, s2, s3, m1, m2, m3, J1, J2, J3, l1, l2, l3, l4, kappa1, kappa2, g = self.pp_symb   #parameters
-    
+        #s1, s2, s3, m1, m2, m3, J1, J2, J3, l1, l2, l3, l4, kappa1, kappa2, g = self.pp_symb  
+        params = sp.symbols('s1, s2, s3, m1, m2, m3, J1, J2, J3, l1, l2, l3, l4, kappa1, kappa2, g')
+        s1, s2, s3, m1, m2, m3, J1, J2, J3, l1, l2, l3, l4, kappa1, kappa2, g = params
+
         u1 = self.uu_symb[0]   # inputs
 
         xddot1, xddot2, xddot3 = sp.symbols('xddot1, xddot2, xddot3')
         
+
         mod = mt.SymbolicModel()
 
         mod.constraints = sp.Matrix([[l1*cos(x3) + l2*cos(x1 + x3) - l3*cos(x2) - l4], [l1*sin(x3) + l2*sin(x1 + x3) - l3*sin(x2)]])
@@ -116,7 +117,6 @@ class Model(GenericModel):
         mod.ttd = sp.Matrix([[xdot1], [xdot2], [xdot3]])
         mod.ttdd = sp.Matrix([[xddot1], [xddot2], [xddot3]])
         mod.tau = sp.Matrix([[u1]])
-
 
         # ---------end of edit section----------------------------------------
 
