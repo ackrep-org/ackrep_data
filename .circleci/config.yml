@@ -70,7 +70,7 @@ jobs: # A basic unit of work in a run
             cd ../ackrep_core
             git log -1
       - run:
-          name: Check all Solutions
+          name: Check all Entities
           command: |
             . venv/bin/activate
             ackrep --bootstrap-db
