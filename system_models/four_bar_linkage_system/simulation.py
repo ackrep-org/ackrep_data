@@ -1,6 +1,7 @@
 
 
 import numpy as np
+import sympy as sp
 import system_model
 from scipy.integrate import solve_ivp
 
@@ -10,6 +11,8 @@ import os
 
 from assimulo.solvers import IDA 
 from assimulo.problem import Implicit_Problem 
+
+from ipydex import IPS, activate_ips_on_exception 
 
 #link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
 
@@ -31,11 +34,15 @@ def simulate():
     print("ODEs:\n")
     for i, eq in enumerate(mod.eqns):
         print(eq)
+    print("\n")
 
 
     # ---------start of edit section--------------------------------------
     # initial state values  
-    dae = mod.calc_dae_eq(model.pp_dict)
+    parameter_values = list(model.pp_str_dict.items())
+
+    dae = mod.calc_dae_eq(parameter_values)
+
     dae.generate_eqns_funcs()
 
     (yy0, yyd0) = ([ 0.3       ,  1.74961317,  0.50948621,  0.        ,  0.        ,  0.        , -0.27535424,  0.5455313 ],
@@ -75,7 +82,7 @@ def save_plot(simulation_data):
     """ 
     # ---------start of edit section--------------------------------------
     # plot of your data
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 7)); plt.sca(ax1)
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15,9.6)); plt.sca(ax1)
 
     ax1.plot(simulation_data[0], simulation_data[3])
     ax1.set_title("angles")
@@ -102,13 +109,13 @@ def evaluate_simulation(simulation_data):
     # ---------start of edit section--------------------------------------
     # fill in final states of simulation to check your model
     # simulation_data.y[i][-1]
-    expected_final_state = np.zeros(8)
+    expected_final_state = [10, -0.9590433448132666, -77.45775485827751, -0.3229272828459006, -4.010051949304026]
     
     # ---------end of edit section----------------------------------------
 
     rc = ResultContainer(score=1.0)
-    simulated_final_state = simulation_data.y[:, -1]
-    rc.target_state_errors = [simulated_final_state[i] - expected_final_state[i] for i in np.arange(0, len(simulated_final_state))]
+    simulated_final_state = [simulation_data[0][-1], simulation_data[1][-1][-1], simulation_data[2][-1][-1], simulation_data[3][-1][-1], simulation_data[4][-1][-1]]
+    rc.final_state_errors = [simulated_final_state[i] - expected_final_state[i] for i in np.arange(0, len(simulated_final_state))]
     rc.success = np.allclose(expected_final_state, simulated_final_state, rtol=0, atol=1e-2)
     
     return rc
