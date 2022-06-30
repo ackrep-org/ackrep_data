@@ -22,6 +22,9 @@ pp_symb = [vdc, vg, omega, Lz, Mz, R, L] \
 # ------------ parameter values can be constant/fixed values OR 
 # ------------ set in relation to other parameters (for example: a = 2*b)
 # ------------ useful for a clean looking parameter table in the Documentation     
+
+# Due to performance of the simulation the parameters Lz, Mz and L are choosen to be scaled with 1/10
+
 vdc_sf = 300
 vg_sf = 235
 omega_sf = 2*sp.pi*5

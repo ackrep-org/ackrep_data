@@ -24,7 +24,6 @@ def simulate():
     rhs = model.get_rhs_func()
 
     # --------------------------------------------------------------------
-    start = time.time()
     
     xx0 = [0, 0, 0+0j, 0+0j, 0+0j, 0, 0+0j, 0]
     t_end = 3
@@ -32,23 +31,16 @@ def simulate():
     # use model class rhs
     sol = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
 
-    print("Dauer[s]: ", time.time() - start)
-  
-    start = time.time()
     i = 0
     n_rows = len(sol.t)
     n_cols = 4
     uu = np.zeros((n_rows, n_cols))
 
     while i < len(sol.t):
-        #IPS()
         uu[i, :] = model.uu_func(sol.t[i], sol.y[:, i])
         i = i+1
 
-
     sol.uu = uu
-
-    print("Dauer[s]: ", time.time() - start)
 
     # --------------------------------------------------------------------
     
@@ -99,7 +91,6 @@ def save_plot(sol):
     fig1.subplots_adjust(hspace=0.5)
     fig1.show()
 
-
     # --------------------------------------------------------------------
 
     plt.tight_layout()
@@ -112,14 +103,13 @@ def save_plot(sol):
 
 def evaluate_simulation(simulation_data):
     """
-    
     :param simulation_data: simulation_data of system_model
     :return:
     """
     #--------------------------------------------------------------------
     # fill in final states of simulation to check your model
     # simulation_data.y[i][-1]
-    expected_final_state = [56.00010840992848+0j, 9.241054675268499+0j, 9.463364142654473-18.73632876714279j, -47.55520379428192+131.90680874695636j, 0j, 16.504924039370916+0j, 9.99999999999999+1.7084490323538374e-17j, 125.66370614359165+0j]
+    expected_final_state = [(55.43841456212572+0j), (20.413747733428224+0j), (35.79509623855708-75.96575244375583j), (-72.91879818170683+485.1484950343515j), 0j, (17.557881788491308+0j), (9.991045345136369-3.6215387749437133j), (94.24777960769383+0j)]
     
     # --------------------------------------------------------------------
 
