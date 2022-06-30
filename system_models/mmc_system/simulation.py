@@ -9,6 +9,9 @@ import matplotlib.pyplot as plt
 import os
 
 import time
+from ipydex import IPS, activate_ips_on_exception
+activate_ips_on_exception()
+
 
 def simulate():
     model = system_model.Model()
@@ -25,7 +28,7 @@ def simulate():
     
     xx0 = [0, 0, 0+0j, 0+0j, 0+0j, 0, 0+0j, 0]
     t_end = 3
-    tt = np.linspace(0, t_end, 10000)
+    tt = np.linspace(0, t_end, 3000)
     # use model class rhs
     sol = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
 
@@ -33,14 +36,13 @@ def simulate():
   
     start = time.time()
     i = 0
-    uu = [[], [], [], []]
+    n_rows = len(sol.t)
+    n_cols = 4
+    uu = np.zeros((n_rows, n_cols))
 
     while i < len(sol.t):
-        tmp = model.uu_func(sol.t[i], sol.y[:, i])
-        n = 0
-        while n < len(uu):
-            uu[n].append(tmp[n])
-            n = n+1
+        #IPS()
+        uu[i, :] = model.uu_func(sol.t[i], sol.y[:, i])
         i = i+1
 
 
@@ -85,8 +87,8 @@ def save_plot(sol):
     axs[0, 1].legend()
 
     # print in axes bottom right
-    axs[1, 1].plot(sol.t, sol.uu[0] , label = 'vy')
-    axs[1, 1].plot(sol.t, sol.uu[1] , label = 'vy0')
+    axs[1, 1].plot(sol.t, sol.uu[:, 0] , label = 'vy')
+    axs[1, 1].plot(sol.t, sol.uu[:, 1] , label = 'vy0')
     axs[1, 1].set_ylabel('') # y-label Nr 1
     axs[1, 1].set_xlabel('Time[s]') # x-Label für Figure linke Seite
     axs[1, 1].grid()

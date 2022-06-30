@@ -46,15 +46,21 @@ class Model(GenericModel):
     
     def uu_default_func(self):
         """
-        :param t:(scalar or vector) Time
-        :param xx_nv: (vector or array of vectors) state vector with 
-                                                    numerical values at time t      
-        :return:(function with 2 args - t, xx_nv) default input function 
+        
+        :return: (function with 2 args - t, xx_nv) default input function 
         """ 
 
         vdc, vg, omega, Lz, Mz, R, L = list(self.pp_dict.values())
         Ind_sum = Mz + Lz
         def uu_rhs(t, xx_nv):
+            
+            """
+            :param t:(scalar or vector) Time
+            :param xx_nv: (vector or array of vectors) state vector with 
+                                                    numerical values at time t      
+            :return: [vy, vy0, vx, vx0]
+            
+            """ 
             	
             es0, ed0, es, ed, iss, iss0, i, theta = xx_nv
                    
@@ -97,7 +103,7 @@ class Model(GenericModel):
             vx0 = Kp*(iss0_ref - iss0) 
 
 
-            return [vy, vy0, vx, vx0]
+            return [np.real(vy), vy0, vx, vx0]
         
         return uu_rhs
 
