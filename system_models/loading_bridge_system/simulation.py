@@ -92,7 +92,7 @@ def evaluate_simulation(simulation_data):
     # ---------start of edit section--------------------------------------
     # fill in final states of simulation to check your model
     # simulation_data.y[i][-1]
-    expected_final_state = [38.21019719950329, -0.06493010362824587, 0.04889545920321852, -0.24502061548776996]
+    expected_final_state = [19.113936156609768, -0.0023747095479253674, 0.04470903934877705, -0.21878088945846508]
     
     # ---------end of edit section----------------------------------------
 
