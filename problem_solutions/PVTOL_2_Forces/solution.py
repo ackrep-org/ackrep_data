@@ -13,7 +13,10 @@ class SolutionData:
 
 
 def solve(problem_spec):
-    xx_res = solve_ivp(problem_spec.rhs, [problem_spec.tt[0], problem_spec.tt[-1]],
+
+    rhs = problem_spec.model.get_rhs_func()
+
+    xx_res = solve_ivp(rhs, [problem_spec.tt[0], problem_spec.tt[-1]],
                                      problem_spec.xx0, method='RK45', t_eval=problem_spec.tt)
                                      
     # todo why does problem_spec.tt work
@@ -56,10 +59,10 @@ def save_plot(problem_spec, solution_data):
     axs[1].legend()
 
     # print in axes bottom left
-    uu = problem_spec.uu_func(solution_data.res.t, solution_data.res.y)
-    g = 9.81  # m/s^2
-    m = 0.25 # kg
-    uu = np.array(uu)/(g*m)
+    uu = problem_spec.model.uu_func(solution_data.res.t, solution_data.res.y)
+    g = problem_spec.model.pp_symb[0]
+    m = problem_spec.model.pp_symb[2]
+    uu = np.array(uu)/(problem_spec.model.pp_dict[g]*problem_spec.model.pp_dict[m])
     axs[2].plot(solution_data.res.t, uu[0] , label = 'Force left')
     axs[2].plot(solution_data.res.t, uu[1] , label = 'Force right')
     axs[2].set_title('Normalized Input Forces')
