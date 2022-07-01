@@ -35,16 +35,16 @@ class ProblemSpecification(object):
 
     @classmethod
     def rhs(cls):
-        """ Right hand side of the equation of motion in nonlinear state space form
+        """ 
+        Right hand side of the equation of motion in nonlinear state space form
         :return:     nonlinear state space
         """
         return sp.Matrix(cls.model.get_rhs_symbolic_num_params())
 
     @classmethod
     def output_func(cls):
-        """ output equation of the system
-        :param xx:   system states
-        :param uu:   system input (not used in this case)
+        """ 
+        output equation of the system
         :return:     output equation y = x1
         """
         x1, x2, x3, x4 = cls.xx
