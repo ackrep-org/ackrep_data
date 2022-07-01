@@ -15,7 +15,7 @@ model_name = "four-bar linkage"
 
 
 # ---------- create symbolic parameters
-pp_symb = [s1, s2, s3, m1, m2, m3, J1, J2, J3, l1, l2, l3, l4, kappa1, kappa2, g] = sp.symbols("s1, s2, s3, m1, m2, m3, J1, J2, J3, l1, l2, l3, l4, kappa1, kappa2, g", real=True)
+pp_symb = [s1, s2, s3, m1, m2, m3, J1, J2, J3, l1, l2, l3, l4, g] = sp.symbols("s1, s2, s3, m1, m2, m3, J1, J2, J3, l1, l2, l3, l4, g", real=True)
 
 
 
@@ -34,13 +34,11 @@ l1_sf=0.8
 l2_sf=1.5
 l3_sf=1.5
 l4_sf=2
-kappa1_sf=3/2 
-kappa2_sf=14.715
 g_sf=9.81
 
 # list of symbolic parameter functions
 # trailing "_sf" stands for "symbolic parameter function"
-pp_sf = [s1_sf, s2_sf, s3_sf, m1_sf, m2_sf, m3_sf, J1_sf, J2_sf, J3_sf, l1_sf, l2_sf, l3_sf, l4_sf, kappa1_sf, kappa2_sf, g_sf]
+pp_sf = [s1_sf, s2_sf, s3_sf, m1_sf, m2_sf, m3_sf, J1_sf, J2_sf, J3_sf, l1_sf, l2_sf, l3_sf, l4_sf, g_sf]
 
 
 #  ---------- list for substitution
@@ -66,9 +64,9 @@ col_alignment = ["left", "center", "left", "center"]
 
 # Define Entries of all columns before the Symbol-Column
 # --- Entries need to be latex code
-col_1 = ["center of gravity of first bar",
-         "center of gravity of second bar",
-         "center of gravity of third bar",
+col_1 = ["center of gravity distance of first bar",
+         "center of gravity distance of second bar",
+         "center of gravity distance of third bar",
          "mass of first bar",
          "mass of second bar",
          "mass of third bar",
@@ -79,8 +77,6 @@ col_1 = ["center of gravity of first bar",
          "length of second bar",
          "length of third bar",
          "length of fourth bar",
-         "",
-         "",
          "acceleration due to gravity"
          ] 
 
@@ -91,9 +87,9 @@ start_columns_list = [col_1]
 
 # Define Entries of the columns after the Value-Column
 # --- Entries need to be latex code
-col_4 = ["",
-         "",
-         "",
+col_4 = ["m",
+         "m",
+         "m",
          "kg",
          "kg",
          "kg",
@@ -104,8 +100,6 @@ col_4 = ["",
          "m",
          "m",
          "m",
-         "",
-         "",
          r"$\frac{m}{s^2}$"
          ]
 

@@ -19,7 +19,8 @@ from ipydex import IPS, activate_ips_on_exception
 
 def simulate():
     """
-    
+    simulate model with DAEs, solved by IDA
+    return: list with results of the simulation
     """ 
 
     # ---------start of edit section--------------------------------------
@@ -36,11 +37,12 @@ def simulate():
         print(eq)
     print("\n")
 
-    # initial state values  
+     
     dae_model_func = model.get_dae_model_func()
     # number of configuration coordinates
     ntt = len(mod.tt)
 
+    #initial state values, calculated seperatly 
     (yy0, yyd0) = ([ 0.3       ,  1.74961317,  0.50948621,  0.        ,  0.        ,  0.        , -0.27535424,  0.5455313 ],
                 [  0.        ,   0.        ,   0.        ,  23.53968609,   2.82766884, -14.48960943,  -0.        ,   0.        ])
 
@@ -69,9 +71,6 @@ def simulate():
 def save_plot(simulation_data):
     """
     plot your data and save the plot
-    access to data via: simulation_data.t   array of time values
-                        simulation_data.y   array of data components 
-                        simulation_data.uu  array of input values 
 
     :param simulation_data: simulation_data of system_model     
     :return: None
@@ -100,7 +99,7 @@ def evaluate_simulation(simulation_data):
     assert that the simulation results are as expected
 
     :param simulation_data: simulation_data of system_model
-    :return:
+    :return: ResultContainer
     """
     # ---------start of edit section--------------------------------------
     # fill in final states of simulation to check your model

@@ -7,11 +7,13 @@
 \usepackage{graphicx}
 \usepackage{float}
 
+
+
 %link to documentation: 
 %https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
 
 \begin{document}
-	\part*{Model Documentation of the \\ system-model-name} % MUST - Add Model Name 
+	\part*{Model Documentation of the \\ Four-Bar Linkage} % MUST - Add Model Name 
 	
 	%%%%%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
@@ -20,8 +22,26 @@
 	
 	%variables for model equations
 	\begin{tabular}{ll}
-		$a$ & description \\
-		
+		$s_1$ & center of gravity distance of first bar \\
+		$s_2$ & center of gravity distance of second bar \\
+		$s_3$ & center of gravity distance of third bar \\
+		$m_1$ & mass of first bar \\
+		$m_2$ & mass of second bar \\
+		$m_3$ & mass of third bar \\
+		$J_1$ & moment of inertia of first bar\\
+		$J_2$ & moment of inertia of second bar\\
+		$J_3$ & moment of inertia of third bar\\
+		$l_1$ & length of first bar\\
+		$l_2$ & length of second bar\\
+		$l_3$ & length of third bar\\
+		$l_4$ & length of fourth bar\\
+		$g$ & acceleration due to gravity\\
+		$p_1$ & angle of between th bars of the two link mainpulator\\
+		$p_2$ & angle of one link manipulator\\
+		$p_2$ & angle of two link manipulator\\
+		$u_1$ & external force\\
+		$y$ & array of angles\\
+		$\dot{y}$ & array of angular velocities\\
 				
 	\end{tabular}
 	 
@@ -35,32 +55,43 @@
 	
 	\section{Model Equations} % MUST
 	
-	State Vector and Input Vector:
+	DAE Variables and Input Vector:
 	\begin{align*}
-		\underline{x} &= (x_1 \ x_2)^T \\
+		\underline{x} &= (x_1 \ x_2 \ x_3 \ \dot{x}_1 \ \dot{x}_2 \ \dot{x}_3 \ \lambda_1 \ \lambda_2)^T &= (p_1 \ p_2 \ q_1 \ \dot{p}_1 \ \dot{p}_2 \ \dot{q}_1 \ \lambda_1 \ \lambda_2)^T \\
 		\underline{u} &= u_1
 	\end{align*}
 	
-	\noindent System Equations:			
+	\noindent Constraints:			
 	\begin{subequations}
 	\begin{align}
-		\dot{x}_1 &= x_2 \\
-		\dot{x}_2 &= u_1x_1+a
+		\l_1\cos(x_3) + l_2\cos(x_1 + x_3) - l_3\cos(x_2) - l_4 \\
+		\l_1\sin(x_3) + l_2\sin(x_1 + x_3) - l_3\sin(x_2)
 	\end{align}
+	\end{subequations}
+	
+	\noindent System Equations:			
+	\begin{subequations}
+	\begin{align*}
+	\ J_2\ddot{x}_1 + J_2\ddot{x}_3 + g m_2 s_2\cos(x_1 + x_3) + l_1 m_2 \ddot{x}_3 s_2 \cos(x_1) + l_1 m_2 \dot{x}_3^2 s_2 \sin(x_1) \\
+	+ l_2 \lambda_1 \sin(x_1 + x_3) - l_2 \lambda_2 \cos(x_1 + x_3) + m_2 \ddot{x}_1 s_2^2 + m_2 \ddot{x}_3 s_2^2 \\ 
+	\\
+	J_3 \ddot{x}_2 + g m_3 s_3 \cos(x_2) - l_3 \lambda_1 \sin(x_2) + l_3 \lambda_2 \cos(x_2) + m_3 \ddot{x}_2 s_3^2 \\
+	\\
+	J_1 \ddot{x}_3 + J_2 \ddot{x}_1 + J_2 \ddot{x}_3 + g l_1 m_2 \cos(x_3) + g m_1 s_1 \cos(x_3) + g m_2 s_2 \cos(x_1 + x_3) \\
+	+ l_1^2 m_2 \ddot{x}_3 + l_1 \lambda_1 \sin(x_3) - l_1 \lambda_2 \cos(x_3) + l_1 m_2 \ddot{x}_1 s_2 \cos(x_1)- l_1 m_2 \dot{x}_1^2 s_2 \sin(x_1) \\
+	- 2 l_1 m_2 \dot{x}_1 \dot{x}_3 s_2 \sin(x_1) + 2 l_1 m_2 \ddot{x}_3 s_2 \cos(x_1)+ l_2 \lambda_1 \sin(x_1 + x_3) - l2 \lambda_2 \cos(x_1 + x_3) \\
+	+ m_1 \ddot{x}_3 s_1^2 + m_2 \ddot{x}_1 s_2^2 + m_2 \ddot{x}_3 s_2^2 - u_1 \\
+	\end{align*}       
 	\end{subequations}
 
 	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\noindent
-	Parameters: $a$ % variables with constant, predefined value
+	Parameters: $s_1$ $s_2$ $s_3$ $m_1$ $m_2$ $m_3$ $J_1$ $J_2$ $J_3$ $l_1$ $l_2$ $l_3$ $l_4$ $g$% variables with constant, predefined value
 	\\
-	Outputs: \textit{\textlangle not defined\textrangle} % MAY
+	Outputs: $y$ $\dot{y}$ % MAY
 	
 	%%%%%%%%%%%%%%%%%%%%%% ASSUMPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
-	\subsection{Assumptions} % MAY 
-		\begin{enumerate} %possible list type for the Assumptions
-			\item Assumption 
-		\end{enumerate}
 	
 	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%	
 	
@@ -76,8 +107,8 @@
 	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	\begin{thebibliography}{10}		
-		\bibitem{But21}Author: 
-		\textit{titel}, published year
+		\bibitem{But21}Knoll, Carsten: 
+		\textit{Considered model: four-bar linkage (= two link manipulator + one link manipulator + rigid coupling)}, Jupyter Notebook published 2019
 	\end{thebibliography}
 
 \end{document}

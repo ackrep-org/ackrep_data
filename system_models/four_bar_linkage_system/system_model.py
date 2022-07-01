@@ -80,26 +80,22 @@ class Model(GenericModel):
     def get_rhs_symbolic(self):
         """
         define symbolic model
-
+        return: object of class SymbolicModel from symbtools
         """
         _mod = getattr(self, "_mod", None)
         if _mod is not None:
             return _mod
 
+        x1, x2, x3, xdot1, xdot2, xdot3,lambda_1, lambda_2= sp.symbols('x1, x2, x3, xdot1, xdot2, xdot3, lambda_1, lambda_2') 
+        xddot1, xddot2, xddot3 = sp.symbols('xddot1, xddot2, xddot3')
 
-
-        x1, x2, x3, xdot1, xdot2, xdot3,lambda_1, lambda_2= sp.symbols('x1, x2, x3, xdot1, xdot2, xdot3, lambda_1, lambda_2')  
-        #s1, s2, s3, m1, m2, m3, J1, J2, J3, l1, l2, l3, l4, kappa1, kappa2, g = self.pp_symb  
-        params = sp.symbols('s1, s2, s3, m1, m2, m3, J1, J2, J3, l1, l2, l3, l4, kappa1, kappa2, g')
-        s1, s2, s3, m1, m2, m3, J1, J2, J3, l1, l2, l3, l4, kappa1, kappa2, g = params
+        #s1, s2, s3, m1, m2, m3, J1, J2, J3, l1, l2, l3, l4, g = self.pp_symb  
+        params = sp.symbols('s1, s2, s3, m1, m2, m3, J1, J2, J3, l1, l2, l3, l4, g')
+        s1, s2, s3, m1, m2, m3, J1, J2, J3, l1, l2, l3, l4, g = params
 
         u1 = self.uu_symb[0]   # inputs
 
-        xddot1, xddot2, xddot3 = sp.symbols('xddot1, xddot2, xddot3')
-        
-
         mod = mt.SymbolicModel()
-
         mod.constraints = sp.Matrix([[l1*cos(x3) + l2*cos(x1 + x3) - l3*cos(x2) - l4], [l1*sin(x3) + l2*sin(x1 + x3) - l3*sin(x2)]])
 
         eqns1 = [J2*xddot1 + J2*xddot3 + g*m2*s2*cos(x1 + x3) + l1*m2*xddot3*s2*cos(x1) + l1*m2*xdot3**2*s2*sin(x1) 
@@ -111,7 +107,6 @@ class Model(GenericModel):
                 + l2*lambda_1*sin(x1 + x3) - l2*lambda_2*cos(x1 + x3) + m1*xddot3*s1**2 + m2*xddot1*s2**2 
                 + m2*xddot3*s2**2 - u1]
         mod.eqns = sp.Matrix([eqns1, eqns2, eqns3])
-
         mod.llmd = sp.Matrix([[lambda_1], [lambda_2]])
         mod.tt = sp.Matrix([[x1], [x2], [x3]])
         mod.ttd = sp.Matrix([[xdot1], [xdot2], [xdot3]])
@@ -127,13 +122,17 @@ class Model(GenericModel):
         raise NotImplementedError(msg)
         
     def get_dae_model_func(self):
+        """
+        generate dae system out of the symbolic model
+        return: function
+        """
         parameter_values = list(self.pp_str_dict.items())
         mod = self.get_rhs_symbolic()
         dae = mod.calc_dae_eq(parameter_values)
 
         dae.generate_eqns_funcs()
         
-        dae_mod_func = dae.model_func()
+        dae_mod_func = dae.model_func
         
         return dae_mod_func
 

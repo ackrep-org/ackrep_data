@@ -1,4 +1,5 @@
 #link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+#link to Jupyter Notebook on which the model is based: https://github.com/TUD-RST/symbtools/blob/main/docs/demo_notebooks/modeltools/four-bar_linkage_model_and_simulation.ipynb
 
 key: CK7EX
 predecessor_key: ''
