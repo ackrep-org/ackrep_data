@@ -84,6 +84,9 @@ jobs: # A basic unit of work in a run
             echo "123" > ../artifacts/ackrep_ci_results/test.txt
       - store_artifacts:
           path: ../artifacts
+      - add_ssh_keys:
+          fingerprints:
+            - 3c:8c:da:be:18:78:9a:cc:c7:d2:bc:73:94:98:04:0e
       - run:
           name: Push Results
           when: always
