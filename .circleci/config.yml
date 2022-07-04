@@ -79,11 +79,24 @@ jobs: # A basic unit of work in a run
       - run:
           name: Create Test File
           command: |
-            mkdir ../artifacts
-            touch ../artifacts/test.txt
-            echo "123" > ../artifacts/test.txt
+            mkdir -p ../artifacts/ackrep_ci_results
+            touch ../artifacts/ackrep_ci_results/test.txt
+            echo "123" > ../artifacts/ackrep_ci_results/test.txt
       - store_artifacts:
           path: ../artifacts
+      - run:
+          name: Push Results
+          when: always
+          command: |
+            cd ..
+            git clone https://github.com/ackrep-org/ackrep_ci_results.git
+            cd ackrep_ci_results
+            git checkout feature_autocommit
+            name=$(ls ../artifacts/ackrep_ci_results)
+            cp ../artifacts/ackrep_ci_results/$name history
+            git add .
+            git commit -m "automatic results upload"
+            git push
 workflows:
   version: 2 
   build_and_test:
