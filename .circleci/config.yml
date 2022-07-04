@@ -81,7 +81,7 @@ jobs: # A basic unit of work in a run
           command: |
             mkdir -p ../artifacts/ackrep_ci_results
             touch ../artifacts/ackrep_ci_results/test1.txt
-            echo "123" > ../artifacts/ackrep_ci_results/test2.txt
+            echo "123" > ../artifacts/ackrep_ci_results/test1.txt
       - store_artifacts:
           path: ../artifacts
       - add_ssh_keys:
