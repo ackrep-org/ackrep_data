@@ -91,7 +91,8 @@ jobs: # A basic unit of work in a run
           name: Push Results
           when: always
           command: |
-            git config --global -l #<= totally unnecessary, but "fixes" problem?
+# https://discuss.circleci.com/t/bizarre-workaround-needed-for-github-deployment/5152
+#            git config --global -l #<= totally unnecessary, but "fixes" problem?
             git config --global user.email circleci@circleci
             git config --global user.name CircleCI
             cd ..
