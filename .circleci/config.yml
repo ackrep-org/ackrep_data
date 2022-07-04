@@ -91,6 +91,9 @@ jobs: # A basic unit of work in a run
           name: Push Results
           when: always
           command: |
+            git config --global -l #<= totally unnecessary, but "fixes" problem?
+            git config --global user.email circleci@circleci
+            git config --global user.name CircleCI
             cd ..
             git clone https://github.com/ackrep-org/ackrep_ci_results.git
             cd ackrep_ci_results
