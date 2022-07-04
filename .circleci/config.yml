@@ -92,7 +92,7 @@ jobs: # A basic unit of work in a run
           when: always
           command: |
 # https://discuss.circleci.com/t/bizarre-workaround-needed-for-github-deployment/5152
-#            git config --global -l #<= totally unnecessary, but "fixes" problem?
+# git config --global -l #<= totally unnecessary, but "fixes" problem?
             git config --global user.email circleci@circleci
             git config --global user.name CircleCI
             cd ..
