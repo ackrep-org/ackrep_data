@@ -79,14 +79,14 @@ class Model(GenericModel):
 
     def get_rhs_symbolic(self):
         """
-        define symbolic model of odes
+        define symbolic model
 
         """
-        if self.dxx_dt_symb is not None:
-            return self.dxx_dt_symb
+        _mod = getattr(self, "_mod", None)
+        if _mod is not None:
+            return _mod
 
 
-        # ---------start of edit section--------------------------------------
 
         x1, x2, x3, xdot1, xdot2, xdot3,lambda_1, lambda_2= sp.symbols('x1, x2, x3, xdot1, xdot2, xdot3, lambda_1, lambda_2')  
         #s1, s2, s3, m1, m2, m3, J1, J2, J3, l1, l2, l3, l4, kappa1, kappa2, g = self.pp_symb  
@@ -117,9 +117,24 @@ class Model(GenericModel):
         mod.ttd = sp.Matrix([[xdot1], [xdot2], [xdot3]])
         mod.ttdd = sp.Matrix([[xddot1], [xddot2], [xddot3]])
         mod.tau = sp.Matrix([[u1]])
-
-        # ---------end of edit section----------------------------------------
-
-
+        
+        # prevent unneccessary recalculation of the model
+        self._mod = mod
         return mod
+    
+    def get_rhs_func(self):
+        msg = "This DAE model has no rhs func like ODE models."
+        raise NotImplementedError(msg)
+        
+    def get_dae_model_func(self):
+        parameter_values = list(self.pp_str_dict.items())
+        mod = self.get_rhs_symbolic()
+        dae = mod.calc_dae_eq(parameter_values)
+
+        dae.generate_eqns_funcs()
+        
+        dae_mod_func = dae.model_func()
+        
+        return dae_mod_func
+
     

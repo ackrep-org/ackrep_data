@@ -19,10 +19,10 @@ from ipydex import IPS, activate_ips_on_exception
 
 def simulate():
     """
-    simulate the system model with scipy.integrate.solve_ivp
-         
-    :return: result of solve_ivp, might contains input function
+    
     """ 
+
+    # ---------start of edit section--------------------------------------
 
     model = system_model.Model()
 
@@ -36,23 +36,19 @@ def simulate():
         print(eq)
     print("\n")
 
-
-    # ---------start of edit section--------------------------------------
     # initial state values  
-    parameter_values = list(model.pp_str_dict.items())
-
-    dae = mod.calc_dae_eq(parameter_values)
-
-    dae.generate_eqns_funcs()
+    dae_model_func = model.get_dae_model_func()
+    # number of configuration coordinates
+    ntt = len(mod.tt)
 
     (yy0, yyd0) = ([ 0.3       ,  1.74961317,  0.50948621,  0.        ,  0.        ,  0.        , -0.27535424,  0.5455313 ],
                 [  0.        ,   0.        ,   0.        ,  23.53968609,   2.82766884, -14.48960943,  -0.        ,   0.        ])
 
     t0 = 0
 
-    model = Implicit_Problem(dae.model_func, yy0, yyd0, t0)
+    problem_object = Implicit_Problem(dae_model_func, yy0, yyd0, t0)
 
-    sim = IDA(model)
+    sim = IDA(problem_object)
     sim.verbosity = 0
 
     tfinal = 10.0        
@@ -60,8 +56,8 @@ def simulate():
 
     tt_sol, yy_sol, yyd_sol = sim.simulate(tfinal, ncp) 
 
-    ttheta_sol = yy_sol[:, :mod.dae.ntt]
-    ttheta_d_sol = yy_sol[:, mod.dae.ntt:mod.dae.ntt*2]
+    ttheta_sol = yy_sol[:, :ntt]
+    ttheta_d_sol = yy_sol[:, ntt:ntt*2]
 
     simulation_data = [tt_sol, yy_sol, yyd_sol, ttheta_sol, ttheta_d_sol]
     # ---------end of edit section----------------------------------------
