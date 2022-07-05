@@ -82,26 +82,27 @@ jobs: # A basic unit of work in a run
             mkdir -p ../artifacts/ackrep_ci_results
             touch ../artifacts/ackrep_ci_results/test1.txt
             echo "123" > ../artifacts/ackrep_ci_results/test1.txt
+            printenv
       - store_artifacts:
           path: ../artifacts
       - add_ssh_keys:
           fingerprints:
             - 3c:8c:da:be:18:78:9a:cc:c7:d2:bc:73:94:98:04:0e
-      - run:
-          name: Push Results
-          when: always
-          command: |
-            git config --global user.email circleci@circleci
-            git config --global user.name CircleCI
-            cd ..
-            git clone https://github.com/ackrep-org/ackrep_ci_results.git
-            cd ackrep_ci_results
-            git checkout feature_autocommit
-            name=$(ls ../artifacts/ackrep_ci_results)
-            cp ../artifacts/ackrep_ci_results/$name history
-            git add .
-            git commit -m "automatic results upload"
-            git push
+      # - run:
+      #     name: Push Results
+      #     when: always
+      #     command: |
+      #       git config --global user.email circleci@circleci
+      #       git config --global user.name CircleCI
+      #       cd ..
+      #       git clone https://github.com/ackrep-org/ackrep_ci_results.git
+      #       cd ackrep_ci_results
+      #       git checkout feature_autocommit
+      #       name=$(ls ../artifacts/ackrep_ci_results)
+      #       cp ../artifacts/ackrep_ci_results/$name history
+      #       git add .
+      #       git commit -m "automatic results upload"
+      #       git push
 workflows:
   version: 2 
   build_and_test:
