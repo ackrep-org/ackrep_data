@@ -53,7 +53,7 @@ def simulate():
     sim = IDA(problem_object)
     sim.verbosity = 0
 
-    tfinal = 10.0        
+    tfinal = 11        
     ncp = 500            
 
     tt_sol, yy_sol, yyd_sol = sim.simulate(tfinal, ncp) 
@@ -104,8 +104,10 @@ def evaluate_simulation(simulation_data):
     # ---------start of edit section--------------------------------------
     # fill in final states of simulation to check your model
     # simulation_data.y[i][-1]
-    expected_final_state = [10.0, -0.9590433448132666, -77.45775485827751, -0.3229272828459006, -4.010051949304026]
+    expected_final_state = [11, 0.07655823245005482, -11.441290258055378, -4.092516225352934, 1.6614692473252495]
     
+    #[6, 0.9774883908572787, 0.9398128300737418, -4.229675196768807, -0.15115736529169507]
+
     # ---------end of edit section----------------------------------------
 
     rc = ResultContainer(score=1.0)
