@@ -5,6 +5,7 @@ import system_model
 from scipy.integrate import solve_ivp
 
 from ackrep_core import ResultContainer
+from ackrep_core.system_model_management import save_plot_in_dir
 import matplotlib.pyplot as plt
 import os
 
@@ -57,49 +58,44 @@ def save_plot(sol):
 
     # print in axes top left
     axs[0, 0].plot(sol.t, np.real(sol.y[1] ), label = 'Re' )
-    axs[0, 0].set_ylabel('ed0') # y-label Nr 1
-    axs[0, 0].set_xlabel('Time[s]') # x-Label für Figure linke Seite
+    axs[0, 0].set_ylabel('ed0') # y-label 
+    axs[0, 0].set_xlabel('Time[s]') # x-Label 
     axs[0, 0].grid()
     axs[0, 0].legend()
 
     # print in axes top right 
     axs[1, 0].plot(sol.t, np.real(sol.y[2] ), label = 'Re')
     axs[1, 0].plot(sol.t, np.imag(sol.y[2] ), label = 'Im')
-    axs[1, 0].set_ylabel('es') # y-label Nr 1
-    axs[1, 0].set_xlabel('Time[s]') # x-Label für Figure linke Seite
+    axs[1, 0].set_ylabel('es') # y-label 
+    axs[1, 0].set_xlabel('Time[s]') # x-Label 
     axs[1, 0].grid()
     axs[1, 0].legend()
 
     # print in axes bottom left
     axs[0, 1].plot(sol.t, np.real(sol.y[3] ), label = 'Re')
     axs[0, 1].plot(sol.t, np.imag(sol.y[3] ), label = 'Im')
-    axs[0, 1].set_ylabel('ed') # y-label Nr 1
-    axs[0, 1].set_xlabel('Time[s]') # x-Label für Figure linke Seite
+    axs[0, 1].set_ylabel('ed') # y-label 
+    axs[0, 1].set_xlabel('Time[s]') # x-Label 
     axs[0, 1].grid()
     axs[0, 1].legend()
 
     # print in axes bottom right
     axs[1, 1].plot(sol.t, sol.uu[:, 0] , label = 'vy')
     axs[1, 1].plot(sol.t, sol.uu[:, 1] , label = 'vy0')
-    axs[1, 1].set_ylabel('') # y-label Nr 1
-    axs[1, 1].set_xlabel('Time[s]') # x-Label für Figure linke Seite
+    axs[1, 1].set_ylabel('') # y-label 
+    axs[1, 1].set_xlabel('Time[s]') # x-Label 
     axs[1, 1].grid()
     axs[1, 1].legend()
 
     # adjust subplot positioning and show the figure
-    #fig1.suptitle('Simulationen des geschlossenen Kreises, Sprunganregung', fontsize=16)
     fig1.subplots_adjust(hspace=0.5)
-    fig1.show()
+    #fig1.show()
 
     # --------------------------------------------------------------------
 
     plt.tight_layout()
 
-    ## static
-    plot_dir = os.path.join(os.path.dirname(__file__), '_system_model_data')
-    if not os.path.isdir(plot_dir):
-        os.mkdir(plot_dir)
-    plt.savefig(os.path.join(plot_dir, 'plot.png'), dpi=96 * 2)
+    save_plot_in_dir(os.path.dirname(__file__), plt)
 
 def evaluate_simulation(simulation_data):
     """

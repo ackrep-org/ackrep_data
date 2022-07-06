@@ -10,11 +10,11 @@ import system_model as bi
 from scipy.integrate import solve_ivp
 
 from ackrep_core import ResultContainer
+from ackrep_core.system_model_management import save_plot_in_dir
 import matplotlib.pyplot as pyplot
 import os
 
 def simulate():
-
 
     model = bi.Model()
 
@@ -33,8 +33,6 @@ def simulate():
     tt = np.linspace(0, t_end, 1000) # vector of times for simulation
     sim = solve_ivp(rhs, (0,t_end), xx0, t_eval=tt)
     
-    
-    
     save_plot(sim)
 
     return sim
@@ -51,14 +49,9 @@ def save_plot(sol):
     pyplot.legend()
     pyplot.grid()
 
-
     pyplot.tight_layout()
 
-    ## static
-    plot_dir = os.path.join(os.path.dirname(__file__), '_system_model_data')
-    if not os.path.isdir(plot_dir):
-        os.mkdir(plot_dir)
-    pyplot.savefig(os.path.join(plot_dir, 'plot.png'), dpi=96 * 2)
+    save_plot_in_dir(os.path.dirname(__file__), pyplot)
 
 def evaluate_simulation(simulation_data):
     """

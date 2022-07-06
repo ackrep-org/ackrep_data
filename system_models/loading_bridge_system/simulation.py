@@ -5,6 +5,7 @@ import system_model
 from scipy.integrate import solve_ivp
 
 from ackrep_core import ResultContainer
+from ackrep_core.system_model_management import save_plot_in_dir
 import matplotlib.pyplot as plt
 import os
 
@@ -77,10 +78,7 @@ def save_plot(simulation_data):
 
     plt.tight_layout()
 
-    plot_dir = os.path.join(os.path.dirname(__file__), '_system_model_data')
-    if not os.path.isdir(plot_dir):
-        os.mkdir(plot_dir)
-    plt.savefig(os.path.join(plot_dir, 'plot.png'), dpi=96 * 2)
+    save_plot_in_dir(os.path.dirname(__file__), plt)
 
 def evaluate_simulation(simulation_data):
     """

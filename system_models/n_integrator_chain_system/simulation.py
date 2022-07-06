@@ -10,6 +10,7 @@ import system_model
 from scipy.integrate import solve_ivp
 
 from ackrep_core import ResultContainer
+from ackrep_core.system_model_management import save_plot_in_dir
 import matplotlib.pyplot as plt
 import os
 
@@ -61,31 +62,21 @@ def simulate():
 
 def save_plot(sim):
     
-    #xx0 = [0, 0, 0, 0, 0]
-    #model = system_model.Model(x_dim=len(xx0))
-    
     plt.plot(sim.t, sim.y[0],label='x1', lw=1)
     plt.plot(sim.t, sim.y[1],label='x2', lw=1)
     plt.plot(sim.t, sim.y[2],label='x3', lw=1)
     plt.plot(sim.t, sim.y[3],label='x4', lw=1)
     plt.plot(sim.t, sim.y[4],label='x5', lw=1)
-    #plt.plot(sim.t, model.uu_func(sim.t, sim.y), label ='u', lw =1)
-
-
+    
     plt.title('State progress')
     plt.xlabel('Time[s]',fontsize= 15)
     plt.ylabel('y',fontsize= 15)
     plt.legend()
     plt.grid()
 
-
     plt.tight_layout()
 
-    ## static
-    plot_dir = os.path.join(os.path.dirname(__file__), '_system_model_data')
-    if not os.path.isdir(plot_dir):
-        os.mkdir(plot_dir)
-    plt.savefig(os.path.join(plot_dir, 'plot.png'), dpi=96 * 2)
+    save_plot_in_dir(os.path.dirname(__file__), plt)
 
 def evaluate_simulation(simulation_data):
     """

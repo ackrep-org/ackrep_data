@@ -12,6 +12,7 @@ import method_trajectory_planning as tp  # noqa
 from scipy.integrate import odeint
 import ipydex  # noqa
 import os
+from ackrep_core.system_model_management import save_plot_in_dir
 
 
 class SolutionData:
@@ -127,10 +128,5 @@ def save_plot(problem_spec, solution_data):
     plt.legend(loc=1)
 
     # save image
-    sol_dir = os.path.join(os.path.dirname(__file__), '_solution_data')
-
-    if not os.path.isdir(sol_dir):
-        os.mkdir(sol_dir)
-
-    plt.savefig(os.path.join(sol_dir, 'plot.png'), dpi=96*2)
+    save_plot_in_dir(os.path.dirname(__file__), plt)
 

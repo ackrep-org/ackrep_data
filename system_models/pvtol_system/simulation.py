@@ -5,6 +5,7 @@ import system_model
 from scipy.integrate import solve_ivp
 
 from ackrep_core import ResultContainer
+from ackrep_core.system_model_management import save_plot_in_dir
 import matplotlib.pyplot as plt
 import os
 
@@ -31,7 +32,6 @@ def simulate():
     m = model.pp_symb[2]
     uu = np.array(uu)/(model.pp_dict[g]*model.pp_dict[m])   
     sim.uu = uu
-
 
     # --------------------------------------------------------------------
     
@@ -74,18 +74,13 @@ def save_plot(simulation_data):
 
     # adjust subplot positioning and show the figure
     fig1.subplots_adjust(hspace=0.5)
-    fig1.show()
-
+    #fig1.show()
 
     # --------------------------------------------------------------------
 
     plt.tight_layout()
 
-    ## static
-    plot_dir = os.path.join(os.path.dirname(__file__), '_system_model_data')
-    if not os.path.isdir(plot_dir):
-        os.mkdir(plot_dir)
-    plt.savefig(os.path.join(plot_dir, 'plot.png'), dpi=96 * 2)
+    save_plot_in_dir(os.path.dirname(__file__), plt)
 
 def evaluate_simulation(simulation_data):
     """
