@@ -28,9 +28,9 @@ def simulate():
 
     # if inputfunction exists:
     uu = model.uu_func(sim.t, sim.y)
-    g = model.pp_symb[0]
-    m = model.pp_symb[2]
-    uu = np.array(uu)/(model.pp_dict[g]*model.pp_dict[m])   
+    g = model.get_parameter_value('g')
+    m = model.get_parameter_value('m')
+    uu = np.array(uu)/(g*m)  
     sim.uu = uu
 
     # --------------------------------------------------------------------

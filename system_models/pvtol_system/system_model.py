@@ -46,8 +46,8 @@ class Model(GenericModel):
         :param t:(scalar or vector) Time
         :param xx_nv: (vector or array of vectors) state vector with numerical values at time t      
         :return:(function with 2 args - t, xx_nv) default input function 
-        """ 
-        m = self.pp_dict[self.pp_symb[2]]
+        """
+        m = self.get_parameter_value('m')
         T_raise = 2
         T_left = T_raise + 2 + 2
         T_right = T_left + 4
@@ -55,7 +55,7 @@ class Model(GenericModel):
         T_land = T_straight + 3
         force = 0.75*9.81*m
         force_lr = 0.7*9.81*m
-        g_nv = 0.5*self.pp_dict[self.pp_symb[0]]*m
+        g_nv = 0.5*self.get_parameter_value('g')*m
         # create symbolic polnomial functions for raise and land
         poly1 = st.condition_poly(self.t_symb, (0, 0, 0, 0), 
                                   (T_raise, force, 0, 0))

@@ -51,9 +51,9 @@ def save_plot(problem_spec, solution_data):
 
     # print in axes bottom left
     uu = problem_spec.model.uu_func(solution_data.res.t, solution_data.res.y)
-    g = problem_spec.model.pp_symb[0]
-    m = problem_spec.model.pp_symb[2]
-    uu = np.array(uu)/(problem_spec.model.pp_dict[g]*problem_spec.model.pp_dict[m])
+    g = problem_spec.model.get_parameter_value('g')
+    m = problem_spec.model.get_parameter_value('m')
+    uu = np.array(uu)/(g*m)
     axs[2].plot(solution_data.res.t, uu[0] , label = 'Force left')
     axs[2].plot(solution_data.res.t, uu[1] , label = 'Force right')
     axs[2].set_title('Normalized Input Forces')

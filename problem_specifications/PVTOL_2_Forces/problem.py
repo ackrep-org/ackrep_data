@@ -19,8 +19,7 @@ class ProblemSpecification(object):
     tt = np.linspace(0, 20, 10000) # vector of times for simulation
 
     model = Model()
-
-    
+ 
 
 def evaluate_solution(solution_data):
     """
