@@ -110,4 +110,4 @@ def save_plot(problem_spec, solution_data):
         plt.tight_layout()
     
     # save image
-    save_plot_in_dir(os.path.dirname(__file__), plt)
+    save_plot_in_dir(os.path.dirname(__file__))

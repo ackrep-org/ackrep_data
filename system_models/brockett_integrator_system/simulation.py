@@ -51,7 +51,7 @@ def save_plot(sol):
 
     pyplot.tight_layout()
 
-    save_plot_in_dir(os.path.dirname(__file__), pyplot)
+    save_plot_in_dir(os.path.dirname(__file__))
 
 def evaluate_simulation(simulation_data):
     """

@@ -67,4 +67,4 @@ def save_plot(problem_spec, solution_data):
     fig1.subplots_adjust(hspace=0.5)
 
     plt.tight_layout()
-    save_plot_in_dir(os.path.dirname(__file__), plt)
+    save_plot_in_dir(os.path.dirname(__file__))

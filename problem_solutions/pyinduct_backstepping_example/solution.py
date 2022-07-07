@@ -67,6 +67,6 @@ def solve(problem_spec: ProblemSpecification):
     pi.surface_plot(x_sim)#, title="Surface plots")
     # pi.surface_plot(x_sim, title="Surface plots")
 
-    save_plot_in_dir(os.path.dirname(__file__), plt)
+    save_plot_in_dir(os.path.dirname(__file__))
 
     return sol_data
