@@ -1,0 +1,21 @@
+#link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+#link to Jupyter Notebook on which the model is based: https://github.com/TUD-RST/symbtools/blob/main/docs/demo_notebooks/modeltools/four-bar_linkage_model_and_simulation.ipynb
+
+key: CK7EX
+predecessor_key: ''
+type: system_model
+name: 'Four-bar Linkage'
+short_description: 'two link manipulator + one link manipulator + rigid coupling'
+version: 0.1.0
+tag_list:
+    - 'Four-bar'
+creator: 'Anne Harloff <anne.harloff{ät}mailbox.tu-dresden.de>'
+editor_list:
+    - ''
+creation_date: '2022-06-16'
+external_references: ''
+notes: ''
+estimated_runtime: ''
+compatible_environment: "CDAMA"
+system_model_file: system_model.py
+simulation_file: simulation.py

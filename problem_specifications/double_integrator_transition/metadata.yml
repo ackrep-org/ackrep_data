@@ -17,3 +17,5 @@ notes: 'This problem entity serves mainly as simple demonstration for the ackrep
 problemclass_list:
     - QGWSY
 problem_file: problem.py
+related_system_models_list:
+    - ''

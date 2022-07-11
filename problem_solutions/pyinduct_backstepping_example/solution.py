@@ -5,8 +5,10 @@ from problem import ProblemSpecification
 from feedback import (AnalyticBacksteppingController,
                       ApproximatedBacksteppingController)
 
-import pyinduct as pi
 import matplotlib.pyplot as plt
+import matplotlib
+import pyinduct as pi
+from ackrep_core.system_model_management import save_plot_in_dir
 
 import os
 
@@ -60,13 +62,11 @@ def solve(problem_spec: ProblemSpecification):
     sol_data.x = x_sim
 
     # visualization
-    pi.surface_plot(x_sim, title="Surface plots")
+    # avoid qt since there are problems when running headless in docker container
+    matplotlib.use('Agg')
+    pi.surface_plot(x_sim)#, title="Surface plots")
+    # pi.surface_plot(x_sim, title="Surface plots")
 
-    sol_dir = os.path.join(os.path.dirname(__file__), '_solution_data')
-
-    if not os.path.isdir(sol_dir):
-        os.mkdir(sol_dir)
-
-    plt.savefig(os.path.join(sol_dir, 'plot.png'), dpi=96*2)
+    save_plot_in_dir(os.path.dirname(__file__), plt)
 
     return sol_data

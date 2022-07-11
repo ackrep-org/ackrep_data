@@ -18,3 +18,5 @@ notes: ''
 problemclass_list:
     - 'QGWSY'
 problem_file: problem.py
+related_system_models_list:
+    - ''

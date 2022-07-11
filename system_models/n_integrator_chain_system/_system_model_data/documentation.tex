@@ -1,0 +1,68 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+
+%< > ... dummy content zur Veranschaulichung
+
+\begin{document}
+	\part*{Model Documentation of the \\ N Integrator Chain} % MUST - Add Model Name 
+	
+	%%%%%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Nomenclature} % MUST
+	\subsection{Nomenclature for Model Equations} % MUST
+	
+	%variables for model equations
+	\begin{tabular}{ll}
+		$u_1$ & input		
+	\end{tabular}	
+	
+	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Model Equations} % MUST
+	State Vector and Input Vector:	
+	\begin{align*}
+		\underline{x} &= (x_1 \ x_2 \ \dots \ x_n)^T \\
+		\underline{u} &= u_1
+	\end{align*}
+
+	\noindent Model Equations:
+	\begin{subequations}
+	\begin{align}
+		\dot{x}_1 &= x_2 	\\      % possible ways to write d/dt
+		\dot{x}_2 &= x_3	\\
+		... &				\\
+		\dot{x}_{n-1} &= x_n \\
+		\dot{x}_n &= u_1 
+	\end{align}
+	\end{subequations}
+
+	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent
+	Parameters:   \textit{\textlangle not defined\textrangle}
+	\\
+	Outputs: \textit{\textlangle not defined\textrangle}
+	
+	%%%%%%%%%%%%%%%%%%%%%% ASSUMPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
+	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\section{Derivation and Explanation} % SHOULD
+	
+	\textit{Not available}
+	
+	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\begin{thebibliography}{10}		
+		\bibitem{WANG11}Wang, X.; Saberi1, A.; Stoorvogel, A. A.; Grip, H. F.: 
+		\textit{Control of a chain of integrators subject to actuator saturation and disturbances}, international journal of robust and nonlinear control, 2011
+	\end{thebibliography}
+
+\end{document}

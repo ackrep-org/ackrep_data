@@ -1,0 +1,18 @@
+key: UXMFA
+predecessor_key: ''
+type: system_model
+name: 'Lorenz System'
+short_description: 'ODEs describing the lorenz system'
+version: 0.1.0
+tag_list:
+    - 'lorenz'
+creator: 'Julius Fiedler <julius.fiedler{ät}mailbox.tu-dresden.de>'
+editor_list:
+    - ''
+creation_date: '2022-04-07'
+external_references: ''
+notes: ''
+estimated_runtime: '10s'
+compatible_environment: ""
+system_model_file: system_model.py
+simulation_file: simulation.py

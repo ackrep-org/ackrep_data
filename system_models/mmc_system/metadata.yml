@@ -1,0 +1,18 @@
+key: YHS5B
+predecessor_key: ''
+type: system_model
+name: 'Modular Multilevel Converters (MMC)'
+short_description: 'MMC with 3 phases, 1 Submodule per Arm and output to grid. Used to generate multilevel Voltages'
+version: 0.1.0
+tag_list:
+    - 'mmc'
+creator: 'Anne Harloff <anne.harloff@mailbox.tu-dresden.de>'
+editor_list:
+    - ''
+creation_date: '2022-05-09'
+external_references: ''
+notes: ''
+estimated_runtime: '50s'
+compatible_environment: ""
+system_model_file: system_model.py
+simulation_file: simulation.py

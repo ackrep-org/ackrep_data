@@ -18,6 +18,8 @@ import matplotlib.pyplot as plt
 import symbtools as st
 from scipy.integrate import odeint
 import sympy as sp
+import os
+from ackrep_core.system_model_management import save_plot_in_dir
 
 
 class SolutionData:
@@ -53,7 +55,7 @@ def solve(problem_spec):
     sys_f_body.tau = problem_spec.u  # inputs of the system
 
     # original nonlinear system functions
-    sys_f_body.n_state_func = problem_spec.rhs(problem_spec.xx, problem_spec.u)
+    sys_f_body.n_state_func = problem_spec.rhs(problem_spec.model)
 
     # original output functions
     sys_f_body.n_out_func = problem_spec.output_func(problem_spec.xx, problem_spec.u)
@@ -88,6 +90,8 @@ def solve(problem_spec):
     solution_data.poles = LQR_res.poles_lqr
     solution_data.xx1 = res2
 
+    save_plot(problem_spec, solution_data)
+
     return solution_data
 
 
@@ -108,4 +112,6 @@ def save_plot(problem_spec, solution_data):
             plt.ylabel('velocity m/s')
         plt.legend()
     plt.tight_layout()
-    plt.show()
+    
+    # save image
+    save_plot_in_dir(os.path.dirname(__file__), plt)

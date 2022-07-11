@@ -1,0 +1,66 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+
+
+
+\begin{document}
+	\part*{Model Documentation of the \\ Brockett Integrator} % MUST - Add Model Name 
+	
+	%%%%%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Nomenclature} % MUST
+	\subsection{Nomenclature for Model Equations} % MUST
+	
+	%variables for model equations
+	\begin{tabular}{ll}
+		$u_1$, $u_2$ & Inputs		
+	\end{tabular}
+
+	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Model Equations} % MUST
+	
+	State Vector and Input Vector:
+	\begin{align*}
+		\underline{x} &= (x_1 \ x_2 \ x_3)^T  \\
+		\underline{u} &= (u_1 \ u_2)^T 
+	\end{align*}
+	
+	
+	\noindent Model Equations:
+	
+	\begin{subequations}
+	\begin{align}
+		\dot{x}_1 &= u_1 \\      % possible ways to write d/dt
+		\dot{x}_2 &= u_2 \\
+		\dot{x}_3 &= x_2 u_1 - x_1 u_2
+	\end{align}
+	\end{subequations}
+
+	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\noindent
+	Parameters: \textit{\textlangle not defined\textrangle} 
+	\\
+	Outputs: \textit{\textlangle not defined\textrangle} 
+	
+	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\section{Derivation and Explanation} % SHOULD
+	
+	\textit{Not available}
+	
+	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\begin{thebibliography}{10}		
+		\bibitem{BRW}Brockett, R. W.: 
+		\textit{Asymptotic Stability and feedback stabilization} In: R. W. Brockett, R. S. 		Millman and H. J. Sussmann, eds., Differential Geometric Control Theory, 					Birkhauser, Boston, 1983
+	\end{thebibliography}
+
+\end{document}

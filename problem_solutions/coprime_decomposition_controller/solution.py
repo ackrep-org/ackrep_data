@@ -13,6 +13,8 @@ import sympy as sp
 import symbtools as st
 import matplotlib.pyplot as plt
 import control
+import os
+from ackrep_core.system_model_management import save_plot_in_dir
 
 
 class SolutionData:
@@ -48,6 +50,8 @@ def solve(problem_spec):
     solution_data.controller_d = cd_res.h_func
     solution_data.controller_ceoffs = cd_res.c_coeffs
 
+    save_plot(problem_spec, solution_data)
+
     return solution_data
 
 
@@ -61,5 +65,7 @@ def save_plot(problem_spec, solution_data):
         plt.xlabel(problem_spec.x_label[i])
         plt.ylabel(problem_spec.y_label_state[i])
     plt.tight_layout()
-    plt.show()
+
+    # save image
+    save_plot_in_dir(os.path.dirname(__file__), plt)
 

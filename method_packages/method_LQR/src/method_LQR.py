@@ -27,7 +27,7 @@ class LQR_Result:
 def lqr_method(system, q_matrix, r_matrix, sys_state, eqrt, yr, debug=False):
     """
     :param system : tuple (a, b, c, d) of system matrices
-    :param q_matrix: State weights matrix
+    :param q_matrix: state weights matrix
     :param r_matrix: input weights matrix
     :param sys_state: states of nonlinear system
     :param eqrt: equilibrium points of the system

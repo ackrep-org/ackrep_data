@@ -8,6 +8,8 @@ import sympy as sp
 import matplotlib.pyplot as plt
 import method_observer_full_reduced as ofr  # noqa
 import method_system_property as msp  # noqa
+import os
+from ackrep_core.system_model_management import save_plot_in_dir
 
 
 class SolutionData:
@@ -42,6 +44,8 @@ def solve(problem_spec):
     solution_data.yy = yy_f
     solution_data.xx = xx_f
 
+    save_plot(problem_spec, solution_data)
+
     return solution_data
 
 
@@ -60,7 +64,7 @@ def save_plot(problem_spec, solution_data):
         else:
             plt.ylabel('velocity m/s')
     plt.tight_layout()
-    plt.show()
+    
 
     # plotting the error between true value and estimated value
     # with initial errors
@@ -72,4 +76,6 @@ def save_plot(problem_spec, solution_data):
         plt.grid(1)
         plt.title(titles2[i])
     plt.tight_layout()
-    plt.show()
+    
+    # save image
+    save_plot_in_dir(os.path.dirname(__file__), plt)

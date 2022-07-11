@@ -2,7 +2,7 @@
 # ---------------
 
 _solution_data
-
+system_models/*/_system_model_data/*.png
 
 
 # general:
@@ -103,6 +103,9 @@ venv.bak/
 # Spyder project settings
 .spyderproject
 .spyproject
+
+# VSCode project settings
+.vscode/*
 
 # Rope project settings
 .ropeproject
