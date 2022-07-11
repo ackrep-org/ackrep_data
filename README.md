@@ -1,5 +1,7 @@
 # Automatic Control Knowledge Repository (ACKRep) Data
 
+Note: The full documentation is available online at https://ackrep-doc.readthedocs.io/en/latest/index.html.
+
 This repository holds the data for the ACKRep project. Due to the subject and the concept of
 that project, data consists mainly in source code and metadata. The associated backend is
 maintained in the [ackrep_core](https://github.com/cknoll/ackrep_core)-repository.
