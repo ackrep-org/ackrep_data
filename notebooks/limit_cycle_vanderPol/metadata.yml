@@ -1,0 +1,17 @@
+key: 7WIQH
+predecessor_key: ''
+type: notebook
+name: 'Limit Cycle van der Pol'
+short_description: 'stable limit cycle of the van der Pol oscillator'
+version: 0.1.0
+tag_list:
+    - ''
+creator: 'Jan Winkler <jan.winkler{ät}tu-dresden.de>'
+editor_list:
+    - ''
+creation_date: '2022-07-12'
+external_references: ''
+notes: ''
+estimated_runtime: '10s'
+compatible_environment: "CDAMA"
+notebook_file: notebook.ipynb
