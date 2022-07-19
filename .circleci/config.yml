@@ -64,7 +64,7 @@ jobs: # A basic unit of work in a run
             echo Copy ackrep_data to dummy
             docker cp /home/circleci/ackrep_data dummy:/code
       - run:
-          name: Check all Solutions
+          name: Check all Entities
           command: |
             . venv/bin/activate
             ackrep --check-all-entities
