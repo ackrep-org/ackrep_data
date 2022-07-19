@@ -76,7 +76,7 @@ def save_plot(sim):
 
     plt.tight_layout()
 
-    save_plot_in_dir(os.path.dirname(__file__))
+    save_plot_in_dir()
 
 def evaluate_simulation(simulation_data):
     """

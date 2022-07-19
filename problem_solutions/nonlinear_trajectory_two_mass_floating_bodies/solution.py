@@ -128,5 +128,5 @@ def save_plot(problem_spec, solution_data):
     plt.legend(loc=1)
 
     # save image
-    save_plot_in_dir(os.path.dirname(__file__))
+    save_plot_in_dir()
 
