@@ -15,17 +15,18 @@ import sympy as sp
 from sympy import cos, sin
 from math import pi
 from ackrep_core import ResultContainer
+from system_models.loading_bridge_system.system_model import Model
 
 
 class ProblemSpecification(object):
-    # system symbols for setting up the equations of motion
-    p1, p2, pdot1, pdot2 = sp.symbols("p1, p2, pdot1, pdot2")
-    xx = sp.Matrix([p1, p2, pdot1, pdot2])  # states of system
-    F = sp.Symbol('F')  # external force on the wagon
-    u = [F]  # input of system
+    # system symbols for setting up the equation of motion
+    model = Model()
+    x1, x2, x3, x4 = model.xx_symb
+    xx = sp.Matrix(model.xx_symb)  # states of system
+    u = [model.uu_symb[0]] # input of system
 
     # equilibrium point for linearization of the nonlinear system
-    eqrt = [(p1, 0), (p2, 0), (pdot1, 0), (pdot2, 0), (F, 0)]
+    eqrt = [(x1, 0), (x2, 0), (x3, 0), (x4, 0), (u, 0)]
     xx0 = np.array([0.2, pi/6, 1, 0.2])  # initial condition for simulation
     tt = np.linspace(0, 5, 1000)  # vector for the time axis for simulating
     poles_cl = [-3, -3, -3, -3]  # desired poles of closed loop
@@ -40,42 +41,21 @@ class ProblemSpecification(object):
     graph_color = 'r'
     row_number = 2  # the number of images in each row
 
-    @staticmethod
-    def rhs(xx, uu):
-        """ Right hand side function of the equation of motion in nonlinear state space form
-        :param xx:   system states x1: x-position of the wagon, x2: angular position of the load
-        :param uu:   system input
+    @classmethod
+    def rhs(cls):
+        """ Right hand side of the equation of motion in nonlinear state space form
         :return:     nonlinear state space
         """
-        m1 = 1  # mass of the iron ball in kg
-        m2 = 0.25  # mass of the brass ball in kg
-        g = 9.81  # acceleration of gravity in m/s^2
-        l = 1  # geometry constant
+        return sp.Matrix(cls.model.get_rhs_symbolic_num_params())
 
-        x1, x2, x3, x4 = xx
-
-        # motion of equations
-        p1_dot = (uu[0] + (g * m2 * sin(2 * x2))/2 + l * m2 * x4 ** 2 * sin(x2))/(m1 + m2 * (sin(x2)**2))
-        p2_dot = - (g * (m1 + m2) * sin(x2) + (uu[0] + l * m2 * x4 ** 2 * sin(x2))
-                    * cos(x2)) / (l * (m1 + m2 * (sin(x2)**2)))
-
-        ff = sp.Matrix([x3,
-                        x4,
-                        p1_dot,
-                        p2_dot])
-
-        return ff
-
-    @staticmethod
-    def output_func(xx, uu):
+    @classmethod
+    def output_func(cls):
         """ output equation of the system: x-position of the load
-        :param xx:   system states
-        :param uu:   system input (not used in this case)
         :return:     output equation y = x1
         """
-        x1, x2, x3, x4 = xx
-        u = uu
-        l = 1  # geometry constant
+        x1, x2, x3, x4 = cls.xx
+        u = cls.u
+        l = cls.model.pp_str_dict["l"]  # geometry constant
 
         return sp.Matrix([x1 + l * sin(x2)])
 

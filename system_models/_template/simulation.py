@@ -5,11 +5,11 @@ import system_model
 from scipy.integrate import solve_ivp
 
 from ackrep_core import ResultContainer
+from ackrep_core.system_model_management import save_plot_in_dir
 import matplotlib.pyplot as plt
 import os
 
-#link to documentation with examples: 
-#
+#link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
 
 
 def simulate():
@@ -33,11 +33,11 @@ def simulate():
     xx0 = ...
 
     t_end = ...
-    tt = ...
+    tt = np.linspace(0, t_end, 10000)
     simulation_data = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
 
     # define inputfunction
-    uu = ...        #uu = model.uu_func(sim.t, sim.y)
+    uu = ...        #uu = model.uu_func(simulation_data.t, ...)
     simulation_data.uu = uu
     # ---------end of edit section----------------------------------------
     
@@ -47,7 +47,7 @@ def simulate():
 
 def save_plot(simulation_data):
     """
-    save plot
+    plot your data and save the plot
     access to data via: simulation_data.t   array of time values
                         simulation_data.y   array of data components 
                         simulation_data.uu  array of input values 
@@ -63,10 +63,7 @@ def save_plot(simulation_data):
 
     plt.tight_layout()
 
-    plot_dir = os.path.join(os.path.dirname(__file__), '_system_model_data')
-    if not os.path.isdir(plot_dir):
-        os.mkdir(plot_dir)
-    plt.savefig(os.path.join(plot_dir, 'plot.png'), dpi=96 * 2)
+    save_plot_in_dir()
 
 def evaluate_simulation(simulation_data):
     """
@@ -84,6 +81,7 @@ def evaluate_simulation(simulation_data):
 
     rc = ResultContainer(score=1.0)
     simulated_final_state = simulation_data.y[:, -1]
-    rc.success = np.allclose(expected_final_state, simulated_final_state)
+    rc.final_state_errors = [simulated_final_state[i] - expected_final_state[i] for i in np.arange(0, len(simulated_final_state))]
+    rc.success = np.allclose(expected_final_state, simulated_final_state, rtol=0, atol=1e-2)
     
     return rc

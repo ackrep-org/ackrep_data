@@ -12,12 +12,9 @@ import sys, os
 from ipydex import IPS, activate_ips_on_exception  # for debugging only
 
 from ackrep_core.system_model_management import GenericModel, import_parameters
-from ackrep_core.core import get_metadata_from_file
-# Import parameter_file
 
-yml_path = os.path.join(os.path.dirname(__file__), "metadata.yml")
-md = get_metadata_from_file(yml_path)
-params = import_parameters(md["key"])
+# Import parameter_file
+params = import_parameters()
 
 
 class Model(GenericModel): 
@@ -48,7 +45,7 @@ class Model(GenericModel):
     
     def get_rhs_symbolic(self):
         """
-        :return:(scalar or array) symbolic rhs-functions
+        :return:(matrix) symbolic rhs-functions
         """
         if self.dxx_dt_symb is not None:
             return self.dxx_dt_symb
@@ -59,7 +56,7 @@ class Model(GenericModel):
         dx2_dt = -x*z + r*x - y
         dx3_dt = x*y - b*z
         
-        self.dxx_dt_symb = [dx1_dt, dx2_dt, dx3_dt]
+        self.dxx_dt_symb = sp.Matrix([dx1_dt, dx2_dt, dx3_dt])
         
         return self.dxx_dt_symb
  

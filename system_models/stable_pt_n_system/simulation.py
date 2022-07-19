@@ -10,6 +10,7 @@ import system_model
 from scipy.integrate import solve_ivp
 
 from ackrep_core import ResultContainer
+from ackrep_core.system_model_management import save_plot_in_dir
 import matplotlib.pyplot as plt
 import os
 
@@ -62,46 +63,40 @@ def simulate():
 
 def save_plot(sim):
 
-    
-
     # create figure + 2x2 axes array
     fig1, axs = plt.subplots(nrows=2, ncols=2, figsize=(12.8,9.6))
     # print in axes top left
     axs[0, 0].plot(sim[0].t, sim[0].y[0], label = 'PT1')
     axs[0, 0].plot(sim[1].t, sim[1].y[0], label = 'PT2')
-    axs[0, 0].set_ylabel('Amplitude') # y-label Nr 1
-    axs[0, 0].set_xlabel('Time[s]]') # x-Label für Figure linke Seite
+    axs[0, 0].set_ylabel('Amplitude') # y-label 
+    axs[0, 0].set_xlabel('Time[s]]') # x-Label 
     axs[0, 0].grid()
     axs[0, 0].legend()
 
     # print in axes top right 
     axs[1, 0].plot(sim[2].t, sim[2].y[0], label = 'PT3')
-    axs[1, 0].set_ylabel('Amplitude') # y-label Nr 1
-    axs[1, 0].set_xlabel('Time[s]') # x-Label für Figure linke Seite
+    axs[1, 0].set_ylabel('Amplitude') # y-label 
+    axs[1, 0].set_xlabel('Time[s]') # x-Label f
     axs[1, 0].grid()
     axs[1, 0].legend()
 
     # print in axes bottom left
     axs[0, 1].plot(sim[3].t, sim[3].y[0], label = 'PT4')
-    axs[0, 1].set_ylabel('Amplitude') # y-label Nr 1
-    axs[0, 1].set_xlabel('Time[s]') # x-Label für Figure linke Seite
+    axs[0, 1].set_ylabel('Amplitude') # y-label 
+    axs[0, 1].set_xlabel('Time[s]') # x-Label 
     axs[0, 1].grid()
     axs[0, 1].legend()
 
     # print in axes bottom right
     axs[1, 1].plot(sim[4].t, sim[4].y[0] , label = 'PT5')
-    axs[1, 1].set_ylabel('Amplitude') # y-label Nr 1
-    axs[1, 1].set_xlabel('Time[s]') # x-Label für Figure linke Seite
+    axs[1, 1].set_ylabel('Amplitude') # y-label 
+    axs[1, 1].set_xlabel('Time[s]') # x-Label 
     axs[1, 1].grid()
     axs[1, 1].legend()
 
     plt.tight_layout()
 
-    ## static
-    plot_dir = os.path.join(os.path.dirname(__file__), '_system_model_data')
-    if not os.path.isdir(plot_dir):
-        os.mkdir(plot_dir)
-    plt.savefig(os.path.join(plot_dir, 'plot.png'), dpi=96 * 2)
+    save_plot_in_dir()
 
 def evaluate_simulation(simulation_data):
     """
@@ -110,10 +105,13 @@ def evaluate_simulation(simulation_data):
     :return:
     """
 
-    target_states = [-2.369685579668774, -1.0626757541773422, -0.6428946899596174, 0.12607608396072245, 0.13375873500072138]
+    expected_final_state = [-2.369685579668774, -1.0626757541773422, -0.6428946899596174, 0.12607608396072245, 0.13375873500072138]
 
     rc = ResultContainer(score=1.0)
-    rc.target_state_errors = [simulation_data[i].y[0][-1] - target_states[i] for i in np.arange(0, len(simulation_data))]
-    rc.success = all(abs(np.array(rc.target_state_errors)) < 1e-2)
+    simulated_final_state = np.zeros(len(simulation_data))
+    for i in range (len(simulation_data)):
+        simulated_final_state[i] = simulation_data[i].y[0][-1]
+    rc.final_state_errors = [simulated_final_state[i] - expected_final_state[i] for i in np.arange(0, len(simulated_final_state))]
+    rc.success = np.allclose(expected_final_state, simulated_final_state, rtol=0, atol=1e-2)
     
     return rc

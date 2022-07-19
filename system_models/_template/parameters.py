@@ -7,8 +7,7 @@ import sympy as sp
 import tabulate as tab
 
 
-#link to documentation with examples: 
-#
+#link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
 
 
 # set model name

@@ -17,7 +17,8 @@ from scipy.integrate import odeint
 import sympy as sp
 import numpy as np
 import matplotlib.pyplot as plt
-
+import os
+from ackrep_core.system_model_management import save_plot_in_dir
 
 class SolutionData:
     pass
@@ -51,10 +52,10 @@ def solve(problem_spec):
     sys_f_body.sys_state = problem_spec.xx  # state of the system
     sys_f_body.tau = problem_spec.u  # inputs of the system
     # original nonlinear system functions
-    sys_f_body.n_state_func = problem_spec.rhs(problem_spec.xx, problem_spec.u)
+    sys_f_body.n_state_func = problem_spec.rhs()
 
     # original output functions
-    sys_f_body.n_out_func = problem_spec.output_func(problem_spec.xx, problem_spec.u)
+    sys_f_body.n_out_func = problem_spec.output_func()
     sys_f_body.eqlbr = problem_spec.eqrt  # equilibrium point
 
     # linearize nonlinear system around the chosen equilibrium point
@@ -90,6 +91,8 @@ def solve(problem_spec):
     solution_data.observer_gain = observer_res.observer_gain  # observer gains
     solution_data.pre_filter = observer_res.pre_filter  # pre-filter
 
+    save_plot(problem_spec, solution_data)
+
     return solution_data
 
 
@@ -106,4 +109,6 @@ def save_plot(problem_spec, solution_data):
         plt.xlabel(problem_spec.x_label)
         plt.ylabel(problem_spec.y_label_state[i])
     plt.tight_layout()
-    plt.show()
+    
+    # save image
+    save_plot_in_dir()

@@ -39,18 +39,16 @@ class ProblemSpecification(object):
     graph_color = 'r'
     row_number = 1  # the number of images in each row
 
-    @staticmethod
-    def rhs(xx, uu):
+    @classmethod
+    def rhs(cls):
         """ Right hand side of the equation of motion in nonlinear state space form
-        :param xx:   system state
-        :param uu:   system input
         :return:     nonlinear state function
         """
         R0 = 6  # reference resistance at the reference temperature in [Ohm]
         Tr = 303.15  # reference temperature in [K]
         alpha = 3.93e-3  # temperature coefficient in [1/K]
         Ta = 293.15  # environment temperature in [K]
-        sigma = 5.67e-8  # Stefan–Boltzmann constant in [W/m**2/k**4]
+        sigma = 5.67e-8  # Stefan–Boltzmann constant in [W/(m**2 * K**4)]
         A = 0.0025  # surface area of resistance m ** 2
         c = 87  # heat capacity in [J/k]
         '''
@@ -58,8 +56,8 @@ class ProblemSpecification(object):
         specific heat capacity for Cu: 394 [J/kg/K], density of Cu_resistance : 8.86[g/cm**3]
         volume of Cu_resistance: 0.0025 [m**2] * 0.01 [m] 
         '''
-        x1 = xx[0]  # state: temperature
-        u = uu[0]
+        x1 = cls.xx[0]  # state: temperature
+        u = cls.u[0]
 
         p1_dot = u / (c * R0 * (1 + alpha * (x1 - Tr))) - (sigma * A * (x1 ** 4 - Ta ** 4)) / c
 
@@ -67,15 +65,13 @@ class ProblemSpecification(object):
 
         return ff
 
-    @staticmethod
-    def output_func(xx, uu):
+    @classmethod
+    def output_func(cls):
         """ output equation of the system
-        :param xx:   system states
-        :param uu:   system input (not used in this case)
         :return:     output equation y = x1
         """
-        x1 = xx[0]
-        u = uu[0]
+        x1 = cls.xx[0]
+        u = cls.u[0]
 
         return sp.Matrix([x1])
 

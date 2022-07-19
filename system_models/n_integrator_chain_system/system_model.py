@@ -12,11 +12,8 @@ import sys, os
 from ipydex import IPS, activate_ips_on_exception  # for debugging only
 
 from ackrep_core.system_model_management import GenericModel, import_parameters
-from ackrep_core.core import get_metadata_from_file
 
 # Import parameter_file
-yml_path = os.path.join(os.path.dirname(__file__), "metadata.yml")
-md = get_metadata_from_file(yml_path)
 params = None
 
 class Model(GenericModel): 
@@ -32,7 +29,6 @@ class Model(GenericModel):
         # Define number of inputs -- MODEL DEPENDENT
         self.u_dim = 1
 
-        # Adjust sys_dim to dimension fitting to default parameters
         # only needed for n extendable systems -- MODEL DEPENDENT
         self.default_param_sys_dim = 3
      
@@ -81,7 +77,7 @@ class Model(GenericModel):
     
     def get_rhs_symbolic(self):
         """
-        :return:(scalar or array) symbolic rhs-functions
+        :return:(matrix) symbolic rhs-functions
         """
         if self.dxx_dt_symb is not None:
             return self.dxx_dt_symb

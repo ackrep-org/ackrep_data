@@ -10,6 +10,7 @@ import system_model
 from scipy.integrate import solve_ivp
 
 from ackrep_core import ResultContainer
+from ackrep_core.system_model_management import save_plot_in_dir
 import matplotlib.pyplot as plt
 import os
 
@@ -40,7 +41,6 @@ def save_plot(simulation_data):
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     ax.plot(y[0],y[1],y[2],label='Phasenportrait',lw=1,c='k')
-    #pyplot.title('Zustandsverläufe')
     ax.set_xlabel('x',fontsize= 15)
     ax.set_ylabel('y',fontsize= 15)
     ax.set_zlabel('z',fontsize= 15)
@@ -49,11 +49,7 @@ def save_plot(simulation_data):
 
     plt.tight_layout()
 
-    ## static
-    plot_dir = os.path.join(os.path.dirname(__file__), '_system_model_data')
-    if not os.path.isdir(plot_dir):
-        os.mkdir(plot_dir)
-    plt.savefig(os.path.join(plot_dir, 'plot.png'), dpi=96 * 2)
+    save_plot_in_dir()
 
 def evaluate_simulation(simulation_data):
     """
@@ -62,10 +58,11 @@ def evaluate_simulation(simulation_data):
     :return:
     """
 
-    target_states = [4.486449710392184, 0.9668556795992576, 2.2126416283661734]
+    expected_final_state = [4.486449710392184, 0.9668556795992576, 2.2126416283661734]
 
     rc = ResultContainer(score=1.0)
-    rc.target_state_errors = [simulation_data.y[i][-1] - target_states[i] for i in np.arange(0, len(simulation_data.y))]
-    rc.success = all(abs(np.array(rc.target_state_errors)) < 1e-2)
+    simulated_final_state = simulation_data.y[:, -1]
+    rc.final_state_errors = [simulated_final_state[i] - expected_final_state[i] for i in np.arange(0, len(simulated_final_state))]
+    rc.success = np.allclose(expected_final_state, simulated_final_state, rtol=0, atol=1e-2)
     
     return rc

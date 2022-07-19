@@ -13,7 +13,8 @@ import symbtools as st
 import matplotlib.pyplot as plt
 import method_trajectory_planning as tp  # noqa
 import control
-
+import os
+from ackrep_core.system_model_management import save_plot_in_dir
 
 class SolutionData:
     pass
@@ -76,6 +77,8 @@ def solve(problem_spec):
     solution_data.yy = y_1[1] + y_2[1]
     solution_data.y_func = y_func
 
+    save_plot(problem_spec, solution_data)
+
     return solution_data
 
 
@@ -89,4 +92,6 @@ def save_plot(problem_spec, solution_data):
     plt.ylabel('position [m]')
     plt.title('position of CuZn-ball')
     plt.legend(loc=1)
-    plt.show()
+    
+    # save image
+    save_plot_in_dir()

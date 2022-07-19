@@ -10,6 +10,7 @@ import system_model as lac
 from scipy.integrate import solve_ivp
 
 from ackrep_core import ResultContainer
+from ackrep_core.system_model_management import save_plot_in_dir
 import matplotlib.pyplot as plt
 import os
 
@@ -45,9 +46,7 @@ def save_plot(simulation_data):
     plt.grid()
     plt.tight_layout()
 
-    plot_dir = os.path.join(os.path.dirname(__file__), '_system_model_data')
-
-    plt.savefig(os.path.join(plot_dir, 'plot.png'), dpi=96 * 2)
+    save_plot_in_dir()
 
 def evaluate_simulation(simulation_data):
     """
@@ -56,9 +55,10 @@ def evaluate_simulation(simulation_data):
     :return:
     """
 
-    target_states = [-0.522566539750587, -0.830457089853563, 14.033163222999248]
+    expected_final_state = [-0.522566539750587, -0.830457089853563, 14.033163222999248]
     rc = ResultContainer(score=1.0)
-    rc.target_state_errors = [simulation_data.y[i][-1] - target_states[i] for i in np.arange(0, len(simulation_data.y))]
-    rc.success = all(abs(np.array(rc.target_state_errors)) < 1e-2)
+    simulated_final_state = simulation_data.y[:, -1]
+    rc.final_state_errors = [simulated_final_state[i] - expected_final_state[i] for i in np.arange(0, len(simulated_final_state))]
+    rc.success = np.allclose(expected_final_state, simulated_final_state, rtol=0, atol=1e-2)
     
     return rc

@@ -5,6 +5,7 @@ import system_model
 from scipy.integrate import solve_ivp
 
 from ackrep_core import ResultContainer
+from ackrep_core.system_model_management import save_plot_in_dir
 import matplotlib.pyplot as plt
 import os
 
@@ -27,11 +28,10 @@ def simulate():
 
     # if inputfunction exists:
     uu = model.uu_func(sim.t, sim.y)
-    g = model.pp_symb[0]
-    m = model.pp_symb[2]
-    uu = np.array(uu)/(model.pp_dict[g]*model.pp_dict[m])   
+    g = model.get_parameter_value('g')
+    m = model.get_parameter_value('m')
+    uu = np.array(uu)/(g*m)  
     sim.uu = uu
-
 
     # --------------------------------------------------------------------
     
@@ -74,18 +74,13 @@ def save_plot(simulation_data):
 
     # adjust subplot positioning and show the figure
     fig1.subplots_adjust(hspace=0.5)
-    fig1.show()
-
+    #fig1.show()
 
     # --------------------------------------------------------------------
 
     plt.tight_layout()
 
-    ## static
-    plot_dir = os.path.join(os.path.dirname(__file__), '_system_model_data')
-    if not os.path.isdir(plot_dir):
-        os.mkdir(plot_dir)
-    plt.savefig(os.path.join(plot_dir, 'plot.png'), dpi=96 * 2)
+    save_plot_in_dir()
 
 def evaluate_simulation(simulation_data):
     """
@@ -94,12 +89,13 @@ def evaluate_simulation(simulation_data):
     :return:
     """
     # fill in the final states y[i][-1] to check your model
-    target_states = [-44.216119976296774, -3.680370979746213, 45.469521639337344, -43.275661598545256, -0.00037156407418776797, -0.00033632680535548506]
+    expected_final_state = [-44.216119976296774, -3.680370979746213, 45.469521639337344, -43.275661598545256, -0.00037156407418776797, -0.00033632680535548506]
     
     # --------------------------------------------------------------------
 
     rc = ResultContainer(score=1.0)
-    rc.target_state_errors = [simulation_data.y[i][-1] - target_states[i] for i in np.arange(0, len(simulation_data.y))]
-    rc.success = all(abs(np.array(rc.target_state_errors)) < 1e-2)
+    simulated_final_state = simulation_data.y[:, -1]
+    rc.final_state_errors = [simulated_final_state[i] - expected_final_state[i] for i in np.arange(0, len(simulated_final_state))]
+    rc.success = np.allclose(expected_final_state, simulated_final_state, rtol=0, atol=1e-2)
     
     return rc

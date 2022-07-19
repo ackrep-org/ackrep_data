@@ -20,7 +20,7 @@
         - Copy the file `metadata.yml` from an existing entity of the same type to `ackrep_data/method_packages/<your_method>` and change its content beginning with the new key.
     - New `ProblemSolution`:
         - Create a new subirectory: like `ackrep_data/problem_solutions/<your_problem_solution>`.
-        - Copy your problem-specification-file into the directory and change name to `solution.py`.
+        - Copy your problem-solution-file into the directory and change name to `solution.py`.
         - Generate a new random key: `ackrep --key`.
         - Copy the file `metadata.yml` from an existing entity of the same type and change its content beginning with the new key.
         - Add all keys of solved problems and dependent packages.

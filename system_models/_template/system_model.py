@@ -6,16 +6,12 @@ import sys, os
 #from ipydex import IPS, activate_ips_on_exception  
 
 from ackrep_core.system_model_management import GenericModel, import_parameters
-from ackrep_core.core import get_metadata_from_file
 
 # Import parameter_file
-yml_path = os.path.join(os.path.dirname(__file__), "metadata.yml")
-md = get_metadata_from_file(yml_path)
-params = import_parameters(md["key"])
+params = import_parameters()
 
 
-#link to documentation with examples: 
-#
+#link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
 
 
 class Model(GenericModel): 
@@ -72,7 +68,7 @@ class Model(GenericModel):
         """
         define symbolic rhs function
 
-        :return: list of symbolic rhs-functions
+        :return: matrix of symbolic rhs-functions
         """
         if self.dxx_dt_symb is not None:
             return self.dxx_dt_symb
@@ -88,8 +84,8 @@ class Model(GenericModel):
         dx1_dt = ..
         dx2_dt = ..
 
-        # rhs functions list
-        self.dxx_dt_symb = [dx1_dt, dx2_dt, ..]
+        # rhs functions matrix
+        self.dxx_dt_symb = sp.Matrix([dx1_dt, dx2_dt, ..])
         # ---------end of edit section----------------------------------------
 
 

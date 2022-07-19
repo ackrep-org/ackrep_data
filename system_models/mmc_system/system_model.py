@@ -8,12 +8,9 @@ import sys, os
 from ipydex import IPS, activate_ips_on_exception  # for debugging only
 
 from ackrep_core.system_model_management import GenericModel, import_parameters
-from ackrep_core.core import get_metadata_from_file
 
 # Import parameter_file
-yml_path = os.path.join(os.path.dirname(__file__), "metadata.yml")
-md = get_metadata_from_file(yml_path)
-params = import_parameters(md["key"])
+params = import_parameters()
 
 
 
@@ -46,15 +43,21 @@ class Model(GenericModel):
     
     def uu_default_func(self):
         """
-        :param t:(scalar or vector) Time
-        :param xx_nv: (vector or array of vectors) state vector with 
-                                                    numerical values at time t      
-        :return:(function with 2 args - t, xx_nv) default input function 
+        
+        :return: (function with 2 args - t, xx_nv) default input function 
         """ 
 
         vdc, vg, omega, Lz, Mz, R, L = list(self.pp_dict.values())
         Ind_sum = Mz + Lz
         def uu_rhs(t, xx_nv):
+            
+            """
+            :param t:(scalar or vector) Time
+            :param xx_nv: (vector or array of vectors) state vector with 
+                                                    numerical values at time t      
+            :return: [vy, vy0, vx, vx0]
+            
+            """ 
             	
             es0, ed0, es, ed, iss, iss0, i, theta = xx_nv
                    
@@ -97,7 +100,7 @@ class Model(GenericModel):
             vx0 = Kp*(iss0_ref - iss0) 
 
 
-            return [vy, vy0, vx, vx0]
+            return [np.real(vy), vy0, vx, vx0]
         
         return uu_rhs
 
@@ -107,7 +110,7 @@ class Model(GenericModel):
     
     def get_rhs_symbolic(self):
         """
-        :return:(scalar or array) symbolic rhs-functions
+        :return:(matrix) symbolic rhs-functions
         """
         if self.dxx_dt_symb is not None:
             return self.dxx_dt_symb
@@ -142,8 +145,8 @@ class Model(GenericModel):
         dtheta_dt = 2*sp.pi/360*omega
         
         # put rhs functions into a vector
-        self.dxx_dt_symb = [des0_dt, ded0_dt, des_dt, ded_dt, diss_dt, 
-                            diss0_dt, di_dt, dtheta_dt]
+        self.dxx_dt_symb = sp.Matrix([des0_dt, ded0_dt, des_dt, ded_dt, diss_dt, 
+                            diss0_dt, di_dt, dtheta_dt])
         
         return self.dxx_dt_symb
     
