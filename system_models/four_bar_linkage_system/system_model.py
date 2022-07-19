@@ -10,12 +10,9 @@ import symbtools.modeltools as mt
  
 
 from ackrep_core.system_model_management import GenericModel, import_parameters
-from ackrep_core.core import get_metadata_from_file
 
 # Import parameter_file
-yml_path = os.path.join(os.path.dirname(__file__), "metadata.yml")
-md = get_metadata_from_file(yml_path)
-params = import_parameters(md["key"])
+params = import_parameters()
 
 
 #link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html

@@ -12,11 +12,8 @@ import sys, os
 from ipydex import IPS, activate_ips_on_exception  # for debugging only
 
 from ackrep_core.system_model_management import GenericModel, import_parameters
-from ackrep_core.core import get_metadata_from_file
 
 # Import parameter_file
-yml_path = os.path.join(os.path.dirname(__file__), "metadata.yml")
-md = get_metadata_from_file(yml_path)
 params = None
 
 class Model(GenericModel): 
