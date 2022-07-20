@@ -37,7 +37,7 @@ def rhs_for_simulation(f, g, xx, controller_func):
     """
 
     # call the class 'SimulationModel' to build the
-    # 'right hand side'equation for ode
+    # 'right hand side' equation for ode
     sim_mod = st.SimulationModel(f, g, xx)
     rhs_eq = sim_mod.create_simfunction(controller_function=controller_func)
 
