@@ -1,0 +1,19 @@
+key: EO7BA
+predecessor_key: ''
+type: problem_specification
+name: 'design of the controller of the brockett-integrator'
+short_description: 'to be done'
+version: 0.1.0
+tag_list:
+    - 'ocse:State_Space_System'
+creator: 'Anne Harloff <anne.harloff{ät}mailbox.tu-dresden.de>'
+editor_list:
+    - ''
+creation_date: '2022-06-30'
+external_references: ''
+notes: ''
+problemclass_list:
+    - ''
+problem_file: problem.py
+related_system_models_list:
+    - 'GKKTM'
