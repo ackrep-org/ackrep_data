@@ -1,0 +1,16 @@
+key: 2YXKP
+predecessor_key: ''
+type: method_package
+name: geometry inspired control of the brockett-integrator
+short_description: 'code for controller design'
+version: 0.1.0
+tag_list:
+    - ''
+creator: 'Anne Harloff anne.harloff{ät}mailbox.tu-dresden.de'
+editor_list:
+    - ''
+creation_date: '2022-07-01'
+external_references: ''
+notes: ''
+compatible_environment_list:
+    - ''
