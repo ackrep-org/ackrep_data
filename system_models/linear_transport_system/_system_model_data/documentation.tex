@@ -6,6 +6,7 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{hyperref}
 
 %link to documentation: 
 %https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
@@ -22,9 +23,9 @@
 	\begin{tabular}{ll}
 		$t$ & time \\
 		$z$ & space \\
-		$v$ & velocity \\
+		$v$ & constant (resembling velocity) \\
 		$u(z, t)$ & input function \\
-		$x(z, t)$ & wanted function
+		$x(z, t)$ & wanted function describing the material transport
 				
 	\end{tabular}
 	 
@@ -40,18 +41,18 @@
 	
 	\noindent System Equations:			
 	\begin{subequations}
-	\begin{align}
+	\begin{align*}
 		\dot{x}(z,t) + v x'&(z,t) = 0 && z\in (0, l], t>0\\
 		x(z,0) &= x_0(z) && z\in [0,l]\\
-		x(0,t) &= u(t) && t>0\\
-	\end{align}
+		x(0,t) &= u(t) && t>0
+	\end{align*}
 	\end{subequations}
 
 	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\noindent
 	Parameters: $v, l, T$ % variables with constant, predefined value
 	\\
-	Outputs: \textit{\textlangle not defined\textrangle} % MAY
+	Outputs: $x(l,t)$
 	
 	%%%%%%%%%%%%%%%%%%%%%% ASSUMPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
@@ -68,14 +69,22 @@
 	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%	
 	
 	\section{Derivation and Explanation} % SHOULD
-	
-	\textit{Not available}
+	Weak formulation approach with weight function $\varphi(z)$:
+	\begin{align*}
+		0 &\stackrel{!}{=} \int_{z=0}^{z=l} [ \dot{x}(z,t) + v x'(z,t) ] \varphi(z) \,dz   \\
+		0&=\int_{z=0}^{z=l} \dot{x}(z,t) \varphi(z) \,dz + v \int_{z=0}^{z=l}x'(z,t) \varphi(z) \,dz  \\
+		&\text{with partial integration} \\
+		0&=\int_{z=0}^{z=l} \dot{x}(z,t) \varphi(z) \,dz + v[x\varphi]_{z=0}^{z=l} - v \int_{z=0}^{z=l}x(z,t) \varphi'(z) \,dz   \\
+		0&=\int_{z=0}^{z=l} \dot{x}(z,t) \varphi(z) \,dz + vx(l)\varphi(l) - v\varphi(0)u(t) - v \int_{z=0}^{z=l}x(z,t) \varphi'(z) \,dz
+	\end{align*}
+
+
 	
 	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	\begin{thebibliography}{10}		
-		\bibitem{pyinduct}Stefan Ecklebe, Marcus Riesmeier: 
-		\href{https://pyinduct.readthedocs.io/en/master/examples/transport_system.html}
+		\bibitem{pyinduct}Stefan Ecklebe, Marcus Riesmeier: \\
+		\href{https://pyinduct.readthedocs.io/en/master/examples/transport_system.html}{https://pyinduct.readthedocs.io/en/master/examples/transport\_system.html}
 	\end{thebibliography}
 
 \end{document}

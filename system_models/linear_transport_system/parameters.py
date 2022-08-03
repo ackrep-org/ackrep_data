@@ -50,13 +50,13 @@ latex_names = {}
 tabular_header = ["Parameter Name", "Symbol", "Value"]
 
 # Define column text alignments
-col_alignment = ["left", "center", "left"]
+col_alignment = ["left", "center", "center"]
 
 # Define Entries of all columns before the Symbol-Column
 # --- Entries need to be latex code
-col_1 = ["transport velocity", 
-         "simulated space",
-         "simulated time"
+col_1 = ["velocity-constant", 
+         "spatial bounds",
+         "temporal bounds"
          ] 
 
 # contains all lists of the columns before the "Symbol" Column
