@@ -15,20 +15,19 @@ import tabulate as tab
 # tailing "_nv" stands for "numerical value"
 
 
-model_name = "Transport_System"
+model_name = "Heat_Equation"
 
 # CREATE SYMBOLIC PARAMETERS
-pp_symb = [v, l] = sp.symbols("v, l", real=True)
+pp_symb = [alpha, l] = sp.symbols("alpha, l", real=True)
 
 
 # SYMBOLIC PARAMETER FUNCTIONS
-v_sf = 4
-l_sf = 5
-
+alpha_sf = 1
+l_sf = 1
 
 
 # List of symbolic parameter functions
-pp_sf = [v_sf, l_sf]
+pp_sf = [alpha_sf, l_sf]
 
 
 # List for Substitution
@@ -37,7 +36,7 @@ pp_subs_list = []
 # OPTONAL: Dictionary which defines how certain variables shall be written
 # in the tabular - key: Symbolic Variable, Value: LaTeX Representation/Code
 # useful for example for complex variables: {Z: r"\underline{Z}"}
-latex_names = {}
+latex_names = {alpha: r"\alpha"}
 
 
 # ---------- CREATE BEGIN OF LATEX TABULAR
@@ -51,7 +50,10 @@ col_alignment = ["left", "center", "center"]
 
 # Define Entries of all columns before the Symbol-Column
 # --- Entries need to be latex code
-col_1 = ["velocity-constant", "spatial bounds"]
+col_1 = [
+    "thermal diffusivity",
+    "spatial bounds"
+]
 
 # contains all lists of the columns before the "Symbol" Column
 # --- Empty list, if there are no columns before the "Symbol" Column

@@ -1,0 +1,139 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+
+%link to documentation: 
+%https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+
+\begin{document}
+	\part*{Model Documentation of the Heat Equation} % MUST - Add Model Name 
+	
+	%%%%%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Nomenclature} % MUST
+	\subsection{Nomenclature for Model Equations} % MUST
+	
+	%variables for model equations
+	\begin{tabular}{ll}
+		$t$ & time \\
+		$z$ & space \\
+		$\alpha$ & thermal diffusivity\\
+		$u(z, t)$ & input trajectory \\
+		$x(z, t)$ & wanted function describing spacial and temporal development of the temperature in matter
+	\end{tabular}
+	 
+	
+	%variables which are used additional to those in the model equations
+	\begin{tabular}{ll}
+
+	\end{tabular}
+	
+	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Model Equations} % MUST
+	
+	\noindent System Equations:			
+	\begin{subequations}
+	\begin{align*}
+		\dot{x}(z,t) = \alpha x''&(z,t) && z\in (0, l), t>0\\
+		x(z,0) &= x_0(z) && z\in [0,l]\\
+		x(0,t) &= 0 && t>0\\
+		x(l,t) &= u(t) && t>0
+	\end{align*}
+	\end{subequations}
+
+	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent
+	Parameters: $\alpha, l,$ % variables with constant, predefined value
+
+	
+	%%%%%%%%%%%%%%%%%%%%%% ASSUMPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\subsection{Assumptions} % MAY 
+		\begin{enumerate} %possible list type for the Assumptions
+			\item $x_0(z)=0$
+		\end{enumerate}
+	
+	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\subsection{Exemplary parameter values}
+	\input{parameters.tex}
+
+	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\section{Derivation and Explanation} % SHOULD
+	Approach: 
+	\begin{itemize}
+		\item inital functions $\varphi_1(z),...,\varphi_{n+1}(z)$
+		\item test functions $\varphi_1(z),...,\varphi_n(z)$
+		\item where the functions $\varphi_1(z),..,\varphi_n(z)$ met the homogeneous b.c.\\
+			$\varphi_1(l),..,\varphi_n(l)=\varphi_1(0),..,\varphi_n(0)=0$
+		\item only $\varphi_{n+1}$ can draw the actuation
+	\end{itemize}
+	Approximating the wanted function with
+	\begin{equation*}
+		x(z,t) = \sum_{i=1}^{n+1} x_i^*(t) \varphi_i(z)\Big|_{x^*_{n+1}=u} =  \underbrace{\sum_{i=1}^{n} x_i^*(t) \varphi_i(z)}_{\hat x(z,t)} + \varphi_{n+1}(z) u(t).
+	\end{equation*}
+
+	\noindent The weak formulation is given by
+
+	\begin{align*}
+		\langle\dot{x}(z,t),\varphi_j(z)\rangle &=
+		a_2 \langle x''(z,t),\varphi_j(z)\rangle \\
+		&\hphantom =+
+		a_1 \langle x'(z,t), \varphi_j(z)\rangle  +
+		a_0 \langle x(z,t), \varphi_j(z)\rangle && j=1,...,n.
+	\end{align*}
+
+	\noindent Shift of derivation to work with lagrange 1st order initial functions
+
+	\begin{align*}
+		\langle\dot{x}(z,t),\varphi_j(z)\rangle &=
+		\overbrace{[a_2 [x'(z,t)\varphi_j(z)]_0^l}^{=0} - a_2 \langle x'(z,t),\varphi'_j(z)\rangle \\
+		&\hphantom =+
+		a_1 \langle x'(z,t), \varphi_j(z)\rangle  +
+		a_0 \langle x(z,t), \varphi_j(z)\rangle && j=1,...,n \\
+		\langle\dot{\hat{x}}(z,t),\varphi_j(z)\rangle + \langle\varphi_{N+1}(z),\varphi_j(z)\rangle \dot u(t) &= - a_2 \langle \hat x'(z,t),\varphi'_j(z)\rangle - a_2 \langle \varphi'_{N+1}(z),\varphi'_j(z)\rangle u(t) \\
+		&\hphantom =+
+		a_1 \langle \hat x'(z,t), \varphi_j(z)\rangle + a_1 \langle \varphi'_{N+1}(z), \varphi_j(z)\rangle u(t)  + \\
+		&\hphantom =+
+		a_0 \langle \hat x(z,t), \varphi_j(z)\rangle + a_0 \langle \varphi_{N+1}(z), \varphi_j(z)\rangle u(t) && j=1,...,n
+	\end{align*}
+
+	\noindent leads to state space model for the weights $\boldsymbol{x}^*=(x_1^*,...,x_n^*)^T$
+
+	\begin{align*}
+		\dot{\boldsymbol{x}}^*(t) = A \boldsymbol x^*(t) + \boldsymbol b_0 u(t) + \boldsymbol b_1 \dot{u}(t).
+	\end{align*}
+
+	\noindent The input derivative can be eliminated through the transformation
+	\begin{equation*}
+		\bar{\boldsymbol{x}}^* = \tilde A \boldsymbol x^* - \boldsymbol{b}_1 u
+	\end{equation*}
+	\noindent with e.g.: $\tilde A = I$, and leads to the state space model
+
+
+	\begin{align*}
+		\dot{\bar{\boldsymbol{x}}}^*(t) &= \tilde A A\tilde A^{-1} \bar{\boldsymbol{x}}^*(t) + \tilde A(A\boldsymbol b_1 + \boldsymbol b_0) u(t) \\
+		&= \bar A \bar{\boldsymbol{x}}^*(t) +\bar{\boldsymbol{b}} u(t).
+	\end{align*}
+
+
+
+
+	
+	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\begin{thebibliography}{10}		
+		\bibitem{pyinduct}Stefan Ecklebe, Marcus Riesmeier: \\
+		\href{https://pyinduct.readthedocs.io/en/master/examples/rad\_dirichlet\_fem.html}{https://pyinduct.readthedocs.io/en/master/examples/rad\_dirichlet\_fem.html}
+	\end{thebibliography}
+
+\end{document}
+

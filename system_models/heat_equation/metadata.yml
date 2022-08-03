@@ -1,15 +1,15 @@
-key: IG3GA
+key: 1VY9F
 predecessor_key: ''
 type: system_model
-name: 'Linear Transport System'
-short_description: 'PDE describing the linear transport equation'
+name: 'Heat Equation'
+short_description: 'PDE describing thermal conduction in matter'
 version: 0.1.0
 tag_list:
     - ''
 creator: 'Stefan Ecklebe <stefan.ecklebe@tu-dresden.de>'
 editor_list:
     - 'Julius Fiedler <julius.fiedler@tu-dresden.de'
-creation_date: '01.08.2022'
+creation_date: '03.08.2022'
 external_references: ''
 notes: ''
 estimated_runtime: ''

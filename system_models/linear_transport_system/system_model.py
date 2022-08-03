@@ -12,9 +12,9 @@ from ackrep_core.system_model_management import GenericModel, import_parameters
 class Model:
     # Import parameter_file
     params = import_parameters()
-    p = []
-    v, l, T = [int(i[1]) for i in params.get_default_parameters().items()]
 
+    v, l = [int(i[1]) for i in params.get_default_parameters().items()]
+    T = 5
     spat_bounds = (0, l)
     spat_domain = pi.Domain(bounds=spat_bounds, num=51)
     temp_domain = pi.Domain(bounds=(0, T), num=100)
@@ -38,6 +38,7 @@ class Model:
     x = pi.FieldVariable(func_label)
     phi = pi.TestFunction(func_label)
 
+    # weak formulation is starting point for calculation (see documentation)
     weak_form = pi.WeakFormulation(
         [
             pi.IntegralTerm(pi.Product(x.derive(temp_order=1), phi), spat_bounds),
