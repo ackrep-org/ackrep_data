@@ -22,7 +22,7 @@ class ProblemSpecification(object):
     model = Model()
     x1, x2, x3, x4 = model.xx_symb
     xx = sp.Matrix(model.xx_symb)  # states of system
-    u1 = model.uu_symb[0] # input of system
+    u1 = model.uu_symb[0]  # input of system
     u = [u1]
 
     # equilibrium points for linearization of the nonlinear system
@@ -34,17 +34,17 @@ class ProblemSpecification(object):
     r = np.diag([0.08])  # initial condition
 
     def rhs(model):
-        """ Right hand side of the equation of motion in nonlinear state space form
+        """Right hand side of the equation of motion in nonlinear state space form
         :param xx:   system states
         :param uu:   system input
         :return:     nonlinear state space
         """
-        
+
         return sp.Matrix(model.get_rhs_symbolic_num_params())
 
     @staticmethod
     def output_func(xx, uu):
-        """ output equation of the system
+        """output equation of the system
         :param xx:   system states
         :param uu:   system input (not used in this case)
         :return:     output equation y = x1
@@ -62,7 +62,8 @@ def evaluate_solution(solution_data):
     :return:
     """
     P = ProblemSpecification
-    success = all(abs(solution_data.res[600:, 0] - [P.eqrt[0][1]] * 400) < 1e-2) and \
-              all(abs(solution_data.res[600:, 1] - [P.eqrt[1][1]] * 400) < 1e-2)
+    success = all(abs(solution_data.res[600:, 0] - [P.eqrt[0][1]] * 400) < 1e-2) and all(
+        abs(solution_data.res[600:, 1] - [P.eqrt[1][1]] * 400) < 1e-2
+    )
 
     return ResultContainer(success=success, score=1.0)

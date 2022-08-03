@@ -12,6 +12,7 @@ class ProblemSpecification(object):
     """
     DoubleIntegratorTransition
     """
+
     xx_start = np.array([0, 0])
     xx_end = np.array([1, 0])
     T_transition = 1
@@ -39,7 +40,7 @@ def evaluate_solution(solution_data):
     # boolean result
     success = all(abs(xx_res[-1] - P.xx_end) < 1e-2)
 
-    #uu = np.array([solution_data.u_func(t)[0] for t in tt])
-    #xx_pyt = np.array([solution_data.x_func(t) for t in tt])
+    # uu = np.array([solution_data.u_func(t)[0] for t in tt])
+    # xx_pyt = np.array([solution_data.x_func(t) for t in tt])
 
     return ResultContainer(success=success)

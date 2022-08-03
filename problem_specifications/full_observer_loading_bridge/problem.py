@@ -15,12 +15,13 @@ from math import pi
 from ackrep_core import ResultContainer
 from system_models.loading_bridge_system.system_model import Model
 
+
 class ProblemSpecification(object):
     # system symbols for setting up the equation of motion
     model = Model()
     x1, x2, x3, x4 = model.xx_symb
     xx = sp.Matrix(model.xx_symb)  # states of system
-    u = [model.uu_symb[0]] # input of system
+    u = [model.uu_symb[0]]  # input of system
 
     # equilibrium point for linearization of the nonlinear system
     eqrt = [(x1, 0), (x2, 0), (x3, 0), (x4, 0), (u, 0)]
@@ -31,27 +32,25 @@ class ProblemSpecification(object):
     yr = 0  # target value pf output
 
     # plotting parameters
-    titles_state = ['x1', 'x2', 'x1_dot', 'x2_dot']
-    titles_output = ['y']
-    x_label = 'time [s]'
-    y_label_state = ['position [m]', 'angular position [rad]', 'velocity [m/s]', 'angular velocity [rad/s]']
-    y_label_output = ['x-position of pendulum m']
-    graph_color = 'r'
+    titles_state = ["x1", "x2", "x1_dot", "x2_dot"]
+    titles_output = ["y"]
+    x_label = "time [s]"
+    y_label_state = ["position [m]", "angular position [rad]", "velocity [m/s]", "angular velocity [rad/s]"]
+    y_label_output = ["x-position of pendulum m"]
+    graph_color = "r"
     row_number = 2  # the number of images in each row
 
     @classmethod
     def rhs(cls):
-        """ Right hand side of the equation of motion in nonlinear state space form
+        """Right hand side of the equation of motion in nonlinear state space form
         :return:     nonlinear state space
         """
-        
+
         return sp.Matrix(cls.model.get_rhs_symbolic_num_params())
-
-
 
     @classmethod
     def output_func(cls):
-        """ output equation of the system
+        """output equation of the system
         :return:     output equation y = x1
         """
         x1, x2, x3, x4 = cls.xx

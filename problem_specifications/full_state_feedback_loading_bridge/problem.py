@@ -23,34 +23,34 @@ class ProblemSpecification(object):
     model = Model()
     x1, x2, x3, x4 = model.xx_symb
     xx = sp.Matrix(model.xx_symb)  # states of system
-    u = [model.uu_symb[0]] # input of system
+    u = [model.uu_symb[0]]  # input of system
 
     # equilibrium point for linearization of the nonlinear system
     eqrt = [(x1, 0), (x2, 0), (x3, 0), (x4, 0), (u, 0)]
-    xx0 = np.array([0.2, pi/6, 1, 0.2])  # initial condition for simulation
+    xx0 = np.array([0.2, pi / 6, 1, 0.2])  # initial condition for simulation
     tt = np.linspace(0, 5, 1000)  # vector for the time axis for simulating
     poles_cl = [-3, -3, -3, -3]  # desired poles of closed loop
     yr = 1.5  # reference output
 
     # plotting parameters
-    titles_state = ['x1', 'x2', 'x1_dot', 'x2_dot']
-    titles_output = ['y']
-    x_label = 'time [s]'
-    y_label_state = ['position [m]', 'angular position [rad]', 'velocity [m/s]', 'angular velocity [rad/s]']
-    y_label_output = ['x-position of pendulum m']
-    graph_color = 'r'
+    titles_state = ["x1", "x2", "x1_dot", "x2_dot"]
+    titles_output = ["y"]
+    x_label = "time [s]"
+    y_label_state = ["position [m]", "angular position [rad]", "velocity [m/s]", "angular velocity [rad/s]"]
+    y_label_output = ["x-position of pendulum m"]
+    graph_color = "r"
     row_number = 2  # the number of images in each row
 
     @classmethod
     def rhs(cls):
-        """ Right hand side of the equation of motion in nonlinear state space form
+        """Right hand side of the equation of motion in nonlinear state space form
         :return:     nonlinear state space
         """
         return sp.Matrix(cls.model.get_rhs_symbolic_num_params())
 
     @classmethod
     def output_func(cls):
-        """ output equation of the system: x-position of the load
+        """output equation of the system: x-position of the load
         :return:     output equation y = x1
         """
         x1, x2, x3, x4 = cls.xx
@@ -69,5 +69,3 @@ def evaluate_solution(solution_data):
     P = ProblemSpecification
     success = all(abs(solution_data.yy[800:] - [P.yr] * 200) < 1e-2)
     return ResultContainer(success=success, score=1.0)
-
-

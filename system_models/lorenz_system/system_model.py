@@ -17,32 +17,29 @@ from ackrep_core.system_model_management import GenericModel, import_parameters
 params = import_parameters()
 
 
-class Model(GenericModel): 
-
+class Model(GenericModel):
     def initialize(self):
         """
         this function is called by the constructor of GenericModel
 
         :return: None
         """
-        
-          
+
         # Define number of inputs -- MODEL DEPENDENT
         self.u_dim = 0
 
-        # Set "sys_dim" to constant value, if system dimension is constant 
+        # Set "sys_dim" to constant value, if system dimension is constant
         # else set "sys_dim" to x_dim -- MODEL DEPENDENT
         self.sys_dim = 3
 
-        # check existance of params file -> if not: System is defined to hasn't 
+        # check existance of params file -> if not: System is defined to hasn't
         # parameters
         self.has_params = True
         self.params = params
 
-                 
-    # ----------- SYMBOLIC RHS FUNCTION ---------- # 
-    # --------------- MODEL DEPENDENT  
-    
+    # ----------- SYMBOLIC RHS FUNCTION ---------- #
+    # --------------- MODEL DEPENDENT
+
     def get_rhs_symbolic(self):
         """
         :return:(matrix) symbolic rhs-functions
@@ -52,12 +49,10 @@ class Model(GenericModel):
         x, y, z = self.xx_symb
         r, b, sigma = self.pp_symb
         # create symbolic rhs function vector
-        dx1_dt = - sigma*x + sigma*y
-        dx2_dt = -x*z + r*x - y
-        dx3_dt = x*y - b*z
-        
+        dx1_dt = -sigma * x + sigma * y
+        dx2_dt = -x * z + r * x - y
+        dx3_dt = x * y - b * z
+
         self.dxx_dt_symb = sp.Matrix([dx1_dt, dx2_dt, dx3_dt])
-        
+
         return self.dxx_dt_symb
- 
-    

@@ -55,8 +55,7 @@ class ResultContainer(Container):
 
     def __repr__(self):
         sim_err_str = ", ".join(["{:.3f}".format(e) for e in self.final_state_err])
-        s = "RC(accurate={}; res={}, err={})".format(self.reached_accuracy,
-                                                     self.solver_res, sim_err_str)
+        s = "RC(accurate={}; res={}, err={})".format(self.reached_accuracy, self.solver_res, sim_err_str)
         return s
 
 
@@ -95,8 +94,10 @@ class IntegChain(object):
             elif isinstance(elem, str):
                 elements.append(elem)
             else:
-                raise TypeError("Integrator chain elements should either be \
-                                 sympy.Symbol's or string objects!")
+                raise TypeError(
+                    "Integrator chain elements should either be \
+                                 sympy.Symbol's or string objects!"
+                )
 
         self._elements = tuple(elements)
 
@@ -107,35 +108,35 @@ class IntegChain(object):
         return self._elements[key]
 
     def __contains__(self, item):
-        return (item in self._elements)
+        return item in self._elements
 
     def __str__(self):
-        s = ''
-        for elem in self._elements:#[::-1]:
-            s += ' -> ' + elem
+        s = ""
+        for elem in self._elements:  # [::-1]:
+            s += " -> " + elem
         return s[4:]
 
     @property
     def elements(self):
-        '''
+        """
         Return an ordered list of the integrator chain's elements.
-        '''
+        """
         return self._elements
 
     @property
     def upper(self):
-        '''
+        """
         Returns the upper end of the integrator chain, i.e. the element
         of which all others are derivatives of.
-        '''
+        """
         return self._elements[0]
 
     @property
     def lower(self):
-        '''
+        """
         Returns the lower end of the integrator chain, i.e. the element
         which has no derivative in the integrator chain.
-        '''
+        """
         return self._elements[-1]
 
 
@@ -164,8 +165,8 @@ def find_integrator_chains(dyn_sys):
     logging.debug("Looking for integrator chains")
 
     # create symbolic variables to find integrator chains
-    state_sym = sp.symbols(dyn_sys.states) # e.g. (x1, x2, x3, x4)
-    input_sym = sp.symbols(dyn_sys.inputs) # e.g. (u1,)
+    state_sym = sp.symbols(dyn_sys.states)  # e.g. (x1, x2, x3, x4)
+    input_sym = sp.symbols(dyn_sys.inputs)  # e.g. (u1,)
     par_sym = sp.symbols(list(dyn_sys.par))
     # f = dyn_sys.f_sym(state_sym, input_sym, par_sym)
     f = dyn_sys.f_sym_matrix
@@ -191,7 +192,7 @@ def find_integrator_chains(dyn_sys):
     # find upper ends of integrator chains
     uppers = []
     for vv in list(chaindict.values()):
-        if (vv not in chaindict):
+        if vv not in chaindict:
             uppers.append(vv)
     # uppers=[x1, x3]
     # create ordered lists that temporarily represent the integrator chains
@@ -199,7 +200,7 @@ def find_integrator_chains(dyn_sys):
 
     # therefore we flip the dictionary to walk through its keys
     # (former values)
-    dictchain = {v:k for k,v in list(chaindict.items())} # chaindict.items()=[(u1, x2), (x4, x3), (x2, x1)]
+    dictchain = {v: k for k, v in list(chaindict.items())}  # chaindict.items()=[(u1, x2), (x4, x3), (x2, x1)]
     # {x1: x2, x2: u1, x3: x4}
     for var in uppers:
         tmpchain = []
@@ -216,7 +217,7 @@ def find_integrator_chains(dyn_sys):
     chains = []
     for lst in tmpchains:
         ic = IntegChain(lst)
-        chains.append(ic) # [class ic_1, class ic_2]
+        chains.append(ic)  # [class ic_1, class ic_2]
         logging.debug("--> found: " + str(ic))
 
     # now we determine the equations that have to be solved by collocation
@@ -228,10 +229,10 @@ def find_integrator_chains(dyn_sys):
         for ic in chains:
             # if lower end is a system variable
             # then its equation has to be solved
-            if ic.lower.startswith('x'):
+            if ic.lower.startswith("x"):
                 idx = dyn_sys.states.index(ic.lower)
                 eqind.append(idx)
-        eqind.sort() ## e.g. only has x4, therfore eqind=[3], means in this chain, we only need to calculate x4
+        eqind.sort()  ## e.g. only has x4, therfore eqind=[3], means in this chain, we only need to calculate x4
 
         # if every integrator chain ended with input variable
         if not eqind:
@@ -251,7 +252,7 @@ def zero_func_like(arg):
     :param arg: sequence or int
     :return:
     """
-    if hasattr(arg, '__len__'):
+    if hasattr(arg, "__len__"):
         n = len(arg)
     else:
         assert isinstance(arg, int)
@@ -267,8 +268,20 @@ def zero_func_like(arg):
     return fnc
 
 
-def expr2callable(expr, xxs, uus, uurefs, ts, pps, uref_fnc, cse=False, squeeze_axis=None,
-                  crop_result_idx=None, desired_shape=None, vectorized=True):
+def expr2callable(
+    expr,
+    xxs,
+    uus,
+    uurefs,
+    ts,
+    pps,
+    uref_fnc,
+    cse=False,
+    squeeze_axis=None,
+    crop_result_idx=None,
+    desired_shape=None,
+    vectorized=True,
+):
     """
     converts sympy expression(s) into a fast evaluable function
 
@@ -311,8 +324,9 @@ def expr2callable(expr, xxs, uus, uurefs, ts, pps, uref_fnc, cse=False, squeeze_
         expr_list = list(expr[:crop_result_idx, :])
 
         if expr.shape[1] > 1 and desired_shape is None:
-            msg = "It is strongly recommended to explicitly provide a desired_shape if <expr> " \
-                  " is not a column vector"
+            msg = (
+                "It is strongly recommended to explicitly provide a desired_shape if <expr> " " is not a column vector"
+            )
             raise UserWarning(msg)
     else:
         msg = "Unexpected type of expr: {}".format(type(expr))
@@ -332,7 +346,7 @@ def expr2callable(expr, xxs, uus, uurefs, ts, pps, uref_fnc, cse=False, squeeze_
 
     for elt in (xxs, uus, uurefs, [ts], pps):
         args.extend(elt)
-    _f_num = factory(args, expr_list, modules=[{'ImmutableMatrix': np.array}, 'numpy'])
+    _f_num = factory(args, expr_list, modules=[{"ImmutableMatrix": np.array}, "numpy"])
 
     # create a wrapper (background: see broadcasting_wrapper.__doc__)
     # TODO: get rid of this case distinction
@@ -342,7 +356,7 @@ def expr2callable(expr, xxs, uus, uurefs, ts, pps, uref_fnc, cse=False, squeeze_
         stack = np.hstack
 
     if desired_shape is None:
-        shape = (len(expr_list), )
+        shape = (len(expr_list),)
     else:
         shape = desired_shape
 
@@ -423,44 +437,43 @@ def make_cse_eval_function(input_args, replacement_pairs, ret_filter=None, names
         A namespace in which to define the function
     """
 
-    function_buffer = '''
+    function_buffer = """
 def eval_replacements_fnc(args):
     {unpack_args} = args
     {eval_pairs}
 
     return {replacements}
-    '''
+    """
 
     # first we create the string needed to unpack the input arguments
-    unpack_args_str = ','.join(str(a) for a in input_args)
+    unpack_args_str = ",".join(str(a) for a in input_args)
 
     # then we create the string that successively evaluates the replacement pairs
-    eval_pairs_str = ''
+    eval_pairs_str = ""
     for pair in replacement_pairs:
-        eval_pairs_str += '{symbol} = {expression}; '.format(symbol=str(pair[0]),
-                                                           expression=str(pair[1]))
+        eval_pairs_str += "{symbol} = {expression}; ".format(symbol=str(pair[0]), expression=str(pair[1]))
 
     # next we create the string that defines which replacements to return
     if ret_filter is not None:
-        replacements_str = ','.join(str(r) for r in ret_filter)
+        replacements_str = ",".join(str(r) for r in ret_filter)
     else:
-        replacements_str = ','.join(str(r) for r in lzip(*replacement_pairs)[0])
+        replacements_str = ",".join(str(r) for r in lzip(*replacement_pairs)[0])
 
     # ensure iterable return type (also in case of only one result)
     replacements_str = "({},)".format(replacements_str)
 
-    eval_replacements_fnc_str = function_buffer.format(unpack_args=unpack_args_str,
-                                                       eval_pairs=eval_pairs_str,
-                                                       replacements=replacements_str)
+    eval_replacements_fnc_str = function_buffer.format(
+        unpack_args=unpack_args_str, eval_pairs=eval_pairs_str, replacements=replacements_str
+    )
 
     # generate bytecode that, if executed, defines the function
     # which evaluates the cse pairs
-    code = compile(eval_replacements_fnc_str, '<string>', 'exec')
+    code = compile(eval_replacements_fnc_str, "<string>", "exec")
 
     # execute the code (in namespace if given)
     if namespace is not None:
         exec(code, namespace)
-        eval_replacements_fnc = namespace.get('eval_replacements_fnc')
+        eval_replacements_fnc = namespace.get("eval_replacements_fnc")
     else:
         exec(code, locals())
 
@@ -497,16 +510,16 @@ def cse_lambdify(args, expr, **kwargs):
     # get sequence of symbols from input arguments
     if type(args) == str:
         args = sp.symbols(args, seq=True)
-    elif hasattr(args, '__iter__'):
+    elif hasattr(args, "__iter__"):
         # this may kill assumptions
         # TODO: find out why this is done an possbly remove
         args = [sp.Symbol(str(a)) for a in args]
 
-    if not hasattr(args, '__iter__'):
+    if not hasattr(args, "__iter__"):
         args = (args,)
 
     # get the common subexpressions
-    symbol_generator = sp.numbered_symbols('r')
+    symbol_generator = sp.numbered_symbols("r")
     cse_pairs, red_exprs = sp.cse(expr, symbols=symbol_generator)
 
     # Note: cse always returns a list because expr might be a sequence of expressions
@@ -537,19 +550,19 @@ def cse_lambdify(args, expr, **kwargs):
 
     # if dummify is set to False then sympy.lambdify still returns a numpy.matrix
     # regardless of the possibly passed module dictionary {'ImmutableMatrix' : numpy.array}
-    if kwargs.get('dummify') == False:
-        kwargs['dummify'] = True
+    if kwargs.get("dummify") == False:
+        kwargs["dummify"] = True
 
     reduced_exprs_fnc = sp.lambdify(args=cse_args, expr=cse_expr, **kwargs)
 
     # get the function that evaluates the replacement pairs
-    modules = kwargs.get('modules')
+    modules = kwargs.get("modules")
 
     if modules is None:
-        modules = ['math', 'numpy', 'sympy']
+        modules = ["math", "numpy", "sympy"]
 
     namespaces = []
-    if isinstance(modules, (dict, str)) or not hasattr(modules, '__iter__'):
+    if isinstance(modules, (dict, str)) or not hasattr(modules, "__iter__"):
         namespaces.append(modules)
     else:
         namespaces += list(modules)
@@ -558,10 +571,9 @@ def cse_lambdify(args, expr, **kwargs):
     for m in namespaces[::-1]:
         nspace.update(_get_namespace(m))
 
-    eval_pairs_fnc = make_cse_eval_function(input_args=args,
-                                            replacement_pairs=cse_pairs,
-                                            ret_filter=cse_args,
-                                            namespace=nspace)
+    eval_pairs_fnc = make_cse_eval_function(
+        input_args=args, replacement_pairs=cse_pairs, ret_filter=cse_args, namespace=nspace
+    )
 
     # now we can wrap things together
     def cse_fnc(*args):
@@ -616,7 +628,7 @@ def broadcasting_wrapper(original_fnc, original_shape=None, squeeze_axis=None):
 
     # find out how many scalar args the funcition expects
     # this is only used for security assertations
-    args_info = getattr(original_fnc, 'args_info', None)
+    args_info = getattr(original_fnc, "args_info", None)
     if args_info:
         n_args = len(args_info)
     else:
@@ -717,13 +729,13 @@ def is_flat_sequence_of_numbers(obj, test_all=False):
     if isinstance(obj, str):
         return False
 
-    if not hasattr(obj, '__iter__'):
+    if not hasattr(obj, "__iter__"):
         return False
 
-    assert hasattr(obj, '__len__')
+    assert hasattr(obj, "__len__")
 
     if isinstance(obj, np.ndarray):
-        return obj.ndim == 1 and not obj.dtype == np.dtype('O')
+        return obj.ndim == 1 and not obj.dtype == np.dtype("O")
 
     if isinstance(obj, (tuple, list)):
         if len(obj) == 0:
@@ -781,12 +793,12 @@ def saturation_functions(y_fnc, dy_fnc, y0, y1, first_deriv=True):
 
     # Calculate the parameter m such that the slope of the saturation function
     # at t = 0 becomes 1
-    m = 4.0/(y1-y0)
+    m = 4.0 / (y1 - y0)
 
     # this is the saturation function
     def psi_y(t):
         y = y_fnc(t)
-        return y1 - (y1-y0)/(1.0+np.exp(m*y))
+        return y1 - (y1 - y0) / (1.0 + np.exp(m * y))
 
     if not first_deriv:
         return psi_y
@@ -795,7 +807,7 @@ def saturation_functions(y_fnc, dy_fnc, y0, y1, first_deriv=True):
     def dpsi_dy(t):
         y = y_fnc(t)
         dy = dy_fnc(t)
-        return dy * (4.0*np.exp(m*y))/(1.0+np.exp(m*y))**2
+        return dy * (4.0 * np.exp(m * y)) / (1.0 + np.exp(m * y)) ** 2
 
     return psi_y, dpsi_dy
 
@@ -813,10 +825,10 @@ def switch_on(x, xmin, xmax, m=None, scale=1):
     """
     assert xmin < xmax
     if m is None:
-        m = 50/(xmax - xmin)
+        m = 50 / (xmax - xmin)
 
-    res = 1 - 1/(1 + sp.exp(m*(x - xmin))) - 1/(1 + sp.exp(m*(xmax - x)))
-    return res*scale
+    res = 1 - 1 / (1 + sp.exp(m * (x - xmin))) - 1 / (1 + sp.exp(m * (xmax - x)))
+    return res * scale
 
 
 def penalty_expression(x, xmin, xmax, m=5, scale=1):
@@ -839,9 +851,9 @@ def penalty_expression(x, xmin, xmax, m=5, scale=1):
     if xmin == xmax:
         logging.warning("penalty expression: xmin == xmax == %s" % xmin)
 
-    xmid = xmin + (xmax - xmin)/2
+    xmid = xmin + (xmax - xmin) / 2
     # first term: parabola -> 0,                            second term: 0 -> parabola
-    res = (x-xmid)**2/(1 + sp.exp(m*(x - xmin))) + (x-xmid)**2/(1 + sp.exp(m*(xmax - x)))
+    res = (x - xmid) ** 2 / (1 + sp.exp(m * (x - xmin))) + (x - xmid) ** 2 / (1 + sp.exp(m * (xmax - x)))
     res *= scale
     # sp.plot(res, (x, xmin-xmid, xmax+xmid))
     return res
@@ -855,9 +867,9 @@ def unconstrain(var, vmin, vmax):
 
     :return: m, psi, dpsi (psi is a function which fulfills  vmin < psi(x) < vmax for all real x)
     """
-    m = 4.0/(vmax - vmin)
-    psi = vmax - (vmax - vmin)/(1. + sp.exp(m*var))
-    dpsi = (4.*sp.exp(m*var))/(1. + sp.exp(m*var)) ** 2
+    m = 4.0 / (vmax - vmin)
+    psi = vmax - (vmax - vmin) / (1.0 + sp.exp(m * var))
+    dpsi = (4.0 * sp.exp(m * var)) / (1.0 + sp.exp(m * var)) ** 2
 
     return m, psi, dpsi
 
@@ -871,7 +883,7 @@ def psi_inv(var, vmin, vmax):
     :return:        inverse expression of the psi-function
     """
     q = sp.Rational(1, 4)
-    return (vmax - vmin)*sp.log((vmin/(-vmax + var) - var/(-vmax + var))**q)
+    return (vmax - vmin) * sp.log((vmin / (-vmax + var) - var / (-vmax + var)) ** q)
 
 
 def consistency_error(I, x_fnc, u_fnc, dx_fnc, ff_fnc, par, npts=500, return_error_array=False):
@@ -979,8 +991,7 @@ def new_spline(Tend, n_parts, targetvalues, tag, bv=None, use_std_approach=True)
     :return:                Spline object
     """
 
-    s = splines.Spline(0, Tend, n=n_parts, bv=bv, tag=tag, nodes_type="equidistant",
-                       use_std_approach=use_std_approach)
+    s = splines.Spline(0, Tend, n=n_parts, bv=bv, tag=tag, nodes_type="equidistant", use_std_approach=use_std_approach)
 
     s.make_steady()
     assert np.ndim(targetvalues[0]) == 1
@@ -1012,7 +1023,7 @@ def eval_sol(masterobject, sol, tt):
     return res
 
 
-def siumlate_with_input(tp, inputseq, n_parts ):
+def siumlate_with_input(tp, inputseq, n_parts):
     """
 
     :param tp:          TransitionProblem
@@ -1023,9 +1034,8 @@ def siumlate_with_input(tp, inputseq, n_parts ):
 
     tt = np.linspace(tp.a, tp.b, len(inputseq))
     # currently only for single input systems
-    su1 = new_spline(tp.b, n_parts, (tt, inputseq), 'u1')
-    sim = Simulator(tp.dyn_sys.f_num_simulation, tp.b, tp.dyn_sys.xa, x_col_fnc=None,
-                    u_col_fnc=su1.f)
+    su1 = new_spline(tp.b, n_parts, (tt, inputseq), "u1")
+    sim = Simulator(tp.dyn_sys.f_num_simulation, tp.b, tp.dyn_sys.xa, x_col_fnc=None, u_col_fnc=su1.f)
     tt, xx, uu = sim.simulate()
 
     return tt, xx, uu
@@ -1052,7 +1062,7 @@ def calc_chebyshev_nodes(a, b, npts, include_borders=True):
         nc += 2
 
     # calculate zero points of chebychev polynomial --> in [-1,1]
-    cheb_cpts = [np.cos((2.0*i + 1)/(2*(nc + 1))*np.pi) for i in range(nc)]
+    cheb_cpts = [np.cos((2.0 * i + 1) / (2 * (nc + 1)) * np.pi) for i in range(nc)]
     cheb_cpts.sort()
 
     # map chebychev nodes from [-1,1] to our interval [a,b],
@@ -1061,9 +1071,9 @@ def calc_chebyshev_nodes(a, b, npts, include_borders=True):
     na = min(cheb_cpts)
     nb = max(cheb_cpts)
 
-    normed_cheb_nodes = (np.array(cheb_cpts) - na)/(nb - na)
+    normed_cheb_nodes = (np.array(cheb_cpts) - na) / (nb - na)
     # values now between 0 and 1 (including borders)
-    chpts = a + normed_cheb_nodes*(b-a)
+    chpts = a + normed_cheb_nodes * (b - a)
 
     if not include_borders:
         return chpts[1:-1]
@@ -1110,11 +1120,11 @@ def calc_gramian(A, B, T, info=False):
 
     # the ode is very simple because the rhs does not depend on the state x (only on t)
     def rhs(x, t):
-        factor1 = np.dot(expm(A*(T-t)), B)
+        factor1 = np.dot(expm(A * (T - t)), B)
         dx = np.dot(factor1, factor1.T).reshape(-1)
         return dx
 
-    x0 = (A*0).reshape(-1)
+    x0 = (A * 0).reshape(-1)
     G = scipy.integrate.odeint(rhs, x0, [0, T])[-1, :].reshape(A.shape)
 
     if info:
@@ -1142,7 +1152,7 @@ def calc_linear_bvp_solution(A, B, T, xa, xb, xref=None):
     """
 
     if xref is None:
-        xref = np.array(xa).reshape(-1, 1)*0
+        xref = np.array(xa).reshape(-1, 1) * 0
     else:
         xref = xref.reshape(-1, 1)
 
@@ -1154,9 +1164,9 @@ def calc_linear_bvp_solution(A, B, T, xa, xb, xref=None):
     Ginv = np.linalg.inv(G)
 
     def input_fnc(t):
-        e = expm(A*(T-t))
-        term2 = ddot(expm(A*T), xa)
-        res = ddot(B.T, e.T, Ginv, (xb-term2))
+        e = expm(A * (T - t))
+        term2 = ddot(expm(A * T), xa)
+        res = ddot(B.T, e.T, Ginv, (xb - term2))
         assert res.shape == (1, 1)
         return res[0]
 
@@ -1170,8 +1180,7 @@ def copy_splines(splinedict):
 
     res = OrderedDict()
     for k, v in list(splinedict.items()):
-        S = splines.Spline(v.a, v.b, n=v.n, tag=v.tag, bv=v._boundary_values,
-                           use_std_approach=v._use_std_approach)
+        S = splines.Spline(v.a, v.b, n=v.n, tag=v.tag, bv=v._boundary_values, use_std_approach=v._use_std_approach)
         S.masterobject = v.masterobject
         S._dep_array = v._dep_array.copy()
         S._dep_array_abs = v._dep_array_abs.copy()
@@ -1203,18 +1212,22 @@ def containerize_splines(splinedict):
     res = OrderedDict()
     for k, v in list(splinedict.items()):
         # noinspection PyProtectedMember
-        C = Container(a=v.a, b=v.b, n=v.n, tag=v.tag,
-                      _boundary_values=v._boundary_values,
-                      _use_std_approach=v._use_std_approach,
-                      masterobject=None,
-                      _dep_array=v._dep_array,
-                      _dep_array_abs = v._dep_array_abs,
-                      _steady_flag=v._steady_flag,
-                      _coeffs=v._coeffs,
-                      _coeffs_sym=v._coeffs_sym,
-                      _prov_flag=v._prov_flag,
-                      _indep_coeffs=v._indep_coeffs.copy(),
-                      )
+        C = Container(
+            a=v.a,
+            b=v.b,
+            n=v.n,
+            tag=v.tag,
+            _boundary_values=v._boundary_values,
+            _use_std_approach=v._use_std_approach,
+            masterobject=None,
+            _dep_array=v._dep_array,
+            _dep_array_abs=v._dep_array_abs,
+            _steady_flag=v._steady_flag,
+            _coeffs=v._coeffs,
+            _coeffs_sym=v._coeffs_sym,
+            _prov_flag=v._prov_flag,
+            _indep_coeffs=v._indep_coeffs.copy(),
+        )
         res[k] = C
 
     return res
@@ -1230,8 +1243,7 @@ def unpack_splines_from_containerdict(cdict):
 
     # noinspection PyProtectedMember
     def container_to_spline(c):
-        S = splines.Spline(c.a, c.b, n=c.n, tag=c.tag, bv=c._boundary_values,
-                           use_std_approach=c._use_std_approach)
+        S = splines.Spline(c.a, c.b, n=c.n, tag=c.tag, bv=c._boundary_values, use_std_approach=c._use_std_approach)
         S.masterobject = c.masterobject
         S._dep_array = c._dep_array.copy()
         S._dep_array_abs = c._dep_array_abs.copy()
@@ -1284,22 +1296,22 @@ def get_xx_uu_funcs_from_containerdict(cdict):
         c0, c1, c2 = cond(tt)
 
         ttc = np.clip(tt, a, b)
-        res = np.array([spl.f_vectorized(ttc) for spl in xx_splines]).T*c1
+        res = np.array([spl.f_vectorized(ttc) for spl in xx_splines]).T * c1
 
         # constant continuation in both directions (byond [a, b])
-        res += c0*np.array([spl.f_vectorized(a) for spl in xx_splines]).T
-        res += c2*np.array([spl.f_vectorized(b) for spl in xx_splines]).T
+        res += c0 * np.array([spl.f_vectorized(a) for spl in xx_splines]).T
+        res += c2 * np.array([spl.f_vectorized(b) for spl in xx_splines]).T
         return res
 
     def uu_func(tt):
         c0, c1, c2 = cond(tt)
 
         ttc = np.clip(tt, a, b)
-        res = np.array([spl.f_vectorized(ttc) for spl in uu_splines]).T*c1
+        res = np.array([spl.f_vectorized(ttc) for spl in uu_splines]).T * c1
 
         # constant continuation in both directions (byond [a, b])
-        res += c0*np.array([spl.f_vectorized(a) for spl in uu_splines]).T
-        res += c2*np.array([spl.f_vectorized(b) for spl in uu_splines]).T
+        res += c0 * np.array([spl.f_vectorized(a) for spl in uu_splines]).T
+        res += c2 * np.array([spl.f_vectorized(b) for spl in uu_splines]).T
         return res
 
     # ship the interval boundaries as attributes
@@ -1319,7 +1331,7 @@ def get_xx_uu_funcs_from_containerdict(cdict):
 
             ttc = np.clip(tt, a, b)
             # set all derivatives to zero outside [a, b]
-            res = np.array([getattr(spl, attrname)(ttc) for spl in spl_list]).T*c1
+            res = np.array([getattr(spl, attrname)(ttc) for spl in spl_list]).T * c1
             return res
 
         return tmpfnc
@@ -1330,7 +1342,6 @@ def get_xx_uu_funcs_from_containerdict(cdict):
             tmpfnc = fnc_factory(attrname, spl_list)
 
             setattr(fnc, n, tmpfnc)
-
 
     return xx_func, uu_func
 
@@ -1352,18 +1363,17 @@ def make_refsol_by_simulation(tp, u_values, plot_u=False, plot_x_idx=0):
     Ta, Tb = tp.a, tp.b
     tt1 = np.linspace(Ta, Tb, len(u_values))
 
-    uspline = new_spline(Tb, n_parts=10, targetvalues=(tt1, u_values), tag='u1')
+    uspline = new_spline(Tb, n_parts=10, targetvalues=(tt1, u_values), tag="u1")
 
     x_start = tp.dyn_sys.xa
     ff = tp.eqs.sys.f_num_simulation
 
     def ufunc(t):
-        """adapt siganture for broadcasting wrapper
-        """
+        """adapt siganture for broadcasting wrapper"""
         return uspline.f(t)
 
     nu = len(np.atleast_1d(ufunc(Ta)))
-    uref_func = broadcasting_wrapper(ufunc, original_shape=(nu, ))
+    uref_func = broadcasting_wrapper(ufunc, original_shape=(nu,))
 
     sim = Simulator(ff, Tb, x_start, x_col_fnc=None, u_col_fnc=uref_func)
     tt, xx, uu = sim.simulate()
@@ -1395,7 +1405,7 @@ def make_refsol_by_simulation(tp, u_values, plot_u=False, plot_x_idx=0):
         plt.figure()
         plt.plot(tt, xx[:, :n])
         plt.grid(1)
-        plt.legend([str(i+1) for i in range(n)])
+        plt.legend([str(i + 1) for i in range(n)])
         plot_flag = True
 
     if plot_flag:
@@ -1476,10 +1486,10 @@ def random_refsol_xx(tt, xa, xb, n_points, x_lower, x_upper, seed=0):
 
     for i, (va, vb, bl, bu) in enumerate(lzip(xa, xb, x_lower, x_upper)):
         assert bl < bu
-        rr = np.random.random(n_points)*(bu - bl) + bl
+        rr = np.random.random(n_points) * (bu - bl) + bl
         rr = np.r_[va, rr, vb]
         tt_tmp = np.linspace(tt[0], tt[-1], len(rr))
-        spln = UnivariateSpline(tt_tmp, rr, s=abs(bl)/10)
+        spln = UnivariateSpline(tt_tmp, rr, s=abs(bl) / 10)
         res[:, i] = spln(tt)
 
     return res
@@ -1499,7 +1509,7 @@ def reshape_wrapper(arr, dim=None, **kwargs):
     if not len(dim) == 2:
         raise NotImplementedError()
     d1, d2 = dim
-    if not d1*d2 == 0:
+    if not d1 * d2 == 0:
         return arr.reshape(dim, **kwargs)
     else:
         # one axis has length 0
@@ -1553,16 +1563,15 @@ def get_attributes_from_object(obj):
     :return:        tuple of attribute values
     """
 
-    frame, fname, l_number, fnc_name, lines, idx =\
-                  inspect.getouterframes(inspect.currentframe())[1]
+    frame, fname, l_number, fnc_name, lines, idx = inspect.getouterframes(inspect.currentframe())[1]
 
     assert len(lines) == 1
-    src_line, = lines
+    (src_line,) = lines
     assert src_line.count("=") == 1
 
     # left hand side
     lhs = src_line.split("=")[0]
-    names = lhs.split(',')
+    names = lhs.split(",")
 
     results = []
     for n in names:
@@ -1591,11 +1600,11 @@ def ensure_sequence(arg):
     :return:
     """
     if isinstance(arg, (str, dict, OrderedDict)):
-        return arg,
-    if hasattr(arg, '__len__'):
+        return (arg,)
+    if hasattr(arg, "__len__"):
         return arg
     else:
-        return arg,
+        return (arg,)
 
 
 def multi_solve_arglist(**kwargs):
@@ -1689,19 +1698,19 @@ def parallelizedTP(poolsize=3, save_results=True, debug=False, **kwargs):
     argspec = inspect.getargspec(TransitionProblem.__init__)
     assert argspec.args.pop(0) == "self"
 
-    required_arguments = argspec.args[:-len(argspec.defaults)]
+    required_arguments = argspec.args[: -len(argspec.defaults)]
     # optional_args = argspec.args[-len(argspec.defaults):]
 
     arglist = multi_solve_arglist(**kwargs)
 
     for ra in required_arguments:
         if not ra in kwargs:
-            msg = "The required argument {} for the class TransitionProblem " \
-                  "is missing.".format(ra)
+            msg = "The required argument {} for the class TransitionProblem " "is missing.".format(ra)
             raise ValueError(msg)
 
-    msg = "Using {} parallel processes to solve {} TransitionProblems.\n" \
-          "This might take a while... \n\n".format(poolsize, len(arglist))
+    msg = "Using {} parallel processes to solve {} TransitionProblems.\n" "This might take a while... \n\n".format(
+        poolsize, len(arglist)
+    )
 
     print(msg)
 
@@ -1718,7 +1727,7 @@ def parallelizedTP(poolsize=3, save_results=True, debug=False, **kwargs):
         result_list = processor_pool.map(_solveTP, arglist)
 
     if save_results:
-        with open(timestamped_fname("results.pcl"), 'wb') as dumpfile:
+        with open(timestamped_fname("results.pcl"), "wb") as dumpfile:
             pickle.dump(result_list, dumpfile)
 
     return result_list
@@ -1726,4 +1735,3 @@ def parallelizedTP(poolsize=3, save_results=True, debug=False, **kwargs):
 
 def lzip(*args):
     return list(zip(*args))
-

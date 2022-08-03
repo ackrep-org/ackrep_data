@@ -15,6 +15,7 @@ from pyblocksim import *
 import os
 from ackrep_core.system_model_management import save_plot_in_dir
 
+
 class SolutionData:
     pass
 
@@ -48,7 +49,7 @@ def solve(problem_spec):
 
     # numerator and denominator of controller
     cd_res = cd.coprime_decomposition(z_func, n_func, problem_spec.pol)
-    u1, u2, fb = inputs('u1, u2, fb')  # external force and feedback
+    u1, u2, fb = inputs("u1, u2, fb")  # external force and feedback
     SUM1 = Blockfnc(u1 - fb)
     Controller = TFBlock(cd_res.f_func / cd_res.h_func, SUM1.Y)
     SUM2 = Blockfnc(u2 + Controller.Y)
@@ -72,21 +73,21 @@ def solve(problem_spec):
 
 def save_plot(problem_spec, solution_data):
     plt.figure(1)  # simulated trajectory of CuZn-ball
-    plt.plot(solution_data.tt, solution_data.yy, label='actual trajectory')
-    plt.plot(problem_spec.tt1, solution_data.y_func(problem_spec.tt1), ":", label='desired full transition')
-    plt.plot(problem_spec.tt, solution_data.y_func(problem_spec.tt), label='desired state transition')
-    plt.plot(0, 0, 'rx', label='controller switch in')
-    plt.xlabel('time [s]')
-    plt.ylabel('position [m]')
-    plt.title('x-position of pendulum')
+    plt.plot(solution_data.tt, solution_data.yy, label="actual trajectory")
+    plt.plot(problem_spec.tt1, solution_data.y_func(problem_spec.tt1), ":", label="desired full transition")
+    plt.plot(problem_spec.tt, solution_data.y_func(problem_spec.tt), label="desired state transition")
+    plt.plot(0, 0, "rx", label="controller switch in")
+    plt.xlabel("time [s]")
+    plt.ylabel("position [m]")
+    plt.title("x-position of pendulum")
     plt.legend(loc=1)
 
     plt.figure(2)
     plt.plot(problem_spec.tt1, solution_data.u(problem_spec.tt1))
-    plt.xlabel('time [s]')
-    plt.ylabel('force [N]')
-    plt.title('external force')
-    
+    plt.xlabel("time [s]")
+    plt.ylabel("force [N]")
+    plt.title("external force")
+
     plt.tight_layout()
 
     save_plot_in_dir()

@@ -34,7 +34,7 @@ class ProblemSpecification(object):
     def transfer_func():
         s, t, T = sp.symbols("s, t, T")
         # transfer function of the linearized system
-        transfer_func = (- 8818) / (s ** 4 - 4787 * s ** 2 - 1.309 * 10 ** 6)
+        transfer_func = (-8818) / (s**4 - 4787 * s**2 - 1.309 * 10**6)
         return transfer_func
 
 

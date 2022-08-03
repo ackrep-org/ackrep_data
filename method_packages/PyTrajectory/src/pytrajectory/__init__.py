@@ -36,11 +36,11 @@ scp_version = LooseVersion(scipy.__version__)
 sp_version = LooseVersion(sympy.__version__)
 
 if np_version < LooseVersion("1.8.0"):
-    logging.warning('numpy version ({}) may be out of date'.format(numpy.__version__))
+    logging.warning("numpy version ({}) may be out of date".format(numpy.__version__))
 if scp_version < LooseVersion("0.13.0"):
-    logging.warning('scipy version ({}) may be out of date'.format(scipy.__version__))
+    logging.warning("scipy version ({}) may be out of date".format(scipy.__version__))
 if sp_version < LooseVersion("0.7.5"):
-    logging.warning('sympy version ({}) may be out of date'.format(sympy.__version__))
+    logging.warning("sympy version ({}) may be out of date".format(sympy.__version__))
 
 # log information about current version
 # logging.debug('This is PyTrajectory version {} of {}'.format(__version__, __date__))

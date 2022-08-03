@@ -19,13 +19,14 @@ import symbtools.mpctools as mpc
 
 from ackrep_core.system_model_management import save_plot_in_dir
 
+
 class SolutionData:
     pass
 
 
 def solve(problem_spec):
     # problem_spec is dummy
-    t = sp.Symbol('t')  # time variable
+    t = sp.Symbol("t")  # time variable
     np = 2
     nq = 2
     ns = 2
@@ -41,8 +42,36 @@ def solve(problem_spec):
 
     ttheta_all = st.concat_rows(ttheta, tthetad, tthetadd)
 
-    c1, c2, c3, c4, c5, c6, m1, m2, m3, m4, m5, m6, J1, J2, J3, J4, J5, J6, l1, l2, l3, l4, l5, l6, d, g = params = sp.symbols(
-        'c1, c2, c3, c4, c5, c6, m1, m2, m3, m4, m5, m6, J1, J2, J3, J4, J5, J6, l1, l2, l3, l4, l5, l6, d, g')
+    (
+        c1,
+        c2,
+        c3,
+        c4,
+        c5,
+        c6,
+        m1,
+        m2,
+        m3,
+        m4,
+        m5,
+        m6,
+        J1,
+        J2,
+        J3,
+        J4,
+        J5,
+        J6,
+        l1,
+        l2,
+        l3,
+        l4,
+        l5,
+        l6,
+        d,
+        g,
+    ) = params = sp.symbols(
+        "c1, c2, c3, c4, c5, c6, m1, m2, m3, m4, m5, m6, J1, J2, J3, J4, J5, J6, l1, l2, l3, l4, l5, l6, d, g"
+    )
 
     tau1, tau2, tau3, tau4, tau5, tau6 = ttau = st.symb_vector("tau1, tau2, tau3, tau4, tau5, tau6 ")
 
@@ -87,20 +116,52 @@ def solve(problem_spec):
 
     # Kinetic Energy (note that angles are relative)
 
-    T_rot = (J1 * qdot1 ** 2) / 2 + (J2 * (qdot1 + pdot1) ** 2) / 2 + (J3 * (qdot1 + pdot1 + sdot1) ** 2) / 2 + \
-            (J4 * (qdot2 + pdot2 + sdot2) ** 2) / 2 + (J5 * (qdot2 + pdot2) ** 2) / 2 + (J6 * qdot2 ** 2) / 2
+    T_rot = (
+        (J1 * qdot1**2) / 2
+        + (J2 * (qdot1 + pdot1) ** 2) / 2
+        + (J3 * (qdot1 + pdot1 + sdot1) ** 2) / 2
+        + (J4 * (qdot2 + pdot2 + sdot2) ** 2) / 2
+        + (J5 * (qdot2 + pdot2) ** 2) / 2
+        + (J6 * qdot2**2) / 2
+    )
     T_trans = (
-                      m1 * Sd1.T * Sd1 + m2 * Sd2.T * Sd2 + m3 * Sd3.T * Sd3 + m4 * Sd4.T * Sd4 + m5 * Sd5.T * Sd5 + m6 * Sd6.T * Sd6) / 2
+        m1 * Sd1.T * Sd1 + m2 * Sd2.T * Sd2 + m3 * Sd3.T * Sd3 + m4 * Sd4.T * Sd4 + m5 * Sd5.T * Sd5 + m6 * Sd6.T * Sd6
+    ) / 2
 
     T = T_rot + T_trans[0]
 
     # Potential Energy
     V = m1 * g * C1[1] + m2 * g * C2[1] + m3 * g * C3[1] + m4 * g * C4[1] + m5 * g * C5[1] + m6 * g * C6[1]
-    parameter_values = list(dict(c1=0.4 / 2, c2=0.42 / 2, c3=0.55 / 2, c4=0.55 / 2, c5=0.42 / 2, c6=0.4 / 2,
-                                 m1=6.0, m2=12.0, m3=39.6, m4=39.6, m5=12.0, m6=6.0,
-                                 J1=(6 * 0.4 ** 2) / 12, J2=(12 * 0.42 ** 2) / 12, J3=(39.6 * 0.55 ** 2) / 12,
-                                 J4=(39.6 * 0.55 ** 2) / 12, J5=(12 * 0.42 ** 2) / 12, J6=(6 * 0.4 ** 2) / 12,
-                                 l1=0.4, l2=0.42, l3=0.55, l4=0.55, l5=0.42, l6=0.4, d=0.26, g=9.81).items())
+    parameter_values = list(
+        dict(
+            c1=0.4 / 2,
+            c2=0.42 / 2,
+            c3=0.55 / 2,
+            c4=0.55 / 2,
+            c5=0.42 / 2,
+            c6=0.4 / 2,
+            m1=6.0,
+            m2=12.0,
+            m3=39.6,
+            m4=39.6,
+            m5=12.0,
+            m6=6.0,
+            J1=(6 * 0.4**2) / 12,
+            J2=(12 * 0.42**2) / 12,
+            J3=(39.6 * 0.55**2) / 12,
+            J4=(39.6 * 0.55**2) / 12,
+            J5=(12 * 0.42**2) / 12,
+            J6=(6 * 0.4**2) / 12,
+            l1=0.4,
+            l2=0.42,
+            l3=0.55,
+            l4=0.55,
+            l5=0.42,
+            l6=0.4,
+            d=0.26,
+            g=9.81,
+        ).items()
+    )
 
     external_forces = [tau1, tau2, tau3, tau4, tau5, tau6]
 
@@ -140,7 +201,7 @@ def solve(problem_spec):
     H2 = G3b + neck_length * torso2_unit
     H2r = G3b + (neck_length - head_radius) * torso2_unit
 
-    vis = vt.Visualiser(ttheta, xlim=(-1.5, 1.5), ylim=(-.2, 2))
+    vis = vt.Visualiser(ttheta, xlim=(-1.5, 1.5), ylim=(-0.2, 2))
 
     # get default colors and set them explicitly
     # this prevents color changes in onion skin plot
@@ -155,30 +216,36 @@ def solve(problem_spec):
     guy2_head_ec = guy2_head_fc  # edgecolor
 
     # guy 1 body
-    vis.add_linkage(st.col_stack(G0, G1, G2, G3).subs(parameter_values),
-                    color=guy1_color,
-                    solid_capstyle='round',
-                    lw=body_width,
-                    ms=body_width,
-                    mfc=guy1_joint_color)
+    vis.add_linkage(
+        st.col_stack(G0, G1, G2, G3).subs(parameter_values),
+        color=guy1_color,
+        solid_capstyle="round",
+        lw=body_width,
+        ms=body_width,
+        mfc=guy1_joint_color,
+    )
     # guy 1 neck
     # vis.add_linkage(st.col_stack(G3, H1r).subs(parameter_values), color=head_color, solid_capstyle='round', lw=neck_width)
     # guy 1 head
-    vis.add_disk(st.col_stack(H1, H1r).subs(parameter_values), fc=guy1_head_fc, ec=guy1_head_ec, plot_radius=False,
-                 fill=True)
+    vis.add_disk(
+        st.col_stack(H1, H1r).subs(parameter_values), fc=guy1_head_fc, ec=guy1_head_ec, plot_radius=False, fill=True
+    )
 
     # guy 2 body
-    vis.add_linkage(st.col_stack(G6, G5, G4, G3b).subs(parameter_values),
-                    color=guy2_color,
-                    solid_capstyle='round',
-                    lw=body_width,
-                    ms=body_width,
-                    mfc=guy2_joint_color)
+    vis.add_linkage(
+        st.col_stack(G6, G5, G4, G3b).subs(parameter_values),
+        color=guy2_color,
+        solid_capstyle="round",
+        lw=body_width,
+        ms=body_width,
+        mfc=guy2_joint_color,
+    )
     # guy 2 neck
     # vis.add_linkage(st.col_stack(G3b, H2r).subs(parameter_values), color=head_color, solid_capstyle='round', lw=neck_width)
     # guy 2 head
-    vis.add_disk(st.col_stack(H2, H2r).subs(parameter_values), fc=guy2_head_fc, ec=guy2_head_ec, plot_radius=False,
-                 fill=True)
+    vis.add_disk(
+        st.col_stack(H2, H2r).subs(parameter_values), fc=guy2_head_fc, ec=guy2_head_ec, plot_radius=False, fill=True
+    )
 
     eq_stat = mod.eqns.subz0(tthetadd).subz0(tthetad).subs(parameter_values)
 
@@ -205,7 +272,7 @@ def solve(problem_spec):
         return solve_qlp(K0, K1, rho)
 
     def solve_qlp(K0, K1, rho):
-        R_mu = npy.diag([1, 1, 1, rho, rho, rho, .1, .1])
+        R_mu = npy.diag([1, 1, 1, rho, rho, rho, 0.1, 0.1])
         n1, n2 = K1.shape
 
         # construct the equation system for least squares with linear constraints
@@ -235,7 +302,7 @@ def solve(problem_spec):
     # 2: y_connection_last, 3: delta_r_max, 4: rho (penalty factor for 2nd persons torques),
     # 5:11: ttheta_old[6], 11:17: ttheta:old2
     #
-    P = SX.sym('P', 5 + 12)
+    P = SX.sym("P", 5 + 12)
     rho = P[10]
 
     # weightning of inputs
@@ -287,16 +354,15 @@ def solve(problem_spec):
 
     nlp_prob = dict(f=obj, x=OPT_variables, g=g_all, p=P)
 
-    ipopt_settings = dict(max_iter=5000, print_level=0,
-                          acceptable_tol=1e-8, acceptable_obj_change_tol=1e-6)
+    ipopt_settings = dict(max_iter=5000, print_level=0, acceptable_tol=1e-8, acceptable_obj_change_tol=1e-6)
     opts = dict(print_time=False, ipopt=ipopt_settings)
 
     xx_guess = npy.r_[ttheta_start, mmu_start]
 
     # note: g1 contains the equality constraints (system dynamics) (lower bound = upper bound)
 
-    delta_phi = .05
-    d_delta_phi = .02
+    delta_phi = 0.05
+    d_delta_phi = 0.02
     eps = 1e-9
     lbg = npy.r_[[-eps] * ng1 + [-inf] + [-delta_phi] * n, [-d_delta_phi] * n]
     ubg = npy.r_[[eps] * ng1 + [0] + [delta_phi] * n, [d_delta_phi] * n]
@@ -308,13 +374,23 @@ def solve(problem_spec):
     # ubx = [inf, inf, inf, inf, inf, inf, inf, inf]*N1 + [tau1_max, tau4_max, inf, inf]*N
 
     rho = 3
-    P_init = npy.r_[connection_point_func(*ttheta_start)[1],
-                    connection_point_func(*ttheta_start), 0.01, rho, ttheta_start, ttheta_start]
+    P_init = npy.r_[
+        connection_point_func(*ttheta_start)[1],
+        connection_point_func(*ttheta_start),
+        0.01,
+        rho,
+        ttheta_start,
+        ttheta_start,
+    ]
 
-    args = dict(lbx=-inf, ubx=inf, lbg=lbg, ubg=ubg,  # unconstrained optimization
-                p=P_init,  # initial and final state
-                x0=xx_guess  # initial guess
-                )
+    args = dict(
+        lbx=-inf,
+        ubx=inf,
+        lbg=lbg,
+        ubg=ubg,  # unconstrained optimization
+        p=P_init,  # initial and final state
+        x0=xx_guess,  # initial guess
+    )
 
     solver = cs.nlpsol("solver", "ipopt", nlp_prob, opts)
     sol = solver(**args)
@@ -325,14 +401,13 @@ def solve(problem_spec):
 
         ttheta_old = global_vars.old_sol[:n]
         ttheta_old2 = global_vars.old_sol2[:n]
-        opt_prob_params = npy.r_[y_value, connection_point_func(*ttheta_old),
-                                 0.01, rho, ttheta_old, ttheta_old2]
+        opt_prob_params = npy.r_[y_value, connection_point_func(*ttheta_old), 0.01, rho, ttheta_old, ttheta_old2]
 
         args.update(dict(p=opt_prob_params, x0=global_vars.old_sol))
         sol = solver(**args)
 
         stats = solver.stats()
-        if not stats['success']:
+        if not stats["success"]:
             raise ValueError(stats["return_status"])
 
         XX = sol["x"].full().squeeze()
@@ -367,7 +442,7 @@ def solve(problem_spec):
     rho = 30
     XX = get_qs_trajectory(rho=rho)
 
-    def smooth_time_scaling(Tend, N, phase_fraction=.5):
+    def smooth_time_scaling(Tend, N, phase_fraction=0.5):
         """
         :param Tend:
         :param N:
@@ -387,8 +462,9 @@ def solve(problem_spec):
         poly2 = poly1.subs(t, Tend - t)
 
         # there should be a phase in the middle with constant slope
-        deriv_transition = st.piece_wise((y0, t < T0), (poly1, t < T1), (y1, t < Tend - T1),
-                                         (poly2, t < Tend), (y0, True))
+        deriv_transition = st.piece_wise(
+            (y0, t < T0), (poly1, t < T1), (y1, t < Tend - T1), (poly2, t < Tend), (y0, True)
+        )
 
         scaling = sp.integrate(deriv_transition, (t, T0, Tend))
 
@@ -450,7 +526,7 @@ def solve(problem_spec):
         XXd_n = XXd_num * NN3d_bc
 
         # apply chain rule
-        XXdd_n = XXdd_num * NN3d_bc ** 2 + XXd_num * NN3dd_bc
+        XXdd_n = XXdd_num * NN3d_bc**2 + XXd_num * NN3dd_bc
 
         C = ipydex.Container(fetch_locals=True)
         return C
@@ -466,11 +542,11 @@ def solve(problem_spec):
 
         if static1:
             # set velocities to 0
-            ttheta_num_all[:, n:2 * n] = 0
+            ttheta_num_all[:, n : 2 * n] = 0
 
         if static2:
             # set accelerations to 0
-            ttheta_num_all[:, 2 * n:] = 0
+            ttheta_num_all[:, 2 * n :] = 0
 
         res = dynterm_func(*ttheta_num_all.T)
         return res
@@ -498,7 +574,7 @@ def solve(problem_spec):
 
 
 def save_plot(problem_spec, solution_data):
-    color_cycle = cycler(color=['#15B494', '#1F77B4', '#294BBB', '#FFA30E', '#ff7f0e', '#FF480E'])
+    color_cycle = cycler(color=["#15B494", "#1F77B4", "#294BBB", "#FFA30E", "#ff7f0e", "#FF480E"])
 
     fig = plt.figure(figsize=(5, 10))
 
@@ -510,8 +586,9 @@ def save_plot(problem_spec, solution_data):
 
     plt.xlabel(r"$t$ [s]")
     plt.ylabel(r"$\theta_i$ [rad]")
-    plt.legend(["$\\theta_1$", "$\\theta_2$", "$\\theta_3$", "$\\theta_4$", "$\\theta_5$", "$\\theta_6$"],
-               loc="lower right")
+    plt.legend(
+        ["$\\theta_1$", "$\\theta_2$", "$\\theta_3$", "$\\theta_4$", "$\\theta_5$", "$\\theta_6$"], loc="lower right"
+    )
 
     plt.subplot(grid[1, 0])
     plt.gca().set_prop_cycle(color_cycle)
@@ -534,6 +611,7 @@ def save_plot(problem_spec, solution_data):
 
     # draw chair
     from matplotlib.patches import Rectangle
+
     chair = Rectangle((0.4, 0), 1, 0.3, color="lightgray")
     ax.add_patch(chair)
 

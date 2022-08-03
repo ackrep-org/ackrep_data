@@ -44,14 +44,14 @@ def rhs_for_simulation(f, g, xx, controller_func):
 
 
 def solve(problem_spec):
-    """ 
+    """
     calculate the solution data using the method package method_geometry_inspired_control
     :param problem_spec: ProblemSpecification object
     :return: solution_data: list of arrays of the state histories
     """
-    
+
     x1, x2, x3 = xx = problem_spec.model.xx_symb
-    v1, v2 = vv = problem_spec.vv    
+    v1, v2 = vv = problem_spec.vv
     uue = mgic.cylindical_coordinates(problem_spec)
     r1_opt_interp = mgic.shortest_curve(problem_spec)
     # function to calculate u1, u2, from v1, v2
@@ -60,7 +60,7 @@ def solve(problem_spec):
     z_tol = 1e-2
     r_tol = 1e-2
     Tend = 6
-    dt = .005
+    dt = 0.005
 
     var_controller = [r1_opt_interp, z_tol, r_tol, vv_to_uu]
 
@@ -69,11 +69,11 @@ def solve(problem_spec):
 
     # initial values: x1, x2 uniformly random in (-1, 1)
     # x3 in (0, 1)
-    xx0_values = np.column_stack( ((np.random.rand(N, 2) - .5), np.random.rand(N, 1)))
+    xx0_values = np.column_stack(((np.random.rand(N, 2) - 0.5), np.random.rand(N, 1)))
 
     res = [mgic.simulate(var_controller, xx0, Tend, dt) for xx0 in xx0_values]
 
-    tt = np.arange(0, Tend+2*dt, dt)[:res[0].shape[0]]
+    tt = np.arange(0, Tend + 2 * dt, dt)[: res[0].shape[0]]
 
     save_plot(res, tt)
 
@@ -92,41 +92,39 @@ def save_plot(solution_data, tt):
 
     # swap some of the results, such that 3d view looks nicer
     solution_data[0], solution_data[1] = solution_data[1], solution_data[0]
-        
-    plt.rcParams['font.size'] = 14
-    plt.rcParams['axes.labelsize'] = 20
-    plt.rcParams['figure.subplot.bottom'] = .2
 
-    plt.rcParams['figure.subplot.left'] = .05
-    plt.rcParams['figure.subplot.right'] = .9
+    plt.rcParams["font.size"] = 14
+    plt.rcParams["axes.labelsize"] = 20
+    plt.rcParams["figure.subplot.bottom"] = 0.2
 
+    plt.rcParams["figure.subplot.left"] = 0.05
+    plt.rcParams["figure.subplot.right"] = 0.9
 
     fig = plt.figure(figsize=(10, 15))
-    ax = fig.add_subplot(4, 1, 1, projection='3d')
+    ax = fig.add_subplot(4, 1, 1, projection="3d")
     # plot axis
 
     kwargs1 = dict(color="0.3", ls="solid", lw=2)
 
     # plot coordinate system
-    ax.plot([-.1, .65], [0, 0], [0, 0], **kwargs1)
-    ax.plot([0, 0], [-.1, .65], [0, 0], **kwargs1)
-    ax.plot([0, 0], [0, 0], [-.1, 1], **kwargs1)
+    ax.plot([-0.1, 0.65], [0, 0], [0, 0], **kwargs1)
+    ax.plot([0, 0], [-0.1, 0.65], [0, 0], **kwargs1)
+    ax.plot([0, 0], [0, 0], [-0.1, 1], **kwargs1)
 
     ax.set_xlabel("$x_1$")
-    ax.set_xticks([-.6, .6])
+    ax.set_xticks([-0.6, 0.6])
     ax.set_ylabel("$x_2$")
-    ax.set_yticks([-.6, .6])
+    ax.set_yticks([-0.6, 0.6])
     ax.set_zlabel("$x_3$")
     ax.set_zticks([0, 1])
     for i, xxn in enumerate(solution_data):
         ax.plot(xxn[:, 0], xxn[:, 1], xxn[:, 2])
 
-
     ax = fig.add_subplot(4, 2, 3)
     ax.set_ylabel("$x_1$")
     ax.set_xlabel("$t$")
     for i, xxn in enumerate(solution_data):
-        z = xxn[:, 2]   
+        z = xxn[:, 2]
         ax.plot(tt, xxn[:, 0])
 
     ax = fig.add_subplot(4, 2, 5)
@@ -145,7 +143,7 @@ def save_plot(solution_data, tt):
     ax.set_ylabel("$r$")
     ax.set_xlabel("$t$")
     for i, xxn in enumerate(solution_data):
-        r = np.sqrt(xxn[:, 0]**2 + xxn[:, 1]**2)
+        r = np.sqrt(xxn[:, 0] ** 2 + xxn[:, 1] ** 2)
         ax.plot(tt, r)
 
     ax = fig.add_subplot(4, 2, 8)
@@ -155,9 +153,8 @@ def save_plot(solution_data, tt):
         phi_ = np.arctan2(xxn[:, 0], xxn[:, 1])
         phi = mgic.cont_continuation(phi_)
         ax.plot(tt, phi)
-    
 
     plt.tight_layout()
-    
+
     # save image
     save_plot_in_dir()

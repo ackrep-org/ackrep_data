@@ -1,4 +1,3 @@
-
 """
 This module provides an interface for interacting with long lasting calculations via a TCP socket.
 """
@@ -34,6 +33,7 @@ class MessageContainer(object):
         self.change_w = "change_w"
         self.run_ivp = "run_ivp"
 
+
 messages = MessageContainer()
 
 server = []
@@ -52,11 +52,11 @@ class ThreadedServer(object):
             try:
                 self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-                self.sock.bind((self.host, self.port+i))
+                self.sock.bind((self.host, self.port + i))
                 break
             except socket.error as err:
                 confirmflag = True
-                logging.warn("port {} already in use, increasing by 1.".format(self.port+i))
+                logging.warn("port {} already in use, increasing by 1.".format(self.port + i))
                 continue
         logging.debug("Connected to localhost:{}".format(self.port + i))
         if confirmflag:
@@ -92,7 +92,7 @@ class ThreadedServer(object):
                 if data:
                     msgqueue.put(data)
                 else:
-                    logging.info('Client disconnected')
+                    logging.info("Client disconnected")
                     client.close()
             except IOError:
                 client.close()
@@ -134,7 +134,7 @@ def start_stopable_thread(callable, dt=0.1, name=None):
 
 def listen_for_connections(port):
 
-    target = ThreadedServer('', port).listen
+    target = ThreadedServer("", port).listen
     thrdfnc = start_stopable_thread(target, name="listen-thread")
 
     thr = threading.Thread(target=thrdfnc)
@@ -163,8 +163,8 @@ def stop_listening():
 
         # Connecting to the any-address 0.0.0.0 is not allowed on Windows
         # https://stackoverflow.com/questions/11982562/socket-connect-to-0-0-0-0-windows-vs-mac
-        if host == '0.0.0.0':
-            address = ('127.0.0.1', port)
+        if host == "0.0.0.0":
+            address = ("127.0.0.1", port)
 
     sock.connect(address)
 
@@ -174,6 +174,7 @@ def stop_listening():
     # TODO: implement that flag without global keyword
     global running
     running = False
+
 
 def has_message(txt):
     """
@@ -198,7 +199,7 @@ def has_message(txt):
 
 
 def process_queue():
-    """"simulate to perform some work (for testing)"""
+    """ "simulate to perform some work (for testing)"""
     while True:
         if msgqueue.empty():
             logging.debug("empty queue")
@@ -212,9 +213,9 @@ def process_queue():
 
     logging.info("finished")
 
+
 if __name__ == "__main__":
     PORT = eval(input("Port? "))
     listen_for_connections(PORT)
 
     process_queue()
-

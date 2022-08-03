@@ -29,11 +29,11 @@ class ProblemSpecification(object):
 
     @staticmethod
     def has_converged(t, y):
-        return np.sum(y ** 2) <= 0.1
+        return np.sum(y**2) <= 0.1
 
     @staticmethod
     def has_diverged(t, y):
-        return np.sum(y ** 2) > 100
+        return np.sum(y**2) > 100
 
 
 def evaluate_solution(solution_data):

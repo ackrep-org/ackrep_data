@@ -15,7 +15,7 @@ import tabulate as tab
 model_name = "Roessler_Atractor_1979_1"
 
 # CREATE SYMBOLIC PARAMETERS
-pp_symb = [a, b, c] = sp.symbols('a, b, c', real = True)
+pp_symb = [a, b, c] = sp.symbols("a, b, c", real=True)
 
 
 # SYMBOLIC PARAMETER FUNCTIONS
@@ -27,7 +27,7 @@ c_sf = 4.84
 pp_sf = [a_sf, b_sf, c_sf]
 
 
-# List for Substitution 
+# List for Substitution
 pp_subs_list = []
 
 
@@ -38,13 +38,13 @@ latex_names = {}
 
 # ---------- CREATE BEGIN OF LATEX TABULAR
 
-# Define tabular Header 
+# Define tabular Header
 tabular_header = ["Symbol", "Value"]
 
 # Define column text alignments
 col_alignment = ["center", "left"]
 
-col_1=[]
+col_1 = []
 
 # contains all lists of the columns before the "Symbol" Column
 start_columns_list = []

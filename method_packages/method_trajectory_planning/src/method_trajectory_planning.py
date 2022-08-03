@@ -21,8 +21,8 @@ class Trajectory_Planning(object):
         self.tt = tt  # time axis for simulation
         self.num = None  # numerator of the transfer function
         self.dem = None  # denominator of the transfer function
-        self.t = sp.Symbol('t')  # parameter of Polynomial
-        self.s = sp.Symbol('s')  # s laplace parameter
+        self.t = sp.Symbol("t")  # parameter of Polynomial
+        self.s = sp.Symbol("s")  # s laplace parameter
 
     def cal_li_derivative(self):
         """
@@ -56,8 +56,7 @@ class Trajectory_Planning(object):
         # state transition
         poly = st.condition_poly(self.t, (self.t0, *self.YA), (self.tf, *self.YB))
         # full transition within the given period
-        full_transition = st.piece_wise((self.YA[0], self.t < self.t0),
-                                        (poly, self.t < self.tf), (self.YB[0], True))
+        full_transition = st.piece_wise((self.YA[0], self.t < self.t0), (poly, self.t < self.tf), (self.YB[0], True))
 
         poly_d = []
         for i in range(len(self.YA)):
@@ -81,7 +80,7 @@ class Trajectory_Planning(object):
 
 
 class Tracking_controller(object):
-    """ class for a trajectory controller.
+    """class for a trajectory controller.
     Attributes:
         yy : actual system output
         xx : system states
@@ -98,7 +97,7 @@ class Tracking_controller(object):
         self.uu = uu
         self.poles = poles
         self.trajectory = trajectory
-        self.k = sp.symbols('s0:%d' % (len(self.yy) - 1))
+        self.k = sp.symbols("s0:%d" % (len(self.yy) - 1))
         self.coefficient = None
         self.control_law = None
 
@@ -109,9 +108,9 @@ class Tracking_controller(object):
         :param poles: desired poles of the error dynamics
         :return: self.coefficient: coefficients which can stabilize the error dynamics
         """
-        s = sp.Symbol('s')
+        s = sp.Symbol("s")
         o = len(self.yy) - 1  # order of error dynamics
-        poly = sum((self.k[i] * s ** i for i in range(o)), s ** o)  # generate error dynamics function
+        poly = sum((self.k[i] * s**i for i in range(o)), s**o)  # generate error dynamics function
         poly_list = []
         for i in range(len(self.poles)):
             poly_list.append(poly.subs(s, self.poles[i]))
@@ -130,16 +129,17 @@ class Tracking_controller(object):
         :return: control law
         """
 
-        t = sp.Symbol('t')
+        t = sp.Symbol("t")
         coeffs = self.error_polynomial()  # coefficients of error dynamics
         # error dynamics function
-        error_poly = sum((-1 * list(coeffs.values())[i]
-                          * (self.yy[i] - self.trajectory[i]) for i in
-                          range(len(coeffs))), self.trajectory[len(coeffs)])
+        error_poly = sum(
+            (-1 * list(coeffs.values())[i] * (self.yy[i] - self.trajectory[i]) for i in range(len(coeffs))),
+            self.trajectory[len(coeffs)],
+        )
 
         # control law
         input_func = self.yy[len(coeffs)] - error_poly
-        c_law = (sp.solve(input_func, self.uu)[0])
+        c_law = sp.solve(input_func, self.uu)[0]
         # control law to function for simulation
-        self.control_law = sp.lambdify((self.xx, t), c_law, modules='numpy')
+        self.control_law = sp.lambdify((self.xx, t), c_law, modules="numpy")
         return self.control_law, c_law

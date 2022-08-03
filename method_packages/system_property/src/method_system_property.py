@@ -40,9 +40,9 @@ class System_Property(object):
         :return: self.cc: linearized output matrix
         :return: self.d: linearized feed forward matrix
         """
-        '''if None in (self.n_state_func, self.n_out_func):
+        """if None in (self.n_state_func, self.n_out_func):
             msg = "The system and output functions must be created first."
-            raise ValueError(msg)'''
+            raise ValueError(msg)"""
 
         if parameter_values is None:
             parameter_values = []
@@ -58,7 +58,7 @@ class System_Property(object):
         return self.aa, self.bb, self.cc, self.dd
 
     def sys_description(self, mode=True):
-        """ if the user has already a linear system, then he can call this function
+        """if the user has already a linear system, then he can call this function
         for building the state space and TransferFunction directly
         If a system only has the unknown parameters, then it can not be formulated
         in state space
@@ -78,15 +78,13 @@ class System_Property(object):
         assert mode in (True, False)
 
         if mode:  # system with given parameters
-            self.sys_ss = ctr.ss(self.aa, self.bb,
-                                 self.cc, self.dd)
+            self.sys_ss = ctr.ss(self.aa, self.bb, self.cc, self.dd)
             self.sys_tf = ctr.tf(self.sys_ss)
             return self.sys_ss, self.sys_tf
 
         elif not mode:  # system with unknown parameters
-            s = sp.Symbol('s')
-            self.sys_tf_p = self.cc * (s * (sp.eye(self.aa.shape[0]) - self.aa) ** -1) \
-                            * self.bb + self.dd
+            s = sp.Symbol("s")
+            self.sys_tf_p = self.cc * (s * (sp.eye(self.aa.shape[0]) - self.aa) ** -1) * self.bb + self.dd
             return self.sys_tf_p
         else:
             raise ValueError("Unexpected value for parameter `mode`: {}".format(mode))

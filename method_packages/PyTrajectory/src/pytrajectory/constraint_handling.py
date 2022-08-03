@@ -63,7 +63,7 @@ class ConstraintHandler(object):
             var_symb = sp.Symbol(var)  # convert string to Symbol
 
             assert isinstance(var, str)
-            new_name = var.replace('x', 'y').replace('u', 'v')
+            new_name = var.replace("x", "y").replace("u", "v")
             new_var = sp.Symbol(new_name)
             self.z_tilde.append(new_var)
 
@@ -78,7 +78,7 @@ class ConstraintHandler(object):
 
                 _, expr1, _ = aux.unconstrain(new_var, lb, ub)
                 expr2 = aux.psi_inv(var_symb, lb, ub)
-                self.z_middle.append(0.5*(lb + ub))
+                self.z_middle.append(0.5 * (lb + ub))
 
             Psi.append(expr1)
             Gamma.append(expr2)
@@ -136,7 +136,7 @@ class ConstraintHandler(object):
         # Background: y_dot = Jac_Gamma_fnc(z)[:nx, :nx] * xdot
         # for the sake of simplicity we create a separate function for this
 
-        tmp_fnc = aux.lambdify(self.z, self.Jac_Gamma[:self.nx, :self.nx])
+        tmp_fnc = aux.lambdify(self.z, self.Jac_Gamma[: self.nx, : self.nx])
         self.Jac_Gamma_state_fnc = aux.broadcasting_wrapper(tmp_fnc, (self.nx, self.nx))
 
     def _create_boundary_value_dict(self):
@@ -147,9 +147,9 @@ class ConstraintHandler(object):
         ua = self.dynsys.ua
         ub = self.dynsys.ub
         if ua is None:
-            ua = [None]*self.nu
+            ua = [None] * self.nu
         if ub is None:
-            ub = [None]*self.nu
+            ub = [None] * self.nu
 
         assert len(ua) == len(ub) == self.nu
 
@@ -186,8 +186,8 @@ class ConstraintHandler(object):
         for j, u in enumerate(self.dynsys.inputs):
             self.boundary_values[u] = (z_tilde_a[self.nx + j], z_tilde_b[self.nx + j])
 
-        self.ya = z_tilde_a[:self.nx]
-        self.yb = z_tilde_b[:self.nx]
+        self.ya = z_tilde_a[: self.nx]
+        self.yb = z_tilde_b[: self.nx]
 
     def _check_boundary_values(self, za, zb):
         """Check whether boundary values meet constraints.
@@ -211,8 +211,6 @@ class ConstraintHandler(object):
                     msg += "({} < {} < {})".format(con[0], z_b_value, con[1])
                     raise ConstraintError(msg)
 
-
-
     def _preprocess_constraints(self, constraints=None):
         """
         Preprocessing of projective constraint-data provided by the user.
@@ -229,9 +227,9 @@ class ConstraintHandler(object):
 
         for k, v in constraints.items():
             assert isinstance(k, str)
-            if k.startswith('x'):
+            if k.startswith("x"):
                 self.con_x[k] = v
-            elif k.startswith('u'):
+            elif k.startswith("u"):
                 self.con_u[k] = v
             else:
                 msg = "Unexpected key for constraint: %s: %s" % (k, v)
@@ -256,9 +254,9 @@ class ConstraintHandler(object):
             y_values = [y_fnc(t) for y_fnc in y_fncs]
 
             # use only the state-relevant part of the transformation
-            arg = self.z_middle*1
-            arg[:self.nx] = y_values
-            res = np.atleast_1d(self.Psi_fnc(*arg)[:self.nx])
+            arg = self.z_middle * 1
+            arg[: self.nx] = y_values
+            res = np.atleast_1d(self.Psi_fnc(*arg)[: self.nx])
             return res
 
         def constrained_xdot(t):
@@ -266,10 +264,10 @@ class ConstraintHandler(object):
             ydot_values = [ydot_fnc(t) for ydot_fnc in ydot_fncs]
 
             # use only the state-relevant part of the transformation
-            arg = self.z_middle*1
-            arg[:self.nx] = y_values
-            Jac_Psi = self.Jac_Psi_fnc(*arg)[:self.nx, :self.nx]
-            res = np.atleast_1d( np.dot(Jac_Psi, ydot_values) )
+            arg = self.z_middle * 1
+            arg[: self.nx] = y_values
+            Jac_Psi = self.Jac_Psi_fnc(*arg)[: self.nx, : self.nx]
+            res = np.atleast_1d(np.dot(Jac_Psi, ydot_values))
             return res
 
         def constrained_u(t):
@@ -278,13 +276,9 @@ class ConstraintHandler(object):
 
             # use only the input-relevant part of the transformation
             # -> setting nu elements, counting from backward
-            arg = self.z_middle*1
-            arg[-self.nu:] = v_values
-            res = np.atleast_1d( self.Psi_fnc(*arg)[-self.nu:] )
+            arg = self.z_middle * 1
+            arg[-self.nu :] = v_values
+            res = np.atleast_1d(self.Psi_fnc(*arg)[-self.nu :])
             return res
 
         return constrained_x, constrained_xdot, constrained_u
-
-
-
-

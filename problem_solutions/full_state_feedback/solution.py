@@ -17,6 +17,7 @@ import matplotlib.pyplot as plt
 import os
 from ackrep_core.system_model_management import save_plot_in_dir
 
+
 class SolutionData:
     pass
 
@@ -40,7 +41,7 @@ def rhs_for_simulation(f, g, xx, controller_func):
 
 
 def solve(problem_spec):
-    """ solution of full state feedback
+    """solution of full state feedback
     :param problem_spec: ProblemSpecification object
     :return: solution_data: states and output values of the stabilized system, and controller gain
     """
@@ -61,8 +62,9 @@ def solve(problem_spec):
 
     # calculate controller function
     # sfb for dataclass StateFeedbackResult
-    sfb = ftf.state_feedback(tuple_system, problem_spec.poles_cl, problem_spec.xx, problem_spec.eqrt,
-                             problem_spec.yr, debug=False)
+    sfb = ftf.state_feedback(
+        tuple_system, problem_spec.poles_cl, problem_spec.xx, problem_spec.eqrt, problem_spec.yr, debug=False
+    )
 
     # simulation original nonlinear system with controller
     f = sys_f_body.n_state_func.subs(st.zip0(sys_f_body.tau))  # x_dot = f(x) + g(x) * u
@@ -71,7 +73,7 @@ def solve(problem_spec):
     rhs = rhs_for_simulation(f, g, problem_spec.xx, sfb.input_func)
     res = odeint(rhs, problem_spec.xx0, problem_spec.tt)
 
-    output_function = sp.lambdify(problem_spec.xx, sys_f_body.n_out_func, modules='numpy')
+    output_function = sp.lambdify(problem_spec.xx, sys_f_body.n_out_func, modules="numpy")
     yy = output_function(*res.T)
 
     solution_data = SolutionData()
@@ -108,6 +110,6 @@ def save_plot(problem_spec, solution_data):
         plt.xlabel(problem_spec.x_label)
         plt.ylabel(problem_spec.y_label_output[i])
         plt.tight_layout()
-    
+
     # save image
     save_plot_in_dir()

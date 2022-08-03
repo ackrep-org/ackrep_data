@@ -23,7 +23,7 @@ pp_symb = [.., .., ..] = sp.symbols(".., .., ..", real=True)
 .. = sp.Symbol('..')
 
 # set numerical values of auxiliary parameters
-# trailing "_nv" stands for "numerical value"
+# tailing "_nv" stands for "numerical value"
 .._nv = ..
 
 
@@ -32,7 +32,7 @@ pp_symb = [.., .., ..] = sp.symbols(".., .., ..", real=True)
 .._sf = ..
 
 # list of symbolic parameter functions
-# trailing "_sf" stands for "symbolic parameter function"
+# tailing "_sf" stands for "symbolic parameter function"
 pp_sf = [.._sf, .._sf, .._sf]
 
 

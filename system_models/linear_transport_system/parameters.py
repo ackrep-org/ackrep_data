@@ -18,11 +18,10 @@ import tabulate as tab
 model_name = "Transport_System"
 
 # CREATE SYMBOLIC PARAMETERS
-pp_symb = [v, l, T] = sp.symbols('v, l, T', real = True)
+pp_symb = [v, l, T] = sp.symbols("v, l, T", real=True)
 
 
-
-# SYMBOLIC PARAMETER FUNCTIONS  
+# SYMBOLIC PARAMETER FUNCTIONS
 v_sf = 4
 l_sf = 5
 T_sf = 5
@@ -32,7 +31,7 @@ T_sf = 5
 pp_sf = [v_sf, l_sf, T_sf]
 
 
-# List for Substitution 
+# List for Substitution
 pp_subs_list = []
 
 # OPTONAL: Dictionary which defines how certain variables shall be written
@@ -41,10 +40,8 @@ pp_subs_list = []
 latex_names = {}
 
 
-
-
 # ---------- CREATE BEGIN OF LATEX TABULAR
-# Define tabular Header 
+# Define tabular Header
 
 # DON'T CHANGE FOLLOWING ENTRIES: "Symbol", "Value"
 tabular_header = ["Parameter Name", "Symbol", "Value"]
@@ -54,10 +51,7 @@ col_alignment = ["left", "center", "center"]
 
 # Define Entries of all columns before the Symbol-Column
 # --- Entries need to be latex code
-col_1 = ["velocity-constant", 
-         "spatial bounds",
-         "temporal bounds"
-         ] 
+col_1 = ["velocity-constant", "spatial bounds", "temporal bounds"]
 
 # contains all lists of the columns before the "Symbol" Column
 # --- Empty list, if there are no columns before the "Symbol" Column
@@ -67,4 +61,3 @@ start_columns_list = [col_1]
 # contains all lists of columns after the FIX ENTRIES
 # --- Empty list, if there are no columns after the "Value" column
 end_columns_list = []
-

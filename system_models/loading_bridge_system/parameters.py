@@ -1,4 +1,3 @@
-
 import sys
 import os
 import numpy as np
@@ -7,7 +6,7 @@ import sympy as sp
 import tabulate as tab
 
 
-#link to documentation with examples: 
+# link to documentation with examples:
 #
 
 
@@ -19,17 +18,15 @@ model_name = "Overhead Crane"
 pp_symb = [m, M, l, g] = sp.symbols("m, M, l, g", real=True)
 
 
-
-
 # ---------- create symbolic parameter functions
-# parameter values can be constant/fixed values OR set in relation to other parameters (for example: a = 2*b)  
+# parameter values can be constant/fixed values OR set in relation to other parameters (for example: a = 2*b)
 m_sf = 0.25
 M_sf = 1
 l_sf = 1
 g_sf = 9.81
 
 # list of symbolic parameter functions
-# trailing "_sf" stands for "symbolic parameter function"
+# tailing "_sf" stands for "symbolic parameter function"
 pp_sf = [m_sf, M_sf, l_sf, g_sf]
 
 
@@ -46,7 +43,7 @@ latex_names = {}
 
 # ---------- Define LaTeX table
 
-# Define table header 
+# Define table header
 # DON'T CHANGE FOLLOWING ENTRIES: "Symbol", "Value"
 tabular_header = ["Parameter Name", "Symbol", "Value", "Unit"]
 
@@ -56,10 +53,7 @@ col_alignment = ["left", "center", "left", "center"]
 
 # Define Entries of all columns before the Symbol-Column
 # --- Entries need to be latex code
-col_1 = ["mass of the load",
-         "mass of the cart",
-         "rope length", 
-         "acceleration due to gravitation"] 
+col_1 = ["mass of the load", "mass of the cart", "rope length", "acceleration due to gravitation"]
 
 # contains all lists of the columns before the "Symbol" Column
 # --- Empty list, if there are no columns before the "Symbol" Column
@@ -68,11 +62,7 @@ start_columns_list = [col_1]
 
 # Define Entries of the columns after the Value-Column
 # --- Entries need to be latex code
-col_4 = ["kg",
-         "kg",
-         "m",
-         r"$\frac{m}{s^2}$"
-         ]
+col_4 = ["kg", "kg", "m", r"$\frac{m}{s^2}$"]
 
 # contains all lists of columns after the FIX ENTRIES
 # --- Empty list, if there are no columns after the "Value" column

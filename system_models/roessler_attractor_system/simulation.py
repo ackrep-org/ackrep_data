@@ -14,6 +14,7 @@ from ackrep_core.system_model_management import save_plot_in_dir
 import matplotlib.pyplot as plt
 import os
 
+
 def simulate():
     model = system_model.Model()
 
@@ -24,26 +25,27 @@ def simulate():
 
     rhs = model.get_rhs_func()
 
-    # Initial State values  
-    xx0 = [2,3,4]
+    # Initial State values
+    xx0 = [2, 3, 4]
     t_end = 150
-    tt = np.linspace(0,t_end,6000)
+    tt = np.linspace(0, t_end, 6000)
     sim = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
-    
+
     save_plot(sim)
 
     return sim
 
+
 def save_plot(simulation_data):
-    
+
     y = simulation_data.y.tolist()
 
     fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    ax.plot(y[0],y[1],y[2],label='Phasenportrait',lw=1,c='k')
-    ax.set_xlabel('x',fontsize= 15)
-    ax.set_ylabel('y',fontsize= 15)
-    ax.set_zlabel('z',fontsize= 15)
+    ax = fig.add_subplot(111, projection="3d")
+    ax.plot(y[0], y[1], y[2], label="Phasenportrait", lw=1, c="k")
+    ax.set_xlabel("x", fontsize=15)
+    ax.set_ylabel("y", fontsize=15)
+    ax.set_zlabel("z", fontsize=15)
     ax.legend()
     ax.grid()
 
@@ -51,9 +53,10 @@ def save_plot(simulation_data):
 
     save_plot_in_dir()
 
+
 def evaluate_simulation(simulation_data):
     """
-    
+
     :param simulation_data: simulation_data of system_model
     :return:
     """
@@ -62,7 +65,9 @@ def evaluate_simulation(simulation_data):
 
     rc = ResultContainer(score=1.0)
     simulated_final_state = simulation_data.y[:, -1]
-    rc.final_state_errors = [simulated_final_state[i] - expected_final_state[i] for i in np.arange(0, len(simulated_final_state))]
+    rc.final_state_errors = [
+        simulated_final_state[i] - expected_final_state[i] for i in np.arange(0, len(simulated_final_state))
+    ]
     rc.success = np.allclose(expected_final_state, simulated_final_state, rtol=0, atol=1e-2)
-    
+
     return rc

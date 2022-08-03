@@ -38,9 +38,10 @@ def rhs_for_simulation(f, g, xx, controller_func):
 
 
 def solve(problem_spec):
-    t = sp.Symbol('t')
-    planer_p2 = tp.Trajectory_Planning(problem_spec.YA_p2, problem_spec.YB_p2,
-                                       problem_spec.t0, problem_spec.tf, problem_spec.tt)
+    t = sp.Symbol("t")
+    planer_p2 = tp.Trajectory_Planning(
+        problem_spec.YA_p2, problem_spec.YB_p2, problem_spec.t0, problem_spec.tf, problem_spec.tt
+    )
     mod = problem_spec.rhs(problem_spec.ttheta, problem_spec.tthetad, problem_spec.u_F)
     planer_p2.mod = mod
     planer_p2.yy = problem_spec.output_func(problem_spec.ttheta, problem_spec.u_F)
@@ -56,8 +57,7 @@ def solve(problem_spec):
     ploy_p1 = sp.solve(func_p1, problem_spec.ttheta[0])
     p1_func = st.expr_to_func(t, ploy_p1[0])
 
-    yy_4 = yy[4].subs([(problem_spec.ttheta[0], ploy_p1[0]), (problem_spec.ttheta[1],
-                                                              ploy_p2[0])])
+    yy_4 = yy[4].subs([(problem_spec.ttheta[0], ploy_p1[0]), (problem_spec.ttheta[1], ploy_p2[0])])
     in_output_func = yy_4 - ploy_p2[4]
 
     # input force trajectory
@@ -84,7 +84,7 @@ def solve(problem_spec):
     solution_data.res = res  # output values of the system
     solution_data.ploy_p1 = p1_func  # desired full transition of p1
     solution_data.ploy_p2 = p2_func  # desired full transition of p2
-    solution_data.f_func = f_func   # required magnet force input
+    solution_data.f_func = f_func  # required magnet force input
     solution_data.current_func = current_func  # required current input
     solution_data.coefficients = tracking_controller.coefficient  # coefficients of error dynamics
     solution_data.control_law = control_law  # control law function
@@ -98,35 +98,36 @@ def save_plot(problem_spec, solution_data):
     # plotting
     plt.figure(1)  # Fe-ball p1
 
-    plt.plot(problem_spec.tt1, solution_data.ploy_p1(problem_spec.tt1), ":", zorder=-1, label='desired full transition')
-    plt.plot(problem_spec.tt, solution_data.ploy_p1(problem_spec.tt), 'r-', linewidth=2, label='desired state transition')
-    plt.plot(problem_spec.tt2, solution_data.res[:, 0], 'k', label='actual trajectory')
-    plt.plot(0, 0.005, 'rx', label='controller switch in')
-    plt.title('trajectory of Fe-Ball')
-    plt.xlabel('time [s]')
-    plt.ylabel('position [m]')
+    plt.plot(problem_spec.tt1, solution_data.ploy_p1(problem_spec.tt1), ":", zorder=-1, label="desired full transition")
+    plt.plot(
+        problem_spec.tt, solution_data.ploy_p1(problem_spec.tt), "r-", linewidth=2, label="desired state transition"
+    )
+    plt.plot(problem_spec.tt2, solution_data.res[:, 0], "k", label="actual trajectory")
+    plt.plot(0, 0.005, "rx", label="controller switch in")
+    plt.title("trajectory of Fe-Ball")
+    plt.xlabel("time [s]")
+    plt.ylabel("position [m]")
     plt.legend(loc=4)
 
     plt.figure(2)  # CuZn-ball p2
-    plt.plot(problem_spec.tt1, solution_data.ploy_p2(problem_spec.tt1), ':', zorder=-1, label='full transition')
-    plt.plot(problem_spec.tt, solution_data.ploy_p2(problem_spec.tt), 'r-', linewidth=2, label='state transition')
-    plt.plot(problem_spec.tt2, solution_data.res[:, 1], 'k', label='reale Trajektorie')
-    plt.plot(0, 0.045, 'rx', label='controller switch in')
-    plt.title('trajectory of CuZn-Ball')
-    plt.xlabel('time [s]')
-    plt.ylabel('position [m]')
+    plt.plot(problem_spec.tt1, solution_data.ploy_p2(problem_spec.tt1), ":", zorder=-1, label="full transition")
+    plt.plot(problem_spec.tt, solution_data.ploy_p2(problem_spec.tt), "r-", linewidth=2, label="state transition")
+    plt.plot(problem_spec.tt2, solution_data.res[:, 1], "k", label="reale Trajektorie")
+    plt.plot(0, 0.045, "rx", label="controller switch in")
+    plt.title("trajectory of CuZn-Ball")
+    plt.xlabel("time [s]")
+    plt.ylabel("position [m]")
     plt.legend(loc=4)
 
     plt.figure(3)
-    plt.plot(problem_spec.tt2, solution_data.res[:, 0] - solution_data.ploy_p1(problem_spec.tt2), 'r'
-             , label='Fe-Ball')
-    plt.plot(problem_spec.tt2, solution_data.res[:, 1] - solution_data.ploy_p2(problem_spec.tt2), ':'
-             , label='CuZn-Ball')
-    plt.title('errors')
-    plt.xlabel('time [s]')
-    plt.ylabel('position [m]')
+    plt.plot(problem_spec.tt2, solution_data.res[:, 0] - solution_data.ploy_p1(problem_spec.tt2), "r", label="Fe-Ball")
+    plt.plot(
+        problem_spec.tt2, solution_data.res[:, 1] - solution_data.ploy_p2(problem_spec.tt2), ":", label="CuZn-Ball"
+    )
+    plt.title("errors")
+    plt.xlabel("time [s]")
+    plt.ylabel("position [m]")
     plt.legend(loc=1)
 
     # save image
     save_plot_in_dir()
-

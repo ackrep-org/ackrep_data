@@ -1,4 +1,3 @@
- 
 """
 system description: A loading bridge is considered, which consists of a wagon with the mass M,
 a rope with the constant length l, which is attached to the wagon, and a load,
@@ -17,12 +16,13 @@ from system_models.loading_bridge_system.system_model import Model
 
 from ipydex import IPS
 
+
 class ProblemSpecification(object):
     # system symbols for setting up the equation of motion
     model = Model()
     x1, x2, x3, x4 = model.xx_symb
     xx = sp.Matrix(model.xx_symb)  # states of system
-    u = [model.uu_symb[0]] # input of system
+    u = [model.uu_symb[0]]  # input of system
 
     # equilibrium point
     eqrt = [(x1, 0), (x2, 0), (x3, 0), (x4, 0), (u, 0)]
@@ -32,10 +32,9 @@ class ProblemSpecification(object):
     q = np.diag([15, 15, 12, 13])  # state weights matrix
     r = np.diag([1])  # input weights matrix
 
-
     @classmethod
     def rhs(cls):
-        """ 
+        """
         Right hand side of the equation of motion in nonlinear state space form
         :return:     nonlinear state space
         """
@@ -43,7 +42,7 @@ class ProblemSpecification(object):
 
     @classmethod
     def output_func(cls):
-        """ 
+        """
         output equation of the system
         :return:     output equation y = x1
         """

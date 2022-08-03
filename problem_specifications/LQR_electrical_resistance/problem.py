@@ -30,7 +30,7 @@ class ProblemSpecification(object):
 
     @staticmethod
     def rhs(xx, uu):
-        """ Right hand side of the equation of motion in nonlinear state space form
+        """Right hand side of the equation of motion in nonlinear state space form
         as symbolic expression
 
         :param xx:   system states
@@ -44,23 +44,23 @@ class ProblemSpecification(object):
         sigma = 5.67e-8  # Stefan–Boltzmann constant in [W/m**2/k**4]
         A = 0.0025  # surface area of resistance m ** 2
         c = 87  # heat capacity in [J/k]
-        '''
+        """
         heat capacity is equal to specific heat capacity * mass of resistance
         specific heat capacity for Cu: 394 [J/kg/K], density of Cu_resistance : 8.86[g/cm**3]
         volume of Cu_resistance: 0.0025 [m**2] * 0.01 [m] 
-        '''
+        """
 
         x1 = xx[0]
         u = uu[0]
 
-        p1_dot = u / (c * R0 * (1 + alpha * (x1 - Tr))) - (sigma * A * (x1 ** 4 - Ta ** 4)) / c
+        p1_dot = u / (c * R0 * (1 + alpha * (x1 - Tr))) - (sigma * A * (x1**4 - Ta**4)) / c
         ff = sp.Matrix([p1_dot])
 
         return ff
 
     @staticmethod
     def output_func(xx, uu):
-        """ output equation of the system
+        """output equation of the system
         :param xx:   system states
         :param uu:   system input (not used in this case)
         :return:     output equation y = x1
@@ -79,5 +79,5 @@ def evaluate_solution(solution_data):
     """
     P = ProblemSpecification
     yy_lin = solution_data.yy[900:] - 293.15
-    success = np.allclose(yy_lin[900:], P.yr,  1e-1)
+    success = np.allclose(yy_lin[900:], P.yr, 1e-1)
     return ResultContainer(success=success, score=1.0)

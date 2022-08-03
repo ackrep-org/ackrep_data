@@ -24,10 +24,10 @@ class ProblemSpecification(object):
     ttheta = pp  # position of the bodies in m
     tthetad = st.time_deriv(ttheta, ttheta)  # velocities of the bodies in m/s
     tthetadd = st.time_deriv(ttheta, ttheta, order=2)  # accelerations in m/s^2
-    F = sp.Symbol('F')  # nonlinear external magnetic force on the body
+    F = sp.Symbol("F")  # nonlinear external magnetic force on the body
     u_F = F  # external force of system
 
-    ii = sp.Symbol('ii')  # real current input of system
+    ii = sp.Symbol("ii")  # real current input of system
     u_i = ii
     tt = np.linspace(0, 5, 1000)  # time axis for state transition
     tt1 = np.linspace(-1, 6, 1000)  # time axis for full transition
@@ -46,12 +46,12 @@ class ProblemSpecification(object):
 
     @staticmethod
     def rhs(xx, xxd, uu):
-        """ Right hand side of the equation of motion in nonlinear state space form
-       :param xx:   system states
-       :param xxd:  first derivation of system states
-       :param uu:   system input
-       :return mod:  system class
-       """
+        """Right hand side of the equation of motion in nonlinear state space form
+        :param xx:   system states
+        :param xxd:  first derivation of system states
+        :param uu:   system input
+        :return mod:  system class
+        """
         m1 = 0.05  # mass of the iron ball in kg
         m2 = 0.1  # mass of the brass ball in kg
         kf = 30  # Spring constant in N/m
@@ -63,8 +63,7 @@ class ProblemSpecification(object):
         T = T0 + T1  # total kinetic energy
 
         # total potential energy
-        V = -g * (m1 * xx[0] + m2 * xx[1]) \
-            + kf * 0.5 * (xx[0] - xx[1]) ** 2
+        V = -g * (m1 * xx[0] + m2 * xx[1]) + kf * 0.5 * (xx[0] - xx[1]) ** 2
 
         external_forces = [uu, 0]  # magnetic force as input
 
@@ -76,7 +75,7 @@ class ProblemSpecification(object):
 
     @staticmethod
     def output_func(xx, uu):
-        """ output equation of the system
+        """output equation of the system
         :param xx:   system states
         :param uu:   system input (not used in this case)
         :return:     output equation y = x1
@@ -90,16 +89,16 @@ class ProblemSpecification(object):
         k1 = 4e-5  # geometry constant
 
         k2 = 0.005  # air gap of magnet in m
-        f_c_func = (-k1 * uu ** 2 / (xx[0] + k2) ** 2)
+        f_c_func = -k1 * uu**2 / (xx[0] + k2) ** 2
         return f_c_func
 
 
 def evaluate_solution(solution_data):
-    
+
     """Condition: the position of the CuZn-ball moves from 0.04m to 0.06m after 3 seconds at the latest
     :param solution_data: solution data of problem of solution
     :return:"""
-    
+
     P = ProblemSpecification
     success = all(abs(solution_data.res[600:, 1] - solution_data.ploy_p2(P.tt3)) < 1e-2)
     return ResultContainer(success=success, score=1.0)

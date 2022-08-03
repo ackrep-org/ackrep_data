@@ -93,8 +93,7 @@ class TransitionProblem(Logger):
         ============= =============   ============================================================
     """
 
-    def __init__(self, ff, a=0., b=1., xa=None, xb=None, ua=None, ub=None, uref=None,
-                 constraints=None, **kwargs):
+    def __init__(self, ff, a=0.0, b=1.0, xa=None, xb=None, ua=None, ub=None, uref=None, constraints=None, **kwargs):
 
         self.progress_info = kwargs.get("progress_info", (1, 1))
         self.init_logger(self)
@@ -102,8 +101,7 @@ class TransitionProblem(Logger):
         self.initial_kwargs = kwargs
 
         # save all arguments for possible later reference
-        self.all_args = dict(ff=ff, a=a, b=b, xa=xa, xb=xb, ua=ua, ub=ub, uref=uref,
-                             constraints=constraints)
+        self.all_args = dict(ff=ff, a=a, b=b, xa=xa, xb=xb, ua=ua, ub=ub, uref=uref, constraints=constraints)
         self.all_args.update(kwargs)
 
         if xa is None:
@@ -119,18 +117,18 @@ class TransitionProblem(Logger):
 
         # set method parameters
         self._parameters = dict()
-        self._parameters['maxIt'] = kwargs.get('maxIt', 10)
-        self._parameters['eps'] = kwargs.get('eps', 1e-2)
-        self._parameters['ierr'] = kwargs.get('ierr', 1e-1)
-        self._parameters['dt_sim'] = kwargs.get('dt_sim', 0.01)
-        self._parameters['accIt'] = kwargs.get('accIt', 5)
-        self._parameters['localEsc'] = kwargs.get('localEsc', 0)
-        self._parameters['reltol'] = kwargs.get('reltol', 2e-5)
-        self._parameters['show_ir'] = kwargs.get('show_ir', False)
-        self._parameters['show_refsol'] = kwargs.get('show_refsol', False)
+        self._parameters["maxIt"] = kwargs.get("maxIt", 10)
+        self._parameters["eps"] = kwargs.get("eps", 1e-2)
+        self._parameters["ierr"] = kwargs.get("ierr", 1e-1)
+        self._parameters["dt_sim"] = kwargs.get("dt_sim", 0.01)
+        self._parameters["accIt"] = kwargs.get("accIt", 5)
+        self._parameters["localEsc"] = kwargs.get("localEsc", 0)
+        self._parameters["reltol"] = kwargs.get("reltol", 2e-5)
+        self._parameters["show_ir"] = kwargs.get("show_ir", False)
+        self._parameters["show_refsol"] = kwargs.get("show_refsol", False)
 
         # this serves to reproduce a given trajectory
-        self.refsol = kwargs.get('refsol', None)
+        self.refsol = kwargs.get("refsol", None)
 
         self.mpc_sim_threshold = kwargs.get("mpc_th", np.inf)  # mpc turned off by default
         self.tmp_sol = None  # place to store the result of the server
@@ -140,11 +138,12 @@ class TransitionProblem(Logger):
         self._process_seed(kwargs)
 
         # create an object for the dynamical system
-        self.dyn_sys = DynamicalSystem(f_sym=ff, masterobject=self, a=a, b=b, xa=xa, xb=xb,
-                                       ua=ua, ub=ub, uref=uref, **kwargs)
+        self.dyn_sys = DynamicalSystem(
+            f_sym=ff, masterobject=self, a=a, b=b, xa=xa, xb=xb, ua=ua, ub=ub, uref=uref, **kwargs
+        )
 
         # TODO: change default behavior to False (including examples)
-        self.use_chains = kwargs.get('use_chains', True)
+        self.use_chains = kwargs.get("use_chains", True)
 
         # 2017-05-09 14:41:14
         # Note: there are two kinds of constraints handling:
@@ -174,7 +173,7 @@ class TransitionProblem(Logger):
         # storage for the error w.r.t desired state
         self.sim_err = None
 
-    def set_param(self, param='', value=None):
+    def set_param(self, param="", value=None):
         """
         Alters the value of the method parameters.
 
@@ -188,25 +187,24 @@ class TransitionProblem(Logger):
             The new value
         """
 
-        if param in {'maxIt', 'eps', 'ierr', 'dt_sim'}:
+        if param in {"maxIt", "eps", "ierr", "dt_sim"}:
             self._parameters[param] = value
 
-        elif param in {'n_parts_x', 'sx', 'n_parts_u', 'su', 'kx', 'use_chains', 'nodes_type',
-                       'use_std_approach'}:
-            if param == 'nodes_type' and value != 'equidistant':
+        elif param in {"n_parts_x", "sx", "n_parts_u", "su", "kx", "use_chains", "nodes_type", "use_std_approach"}:
+            if param == "nodes_type" and value != "equidistant":
                 raise NotImplementedError()
 
-            if param == 'sx':
-                param = 'n_parts_x'
-            if param == 'su':
-                param = 'n_parts_u'
+            if param == "sx":
+                param = "n_parts_x"
+            if param == "su":
+                param = "n_parts_u"
 
             self.eqs.trajectories._parameters[param] = value
 
-        elif param in {'tol', 'method', 'coll_type', 'sol_steps', 'k'}:
+        elif param in {"tol", "method", "coll_type", "sol_steps", "k"}:
             # TODO: unify interface for additional free parameter
-            if param == 'k':
-                param = 'z_par'
+            if param == "k":
+                param = "z_par"
             self.eqs._parameters[param] = value
 
         else:
@@ -229,12 +227,12 @@ class TransitionProblem(Logger):
 
         for k, v in constraints.items():
             assert isinstance(k, str)
-            if k.startswith('x'):
+            if k.startswith("x"):
                 con_x[k] = v
-            elif k.startswith('u'):
+            elif k.startswith("u"):
                 con_u[k] = v
             else:
-                msg = "Unexpected key for constraint: %s: %s"%(k, v)
+                msg = "Unexpected key for constraint: %s: %s" % (k, v)
                 raise ValueError(msg)
 
         self.constraints = OrderedDict()
@@ -242,8 +240,7 @@ class TransitionProblem(Logger):
         self.constraints.update(sorted(con_u.items()))
 
         if self.use_chains:
-            msg = "Currently not possible to make use of integrator chains together with " \
-                  "projective constraints."
+            msg = "Currently not possible to make use of integrator chains together with " "projective constraints."
             self.log_warn(msg)
         self.use_chains = False
         # Note: it should be possible that just those chains are not used
@@ -265,11 +262,10 @@ class TransitionProblem(Logger):
         # sequence of funcs vi(.)
         v_fncs = list(self.eqs.trajectories.u_fnc.values())
 
-        return self.dyn_sys.constraint_handler.get_constrained_spline_fncs(y_fncs, ydot_fncs,
-                                                                           v_fncs)
+        return self.dyn_sys.constraint_handler.get_constrained_spline_fncs(y_fncs, ydot_fncs, v_fncs)
 
     def check_refsol_consistency(self):
-        """"
+        """ "
         Check if the reference solution provided by the user is consistent with boundary conditions
         """
         assert isinstance(self.refsol, auxiliary.Container)
@@ -325,7 +321,7 @@ class TransitionProblem(Logger):
         self.tmp_sol_list = []  # list to save the "intermediate local optima"
 
         def q_finish_loop():
-            res = self.reached_accuracy or self.nIt >= self._parameters['maxIt']
+            res = self.reached_accuracy or self.nIt >= self._parameters["maxIt"]
             return res
 
         while not q_finish_loop():
@@ -334,8 +330,7 @@ class TransitionProblem(Logger):
                 # raise the number of spline parts (not in the first step)
                 self.eqs.trajectories.raise_spline_parts()
 
-            msg = "Iteration #{}; spline parts_ {}".format(self.nIt + 1,
-                                                           self.eqs.trajectories.n_parts_x)
+            msg = "Iteration #{}; spline parts_ {}".format(self.nIt + 1, self.eqs.trajectories.n_parts_x)
             self.log_info(msg)
             # start next iteration step
             try:
@@ -344,7 +339,7 @@ class TransitionProblem(Logger):
                 self.log_warn("NanError")
                 return None, None
 
-            self.log_info('par = {}'.format(self.get_par_values()))
+            self.log_info("par = {}".format(self.get_par_values()))
 
             # increment iteration number
             self.nIt += 1
@@ -525,32 +520,32 @@ class TransitionProblem(Logger):
             slvr = self.eqs.solver
 
             if slvr.cond_external_interrupt:
-                self.log_debug('Continue minimization after external interrupt')
+                self.log_debug("Continue minimization after external interrupt")
                 continue
 
             if slvr.cond_num_steps:
-                if slvr.solve_count < self._parameters['accIt']:
-                    msg = 'Continue minimization (not yet reached tolerance nor limit of attempts)'
+                if slvr.solve_count < self._parameters["accIt"]:
+                    msg = "Continue minimization (not yet reached tolerance nor limit of attempts)"
                     self.log_debug(msg)
                     continue
                 else:
                     break
 
-            if slvr.cond_rel_tol and slvr.solve_count < self._parameters['localEsc']:
+            if slvr.cond_rel_tol and slvr.solve_count < self._parameters["localEsc"]:
                 # we are in a local minimum
                 # > try to jump out by randomly changing the solution
                 # Note: this approach seems not to be successful
                 if self.eqs.trajectories.n_parts_x >= 40:
                     # values between 0.32 and 3.2:
-                    scale = 10 ** (np.random.rand(len(slvr.x0)) - .5)
+                    scale = 10 ** (np.random.rand(len(slvr.x0)) - 0.5)
                     # only use the actual value
                     if slvr.res < old_res:
                         old_sol = slvr.x0
                         old_res = slvr.res
                         slvr.x0 *= scale
                     else:
-                        slvr.x0 = old_sol*scale
-                    self.log_debug('Continue minimization with changed x0')
+                        slvr.x0 = old_sol * scale
+                    self.log_debug("Continue minimization with changed x0")
                     continue
 
             if slvr.cond_abs_tol or slvr.cond_rel_tol:
@@ -593,12 +588,11 @@ class TransitionProblem(Logger):
         -------
         """
 
-
         if self.eqs._first_guess is None:
             return
 
         # ensure that either both keys or none are present
-        relevant_keys = {'complete_guess', 'n_spline_parts'}
+        relevant_keys = {"complete_guess", "n_spline_parts"}
         intrsctn = relevant_keys.intersection(self.eqs._first_guess)
 
         if len(intrsctn) == 0:
@@ -610,7 +604,7 @@ class TransitionProblem(Logger):
             msg = "Missing dict-key in keyword-argument 'first_guess': %s"
             raise ValueError(msg % missing_key)
 
-        n_spline_parts = self.eqs._first_guess['n_spline_parts']
+        n_spline_parts = self.eqs._first_guess["n_spline_parts"]
         self.eqs.trajectories.raise_spline_parts(n_spline_parts)
 
     def _process_refsol(self):
@@ -628,13 +622,13 @@ class TransitionProblem(Logger):
 
         # the reference solution specifies how often spline parts should
         # be raised
-        if not hasattr(self.refsol, 'n_raise_spline_parts'):
+        if not hasattr(self.refsol, "n_raise_spline_parts"):
             self.refsol.n_raise_spline_parts = 0
 
         for i in range(self.refsol.n_raise_spline_parts):
             self.eqs.trajectories.raise_spline_parts()
 
-        if self._parameters.get('show_refsol', False):
+        if self._parameters.get("show_refsol", False):
             # dbg visualization
 
             guess = np.empty(0)
@@ -653,7 +647,7 @@ class TransitionProblem(Logger):
 
                 guess = np.hstack((guess, coeffs))
 
-                if 'u' in key:
+                if "u" in key:
                     pass
                     # dbg:
                     # IPS()
@@ -664,24 +658,24 @@ class TransitionProblem(Logger):
                 new_params.update(sym_num_tuples)
             self.refsol_coeff_guess = guess
             # IPS()
-            mm = 1./25.4  # mm to inch
+            mm = 1.0 / 25.4  # mm to inch
             scale = 8
-            fs = [75*mm*scale, 35*mm*scale]
-            rows = np.round((len(new_spline_values) + 0)/2.0 + .25)  # round up
+            fs = [75 * mm * scale, 35 * mm * scale]
+            rows = np.round((len(new_spline_values) + 0) / 2.0 + 0.25)  # round up
             labels = self.dyn_sys.states + self.dyn_sys.inputs
 
             plt.figure(figsize=fs)
             for i in range(len(new_spline_values)):
                 plt.subplot(rows, 2, i + 1)
-                plt.plot(tt, self.refsol.xu_list[i], 'k', lw=3, label='sim')
-                plt.plot(tt, new_spline_values[i], label='new')
+                plt.plot(tt, self.refsol.xu_list[i], "k", lw=3, label="sim")
+                plt.plot(tt, new_spline_values[i], label="new")
                 ax = plt.axis()
-                plt.vlines(s.nodes, -1000, 1000, color=(.5, 0, 0, .5))
+                plt.vlines(s.nodes, -1000, 1000, color=(0.5, 0, 0, 0.5))
                 plt.axis(ax)
                 plt.grid(1)
                 ax = plt.axis()
                 plt.ylabel(labels[i])
-            plt.legend(loc='best')
+            plt.legend(loc="best")
             plt.show()
 
     def _show_intermediate_results(self):
@@ -692,7 +686,7 @@ class TransitionProblem(Logger):
         :return: None (just polt)
         """
 
-        if not self._parameters['show_ir']:
+        if not self._parameters["show_ir"]:
             return
 
         # dbg: create new splines (to interpolate the obtained result)
@@ -735,10 +729,10 @@ class TransitionProblem(Logger):
 
         # visual comparision:
 
-        mm = 1./25.4  # mm to inch
+        mm = 1.0 / 25.4  # mm to inch
         scale = 8
-        fs = [75*mm*scale, 35*mm*scale]
-        rows = np.round((len(data) + 2)/2.0 + .25)  # round up
+        fs = [75 * mm * scale, 35 * mm * scale]
+        rows = np.round((len(data) + 2) / 2.0 + 0.25)  # round up
 
         par = self.get_par_values()
 
@@ -749,30 +743,28 @@ class TransitionProblem(Logger):
         par = par.repeat(n_tt, axis=1)
 
         # input part of the vectorfiled
-        gg = self.eqs.Df_vectorized(self.sim_data_xx.T, self.sim_data_uu.T,
-                                    self.sim_data_tt.T, par).transpose(2, 0, 1)
+        gg = self.eqs.Df_vectorized(self.sim_data_xx.T, self.sim_data_uu.T, self.sim_data_tt.T, par).transpose(2, 0, 1)
         gg = gg[:, :-1, -1]
 
         # drift part of the vf
-        ff = self.eqs.ff_vectorized(self.sim_data_xx.T, self.sim_data_uu.T*0,
-                                    self.sim_data_tt.T, par).T[:, :-1]
+        ff = self.eqs.ff_vectorized(self.sim_data_xx.T, self.sim_data_uu.T * 0, self.sim_data_tt.T, par).T[:, :-1]
 
         labels = self.dyn_sys.states + self.dyn_sys.inputs
 
         plt.figure(figsize=fs)
         for i in range(len(data)):
             plt.subplot(rows, 2, i + 1)
-            plt.plot(tt, data[i], 'k', lw=3, label='sim')
-            plt.plot(tt, old_spline_values[i], lw=3, label='old')
-            plt.plot(tt, actual_spline_values[i], label='actual')
-            plt.plot(tt, guessed_spline_values[i], label='guessed')
+            plt.plot(tt, data[i], "k", lw=3, label="sim")
+            plt.plot(tt, old_spline_values[i], lw=3, label="old")
+            plt.plot(tt, actual_spline_values[i], label="actual")
+            plt.plot(tt, guessed_spline_values[i], label="guessed")
             # plt.plot(tt, new_spline_values[i], 'r-', label='sim-interp')
             ax = plt.axis()
             plt.vlines(s.nodes, -10, 10, color="0.85")
             plt.axis(ax)
             plt.grid(1)
             plt.ylabel(labels[i])
-        plt.legend(loc='best')
+        plt.legend(loc="best")
 
         # show error between sim and col
         plt.subplot(rows, 2, i + 2)
@@ -822,10 +814,11 @@ class TransitionProblem(Logger):
         x_fncs, xdot_fncs, u_fnc = self.get_constrained_spline_fncs()
 
         mpc_flag = self.nIt >= self.mpc_sim_threshold
-        self.simulator = Simulator(ff, T, start, x_col_fnc=x_fncs, u_col_fnc=u_fnc, z_par=par,
-                      dt=self._parameters['dt_sim'], mpc_flag=mpc_flag)
+        self.simulator = Simulator(
+            ff, T, start, x_col_fnc=x_fncs, u_col_fnc=u_fnc, z_par=par, dt=self._parameters["dt_sim"], mpc_flag=mpc_flag
+        )
 
-        self.log_debug("start: %s"%str(start))
+        self.log_debug("start: %s" % str(start))
 
         # forward simulation
         self.sim_data = self.simulator.simulate()
@@ -860,34 +853,34 @@ class TransitionProblem(Logger):
         xb = self.dyn_sys.xb
 
         # what is the error
-        self.log_debug(40*"-")
+        self.log_debug(40 * "-")
         self.log_debug("Ending up with:   Should Be:  Difference:")
 
         err = np.empty(xt.shape[1])
         for i, xx in enumerate(x_sym):
             err[i] = abs(xb[i] - xt[-1][i])  ##:: error (x1, x2) at end time
-            self.log_debug(str(xx) + " : %f     %f    %f"%(xt[-1][i], xb[i], err[i]))
+            self.log_debug(str(xx) + " : %f     %f    %f" % (xt[-1][i], xb[i], err[i]))
 
-        self.log_debug(40*"-")
+        self.log_debug(40 * "-")
 
         # if self._ierr:
-        ierr = self._parameters['ierr']
-        eps = self._parameters['eps']
+        ierr = self._parameters["ierr"]
+        eps = self._parameters["eps"]
 
         xfnc, dxfnc, ufnc = self.get_constrained_spline_fncs()
 
         if ierr:
             # calculate maximum consistency error on the whole interval
 
-            maxH = auxiliary.consistency_error((a, b), xfnc, ufnc, dxfnc,
-                                               self.dyn_sys.f_num_simulation,
-                                               par=self.get_par_values())
+            maxH = auxiliary.consistency_error(
+                (a, b), xfnc, ufnc, dxfnc, self.dyn_sys.f_num_simulation, par=self.get_par_values()
+            )
 
             reached_accuracy = (maxH < ierr) and (max(err) < eps)
-            self.log_debug('maxH = %f'%maxH)
+            self.log_debug("maxH = %f" % maxH)
         else:
             # just check if tolerance for the boundary values is satisfied
-            reached_accuracy = (max(err) < eps)
+            reached_accuracy = max(err) < eps
 
         msg = "  --> reached desired accuracy: " + str(reached_accuracy)
         if reached_accuracy:
@@ -921,7 +914,7 @@ class TransitionProblem(Logger):
         try:
             import matplotlib
         except ImportError:
-            self.log_error('Matplotlib is not available for plotting.')
+            self.log_error("Matplotlib is not available for plotting.")
             return
 
         if self.constraints:
@@ -931,9 +924,15 @@ class TransitionProblem(Logger):
 
         # calculate the error functions H_i(t)
         ace = auxiliary.consistency_error
-        max_con_err, error = ace((sys.a, sys.b), self.eqs.trajectories.x, self.eqs.trajectories.u,
-                                 self.eqs.trajectories.dx, sys.f_num_simulation,
-                                 len(self.sim_data[0]), True)
+        max_con_err, error = ace(
+            (sys.a, sys.b),
+            self.eqs.trajectories.x,
+            self.eqs.trajectories.u,
+            self.eqs.trajectories.dx,
+            sys.f_num_simulation,
+            len(self.sim_data[0]),
+            True,
+        )
 
         H = dict()
         for i in self.eqs.trajectories._eqind:
@@ -950,28 +949,28 @@ class TransitionProblem(Logger):
             msg = "No Iteration has taken place. Cannot save."
             raise ValueError(msg)
 
-        save = dict.fromkeys(['sys', 'eqs', 'traj'])
+        save = dict.fromkeys(["sys", "eqs", "traj"])
 
         # system state
-        save['sys'] = dict()
-        save['sys']['state'] = dict.fromkeys(['nIt', 'reached_accuracy'])
-        save['sys']['state']['nIt'] = self.nIt
-        save['sys']['state']['reached_accuracy'] = self.reached_accuracy
+        save["sys"] = dict()
+        save["sys"]["state"] = dict.fromkeys(["nIt", "reached_accuracy"])
+        save["sys"]["state"]["nIt"] = self.nIt
+        save["sys"]["state"]["reached_accuracy"] = self.reached_accuracy
 
         # simulation results
-        save['sys']['sim_data'] = self.sim_data
+        save["sys"]["sim_data"] = self.sim_data
 
         # parameters
-        save['sys']['parameters'] = self._parameters
+        save["sys"]["parameters"] = self._parameters
 
-        save['eqs'] = self.eqs.save()
-        save['traj'] = self.eqs.trajectories.save()
+        save["eqs"] = self.eqs.save()
+        save["traj"] = self.eqs.trajectories.save()
 
         if fname is not None:
-            if not (fname.endswith('.pcl') or fname.endswith('.pcl')):
-                fname += '.pcl'
+            if not (fname.endswith(".pcl") or fname.endswith(".pcl")):
+                fname += ".pcl"
 
-            with open(fname, 'wb') as dumpfile:
+            with open(fname, "wb") as dumpfile:
                 pickle.dump(save, dumpfile)
         if not quiet:
             self.log_info("File written: {}".format(fname))
@@ -988,8 +987,17 @@ class TransitionProblem(Logger):
 
         # DynamicalSystem(f_sym=ff, a=a, b=b, xa=xa, xb=xb, ua=ua, ub=ub, uref=uref,
         ds = self.dyn_sys
-        new_kwargs = dict(ff=ds.f_sym, a=self.a, b=self.b, xa=ds.xa, xb=ds.xb,
-                          ua=ds.ua, ub=ds.ub, uref=ds.uref_fnc, constraints=self.constraints)
+        new_kwargs = dict(
+            ff=ds.f_sym,
+            a=self.a,
+            b=self.b,
+            xa=ds.xa,
+            xb=ds.xb,
+            ua=ds.ua,
+            ub=ds.ub,
+            uref=ds.uref_fnc,
+            constraints=self.constraints,
+        )
         new_kwargs.update(self.initial_kwargs)
 
         # update with the information which was passed to this call

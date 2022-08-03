@@ -47,7 +47,7 @@ def rhs_for_simulation(f, g, xx, controller_func):
 
 
 def solve(problem_spec):
-    """ the design of a linear full observer is based on a linear system.
+    """the design of a linear full observer is based on a linear system.
     therefore the non-linear system should first be linearized at the beginning
     :param problem_spec: ProblemSpecification object
     :return: solution_data: states and output values of the stabilized system
@@ -57,7 +57,7 @@ def solve(problem_spec):
     sys_f_body.tau = problem_spec.u  # inputs of the system
 
     # original nonlinear system functions
-    sys_f_body.n_state_func = problem_spec.rhs()        
+    sys_f_body.n_state_func = problem_spec.rhs()
 
     # original output functions
     sys_f_body.n_out_func = problem_spec.output_func()
@@ -67,10 +67,10 @@ def solve(problem_spec):
     sys_f_body.sys_linerazition(parameter_values=None)
     tuple_system = (sys_f_body.aa, sys_f_body.bb, sys_f_body.cc, sys_f_body.dd)  # system tuple
 
-
     # calculate controller function
-    LQR_res = mlqr.lqr_method(tuple_system, problem_spec.q, problem_spec.r, problem_spec.xx, problem_spec.eqrt,
-                              problem_spec.yr, debug=False)
+    LQR_res = mlqr.lqr_method(
+        tuple_system, problem_spec.q, problem_spec.r, problem_spec.xx, problem_spec.eqrt, problem_spec.yr, debug=False
+    )
     # simulation original nonlinear system with controller
     f = sys_f_body.n_state_func.subs(st.zip0(sys_f_body.tau))  # x_dot = f(x) + g(x) * u
     g = sys_f_body.n_state_func.jacobian(sys_f_body.tau)
@@ -78,7 +78,7 @@ def solve(problem_spec):
     rhs = rhs_for_simulation(f, g, problem_spec.xx, LQR_res.input_func)
     res = odeint(rhs, problem_spec.xx0, problem_spec.tt)
 
-    output_function = sp.lambdify(problem_spec.xx, sys_f_body.n_out_func, modules='numpy')
+    output_function = sp.lambdify(problem_spec.xx, sys_f_body.n_out_func, modules="numpy")
     yy = output_function(*res.T)
 
     solution_data = SolutionData()
@@ -94,33 +94,32 @@ def solve(problem_spec):
 
 
 def save_plot(problem_spec, solution_data):
-    titles = ['x1', 'x2', 'x1_dot', 'x2_dot']
+    titles = ["x1", "x2", "x1_dot", "x2_dot"]
     # simulation for LQR
     plt.figure(1)
     for i in range(4):
         plt.subplot(2, 2, i + 1)
-        plt.plot(problem_spec.tt, solution_data.res[:, i], color='k', linewidth=1)
+        plt.plot(problem_spec.tt, solution_data.res[:, i], color="k", linewidth=1)
         plt.grid(1)
         plt.title(titles[i])
-        plt.xlabel('time t/s')
+        plt.xlabel("time t/s")
         if i == 0:
-            plt.ylabel('position [m]')
+            plt.ylabel("position [m]")
         elif i == 1:
-            plt.ylabel('angular position [rad]')
+            plt.ylabel("angular position [rad]")
         elif i == 2:
-            plt.ylabel('velocity [m/s]')
+            plt.ylabel("velocity [m/s]")
         else:
-            plt.ylabel('angular velocity [rad/s]')
+            plt.ylabel("angular velocity [rad/s]")
     plt.tight_layout()
-    
 
     plt.figure(2)
     plt.plot(problem_spec.tt, solution_data.yy)
     plt.grid(1)
-    plt.xlabel('time [s]')
-    plt.ylabel('position [m]')
-    plt.title('x-position of pendulum')
+    plt.xlabel("time [s]")
+    plt.ylabel("position [m]")
+    plt.title("x-position of pendulum")
     plt.tight_layout()
-    
+
     # save image
     save_plot_in_dir()

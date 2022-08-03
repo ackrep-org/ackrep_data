@@ -37,18 +37,17 @@ class ProblemSpecification(object):
     tolerance = 2e-1
 
     # plotting parameters
-    titles_state = ['temperature of resistance']
-    titles_output = ['temperature of resistance']
-    x_label = ['time [s]']
-    y_label_state = ['temperature [k]']
-    y_label_output = ['temperature [k]']
-    graph_color = 'r'
+    titles_state = ["temperature of resistance"]
+    titles_output = ["temperature of resistance"]
+    x_label = ["time [s]"]
+    y_label_state = ["temperature [k]"]
+    y_label_output = ["temperature [k]"]
+    graph_color = "r"
     row_number = 1  # the number of images in each row
-
 
     @staticmethod
     def rhs(xx, uu):
-        """ Right hand side of the equation of motion in nonlinear state space form
+        """Right hand side of the equation of motion in nonlinear state space form
         :param xx:   system state
         :param uu:   system input
         :return:     nonlinear state function
@@ -60,15 +59,15 @@ class ProblemSpecification(object):
         sigma = 5.67e-8  # Stefan–Boltzmann constant in [W/m**2/k**4]
         A = 0.0025  # surface area of resistance m ** 2
         c = 87  # heat capacity in [J/k]
-        '''
+        """
         heat capacity is equal to specific heat capacity * mass of resistance
         specific heat capacity for Cu: 394 [J/kg/K], density of Cu_resistance : 8.86[g/cm**3]
         volume of Cu_resistance: 0.0025 [m**2] * 0.01 [m] 
-        '''
+        """
         x1 = xx[0]  # state: temperature
         u = uu[0]
 
-        p1_dot = u / (c * R0 * (1 + alpha * (x1 - Tr))) - (sigma * A * (x1 ** 4 - Ta ** 4)) / c
+        p1_dot = u / (c * R0 * (1 + alpha * (x1 - Tr))) - (sigma * A * (x1**4 - Ta**4)) / c
 
         ff = sp.Matrix([p1_dot])
         mod = mt.SymbolicModel()
@@ -81,7 +80,7 @@ class ProblemSpecification(object):
 
     @staticmethod
     def output_func(xx, uu):
-        """ output equation of the system
+        """output equation of the system
         :param xx:   system states
         :param uu:   system input (not used in this case)
         :return:     output equation y = x1

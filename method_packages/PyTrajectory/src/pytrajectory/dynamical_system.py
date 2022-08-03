@@ -41,8 +41,7 @@ class DynamicalSystem(Logger):
     """
 
     # TODO: improve interface w.r.t additional free parameters
-    def __init__(self, f_sym, masterobject, a=0., b=1., xa=None, xb=None,
-                 ua=None, ub=None, uref=None, **kwargs):
+    def __init__(self, f_sym, masterobject, a=0.0, b=1.0, xa=None, xb=None, ua=None, ub=None, uref=None, **kwargs):
         self.masterobject = masterobject
         self.init_logger(masterobject)
 
@@ -72,26 +71,25 @@ class DynamicalSystem(Logger):
         self.constraint_handler = None
 
         # TODO: see remark above; The following should be more general!!
-        self.z_par = kwargs.get('k', [1.0]*self.n_par)
+        self.z_par = kwargs.get("k", [1.0] * self.n_par)
 
         self.f_sym.n_par = self.n_par
         # set names of the state and input variables
         # (will be used as keys in various dictionaries)
-        self.states = tuple(['x{}'.format( i + 1) for i in range(self.n_states)])
-        self.inputs = tuple(['u{}'.format( j + 1) for j in range(self.n_inputs)])
+        self.states = tuple(["x{}".format(i + 1) for i in range(self.n_states)])
+        self.inputs = tuple(["u{}".format(j + 1) for j in range(self.n_inputs)])
 
         # TODO_ck: what does this mean??
         # Todo_yx: if self.par is a list,then the following 2 sentences
         # self.par = []
         # self.par.append(tuple('z_par')) ##:: [('z_par',)]
 
-        self.par = tuple \
-            (['z_par_{}'.format( k + 1) for k in range(self.n_par)])  # z_par_1, z_par_2,
+        self.par = tuple(["z_par_{}".format(k + 1) for k in range(self.n_par)])  # z_par_1, z_par_2,
 
         self.xxs = sp.symbols(self.states)
         self.uus = sp.symbols(self.inputs)
         # ad hoc creation of symbols for reference input
-        self.uurefs = sp.symbols([sname+"_ref" for sname in self.inputs])
+        self.uurefs = sp.symbols([sname + "_ref" for sname in self.inputs])
         self.pps = sp.symbols(self.par)
 
         self._create_f_and_Df_objects()
@@ -116,8 +114,10 @@ class DynamicalSystem(Logger):
         # every result-component which has an index >= xn could be considered as penalty term
 
         if not n_all_args == 5:
-            msg = "Expecting signature: xdot = f(x, u, uref, t, p)," \
-                  "i.e. (state, input, reference_input, time, parameters)"
+            msg = (
+                "Expecting signature: xdot = f(x, u, uref, t, p),"
+                "i.e. (state, input, reference_input, time, parameters)"
+            )
             raise TypeError(msg)
 
     def _determine_system_dimensions(self, xa):
@@ -193,8 +193,7 @@ class DynamicalSystem(Logger):
                     # (that means the dimensions don't match)
                     continue
             except TypeError as err:
-                flag = "<lambda>() takes" in str(err) and \
-                       "arguments" in str(err) and "given" in str(err)
+                flag = "<lambda>() takes" in str(err) and "arguments" in str(err) and "given" in str(err)
                 if not flag:
                     self.log_error("unexpected TypeError")
                     raise err
@@ -203,11 +202,13 @@ class DynamicalSystem(Logger):
                     continue
 
         if not finished:
-            msg = "Unexpected unpacking Error inside rhs-function.\n " \
-                  "Probable reasons for this error:\n" \
-                  " - Wrong size of initial value (xa)\n" \
-                  " - System with >= {} input / parameter components (not supported)\n" \
-                  " - interal algortihmic error (i.e., a bug)".format(max_dim)
+            msg = (
+                "Unexpected unpacking Error inside rhs-function.\n "
+                "Probable reasons for this error:\n"
+                " - Wrong size of initial value (xa)\n"
+                " - System with >= {} input / parameter components (not supported)\n"
+                " - interal algortihmic error (i.e., a bug)".format(max_dim)
+            )
 
             raise ValueError(msg)
 
@@ -238,9 +239,9 @@ class DynamicalSystem(Logger):
         :return:        None
         """
         if ua is None:
-            ua = [None]*self.n_inputs
+            ua = [None] * self.n_inputs
         if ub is None:
-            ub = [None]*self.n_inputs
+            ub = [None] * self.n_inputs
 
         self.xa, self.xb, self.ua, self.ub = xa, xb, ua, ub
 
@@ -285,21 +286,20 @@ class DynamicalSystem(Logger):
 
         :return: None
         """
-        ts = sp.Symbol('t')
+        ts = sp.Symbol("t")
 
-        self.f_sym_full_matrix = sp.Matrix(self.f_sym(self.xxs, self.uus, self.uurefs,
-                                                      ts, self.pps))
+        self.f_sym_full_matrix = sp.Matrix(self.f_sym(self.xxs, self.uus, self.uurefs, ts, self.pps))
 
         for i, elt in enumerate(self.f_sym_full_matrix):
             msg = "element #{} (i.e., `{}`) should be sp.Expr, not {}".format(i, elt, type(elt))
             assert isinstance(elt, (sp.Expr, Number)), msg
 
         # without (penalty-) constraints
-        self.f_sym_matrix = self.f_sym_full_matrix[:self.n_states, :]
+        self.f_sym_matrix = self.f_sym_full_matrix[: self.n_states, :]
 
         # create vectorfields f and g (symbolically and as numerical function)
 
-        ff = self.f_sym_matrix.subs(lzip(self.uus, [0]*self.n_inputs))
+        ff = self.f_sym_matrix.subs(lzip(self.uus, [0] * self.n_inputs))
         gg = self.f_sym_matrix.jacobian(self.uus)
         if gg.atoms(sp.Symbol).intersection(self.uus):
             self.log_warn("System is not input affine. -> VF g has no meaning.")
@@ -308,27 +308,50 @@ class DynamicalSystem(Logger):
         fnc_factory = aux.expr2callable
 
         nx, nu = self.n_states, self.n_inputs
-        self.vf_f = fnc_factory(expr=ff, xxs=self.states, uus=self.inputs, uurefs=self.uurefs,
-                                ts=None, pps=self.par,
-                                uref_fnc=self.uref_fnc,
-                                vectorized=False, cse=False, crop_result_idx=nx)
+        self.vf_f = fnc_factory(
+            expr=ff,
+            xxs=self.states,
+            uus=self.inputs,
+            uurefs=self.uurefs,
+            ts=None,
+            pps=self.par,
+            uref_fnc=self.uref_fnc,
+            vectorized=False,
+            cse=False,
+            crop_result_idx=nx,
+        )
 
-        self.vf_g = fnc_factory(expr=gg, xxs=self.states, uus=self.inputs,  uurefs=self.uurefs,
-                                ts=None, pps=self.par,
-                                uref_fnc=self.uref_fnc,
-                                desired_shape=(nx, nu),
-                                vectorized=False, cse=False, crop_result_idx=nx)
+        self.vf_g = fnc_factory(
+            expr=gg,
+            xxs=self.states,
+            uus=self.inputs,
+            uurefs=self.uurefs,
+            ts=None,
+            pps=self.par,
+            uref_fnc=self.uref_fnc,
+            desired_shape=(nx, nu),
+            vectorized=False,
+            cse=False,
+            crop_result_idx=nx,
+        )
 
         # to handle penalty contraints it is necessary to distinguish between
         # the extended vectorfield (state equations + penalties) and
         # the basic vectorfiled (only state equations)
         # for simulation, only the the basic vf shall be used -> crop_result
 
-        self.f_num_simulation = fnc_factory(expr=self.f_sym_matrix, xxs=self.states,
-                                            uus=self.inputs,  uurefs=self.uurefs,
-                                            ts=None, pps=self.par,
-                                            uref_fnc=self.uref_fnc,
-                                            vectorized=False, cse=False, crop_result_idx=nx)
+        self.f_num_simulation = fnc_factory(
+            expr=self.f_sym_matrix,
+            xxs=self.states,
+            uus=self.inputs,
+            uurefs=self.uurefs,
+            ts=None,
+            pps=self.par,
+            uref_fnc=self.uref_fnc,
+            vectorized=False,
+            cse=False,
+            crop_result_idx=nx,
+        )
 
         # ---
         # these objects were formerly defined in the class CollocationSystem:
@@ -337,18 +360,31 @@ class DynamicalSystem(Logger):
         # to build the system of target-equations
 
         assert self.f_sym_full_matrix.shape == (self.n_states + self.n_pconstraints, 1)
-        self.ff_vectorized = fnc_factory(expr=self.f_sym_full_matrix, xxs=self.states,
-                                         uus=self.inputs,  uurefs=self.uurefs,
-                                         ts=None, pps=self.par,
-                                         uref_fnc=self.uref_fnc,
-                                         vectorized=True,
-                                         cse=True, desired_shape=(len(self.f_sym_full_matrix), ) )
+        self.ff_vectorized = fnc_factory(
+            expr=self.f_sym_full_matrix,
+            xxs=self.states,
+            uus=self.inputs,
+            uurefs=self.uurefs,
+            ts=None,
+            pps=self.par,
+            uref_fnc=self.uref_fnc,
+            vectorized=True,
+            cse=True,
+            desired_shape=(len(self.f_sym_full_matrix),),
+        )
 
         all_symbols = sp.symbols(self.states + self.inputs + self.par)
         self.Df_expr = sp.Matrix(self.f_sym_full_matrix).jacobian(all_symbols)
 
-        self.Df_vectorized = fnc_factory(expr=self.Df_expr, xxs=self.states, uus=self.inputs,
-                                         uurefs=self.uurefs, ts=None, pps=self.par,
-                                         uref_fnc=self.uref_fnc,
-                                         vectorized=True, cse=True,
-                                         desired_shape=self.Df_expr.shape)
+        self.Df_vectorized = fnc_factory(
+            expr=self.Df_expr,
+            xxs=self.states,
+            uus=self.inputs,
+            uurefs=self.uurefs,
+            ts=None,
+            pps=self.par,
+            uref_fnc=self.uref_fnc,
+            vectorized=True,
+            cse=True,
+            desired_shape=self.Df_expr.shape,
+        )

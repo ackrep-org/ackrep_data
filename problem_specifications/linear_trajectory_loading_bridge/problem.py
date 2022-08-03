@@ -30,7 +30,7 @@ class ProblemSpecification(object):
     # x0_1 = np.array([0.5 / 26, 0, 0, 0])  # initial conditions for closed loop 1
     # x0_2 = np.array([0, 0, 0, 0])  # initial conditions for closed loop 2
     pol = [-5, -6, -7, -8, -9, -10, -11]  # desired poles of closed loop
-    x0_1 = np.array([0, 0, 0, 0, 0.5/4.13, 0, 0])  # initial conditions for closed loop 1
+    x0_1 = np.array([0, 0, 0, 0, 0.5 / 4.13, 0, 0])  # initial conditions for closed loop 1
     x0_2 = np.array([0, 0, 0, 0, 0, 0, 0])  # initial conditions for closed loop 2
     tolerance = 1e-1  # tolerance for evaluation of solution data
 
@@ -38,7 +38,7 @@ class ProblemSpecification(object):
     def transfer_func():
         s, t, T = sp.symbols("s, t, T")
         # transfer function of the linearized system
-        transfer_func = 9.81 / (s ** 4 + 12.26 * s ** 2)
+        transfer_func = 9.81 / (s**4 + 12.26 * s**2)
         return transfer_func
 
 

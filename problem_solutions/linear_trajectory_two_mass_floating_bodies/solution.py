@@ -16,6 +16,7 @@ import control
 import os
 from ackrep_core.system_model_management import save_plot_in_dir
 
+
 class SolutionData:
     pass
 
@@ -61,15 +62,12 @@ def solve(problem_spec):
     # the system is divided into two subsystems. one of them with the y_ref as input
     # and the other with u_ref
     close_loop_1 = control.feedback(control.tf(n_coeffs_o, d_coeffs_o))
-    close_loop_2 = control.feedback(control.tf(n_coeffs, d_coeffs),
-                                    control.tf(n_coeffs_c, d_coeffs_c))
+    close_loop_2 = control.feedback(control.tf(n_coeffs, d_coeffs), control.tf(n_coeffs_c, d_coeffs_c))
 
     # subsystem 1 with y_ref
-    y_1 = control.forced_response(close_loop_1, problem_spec.tt2, y_func(problem_spec.tt2),
-                                  problem_spec.x0_1)
+    y_1 = control.forced_response(close_loop_1, problem_spec.tt2, y_func(problem_spec.tt2), problem_spec.x0_1)
     # subsystem 2 with u_ref
-    y_2 = control.forced_response(close_loop_2, problem_spec.tt2, u_func(problem_spec.tt2),
-                                  problem_spec.x0_2)
+    y_2 = control.forced_response(close_loop_2, problem_spec.tt2, u_func(problem_spec.tt2), problem_spec.x0_2)
 
     solution_data = SolutionData()
     solution_data.u = u_func
@@ -84,14 +82,14 @@ def solve(problem_spec):
 
 def save_plot(problem_spec, solution_data):
     plt.figure(1)  # simulated trajectory of CuZn-ball
-    plt.plot(problem_spec.tt2, solution_data.yy, label='actual trajectory')
-    plt.plot(problem_spec.tt1, solution_data.y_func(problem_spec.tt1), ":", label='desired full transition')
-    plt.plot(problem_spec.tt, solution_data.y_func(problem_spec.tt), label='desired state transition')
-    plt.plot(0, 0.042, 'rx', label='controller switch in')
-    plt.xlabel('time [s]')
-    plt.ylabel('position [m]')
-    plt.title('position of CuZn-ball')
+    plt.plot(problem_spec.tt2, solution_data.yy, label="actual trajectory")
+    plt.plot(problem_spec.tt1, solution_data.y_func(problem_spec.tt1), ":", label="desired full transition")
+    plt.plot(problem_spec.tt, solution_data.y_func(problem_spec.tt), label="desired state transition")
+    plt.plot(0, 0.042, "rx", label="controller switch in")
+    plt.xlabel("time [s]")
+    plt.ylabel("position [m]")
+    plt.title("position of CuZn-ball")
     plt.legend(loc=1)
-    
+
     # save image
     save_plot_in_dir()

@@ -31,7 +31,7 @@ class ProblemSpecification(object):
 
     @staticmethod
     def rhs(xx, uu):
-        """ Right hand side of the equation of motion in nonlinear state space form
+        """Right hand side of the equation of motion in nonlinear state space form
         :param xx:   system states
         :param uu:   system input
         :return:     nonlinear state space
@@ -49,16 +49,13 @@ class ProblemSpecification(object):
         p1_dot = (g * m1 - u[0] ** 2 * k1 / (k2 + x1) ** 2 - kf * (x1 - x2)) / m1
         p2_dot = (g * m2 + kf * (x1 - x2)) / m2
 
-        ff = sp.Matrix([x3,
-                        x4,
-                        p1_dot,
-                        p2_dot])
+        ff = sp.Matrix([x3, x4, p1_dot, p2_dot])
 
         return ff
 
     @staticmethod
     def output_func(xx, uu):
-        """ output equation of the system
+        """output equation of the system
         :param xx:   system states
         :param uu:   system input (not used in this case)
         :return:     output equation y = x1

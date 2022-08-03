@@ -17,6 +17,7 @@ from control import matlab
 import os
 from ackrep_core.system_model_management import save_plot_in_dir
 
+
 class SolutionData:
     pass
 
@@ -67,8 +68,7 @@ def solve(problem_spec):
     # the system is divided into two subsystems. one of them with the y_ref as input
     # and the other with u_ref
     close_loop_1 = control.feedback(control.tf(z_coeffs_o, n_coeffs_o))
-    close_loop_2 = control.feedback(control.tf(z_coeffs, n_coeffs),
-                                    control.tf(z_coeffs_c, n_coeffs_c))
+    close_loop_2 = control.feedback(control.tf(z_coeffs, n_coeffs), control.tf(z_coeffs_c, n_coeffs_c))
 
     # subsystem 1 with y_ref
     y_1 = control.forced_response(close_loop_1, problem_spec.tt2, y_func(problem_spec.tt2), problem_spec.x0_1)
@@ -89,13 +89,13 @@ def solve(problem_spec):
 
 def save_plot(problem_spec, solution_data):
     plt.figure(1)  # simulated trajectory of CuZn-ball
-    plt.plot(problem_spec.tt2, solution_data.y_1 + solution_data.y_2, label='actual trajectory')
-    plt.plot(problem_spec.tt1, solution_data.y_func(problem_spec.tt1), ":", label='desired state transition')
-    plt.plot(problem_spec.tt, solution_data.y_func(problem_spec.tt), label='desired full transition')
-    plt.xlabel('time [s]')
-    plt.ylabel('position [m]')
-    plt.title('x-position of pendulum')
+    plt.plot(problem_spec.tt2, solution_data.y_1 + solution_data.y_2, label="actual trajectory")
+    plt.plot(problem_spec.tt1, solution_data.y_func(problem_spec.tt1), ":", label="desired state transition")
+    plt.plot(problem_spec.tt, solution_data.y_func(problem_spec.tt), label="desired full transition")
+    plt.xlabel("time [s]")
+    plt.ylabel("position [m]")
+    plt.title("x-position of pendulum")
     plt.legend(loc=2)
-    
+
     # save image
     save_plot_in_dir()

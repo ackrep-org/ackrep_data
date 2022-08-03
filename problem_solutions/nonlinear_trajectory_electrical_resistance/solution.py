@@ -39,8 +39,7 @@ def rhs_for_simulation(f, g, xx, controller_func):
 def solve(problem_spec):
     s, t, T = sp.symbols("s, t, T")
 
-    planer = tp.Trajectory_Planning(problem_spec.YA, problem_spec.YB,
-                                    problem_spec.t0, problem_spec.tf, problem_spec.tt)
+    planer = tp.Trajectory_Planning(problem_spec.YA, problem_spec.YB, problem_spec.t0, problem_spec.tf, problem_spec.tt)
     mod = problem_spec.rhs(problem_spec.xx, problem_spec.uu)
     planer.mod = mod
     planer.yy = problem_spec.output_func(problem_spec.xx, problem_spec.uu)
@@ -72,15 +71,15 @@ def save_plot(problem_spec, solution_data):
     plt.figure(1)
     for i in range(len(titles)):
         plt.subplot(problem_spec.row_number, int(len(titles) / problem_spec.row_number), i + 1)
-        plt.plot(problem_spec.tt, solution_data.p2_func(problem_spec.tt), label='desired state transition')
-        plt.plot(problem_spec.tt1, solution_data.p2_func(problem_spec.tt1), ":", label='desired full transition')
-        plt.plot(problem_spec.tt2, solution_data.res[:, 0], label='actual trajectory')
-        plt.plot(0, 275, 'rx', label='controller switch in')
+        plt.plot(problem_spec.tt, solution_data.p2_func(problem_spec.tt), label="desired state transition")
+        plt.plot(problem_spec.tt1, solution_data.p2_func(problem_spec.tt1), ":", label="desired full transition")
+        plt.plot(problem_spec.tt2, solution_data.res[:, 0], label="actual trajectory")
+        plt.plot(0, 275, "rx", label="controller switch in")
         plt.legend(loc=2)
         plt.title(titles[i])
         plt.xlabel(problem_spec.x_label)
         plt.ylabel(problem_spec.y_label_state[i])
     plt.tight_layout()
-    
+
     # save image
     save_plot_in_dir()

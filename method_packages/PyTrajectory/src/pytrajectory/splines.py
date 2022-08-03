@@ -46,8 +46,7 @@ class Spline(Logger):
         or the ones used in the project thesis
     """
 
-    def __init__(self, a=0.0, b=1.0, n=5, bv=None,
-                 tag='', use_std_approach=False, **kwargs):
+    def __init__(self, a=0.0, b=1.0, n=5, bv=None, tag="", use_std_approach=False, **kwargs):
         # there are two different approaches implemented for evaluating
         # the splines which mainly differ in the node that is used in the
         # evaluation of the polynomial parts
@@ -86,12 +85,14 @@ class Spline(Logger):
         #   values: the boundary values the derivative should satisfy
 
         # create array of symbolic coefficients
-        self._coeffs = sp.symarray('c'+tag, (self.n, 4))  ##:: e.g.: array([[cxi_0_0, cxi_0_1, cxi_0_2, cxi_0_3],...,[cxi_9_0, cxi_9_1, cxi_9_2, cxi_9_3]])
+        self._coeffs = sp.symarray(
+            "c" + tag, (self.n, 4)
+        )  ##:: e.g.: array([[cxi_0_0, cxi_0_1, cxi_0_2, cxi_0_3],...,[cxi_9_0, cxi_9_1, cxi_9_2, cxi_9_3]])
         self._coeffs_sym = self._coeffs.copy()
 
         # calculate nodes of the spline
-        self.nodes = get_spline_nodes(self.a, self.b, self.n+1, nodes_type='equidistant')
-        self._nodes_type = 'equidistant'
+        self.nodes = get_spline_nodes(self.a, self.b, self.n + 1, nodes_type="equidistant")
+        self._nodes_type = "equidistant"
 
         # size of each polynomial part
         self._h = (self.b - self.a) / float(self.n)
@@ -112,8 +113,8 @@ class Spline(Logger):
         # if there are no values for its free parameters
 
         # they show how the spline coefficients depend on the free coefficients
-        self._dep_array = None  #np.array([])
-        self._dep_array_abs = None  #np.array([])
+        self._dep_array = None  # np.array([])
+        self._dep_array_abs = None  # np.array([])
 
         # steady flag is True if smoothness and boundary conditions are solved
         # --> make_steady()
@@ -143,9 +144,7 @@ class Spline(Logger):
 
         # first we create an equivalent spline which uses the
         # respectively other approach
-        S = Spline(a=self.a, b=self.b, n=self.n,
-                   bv=self._boundary_values,
-                   use_std_approach=not self._use_std_approach)
+        S = Spline(a=self.a, b=self.b, n=self.n, bv=self._boundary_values, use_std_approach=not self._use_std_approach)
 
         # solve smoothness conditions to get dependence arrays
         S.make_steady()  # TODO: rename to make_smooth_c2
@@ -158,13 +157,13 @@ class Spline(Logger):
         switched_coeffs = _switch_coeffs(S=self, all_coeffs=True)
 
         # get the indices of the free coefficients
-        coeff_name_split_str = [c.name.split('_')[-2:] for c in S._indep_coeffs]
+        coeff_name_split_str = [c.name.split("_")[-2:] for c in S._indep_coeffs]
         free_coeff_indices = [(int(s[0]), int(s[1])) for s in coeff_name_split_str]
 
         # get free coeffs values
         switched_free_coeffs = np.array([switched_coeffs[i] for i in free_coeff_indices])
 
-        #self.set_coefficients(coeffs=switched_coeffs)
+        # self.set_coefficients(coeffs=switched_coeffs)
         self.set_coefficients(free_coeffs=switched_free_coeffs)
         self._use_std_approach = S._use_std_approach
 
@@ -189,9 +188,9 @@ class Spline(Logger):
             i = self.n - 1
 
         if self._use_std_approach:
-            return self._P[i].deriv(d)(t - (i)*self._h)
+            return self._P[i].deriv(d)(t - (i) * self._h)
         else:
-            return self._P[i].deriv(d)(t - (i+1)*self._h)
+            return self._P[i].deriv(d)(t - (i + 1) * self._h)
 
     def _init_bc(self, bc):
         """
@@ -206,8 +205,9 @@ class Spline(Logger):
         keys = sorted(bc.keys())
         maxorder = max(keys)
         if not len(keys) == maxorder + 1:
-            msg = "Only consecutive boundary conditions are allowed. "\
-                  "You have to provide bc also for all lower orders."
+            msg = (
+                "Only consecutive boundary conditions are allowed. " "You have to provide bc also for all lower orders."
+            )
             raise ValueError(msg)
 
         for k in keys:
@@ -258,7 +258,7 @@ class Spline(Logger):
         self._indep_coeffs_sym = self._indep_coeffs.copy()
         ##:: array([cx1_0_0, cx1_1_0, cx1_2_0, ..., cx1_8_0, cx1_9_0, cx1_0_2])
 
-    def differentiate(self, d=1, new_tag=''):
+    def differentiate(self, d=1, new_tag=""):
         """
         Returns the `d`-th derivative of this spline function object.
 
@@ -313,19 +313,21 @@ class Spline(Logger):
         if self._use_std_approach:
             t -= (i) * self._h
         else:
-            t -= (i+1) * self._h
+            t -= (i + 1) * self._h
 
         # Calculate vector to for multiplication with coefficient matrix w.r.t. the derivation order
         if d == 0:
-            tt = np.array([1.0, t, t*t, t*t*t])
+            tt = np.array([1.0, t, t * t, t * t * t])
         elif d == 1:
-            tt = np.array([0.0, 1.0, 2.0*t, 3.0*t*t])
+            tt = np.array([0.0, 1.0, 2.0 * t, 3.0 * t * t])
         elif d == 2:
-            tt = np.array([0.0, 0.0, 2.0, 6.0*t])
+            tt = np.array([0.0, 0.0, 2.0, 6.0 * t])
         elif d == 3:
             tt = np.array([0.0, 0.0, 0.0, 6.0])
 
-        dep_vec = np.dot(tt, self._dep_array[i])  ##:: actually it is Sx1 (or Sx2 or Su) described in indenpent elements.
+        dep_vec = np.dot(
+            tt, self._dep_array[i]
+        )  ##:: actually it is Sx1 (or Sx2 or Su) described in indenpent elements.
         dep_vec_abs = np.dot(tt, self._dep_array_abs[i])
 
         D1, D2 = dep_vec, dep_vec_abs
@@ -356,13 +358,25 @@ class Spline(Logger):
 
             # first a little check
             if not (self.n == coeffs.shape[0]):
-                self.log_error('Dimension mismatch in number of spline parts ({}) and \
-                            rows in coefficients array ({})'.format(self.n, coeffs.shape[0]))
-                raise ValueError('Dimension mismatch in number of spline parts ({}) and \
-                            rows in coefficients array ({})'.format(self.n, coeffs.shape[0]))
+                self.log_error(
+                    "Dimension mismatch in number of spline parts ({}) and \
+                            rows in coefficients array ({})".format(
+                        self.n, coeffs.shape[0]
+                    )
+                )
+                raise ValueError(
+                    "Dimension mismatch in number of spline parts ({}) and \
+                            rows in coefficients array ({})".format(
+                        self.n, coeffs.shape[0]
+                    )
+                )
             elif not (coeffs.shape[1] == 4):
-                self.log_error('Dimension mismatch in number of polynomial coefficients (4) and \
-                            columns in coefficients array ({})'.format(coeffs.shape[1]))
+                self.log_error(
+                    "Dimension mismatch in number of polynomial coefficients (4) and \
+                            columns in coefficients array ({})".format(
+                        coeffs.shape[1]
+                    )
+                )
             # elif not (self._indep_coeffs.size == coeffs.shape[1]):
             #     self.log_error('Dimension mismatch in number of free coefficients ({}) and \
             #                 columns in coefficients array ({})'.format(self._indep_coeffs.size, coeffs.shape[1]))
@@ -379,8 +393,9 @@ class Spline(Logger):
         elif coeffs is None and free_coeffs is not None:
             # a little check
             if not (self._indep_coeffs.size == free_coeffs.size):
-                msg = 'Got {} values for the {} independent coefficients.'\
-                       .format(free_coeffs.size, self._indep_coeffs.size)
+                msg = "Got {} values for the {} independent coefficients.".format(
+                    free_coeffs.size, self._indep_coeffs.size
+                )
                 self.log_error(msg)
                 raise ValueError(msg)
 
@@ -396,14 +411,14 @@ class Spline(Logger):
                 self._P[k] = np.poly1d(coeffs_k[::-1])
         else:
             # not sure...
-            self.log_error('Not sure what to do, please either pass `coeffs` or `free_coeffs`.')
-            raise ValueError('Not sure what to do, please either pass `coeffs` or `free_coeffs`.')
+            self.log_error("Not sure what to do, please either pass `coeffs` or `free_coeffs`.")
+            raise ValueError("Not sure what to do, please either pass `coeffs` or `free_coeffs`.")
 
         # now we have numerical values for the coefficients so we can set this to False
         self._prov_flag = False
 
     # noinspection PyPep8Naming
-    def new_interpolate(self, fnc, set_coeffs=False, method='equi'):
+    def new_interpolate(self, fnc, set_coeffs=False, method="equi"):
         """
         Determines the spline's coefficients such that it interpolates
         a given function. It respects the given boundary conditions, even if the
@@ -434,7 +449,7 @@ class Spline(Logger):
 
         # 2 for the slope at the borders + some more in the middle
         slope_fraction = 0.5
-        Nc_slope = 2 + int((Nc_total-2)*slope_fraction)
+        Nc_slope = 2 + int((Nc_total - 2) * slope_fraction)
 
         # get a suitable number of points
         Nc_value = Nc_total - Nc_slope
@@ -449,14 +464,14 @@ class Spline(Logger):
         # True if we have real boundary values
         bv0_flag = bv0 is not None and bv0 != (None, None)
 
-        if method == 'equi':
+        if method == "equi":
             if bv0_flag:
                 # exclude the boundaries because we already have given bc
                 tt = np.linspace(self.a, self.b, Nc_value + 2)[1:-1]
             else:
                 # no given bc -> include boundary points
                 tt = np.linspace(self.a, self.b, Nc_value)
-        elif method == 'cheby':
+        elif method == "cheby":
             if bv0_flag:
                 # exclude the boundaries because we already have given bc
                 tt = aux.calc_chebyshev_nodes(self.a, self.b, Nc_value, include_borders=False)
@@ -474,7 +489,7 @@ class Spline(Logger):
         for t, v in zip(tt, vv):
             D1, D2 = self.get_dependence_vectors(t)
             lhs.append(D1)
-            rhs.append(v-D2)
+            rhs.append(v - D2)
 
         # Background: for each point we have the equation
         # D1*a + D2 = v
@@ -483,7 +498,7 @@ class Spline(Logger):
         # where a are the free coeffs
 
         # add equations for the slope (at the borders ..
-        dt = (self.b - self.a)/1e4
+        dt = (self.b - self.a) / 1e4
         slope_places = [self.a, self.b - dt]
 
         # , and elsewhere:
@@ -495,11 +510,11 @@ class Spline(Logger):
 
         slope_places.extend(mid_first[:Nc_slope_additional])
 
-        slope_places = np.clip(slope_places, self.a, self.b-dt)
+        slope_places = np.clip(slope_places, self.a, self.b - dt)
 
         # dependence vectors for 1st derivative
         for t in slope_places:
-            slope = (fnc(t + dt) - fnc(t))/dt
+            slope = (fnc(t + dt) - fnc(t)) / dt
             D1, D2 = self.get_dependence_vectors(t, d=1)
             lhs.append(D1)
             rhs.append(slope - D2)
@@ -556,7 +571,7 @@ class Spline(Logger):
             S_dep_mat_abs = np.array([vec[1] for vec in dep_vecs])
 
             # solve the equation system
-            #free_coeffs = np.linalg.solve(S_dep_mat, fnc_t - S_dep_mat_abs)
+            # free_coeffs = np.linalg.solve(S_dep_mat, fnc_t - S_dep_mat_abs)
             free_coeffs = np.linalg.lstsq(S_dep_mat, fnc_t - S_dep_mat_abs)[0]
 
         else:
@@ -564,17 +579,21 @@ class Spline(Logger):
             vv = np.array([fnc(t) for t in self.nodes])
 
             # create vector of step sizes
-            #h = np.array([self.nodes[k+1] - self.nodes[k] for k in xrange(self.nodes.size-1)])
+            # h = np.array([self.nodes[k+1] - self.nodes[k] for k in xrange(self.nodes.size-1)])
             h = np.diff(self.nodes)
 
             # create diagonals for the coefficient matrix of the equation system
-            l = np.array([h[k+1] / (h[k] + h[k+1]) for k in range(self.nodes.size-2)])
-            d = 2.0*np.ones(self.nodes.size-2)
-            u = np.array([h[k] / (h[k] + h[k+1]) for k in range(self.nodes.size-2)])
+            l = np.array([h[k + 1] / (h[k] + h[k + 1]) for k in range(self.nodes.size - 2)])
+            d = 2.0 * np.ones(self.nodes.size - 2)
+            u = np.array([h[k] / (h[k] + h[k + 1]) for k in range(self.nodes.size - 2)])
 
             # right hand side of the equation system
-            r = np.array([(3.0/h[k])*l[k]*(vv[k+1] - vv[k]) + (3.0/h[k+1])*u[k]*(vv[k+2]-vv[k+1])\
-                          for k in range(self.nodes.size-2)])
+            r = np.array(
+                [
+                    (3.0 / h[k]) * l[k] * (vv[k + 1] - vv[k]) + (3.0 / h[k + 1]) * u[k] * (vv[k + 2] - vv[k + 1])
+                    for k in range(self.nodes.size - 2)
+                ]
+            )
             # add conditions for unique solution
 
             # boundary derivatives
@@ -594,7 +613,7 @@ class Spline(Logger):
             offsets = [-1, 0, 1]
 
             # create tridiagonal coefficient matrix
-            D = sparse.dia_matrix((data, offsets), shape=(self.n+1, self.n+1))
+            D = sparse.dia_matrix((data, offsets), shape=(self.n + 1, self.n + 1))
 
             # solve the equation system
             sol = sparse.linalg.spsolve(D.tocsr(), r)
@@ -605,20 +624,23 @@ class Spline(Logger):
             # compute the coefficients of the interpolant
             if self._use_std_approach:
                 for i in range(self.n):
-                    coeffs[i, :] = [vv[i],
-                                    sol[i],
-                                    3.0/h[i]**2 * (vv[i+1]-vv[i]) - 1.0/h[i] * (2*sol[i]+sol[i+1]),
-                                    -2.0/h[i]**3 * (vv[i+1]-vv[i]) + 1.0/h[i]**2 * (sol[i]+sol[i+1]),
-                                    ]
+                    coeffs[i, :] = [
+                        vv[i],
+                        sol[i],
+                        3.0 / h[i] ** 2 * (vv[i + 1] - vv[i]) - 1.0 / h[i] * (2 * sol[i] + sol[i + 1]),
+                        -2.0 / h[i] ** 3 * (vv[i + 1] - vv[i]) + 1.0 / h[i] ** 2 * (sol[i] + sol[i + 1]),
+                    ]
             else:
                 for i in range(self.n):
-                    coeffs[i, :] = [vv[i+1],
-                                    sol[i+1],
-                                    3.0/h[i]**2 * (vv[i]-vv[i+1]) + 1.0/h[i] * (sol[i]+2*sol[i+1]),
-                                    2.0/h[i]**3 * (vv[i]-vv[i+1]) + 1.0/h[i]**2 * (sol[i]+sol[i+1])]
+                    coeffs[i, :] = [
+                        vv[i + 1],
+                        sol[i + 1],
+                        3.0 / h[i] ** 2 * (vv[i] - vv[i + 1]) + 1.0 / h[i] * (sol[i] + 2 * sol[i + 1]),
+                        2.0 / h[i] ** 3 * (vv[i] - vv[i + 1]) + 1.0 / h[i] ** 2 * (sol[i] + sol[i + 1]),
+                    ]
 
             # get the indices of the free coefficients
-            coeff_name_split_str = [c.name.split('_')[-2:] for c in self._indep_coeffs_sym]
+            coeff_name_split_str = [c.name.split("_")[-2:] for c in self._indep_coeffs_sym]
             free_coeff_indices = [(int(s[0]), int(s[1])) for s in coeff_name_split_str]
 
             free_coeffs = np.array([coeffs[i] for i in free_coeff_indices])
@@ -650,7 +672,7 @@ class Spline(Logger):
         # -> allow extrapolation for small excess
         if tt[-1] < self.nodes[-1]:
             dt = tt[1] - tt[0]
-            assert self.nodes[-1] - tt[-1] < dt/10
+            assert self.nodes[-1] - tt[-1] < dt / 10
 
         return interp1d(tt, xx, fill_value="extrapolate")
 
@@ -677,13 +699,21 @@ class Spline(Logger):
         if self._node_eval_block is None:
             h = self._h
             if self._use_std_approach:
-                block = np.array([[1, h, h ** 2, h ** 3, -1, 0, 0, 0],
-                                  [0, 1.0, 2*h, 3*h ** 2, 0, -1, 0, 0],
-                                  [0, 0, 2.0, 6*h, 0, 0, -2, 0.]])
+                block = np.array(
+                    [
+                        [1, h, h**2, h**3, -1, 0, 0, 0],
+                        [0, 1.0, 2 * h, 3 * h**2, 0, -1, 0, 0],
+                        [0, 0, 2.0, 6 * h, 0, 0, -2, 0.0],
+                    ]
+                )
             else:
-                block = np.array([[1.0, 0.0, 0.0, 0.0, -1.0, h, -h ** 2, h ** 3],
-                                  [0.0, 1.0, 0.0, 0.0, 0.0, -1.0, 2*h, -3*h ** 2],
-                                  [0.0, 0.0, 2.0, 0.0, 0.0, 0.0, -2.0, 6*h]])
+                block = np.array(
+                    [
+                        [1.0, 0.0, 0.0, 0.0, -1.0, h, -(h**2), h**3],
+                        [0.0, 1.0, 0.0, 0.0, 0.0, -1.0, 2 * h, -3 * h**2],
+                        [0.0, 0.0, 2.0, 0.0, 0.0, 0.0, -2.0, 6 * h],
+                    ]
+                )
             self._node_eval_block = block
 
         if simple:
@@ -695,12 +725,12 @@ class Spline(Logger):
         save = dict()
 
         # coeffs
-        save['coeffs'] = self._coeffs
-        save['indep_coeffs'] = self._indep_coeffs
+        save["coeffs"] = self._coeffs
+        save["indep_coeffs"] = self._indep_coeffs
 
         # dep arrays
-        save['dep_array'] = self._dep_array
-        save['dep_array_abs'] = self._dep_array_abs
+        save["dep_array"] = self._dep_array
+        save["dep_array_abs"] = self._dep_array_abs
 
         return save
 
@@ -727,8 +757,10 @@ class Spline(Logger):
         elif self._prov_flag:
             # spline cannot be plotted, because there are no numeric
             # values for its polynomial coefficients
-            self.log_error("There are no numeric values for the spline's\
-                            polynomial coefficients.")
+            self.log_error(
+                "There are no numeric values for the spline's\
+                            polynomial coefficients."
+            )
             return
 
         # create array of values
@@ -738,18 +770,20 @@ class Spline(Logger):
         if show:
             try:
                 import matplotlib.pyplot as plt
-                plt.plot(tt,St)
+
+                plt.plot(tt, St)
                 plt.show()
             except ImportError:
-                self.log_error('Could not import matplotlib for plotting the curve.')
+                self.log_error("Could not import matplotlib for plotting the curve.")
 
         if ret_array:
             return St
 
+
 # End of class Spline
 
 
-def get_spline_nodes(a=0.0, b=1.0, n=10, nodes_type='equidistant'):
+def get_spline_nodes(a=0.0, b=1.0, n=10, nodes_type="equidistant"):
     """
     Generates :math:`n` spline nodes in the interval :math:`[a,b]`
     of given type.
@@ -770,13 +804,14 @@ def get_spline_nodes(a=0.0, b=1.0, n=10, nodes_type='equidistant'):
         How to generate the nodes.
     """
 
-    if nodes_type == 'equidistant':
+    if nodes_type == "equidistant":
         nodes = np.linspace(a, b, n, endpoint=True)
     else:
         # non equidistant nodes were planned / tested in ancient times ...
         raise NotImplementedError()
 
     return nodes
+
 
 def differentiate(spline_fnc):
     """
@@ -819,7 +854,7 @@ def make_steady(S):
 
     # This should be yet untouched
     if S._steady_flag:
-        logging.warning('Spline already has been made steady.')
+        logging.warning("Spline already has been made steady.")
         return
 
     # get spline coefficients and interval size
@@ -847,7 +882,7 @@ def make_steady(S):
         # we need n + 3 free parameters
 
         # mainly 3rd order and all (additional) coeffs of the first spline
-        a = np.hstack( (coeffs[:, -1], coeffs[0, :-1]) )
+        a = np.hstack((coeffs[:, -1], coeffs[0, :-1]))
 
     elif nu == 0:
         # this is the most relevant case
@@ -883,7 +918,7 @@ def make_steady(S):
 
     # get matrix and right hand site of the equation system
     # that ensures smoothness and compliance with the boundary values
-    M, r = get_smoothness_matrix(S, nu) ##:: see the docs:
+    M, r = get_smoothness_matrix(S, nu)  ##:: see the docs:
     N1, N2 = M.shape
     # http://pytrajectory.readthedocs.io/en/master/guide/background.html#candidate-functions
 
@@ -899,21 +934,21 @@ def make_steady(S):
     # b_mat = sparse.lil_matrix((N2,N1)) # size(b_mat)=(40,29)
 
     # matrices to select the relevant columns from M, i.e. A, B corresponding to a, b
-    a_select = sparse.lil_matrix((N2, N2-N1))
+    a_select = sparse.lil_matrix((N2, N2 - N1))
     b_mat = sparse.lil_matrix((N2, N1))
 
     # coeff names are like cx1_<i>_<k>  i: piece number, k: order
     for i, aa in enumerate(a):
-        tmp = aa.name.split('_')[-2:] # aa= cx1_0_0, aa.name='cx1_0_0', tmp=['0','0']
+        tmp = aa.name.split("_")[-2:]  # aa= cx1_0_0, aa.name='cx1_0_0', tmp=['0','0']
         j = int(tmp[0])
         k = int(tmp[1])
-        a_select[4*j+k, i] = 1
+        a_select[4 * j + k, i] = 1
 
     for i, bb in enumerate(b):
-        tmp = bb.name.split('_')[-2:]
+        tmp = bb.name.split("_")[-2:]
         j = int(tmp[0])
         k = int(tmp[1])
-        b_mat[4*j+k, i] = 1
+        b_mat[4 * j + k, i] = 1
 
     M = sparse.csr_matrix(M)
     a_select = sparse.csr_matrix(a_select)
@@ -939,7 +974,7 @@ def make_steady(S):
     dep_array_abs = np.zeros_like(coeffs, dtype=float)
 
     for i, bb in enumerate(b):
-        tmp = bb.name.split('_')[-2:]
+        tmp = bb.name.split("_")[-2:]
         j = int(tmp[0])
         k = int(tmp[1])
 
@@ -948,7 +983,7 @@ def make_steady(S):
 
     tmp3 = np.eye(len(a))
     for i, aa in enumerate(a):
-        tmp = aa.name.split('_')[-2:]
+        tmp = aa.name.split("_")[-2:]
         j = int(tmp[0])
         k = int(tmp[1])
 
@@ -992,8 +1027,8 @@ def get_smoothness_matrix(S, nu):
     h = S._h  # width of the interval
 
     # get matrix dimensions --> (3.21) & (3.22)
-    N1 = 3*(S.n - 1) + 2*(nu + 1)
-    N2 = 4*S.n
+    N1 = 3 * (S.n - 1) + 2 * (nu + 1)
+    N2 = 4 * S.n
 
     # initialise the matrix and the right hand site
     M = sparse.lil_matrix((N1, N2))
@@ -1006,8 +1041,8 @@ def get_smoothness_matrix(S, nu):
 
     # Note: This function assumes lexical ordering of the coefficients
 
-    for k in range(n-1):
-        M[3*k:3*(k+1), 4*k:4*(k+2)] = block
+    for k in range(n - 1):
+        M[3 * k : 3 * (k + 1), 4 * k : 4 * (k + 2)] = block
 
     # add equations for boundary values
     if S._use_std_approach:
@@ -1015,58 +1050,59 @@ def get_smoothness_matrix(S, nu):
         if 0 in S._boundary_values:
             if S._boundary_values[0][0] is not None:
                 # left boundary
-                M[3*(n-1),0:4] = np.array([1, 0.0, 0.0, 0.0])
-                r[3*(n-1)] = S._boundary_values[0][0]
+                M[3 * (n - 1), 0:4] = np.array([1, 0.0, 0.0, 0.0])
+                r[3 * (n - 1)] = S._boundary_values[0][0]
             if S._boundary_values[0][1] is not None:
                 # right boundary
-                M[3*(n-1)+1,-4:] = np.array([1, h, h**2, h**3])
-                r[3*(n-1)+1] = S._boundary_values[0][1]
+                M[3 * (n - 1) + 1, -4:] = np.array([1, h, h**2, h**3])
+                r[3 * (n - 1) + 1] = S._boundary_values[0][1]
 
         # for its 1st derivative
         if 1 in S._boundary_values:
             if S._boundary_values[1][0] is not None:
-                M[3*(n-1)+2,0:4] = np.array([0.0, 1.0, 0.0, 0.0])
-                r[3*(n-1)+2] = S._boundary_values[1][0]
+                M[3 * (n - 1) + 2, 0:4] = np.array([0.0, 1.0, 0.0, 0.0])
+                r[3 * (n - 1) + 2] = S._boundary_values[1][0]
             if S._boundary_values[1][1] is not None:
-                M[3*(n-1)+3,-4:] = np.array([0.0, 1.0, 2*h, 3*h**2])
-                r[3*(n-1)+3] = S._boundary_values[1][1]
+                M[3 * (n - 1) + 3, -4:] = np.array([0.0, 1.0, 2 * h, 3 * h**2])
+                r[3 * (n - 1) + 3] = S._boundary_values[1][1]
         # and for its 2nd derivative
         if 2 in S._boundary_values:
             if S._boundary_values[2][0] is not None:
-                M[3*(n-1)+4, 0:4] = np.array([0.0, 2.0, 0.0, 0.0])
-                r[3*(n-1)+4] = S._boundary_values[2][0]
+                M[3 * (n - 1) + 4, 0:4] = np.array([0.0, 2.0, 0.0, 0.0])
+                r[3 * (n - 1) + 4] = S._boundary_values[2][0]
             if S._boundary_values[2][1] is not None:
-                M[3*(n-1)+5,-4:] = np.array([6*h, 2.0, 0.0, 0.0])
-                r[3*(n-1)+5] = S._boundary_values[2][1]
+                M[3 * (n - 1) + 5, -4:] = np.array([6 * h, 2.0, 0.0, 0.0])
+                r[3 * (n - 1) + 5] = S._boundary_values[2][1]
     else:
         # in this branch we use the older non-stdandard-approach to construct the equations
 
         # for the spline function itself
         if 0 in S._boundary_values:
             if S._boundary_values[0][0] is not None:
-                M[3*(n-1),0:4] = np.array([1.0, - h, h**2, -h**3])
-                r[3*(n-1)] = S._boundary_values[0][0]
+                M[3 * (n - 1), 0:4] = np.array([1.0, -h, h**2, -(h**3)])
+                r[3 * (n - 1)] = S._boundary_values[0][0]
             if S._boundary_values[0][1] is not None:
-                M[3*(n-1)+1,-4:] = np.array([1.0, 0.0, 0.0, 0.0])
-                r[3*(n-1)+1] = S._boundary_values[0][1]
+                M[3 * (n - 1) + 1, -4:] = np.array([1.0, 0.0, 0.0, 0.0])
+                r[3 * (n - 1) + 1] = S._boundary_values[0][1]
         # for its 1st derivative
         if 1 in S._boundary_values:
             if S._boundary_values[1][0] is not None:
-                M[3*(n-1)+2,0:4] = np.array([0.0, 1.0, -2*h, 3*h**2])
-                r[3*(n-1)+2] = S._boundary_values[1][0]
+                M[3 * (n - 1) + 2, 0:4] = np.array([0.0, 1.0, -2 * h, 3 * h**2])
+                r[3 * (n - 1) + 2] = S._boundary_values[1][0]
             if S._boundary_values[1][1] is not None:
-                M[3*(n-1)+3,-4:] = np.array([0.0, 1.0, 0.0, 0.0])
-                r[3*(n-1)+3] = S._boundary_values[1][1]
+                M[3 * (n - 1) + 3, -4:] = np.array([0.0, 1.0, 0.0, 0.0])
+                r[3 * (n - 1) + 3] = S._boundary_values[1][1]
         # and for its 2nd derivative
         if 2 in S._boundary_values:
             if S._boundary_values[2][0] is not None:
-                M[3*(n-1)+4,0:4] = np.array([0.0, 0.0, 2.0, -6*h])
-                r[3*(n-1)+4] = S._boundary_values[2][0]
+                M[3 * (n - 1) + 4, 0:4] = np.array([0.0, 0.0, 2.0, -6 * h])
+                r[3 * (n - 1) + 4] = S._boundary_values[2][0]
             if S._boundary_values[2][1] is not None:
-                M[3*(n-1)+5,-4:] = np.array([0.0, 0.0, 2.0, 0.0])
-                r[3*(n-1)+5] = S._boundary_values[2][1]
+                M[3 * (n - 1) + 5, -4:] = np.array([0.0, 0.0, 2.0, 0.0])
+                r[3 * (n - 1) + 5] = S._boundary_values[2][1]
 
     return M, r
+
 
 def _switch_coeffs(S, all_coeffs=False, dep_arrays=None):
     """
@@ -1089,14 +1125,13 @@ def _switch_coeffs(S, all_coeffs=False, dep_arrays=None):
 
     # this is the conversion matrix between the two approaches
     #
-    raise NotImplementedError('This function has not yet been ported to the new ordering of coeffs')
+    raise NotImplementedError("This function has not yet been ported to the new ordering of coeffs")
     # probably each row  of M has to be reversed but currently not sure
 
     # todo: how did we get it? --> docs
-    M = np.array([[    1.,    0.,  0., 0.],
-                  [  3*dh,    1.,  0., 0.],
-                  [3*dh**2,  2*dh, 1., 0.],
-                  [  dh**3, dh**2, dh, 1.]])
+    M = np.array(
+        [[1.0, 0.0, 0.0, 0.0], [3 * dh, 1.0, 0.0, 0.0], [3 * dh**2, 2 * dh, 1.0, 0.0], [dh**3, dh**2, dh, 1.0]]
+    )
 
     if all_coeffs:
         # compute all coeffs of the standard approach spline at once
@@ -1109,9 +1144,7 @@ def _switch_coeffs(S, all_coeffs=False, dep_arrays=None):
         # using the standard approach, so we create a suitable one
         # if they were not given
         if dep_arrays is None:
-            S = Spline(a=S.a, b=S.b, n=S.n,
-                       bv=S._boundary_values,
-                       use_std_approach=not S._use_std_approach)
+            S = Spline(a=S.a, b=S.b, n=S.n, bv=S._boundary_values, use_std_approach=not S._use_std_approach)
             S.make_steady()
 
             new_M = S._dep_array
@@ -1147,12 +1180,11 @@ def get_null_spline(a, b):
     return s
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # TODO: if this is still useful it should be exported to a unittest
     import matplotlib.pyplot as plt
 
-    bv = {0 : [0.0, 1.0],
-          1 : [1.0, 0.0]}
+    bv = {0: [0.0, 1.0], 1: [1.0, 0.0]}
 
     A = Spline(a=0.0, b=1.0, n=10, bv=bv, use_std_approach=True)
     A.make_steady()
@@ -1163,11 +1195,9 @@ if __name__ == '__main__':
 
     val0 = np.array(A.plot(show=False, ret_array=True))
     A._switch_approaches()
-    #A._switch_approaches()
+    # A._switch_approaches()
     val1 = np.array(A.plot(show=False, ret_array=True))
 
     diff = np.abs(val0 - val1).max()
 
-    t_points = np.linspace(0., 1., len(val0))
-
-
+    t_points = np.linspace(0.0, 1.0, len(val0))

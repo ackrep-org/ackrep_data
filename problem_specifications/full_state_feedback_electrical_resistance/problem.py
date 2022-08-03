@@ -31,17 +31,17 @@ class ProblemSpecification(object):
     yr = 86.85  # reference temperature (target temperature 310K - equilibrium point 293.15)
 
     # plotting parameters
-    titles_state = ['temperature of resistance']
-    titles_output = ['temperature of resistance']
-    x_label = 'time [s]'
-    y_label_state = ['temperature [k]']
-    y_label_output = ['temperature [k]']
-    graph_color = 'r'
+    titles_state = ["temperature of resistance"]
+    titles_output = ["temperature of resistance"]
+    x_label = "time [s]"
+    y_label_state = ["temperature [k]"]
+    y_label_output = ["temperature [k]"]
+    graph_color = "r"
     row_number = 1  # the number of images in each row
 
     @classmethod
     def rhs(cls):
-        """ Right hand side of the equation of motion in nonlinear state space form
+        """Right hand side of the equation of motion in nonlinear state space form
         :return:     nonlinear state function
         """
         R0 = 6  # reference resistance at the reference temperature in [Ohm]
@@ -51,15 +51,15 @@ class ProblemSpecification(object):
         sigma = 5.67e-8  # Stefan–Boltzmann constant in [W/(m**2 * K**4)]
         A = 0.0025  # surface area of resistance m ** 2
         c = 87  # heat capacity in [J/k]
-        '''
+        """
         heat capacity is equal to specific heat capacity * mass of resistance
         specific heat capacity for Cu: 394 [J/kg/K], density of Cu_resistance : 8.86[g/cm**3]
         volume of Cu_resistance: 0.0025 [m**2] * 0.01 [m] 
-        '''
+        """
         x1 = cls.xx[0]  # state: temperature
         u = cls.u[0]
 
-        p1_dot = u / (c * R0 * (1 + alpha * (x1 - Tr))) - (sigma * A * (x1 ** 4 - Ta ** 4)) / c
+        p1_dot = u / (c * R0 * (1 + alpha * (x1 - Tr))) - (sigma * A * (x1**4 - Ta**4)) / c
 
         ff = sp.Matrix([p1_dot])
 
@@ -67,7 +67,7 @@ class ProblemSpecification(object):
 
     @classmethod
     def output_func(cls):
-        """ output equation of the system
+        """output equation of the system
         :return:     output equation y = x1
         """
         x1 = cls.xx[0]

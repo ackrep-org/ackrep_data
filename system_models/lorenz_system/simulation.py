@@ -14,6 +14,7 @@ from ackrep_core.system_model_management import save_plot_in_dir
 import matplotlib.pyplot as plt
 import os
 
+
 def simulate():
     # Defining Input functions
     lorenz_att = lac.Model()
@@ -25,32 +26,34 @@ def simulate():
 
     latt_rhs = lorenz_att.get_rhs_func()
 
-    # Initial State values       
+    # Initial State values
     xx0 = [0.1, 0.1, 0.1]
 
     t_end = 30
-    tt = np.linspace(0, t_end, 10000) # vector of times for simulation
+    tt = np.linspace(0, t_end, 10000)  # vector of times for simulation
     sol = solve_ivp(latt_rhs, (0, t_end), xx0, t_eval=tt)
-    
+
     save_plot(sol)
 
     return sol
 
-def save_plot(simulation_data):
-    plt.plot(simulation_data.y[0], simulation_data.y[1], label='', lw=1)
 
-    plt.title('x-y Phaseplane')
-    plt.xlabel('x',fontsize= 15)
-    plt.ylabel('y',fontsize= 15)
+def save_plot(simulation_data):
+    plt.plot(simulation_data.y[0], simulation_data.y[1], label="", lw=1)
+
+    plt.title("x-y Phaseplane")
+    plt.xlabel("x", fontsize=15)
+    plt.ylabel("y", fontsize=15)
     plt.legend()
     plt.grid()
     plt.tight_layout()
 
     save_plot_in_dir()
 
+
 def evaluate_simulation(simulation_data):
     """
-    
+
     :param simulation_data: simulation_data of system_model
     :return:
     """
@@ -58,7 +61,9 @@ def evaluate_simulation(simulation_data):
     expected_final_state = [-0.522566539750587, -0.830457089853563, 14.033163222999248]
     rc = ResultContainer(score=1.0)
     simulated_final_state = simulation_data.y[:, -1]
-    rc.final_state_errors = [simulated_final_state[i] - expected_final_state[i] for i in np.arange(0, len(simulated_final_state))]
+    rc.final_state_errors = [
+        simulated_final_state[i] - expected_final_state[i] for i in np.arange(0, len(simulated_final_state))
+    ]
     rc.success = np.allclose(expected_final_state, simulated_final_state, rtol=0, atol=1e-2)
-    
+
     return rc

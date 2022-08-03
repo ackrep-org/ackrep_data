@@ -33,7 +33,7 @@ def coprime_decomposition(n_func, d_func, poles) -> CD_ControllerResult:
     max_order = max(len(n_coeffs) - 1, len(d_coeffs) - 1)  # maximal order
 
     # find the minial degree for controller by solving aforementioned inequality constraints
-    '''
+    """
     (1) num_order + den_order + 2 = m + 1 + n (m: maximal order of controller, n: maximal order of original system)
     gard of characteristic polynomial of closed system is m + n, so m + n + 1 scalar equations must be fulfilled 
     for comparing coefficients.
@@ -47,8 +47,8 @@ def coprime_decomposition(n_func, d_func, poles) -> CD_ControllerResult:
     num_order in (5) and den_order in (6) are eliminated from both sides ->
     den_order >= n - 1 -> den_order - n + 1 >= 0
     num_order >= n - 1 -> num_order - n + 1 >= 0
-    '''
-    x1, x2 = sp.symbols('x1, x2')  # x1, x2 are symbols for num_order and den_order in inequality constraints
+    """
+    x1, x2 = sp.symbols("x1, x2")  # x1, x2 are symbols for num_order and den_order in inequality constraints
     res = sp.solve([x1 - max_order + 1 >= 0, x2 - max_order + 1 >= 0], [x1, x2])
     order_n = (res.args[0]).args[0]
     order_d = (res.args[1]).args[0]
@@ -57,10 +57,10 @@ def coprime_decomposition(n_func, d_func, poles) -> CD_ControllerResult:
     order_h1 = order_d + 1
 
     # generate controller function
-    f_ceoffs = sp.symbols('f0:%d' % order_f1)
-    h_ceoffs = sp.symbols('h0:%d' % order_h1)
-    f_poly = sum(f_ceoffs[i] * s ** i for i in range(order_f1))
-    h_poly = sum(h_ceoffs[i] * s ** i for i in range(order_h1))
+    f_ceoffs = sp.symbols("f0:%d" % order_f1)
+    h_ceoffs = sp.symbols("h0:%d" % order_h1)
+    f_poly = sum(f_ceoffs[i] * s**i for i in range(order_f1))
+    h_poly = sum(h_ceoffs[i] * s**i for i in range(order_h1))
 
     # desired denominator of closed loop
     c_func = s - poles[0]

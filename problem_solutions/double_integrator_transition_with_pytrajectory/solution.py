@@ -13,7 +13,7 @@ from ackrep_core.system_model_management import save_plot_in_dir
 from pytrajectory import TransitionProblem
 
 
-class SolutionData():
+class SolutionData:
     pass
 
 
@@ -28,7 +28,7 @@ def solve(problem_spec):
     con = problem_spec.constraints
 
     def f_pytrajectory(xx, uu, uuref, t, pp):
-        """ Right hand side of the vectorfield defining the system dynamics
+        """Right hand side of the vectorfield defining the system dynamics
 
         This function wraps the rhs-function of the problem_spec to make it compatible to
         pytrajectory.
@@ -70,12 +70,12 @@ def save_plot(problem_spec, solution_data):
     plt.plot(tt, xx[:, 0], label=r"$x$")
     plt.plot(tt, xx[:, 1], label=r"$\dot x$")
     plt.legend()
-    plt.ylabel('state')
+    plt.ylabel("state")
 
     plt.subplot(212, sharex=ax1)
     plt.plot(tt, uu, label=r"$u = \ddot x$ (input)")
     plt.ylabel(r"$u$")
-    plt.xlabel('$t$ [s]')
+    plt.xlabel("$t$ [s]")
     plt.legend()
 
     plt.tight_layout()

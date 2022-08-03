@@ -38,24 +38,24 @@ class CollocationSystem(Logger):
 
         # set parameters
         self._parameters = dict()
-        self._parameters['tol'] = kwargs.get('tol', 1e-5)
-        self._parameters['reltol'] = kwargs.get('reltol', 2e-5)
-        self._parameters['sol_steps'] = kwargs.get('sol_steps', 50)
-        self._parameters['method'] = kwargs.get('method', 'leven')
-        self._parameters['coll_type'] = kwargs.get('coll_type', 'equidistant')
+        self._parameters["tol"] = kwargs.get("tol", 1e-5)
+        self._parameters["reltol"] = kwargs.get("reltol", 2e-5)
+        self._parameters["sol_steps"] = kwargs.get("sol_steps", 50)
+        self._parameters["method"] = kwargs.get("method", "leven")
+        self._parameters["coll_type"] = kwargs.get("coll_type", "equidistant")
 
-        tmp_par = kwargs.get('k', [1.0]*self.sys.n_par)
+        tmp_par = kwargs.get("k", [1.0] * self.sys.n_par)
         if len(tmp_par) > self.sys.n_par:
             self.log_warning("Ignoring superfluous default values for afp.")
-            tmp_par = tmp_par[:self.sys.n_par]
+            tmp_par = tmp_par[: self.sys.n_par]
         elif len(tmp_par) < self.sys.n_par:
             raise ValueError("Insufficient number of default values for afp.")
-        self._parameters['z_par'] = tmp_par
+        self._parameters["z_par"] = tmp_par
 
         # prepare some instance variables
         self.solver = None
         self.sol = None
-        self. guess = None
+        self.guess = None
         self.n_cpts = None
 
         self.n_dof = None
@@ -76,7 +76,7 @@ class CollocationSystem(Logger):
 
         self.trajectories = Trajectory(masterobject, dynsys, **kwargs)
 
-        self._first_guess = kwargs.get('first_guess', None)
+        self._first_guess = kwargs.get("first_guess", None)
 
     def build(self):
         """
@@ -112,7 +112,7 @@ class CollocationSystem(Logger):
         # of the matrices `F` and `DF` is neccessary
         #
         # therefore we now create an array with the indices of all rows we need from these matrices
-        if self.trajectories._parameters['use_chains']:
+        if self.trajectories._parameters["use_chains"]:
             eqind = self.trajectories._eqind
         else:
             eqind = list(range(len(states)))
@@ -128,8 +128,7 @@ class CollocationSystem(Logger):
         # to get these indices we iterate over all rows and take those whose indices
         # are contained in `eqind` (modulo the number of state variables -> `x_len`)
         # when eqind=[3],that is (x4):
-        take_indices = np.tile(eqind, (n_cpts,)) + \
-                       np.arange(n_cpts).repeat(len(eqind)) * len(states)
+        take_indices = np.tile(eqind, (n_cpts,)) + np.arange(n_cpts).repeat(len(eqind)) * len(states)
 
         # here we determine the jacobian matrix of the derivatives of the system state functions
         # (as they depend on the free parameters in a linear fashion its just the above matrix Mdx)
@@ -148,13 +147,19 @@ class CollocationSystem(Logger):
         n_vars = n_states + n_inputs + n_par
 
         for i in range(n_cpts):
-            dYV_dc.append(np.vstack(( SMC.Mx[n_states * i: n_states * (i+1)].toarray(),
-                                    SMC.Mu[n_inputs * i: n_inputs * (i+1)].toarray(), )) )
+            dYV_dc.append(
+                np.vstack(
+                    (
+                        SMC.Mx[n_states * i : n_states * (i + 1)].toarray(),
+                        SMC.Mu[n_inputs * i : n_inputs * (i + 1)].toarray(),
+                    )
+                )
+            )
 
             # dependency of additional free parameters w.r.t the overall free parameters
             # this should mainly be zero-padded unit-matrices:
             # currently not used by algorithm
-            dP_dc.append( SMC.Mp[n_par * i: n_par * (i+1)].toarray() )
+            dP_dc.append(SMC.Mp[n_par * i : n_par * (i + 1)].toarray())
 
         # convert list to sparse matrix
         dYV_dc = sparse.csr_matrix(np.vstack(dYV_dc))
@@ -187,22 +192,22 @@ class CollocationSystem(Logger):
             # consistent. X, U should be named Y, V at the beginning
             # TODO: update name scheme
 
-            if sparse: # for debug
+            if sparse:  # for debug
                 C = SMC
-            else: # original codes
+            else:  # original codes
                 C = DMC
 
             X = C.Mx.dot(c)[:, None] + C.Mx_abs  # :: X = [S1(t=0), S2(0), S1(0.5) ,..]
             U = C.Mu.dot(c)[:, None] + C.Mu_abs  # :: U = [Su(t=0), Su(0.5), Su(1)]
             P = C.Mp.dot(c)[:, None] + C.Mp_abs  # :: init: P = [1.0,1.0,1.0]
 
-            X = np.array(X).reshape((n_states, -1), order='F')
-            U = np.array(U).reshape((n_inputs, -1), order='F')
+            X = np.array(X).reshape((n_states, -1), order="F")
+            U = np.array(U).reshape((n_inputs, -1), order="F")
 
             # TODO: this should be tested with systems with additional free parameters
             if not n_par == 0:
                 assert P.size % self.n_cpts == 0
-            P = np.array(P).reshape((n_par, n_cpts), order='F')
+            P = np.array(P).reshape((n_par, n_cpts), order="F")
 
             # so far X, U are the unconstrained variables (which should be called Y, V instead)
             # Now apply the transformation Psi:
@@ -254,8 +259,8 @@ class CollocationSystem(Logger):
                 # reshape flattened X again to nx times nc Matrix
                 # nx: number of states, nc: number of collocation points
                 # eq_list = []  # this will hold the equations of F(w) = 0
-                F = ff_vec(X, U, T, P).ravel(order='F').take(take_indices, axis=0)[:,None]
-                dX = DMC.Mdx.dot(c)[:,None] + DMC.Mdx_abs
+                F = ff_vec(X, U, T, P).ravel(order="F").take(take_indices, axis=0)[:, None]
+                dX = DMC.Mdx.dot(c)[:, None] + DMC.Mdx_abs
                 dX = dX.take(take_indices, axis=0)
                 F2 = F - dX
                 # the following makes F2 easier to read
@@ -303,25 +308,24 @@ class CollocationSystem(Logger):
                 # calculate Ydot from the spline:
                 # Todo: replace x and u by y and v in the attribute names
                 dY1 = np.array(SMC.Mdx.dot(c)[:, None] + SMC.Mdx_abs).squeeze()
-                assert dY1.shape == (n_states * n_cpts, )
+                assert dY1.shape == (n_states * n_cpts,)
 
                 dY = dY1.take(take_indices, axis=0)
 
                 # dbg:
-                dY2 = np.array(dY).reshape(F2.shape, order='F').take(eqind, axis=0)
+                dY2 = np.array(dY).reshape(F2.shape, order="F").take(eqind, axis=0)
 
                 G = F - dY
                 assert G.ndim == 1
 
                 # now, append the values of the constraints
                 # res = np.asarray(G).ravel(order='F')
-                res = np.concatenate((np.asarray(G).ravel(order='F'), C.ravel(order='F')))
+                res = np.concatenate((np.asarray(G).ravel(order="F"), C.ravel(order="F")))
 
                 # debug:
                 if info:
                     # see Container docstring for motivation
-                    iC = Container(X=X, U=U, T=T, P=P, F=F, dY=dY, res=res, MC=SMC,
-                                   ff=ff_vec, Df=Df_vec)
+                    iC = Container(X=X, U=U, T=T, P=P, F=F, dY=dY, res=res, MC=SMC, ff=ff_vec, Df=Df_vec)
                     res = iC
 
                 return res
@@ -332,7 +336,7 @@ class CollocationSystem(Logger):
         # TODO: Check if this is correct together with free parameters
 
         # regard additional constraint equations
-        F.dim += n_cpts*self.sys.n_pconstraints
+        F.dim += n_cpts * self.sys.n_pconstraints
 
         # now define jacobian
         def DF(c, debug=False, symbeq=False):
@@ -359,14 +363,16 @@ class CollocationSystem(Logger):
             T = self.cpts
 
             if symbeq:
-                raise NotImplementedError("this is obsolete debug code" )
+                raise NotImplementedError("this is obsolete debug code")
 
-                msg= "this is for debugging and is not yet adapted to the presence" \
-                     "of penalty constraints. Should not be hard."
+                msg = (
+                    "this is for debugging and is not yet adapted to the presence"
+                    "of penalty constraints. Should not be hard."
+                )
                 raise NotImplementedError(msg)
                 DF_blocks = Df_vec(X, U, T, P).transpose([2, 0, 1])
                 DF_sym = linalg.block_diag(*DF_blocks).dot(realDXUP.toarray())  # :: array(dtype=object)
-                if self.trajectories._parameters['use_chains']:
+                if self.trajectories._parameters["use_chains"]:
                     DF_sym = DF_sym.take(take_indices, axis=0)
                 DG = DF_sym - DMC.DdY
 
@@ -422,12 +428,12 @@ class CollocationSystem(Logger):
 
                 # split lines (a: corresponding to the actual vector field and b: penalties)
                 # Jacobian w.r.t. z (=[x, u])
-                JJ_f_wrt_z = JJ_f_full[:n_states, :nz, : ]
-                JJ_penalties_wrt_z = JJ_f_full[n_states:, :nz, : ]
+                JJ_f_wrt_z = JJ_f_full[:n_states, :nz, :]
+                JJ_penalties_wrt_z = JJ_f_full[n_states:, :nz, :]
 
                 # Jacobian w.r.t. afp
-                JJ_f_wrt_afp = JJ_f_full[:n_states, nz:, : ]
-                JJ_penalties_wrt_afp = JJ_f_full[n_states:, nz:, : ]
+                JJ_f_wrt_afp = JJ_f_full[:n_states, nz:, :]
+                JJ_penalties_wrt_afp = JJ_f_full[n_states:, nz:, :]
 
                 # calculate additional terms, which are needed because of Psi-Gamma-Transformation
                 Z = np.row_stack((X, U))
@@ -468,9 +474,9 @@ class CollocationSystem(Logger):
                 # convert 3d-vector to 2d
                 sumterm3_trps = sumterm3.transpose([2, 0, 1])
                 sumterm3_colstack = np.vstack(sumterm3_trps)
-                assert sumterm3_colstack.shape == (n_cpts*n_states, n_par)
+                assert sumterm3_colstack.shape == (n_cpts * n_states, n_par)
 
-                dF_tilde_dz = (sumterm1 + sumterm2)
+                dF_tilde_dz = sumterm1 + sumterm2
                 DF_blocks1 = dF_tilde_dz.transpose([2, 0, 1])
 
                 # index-meaning:
@@ -490,16 +496,16 @@ class CollocationSystem(Logger):
                 ZZ_tilde = np.row_stack((cXUP.Y, cXUP.V))
                 Jac_Psi = self.sys.constraint_handler.Jac_Psi_fnc(*ZZ_tilde)
                 assert Jac_Psi.shape == (nz, nz, n_cpts)
-                Jac_Psi_sparse = sparse.block_diag(Jac_Psi.transpose([2, 0, 1]), format='csr')
+                Jac_Psi_sparse = sparse.block_diag(Jac_Psi.transpose([2, 0, 1]), format="csr")
 
                 dXU_dc = Jac_Psi_sparse.dot(dYV_dc)
-                assert dXU_dc.shape == (nz*n_cpts, len(c))
+                assert dXU_dc.shape == (nz * n_cpts, len(c))
 
                 # now also rearrange the 3d array DF_blocks1 to a sparse block-diagonal matrix
                 # first axis is the block number (corresponding to the collocation point)
                 # also multiply by dXU_dc(to get the jac. w.r.t. the (total) free parameters
                 # instead of the specific X and U values)
-                DF_csr_preliminary = sparse.block_diag(DF_blocks1, format='csr').dot(dXU_dc)
+                DF_csr_preliminary = sparse.block_diag(DF_blocks1, format="csr").dot(dXU_dc)
 
                 # now take the Jacobian wrt the additional free parameters into account
                 # -> replace the last columns of the jacobian (because afp are located at the end)
@@ -510,7 +516,7 @@ class CollocationSystem(Logger):
                 # if we make use of the system structure
                 # we have to select those rows which correspond to the equations
                 # that have to be solved
-                if self.trajectories._parameters['use_chains']:
+                if self.trajectories._parameters["use_chains"]:
                     DF_csr_main = sparse.csr_matrix(DF_csr_main.toarray().take(take_indices, axis=0))
                     # TODO: is the performance gain that results from not having to solve
                     #       some equations (use integrator chains) greater than
@@ -523,7 +529,7 @@ class CollocationSystem(Logger):
                 Jac_constr0 = JJ_penalties_wrt_z.transpose([2, 0, 1])
 
                 # arrange these blocks to a blockdiagonal and multiply by d/dc XUP (see above)
-                Jac_constr1 = sparse.block_diag(Jac_constr0, format='csr').dot(dXU_dc)
+                Jac_constr1 = sparse.block_diag(Jac_constr0, format="csr").dot(dXU_dc)
 
                 # now (like above) take the Jacobian wrt the additional free parameters into account
                 # TODO: This should not allways be zero!!!
@@ -547,15 +553,22 @@ class CollocationSystem(Logger):
         self.opt_problem_F = F
         self.opt_problem_DF = DF
 
-        C = Container(F=F, DF=DF,
-                      Mx=SMC.Mx, Mx_abs=SMC.Mx_abs,
-                      Mu=SMC.Mu, Mu_abs=SMC.Mu_abs,
-                      Mp=SMC.Mp, Mp_abs=SMC.Mp_abs,
-                      Mdx=SMC.Mdx, Mdx_abs=SMC.Mdx_abs,
-                      guess=self.guess)
+        C = Container(
+            F=F,
+            DF=DF,
+            Mx=SMC.Mx,
+            Mx_abs=SMC.Mx_abs,
+            Mu=SMC.Mu,
+            Mu_abs=SMC.Mu_abs,
+            Mp=SMC.Mp,
+            Mp_abs=SMC.Mp_abs,
+            Mdx=SMC.Mdx,
+            Mdx_abs=SMC.Mdx_abs,
+            guess=self.guess,
+        )
 
         # return the callable functions
-        #return G, DG
+        # return G, DG
 
         # store internal information for diagnose purposes
         C.take_indices = take_indices
@@ -590,7 +603,7 @@ class CollocationSystem(Logger):
         # TODO: Do we have to take care of additional parameters here ??
         # iterate over all quantities including inputs
         # and take care of integrator chain elements
-        if self.trajectories._parameters['use_chains']:
+        if self.trajectories._parameters["use_chains"]:
             for sq in self.sys.states + self.sys.inputs:
                 for ic in self.trajectories._chains:
                     if sq in ic:
@@ -618,9 +631,12 @@ class CollocationSystem(Logger):
         :return:
         """
         # first we compute the collocation points
-        self.cpts = collocation_nodes(a=self.sys.a, b=self.sys.b,
-                                 npts=self.trajectories.n_parts_x * 2 + 1,
-                                 coll_type=self._parameters['coll_type'])
+        self.cpts = collocation_nodes(
+            a=self.sys.a,
+            b=self.sys.b,
+            npts=self.trajectories.n_parts_x * 2 + 1,
+            coll_type=self._parameters["coll_type"],
+        )
 
         x_fnc = self.trajectories.x_fnc  # :: {'x1': methode Spline.f, ...}
         dx_fnc = self.trajectories.dx_fnc
@@ -689,7 +705,7 @@ class CollocationSystem(Logger):
 
             for iu, uu in enumerate(self.sys.inputs):
                 # get index range of `xx` in vector of all indep vars
-                i,j = idx_dict[uu]
+                i, j = idx_dict[uu]
 
                 dorder_fu = _get_derivation_order(u_fnc[uu])
 
@@ -712,7 +728,7 @@ class CollocationSystem(Logger):
                 k = ip * self.sys.n_par + ipar
 
                 Mp[k, i:j] = mp  # mp = 1
-                Mp_abs[k] = mp_abs    # mp_abs = 0
+                Mp_abs[k] = mp_abs  # mp_abs = 0
 
         MC = Container()
         MC.Mx = Mx
@@ -792,13 +808,13 @@ class CollocationSystem(Logger):
                     if k in self.sys.states or k in self.sys.inputs:
                         spline_type = self.trajectories.splines[k].type
                     elif k in self.sys.par:
-                        spline_type = 'p'
+                        spline_type = "p"
                     else:
                         msg = "Unexpected key: {}".format(k)
                         raise ValueError(msg)
 
                     # This is equivalent to `if True` from above
-                    if (spline_type == 'x') or (spline_type == 'u'):
+                    if (spline_type == "x") or (spline_type == "u"):
                         self.log_debug("Get new guess for spline {}".format(k))
 
                         s_new = self.trajectories.splines[k]
@@ -819,12 +835,12 @@ class CollocationSystem(Logger):
                         free_coeffs_guess = s_new.interpolate(s_old.f)
                         guess = np.hstack((guess, free_coeffs_guess))
 
-                    elif spline_type == 'p':
+                    elif spline_type == "p":
                         #  if self.sys.par is not the last one,
                         # then add (and guess_add_finish == False) here. # ??
 
                         # sequence of guess is (u,x,p)
-                        guess = np.hstack((guess, self.sol[-self.sys.n_par:]))
+                        guess = np.hstack((guess, self.sol[-self.sys.n_par :]))
                         guess_add_finish = True
 
                     else:
@@ -851,7 +867,7 @@ class CollocationSystem(Logger):
             # together, `guess` and `refsol` make no sense
             assert self.masterobject.refsol is None
 
-            complete_guess = self._first_guess.get('complete_guess', None)
+            complete_guess = self._first_guess.get("complete_guess", None)
             if complete_guess is not None:
                 assert len(complete_guess) == len(self.all_free_parameters)
                 self.guess = complete_guess
@@ -859,7 +875,7 @@ class CollocationSystem(Logger):
 
             guess = np.empty(0)
 
-            seed = self._first_guess.get('seed', None)
+            seed = self._first_guess.get("seed", None)
             random_flag = seed is not None
             if random_flag:
                 np.random.seed(seed)
@@ -877,7 +893,7 @@ class CollocationSystem(Logger):
 
                 elif random_flag:
 
-                    if self._first_guess.get('recall_seed', False):
+                    if self._first_guess.get("recall_seed", False):
                         # this option is to cause old behavior (before 2017-07-19)
                         # for the sake of reproducible results
                         np.random.seed(seed)
@@ -886,16 +902,16 @@ class CollocationSystem(Logger):
                     # it seems usefull to transform the random values
                     # (scale and offset)
 
-                    if 'scale' in self._first_guess:
-                        scale = self._first_guess.get('scale')
+                    if "scale" in self._first_guess:
+                        scale = self._first_guess.get("scale")
                         offset = -0.5
                     else:
                         offset = 0
                         scale = 1
-                    free_vars_guess = (np.random.random(len(v)) + offset)*scale
+                    free_vars_guess = (np.random.random(len(v)) + offset) * scale
 
                 else:
-                    free_vars_guess = 0.1*np.ones(len(v))
+                    free_vars_guess = 0.1 * np.ones(len(v))
 
                 guess = np.hstack((guess, free_vars_guess))
 
@@ -904,7 +920,7 @@ class CollocationSystem(Logger):
 
             # overwrite the suitable entries
             # with the provided estimations of additional free parameters
-            guess[self._afp_index:] = self._parameters['z_par']
+            guess[self._afp_index :] = self._parameters["z_par"]
 
         elif self.masterobject.refsol is not None:
             # TODO: handle free parameters
@@ -913,8 +929,8 @@ class CollocationSystem(Logger):
 
             # afp-guess still missing
             assert len(guess) == len(self.all_free_parameters) - self.sys.n_par
-            assert len(self._parameters['z_par']) == self.sys.n_par
-            guess = np.concatenate((guess, self._parameters['z_par']))
+            assert len(self._parameters["z_par"]) == self.sys.n_par
+            guess = np.concatenate((guess, self._parameters["z_par"]))
 
             errmsg = "Invalid length of initial guess."
             assert len(guess) == len(self.all_free_parameters), errmsg
@@ -928,8 +944,8 @@ class CollocationSystem(Logger):
             ##:: (5 x 11): free_coeffs_all =
             # array([cx3_0_0, cx3_1_0, ..., cx3_8_0, cx1_0_0, ..., cx1_14_0, cx1_15_0, cx1_16_0, k]
 
-            guess = 0.1*np.ones(free_vars_all.size)  # :: init. guess = 0.1
-            guess[self._afp_index:] = self._parameters['z_par']
+            guess = 0.1 * np.ones(free_vars_all.size)  # :: init. guess = 0.1
+            guess[self._afp_index :] = self._parameters["z_par"]
 
         self.guess = guess
 
@@ -972,26 +988,26 @@ class CollocationSystem(Logger):
             guess = np.hstack((guess, free_coeffs_guess))
 
         # dbg
-        if 0 and self.masterobject._parameters.get('show_refsol', False):
+        if 0 and self.masterobject._parameters.get("show_refsol", False):
             # dbg visualization
 
-            mm = 1./25.4  # mm to inch
+            mm = 1.0 / 25.4  # mm to inch
             scale = 8
-            fs = [75*mm*scale, 35*mm*scale]
-            rows = np.round((len(new_spline_values) + 0)/2.0 + .25)  # round up
+            fs = [75 * mm * scale, 35 * mm * scale]
+            rows = np.round((len(new_spline_values) + 0) / 2.0 + 0.25)  # round up
             labels = self.masterobject.dyn_sys.states + self.masterobject.dyn_sys.inputs
 
             plt.figure(figsize=fs)
             for i in range(len(new_spline_values)):
                 plt.subplot(rows, 2, i + 1)
-                plt.plot(tt, refsol.xu_list[i], 'k', lw=3, label='sim')
-                plt.plot(tt, new_spline_values[i], label='new')
+                plt.plot(tt, refsol.xu_list[i], "k", lw=3, label="sim")
+                plt.plot(tt, new_spline_values[i], label="new")
                 ax = plt.axis()
                 plt.axis(ax)
                 plt.grid(1)
                 ax = plt.axis()
                 plt.ylabel(labels[i])
-            plt.legend(loc='best')
+            plt.legend(loc="best")
             plt.show()
 
         return guess
@@ -1019,12 +1035,17 @@ class CollocationSystem(Logger):
         # create our solver
         ##:: note: x0 = [u,x,z_par]
         if new_solver:
-            self.solver = Solver(masterobject=self.masterobject, F=F, DF=DF, x0=self.guess,
-                                 tol=self._parameters['tol'],
-                                 reltol=self._parameters['reltol'],
-                                 maxIt=self._parameters['sol_steps'],
-                                 method=self._parameters['method'],
-                                 par=np.array(self.guess[-self.sys.n_par:]))
+            self.solver = Solver(
+                masterobject=self.masterobject,
+                F=F,
+                DF=DF,
+                x0=self.guess,
+                tol=self._parameters["tol"],
+                reltol=self._parameters["reltol"],
+                maxIt=self._parameters["sol_steps"],
+                method=self._parameters["method"],
+                par=np.array(self.guess[-self.sys.n_par :]),
+            )
         else:
             # assume self.solver exists and at we already did a solution run
             assert self.solver.solve_count > 0
@@ -1045,20 +1066,20 @@ class CollocationSystem(Logger):
         save = dict()
 
         # parameters
-        save['parameters'] = self._parameters
+        save["parameters"] = self._parameters
 
         # vector field and jacobian
-        save['f'] = self.f
-        save['Df'] = self.Df
+        save["f"] = self.f
+        save["Df"] = self.Df
 
         # guess
-        save['guess'] = self.guess
+        save["guess"] = self.guess
 
         # solution
-        save['sol'] = self.sol
+        save["sol"] = self.sol
 
         # k
-        save['z_par'] = self.sol[-self.sys.n_par]
+        save["z_par"] = self.sol[-self.sys.n_par]
 
         return save
 
@@ -1089,14 +1110,14 @@ def collocation_nodes(a, b, npts, coll_type):
         The collocation nodes.
     """
 
-    if coll_type == 'equidistant':
+    if coll_type == "equidistant":
         # get equidistant collocation points
         cpts = np.linspace(a, b, npts, endpoint=True)
-    elif coll_type == 'chebychev':
+    elif coll_type == "chebychev":
         cpts = aux.calc_chebyshev_nodes(a, b, npts)
     else:
-        logging.warning('Unknown type of collocation points.')
-        logging.warning('--> will use equidistant points!')
+        logging.warning("Unknown type of collocation points.")
+        logging.warning("--> will use equidistant points!")
         cpts = np.linspace(a, b, npts, endpoint=True)
 
     return cpts

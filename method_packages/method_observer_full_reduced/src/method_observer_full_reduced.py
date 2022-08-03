@@ -48,20 +48,20 @@ def full_observer(system, poles_o, poles_s, debug=False) -> ObserverResult:
     d = system[3]
 
     # ignore the PendingDeprecationWarning for built-in packet control
-    warnings.filterwarnings('ignore', category=PendingDeprecationWarning)
+    warnings.filterwarnings("ignore", category=PendingDeprecationWarning)
 
     ctr_matrix = ctr.ctrb(a, b)  # controllabilty matrix
-    assert np.linalg.det(ctr_matrix) != 0, 'this system is not controllable'
+    assert np.linalg.det(ctr_matrix) != 0, "this system is not controllable"
 
     # State feedback
     f_t = ctr.acker(a, b, poles_s)
 
     # pre-filter
     a1 = a - b * f_t
-    v = (-1 * (c * a1 ** (-1) * b) ** (-1))  # pre-filter
+    v = -1 * (c * a1 ** (-1) * b) ** (-1)  # pre-filter
 
     obs_matrix = ctr.obsv(a, c)  # observability matrix
-    assert np.linalg.det(obs_matrix) != 0, 'this system is unobservable'
+    assert np.linalg.det(obs_matrix) != 0, "this system is unobservable"
 
     # calculate observer gain
     l_v = ctr.acker(a.T, c.T, poles_o).T
@@ -112,11 +112,11 @@ def reduced_observer(system, poles_o, poles_s, x0, tt, debug=False):
     # and the input matrix
     a_11 = a[0:rank, 0:rank]
 
-    a_12 = a[0:rank, rank:a.shape[1]]
-    a_21 = a[rank:a.shape[1], 0:rank]
-    a_22 = a[rank:a.shape[1], rank:a.shape[1]]
+    a_12 = a[0:rank, rank : a.shape[1]]
+    a_21 = a[rank : a.shape[1], 0:rank]
+    a_22 = a[rank : a.shape[1], rank : a.shape[1]]
     b_1 = b[0:rank, :]
-    b_2 = b[rank:b.shape[0], :]
+    b_2 = b[rank : b.shape[0], :]
 
     # construct the observability matrix
     # q_1 = a_12
@@ -125,10 +125,10 @@ def reduced_observer(system, poles_o, poles_s, x0, tt, debug=False):
 
     obs_matrix = ctr.obsv(a_22, a_12)  # observability matrix
     rank_q = np.linalg.matrix_rank(obs_matrix)
-    assert np.linalg.det(obs_matrix) != 0, 'this system is unobservable'
+    assert np.linalg.det(obs_matrix) != 0, "this system is unobservable"
 
     # ignore the PendingDeprecationWarning for built-in packet control
-    warnings.filterwarnings('ignore', category=PendingDeprecationWarning)
+    warnings.filterwarnings("ignore", category=PendingDeprecationWarning)
 
     # state feedback
     f_t = ctr.acker(a, b, poles_s)
@@ -140,8 +140,7 @@ def reduced_observer(system, poles_o, poles_s, x0, tt, debug=False):
     # State representation of the entire system
     # Original system and observer error system,
     # Dimension: 4 x 4)
-    sys = ob_func.state_space_func(a, a_11, a_12, a_21, a_22,
-                                   b, b_1, b_2, c_, l_, f_1, f_2)
+    sys = ob_func.state_space_func(a, a_11, a_12, a_21, a_22, b, b_1, b_2, c_, l_, f_1, f_2)
 
     # simulation for the proper movement
     yy, tt, xx = ctr.matlab.initial(sys, tt, x0, return_x=True)

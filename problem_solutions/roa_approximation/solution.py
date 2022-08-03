@@ -24,10 +24,15 @@ def solve(problem_spec):
         event_converged.terminal = True
         event_diverged.terminal = True
 
-        sol = sc_integrate.solve_ivp(problem_spec.sys_rhs, [problem_spec.tt[0], problem_spec.tt[-1]],
-                                     y0, method='RK45', t_eval=problem_spec.tt,
-                                     events=(event_converged, event_diverged),
-                                     dense_output=False)
+        sol = sc_integrate.solve_ivp(
+            problem_spec.sys_rhs,
+            [problem_spec.tt[0], problem_spec.tt[-1]],
+            y0,
+            method="RK45",
+            t_eval=problem_spec.tt,
+            events=(event_converged, event_diverged),
+            dense_output=False,
+        )
         if sol.t_events[0].size != 0:
             flag = 1
         else:
@@ -53,9 +58,9 @@ def solve(problem_spec):
 def save_plot(problem_spec, solution_data):
     plt.figure(figsize=(6, 6))
     met.draw_cells(solution_data.grid)
-    plt.xlabel(r'$x_1$')
-    plt.ylabel(r'$x_2$')
-    plt.axis('equal')
+    plt.xlabel(r"$x_1$")
+    plt.ylabel(r"$x_2$")
+    plt.axis("equal")
     plt.tight_layout()
 
     save_plot_in_dir()

@@ -64,8 +64,8 @@ def observer_gain(rank_q, a_12, a_22, b_1, b_2, poles_o, f_2):
     :return sys: observer gain
     """
 
-    s = sp.Symbol('s')
-    l1, l2 = sp.symbols('l1, l2')
+    s = sp.Symbol("s")
+    l1, l2 = sp.symbols("l1, l2")
     l_ = sp.Matrix([l1, l2]).reshape(1, 2)
 
     # characteristic polynomial depending on the free parameters
@@ -90,7 +90,7 @@ def observer_gain(rank_q, a_12, a_22, b_1, b_2, poles_o, f_2):
     a_k = a_22 - l_ * a_12 - (b_2 - l_ * b_1) * f_2
     res1 = sp.solve([a_k, eq_list], [l1, l2])
     # l_ = l_.subs([(l1, res1[l1]), (l2, res1[l2])])
-    l_ = sp.lambdify((l1, l2), l_, modules='numpy')
+    l_ = sp.lambdify((l1, l2), l_, modules="numpy")
     l_ = l_(res1[l1], res1[l2])
     return l_
 
@@ -113,8 +113,7 @@ def state_space_func(a, a_11, a_12, a_21, a_22, b, b_1, b_2, c, l_, f_1, f_2):
     """
 
     a_k = a_22 - l_ * a_12 - (b_2 - l_ * b_1) @ f_2
-    b_k = a_21 - l_ * a_11 + (a_22 - l_ * a_12) \
-        * l_ - (b_2 - l_ * b_1) * (f_1 + f_2 * l_)
+    b_k = a_21 - l_ * a_11 + (a_22 - l_ * a_12) * l_ - (b_2 - l_ * b_1) * (f_1 + f_2 * l_)
     c_k = -f_2
     d_k = -1 * (f_1 + f_2 @ l_)
     hyperrow1 = np.hstack([a + b * d_k * c, b * c_k])
@@ -124,6 +123,3 @@ def state_space_func(a, a_11, a_12, a_21, a_22, b, b_1, b_2, c, l_, f_1, f_2):
     sys = ctr.ss(a_s, np.zeros((a_s.shape[0], 1)), c_s, 0)
 
     return sys
-
-
-

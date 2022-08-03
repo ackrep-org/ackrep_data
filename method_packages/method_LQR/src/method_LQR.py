@@ -40,7 +40,7 @@ def lqr_method(system, q_matrix, r_matrix, sys_state, eqrt, yr, debug=False):
     """
 
     # ignore the PendingDeprecationWarning for built-in packet control
-    warnings.filterwarnings('ignore', category=PendingDeprecationWarning)
+    warnings.filterwarnings("ignore", category=PendingDeprecationWarning)
 
     # system matrices
     a = system[0]
@@ -56,7 +56,7 @@ def lqr_method(system, q_matrix, r_matrix, sys_state, eqrt, yr, debug=False):
     a1 = a - b * f_t
     v = -1 * (c * a1 ** (-1) * b) ** (-1)  # pre-filter
 
-    '''Since the controller, which is designed on the basis of a linearized system, 
+    """Since the controller, which is designed on the basis of a linearized system, 
     is a small signal model, the states have to be converted from the large signal model 
     to the small signal model. i.e. the equilibrium points of the original non-linear system must 
     be subtracted from the returned states. 
@@ -68,9 +68,9 @@ def lqr_method(system, q_matrix, r_matrix, sys_state, eqrt, yr, debug=False):
     
     And for the same reason, the equilibrium position of the 
     input must be added to controller function.
-    '''
+    """
 
-    t = sp.Symbol('t')
+    t = sp.Symbol("t")
     # convert states to small signal model
     small_state = sys_state - sp.Matrix([eqrt[i][1] for i in range(len(sys_state))])
 
@@ -79,7 +79,7 @@ def lqr_method(system, q_matrix, r_matrix, sys_state, eqrt, yr, debug=False):
     # equilibrium point of input
     # disturbance value ist not considered
     sys_input = -1 * (f_t * small_state)[0] + v[0] * yr + eqrt[len(sys_state)][1]
-    input_func = sp.lambdify((sys_state, t), sys_input, modules='numpy')
+    input_func = sp.lambdify((sys_state, t), sys_input, modules="numpy")
 
     poles_lqr = res[2]
 

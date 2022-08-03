@@ -22,7 +22,7 @@ class SolutionData:
 
 
 def solve(problem_spec):
-    """ solution of coprime decomposition
+    """solution of coprime decomposition
     :param problem_spec: ProblemSpecification object
     :return: solution_data: output value of the system and controller function
     """
@@ -68,4 +68,3 @@ def save_plot(problem_spec, solution_data):
 
     # save image
     save_plot_in_dir()
-

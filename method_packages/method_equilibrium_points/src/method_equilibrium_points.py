@@ -38,12 +38,11 @@ def calc_eqlbr_rt1(mod, uu, sys_paras, ttheta_guess=None, display=False, debug=F
         ttheta_guess = st.to_np(mod.tt * 0)
 
     def target(ttheta):
-        """target function for the certain global input values uu
-        """
+        """target function for the certain global input values uu"""
         all_vars = np.r_[ttheta, uu]  # combine arrays
         rhs = mod.stat_eqns_func(*all_vars)
 
-        return np.sum(rhs ** 2)
+        return np.sum(rhs**2)
 
     res = fmin(target, ttheta_guess, disp=display)
 
@@ -90,4 +89,3 @@ def calc_eqlbr_nl(mod, uu, sys_paras, debug=False):
         return C
 
     return res
-

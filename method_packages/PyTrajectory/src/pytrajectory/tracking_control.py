@@ -5,7 +5,6 @@ This module implements tracking control by approximative linearization
 """
 
 
-
 import numpy as np
 import sympy as sp
 import time
@@ -58,7 +57,7 @@ def feedback_factory(vf_f, vf_g, xx, clcp_coeffs):
     for i in range(1, n + 1):
         w_i = st.lie_deriv_covf(w_i, vf_f, xx)
         omega_symb_list.append(w_i)
-        print(i, t0-time.time())
+        print(i, t0 - time.time())
 
     # dieser schritt dauert ca. 1 min
     # ggf. sinnvoll: Konvertierung in c-code
@@ -75,7 +74,7 @@ def feedback_factory(vf_f, vf_g, xx, clcp_coeffs):
         omega_matrix = omega_matrix_func(*xx_ref)
 
         # iterate row-wise over the matrix
-        feedback_gain = st.to_np( sum([rho_i*w for (rho_i, w) in zip(clcp_coeffs, omega_matrix)]) )
+        feedback_gain = st.to_np(sum([rho_i * w for (rho_i, w) in zip(clcp_coeffs, omega_matrix)]))
 
         return feedback_gain
 
@@ -95,7 +94,7 @@ class DiffOpTimeVarSys(object):
     def __init__(self, vf_f, vf_g, xx, uu, xx_ref=None, uu_ref=None):
         self.vf_f = vf_f
         self.vf_g = vf_g
-        self.vf_Fxu = vf_f + vf_g*uu
+        self.vf_Fxu = vf_f + vf_g * uu
 
         self.xx = xx
 
@@ -113,12 +112,13 @@ class DiffOpTimeVarSys(object):
             uu_ref = sp.Matrix([sp.Symbol("{}_ref".format(u.name)) for u in uu])
         self.uu_ref = uu_ref
 
-        self.A_ref = self.vf_f.jacobian(xx).subz(xx, xx_ref) + \
-                     self.vf_g.jacobian(xx).subz(xx, xx_ref)*self.uu_ref[0, 0]  # siso
+        self.A_ref = (
+            self.vf_f.jacobian(xx).subz(xx, xx_ref) + self.vf_g.jacobian(xx).subz(xx, xx_ref) * self.uu_ref[0, 0]
+        )  # siso
 
         self.b_ref = self.vf_g.subz(xx, xx_ref)
 
-        self.A_orig = self.vf_f.jacobian(xx) + self.vf_g.jacobian(xx)*self.uu[0, 0]  # siso
+        self.A_orig = self.vf_f.jacobian(xx) + self.vf_g.jacobian(xx) * self.uu[0, 0]  # siso
         self.b_orig = self.vf_g
 
         self.NAb_cache = dict()
@@ -146,7 +146,7 @@ class DiffOpTimeVarSys(object):
         else:
             vf_cached = self.NAb_cache.get(order)
             if vf_cached is None:
-                vf_base = self.NA_b(order=order-1, subs_xref=False)
+                vf_base = self.NA_b(order=order - 1, subs_xref=False)
                 vf_dot = st.dynamic_time_deriv(vf_base, self.vf_Fxu, self.xx, self.uu)
 
                 res = -vf_dot + self.A_orig * vf_base
@@ -174,7 +174,7 @@ class DiffOpTimeVarSys(object):
         else:
             cvf_cached = self.MA_vect_cache.get(order)
             if cvf_cached is None:
-                cvf_base = self.MA_vect(cvect, order=order-1, subs_xref=False)
+                cvf_base = self.MA_vect(cvect, order=order - 1, subs_xref=False)
                 cvf_dot = st.dynamic_time_deriv(cvf_base, self.vf_Fxu, self.xx, self.uu)
 
                 res = cvf_dot + cvf_base * self.A_orig
@@ -301,9 +301,9 @@ def tv_feedback_factory(ff, gg, xx, uu, clcp_coeffs, use_exisiting_so="smart"):
 
         diffop = DiffOpTimeVarSys(ff, gg, xx, uu)
 
-        ll = [diffop.MA_vect(lmd, order=i, subs_xref=False) for i in range(n+1)]
+        ll = [diffop.MA_vect(lmd, order=i, subs_xref=False) for i in range(n + 1)]
         # append a vector which contains kappa as first entries and 0s elsewhere
-        kappa_vector = sp.Matrix([kappa] + [0]*(n-1)).T
+        kappa_vector = sp.Matrix([kappa] + [0] * (n - 1)).T
         ll.append(kappa_vector)
 
         L_matrix = st.row_stack(*ll)
@@ -316,27 +316,27 @@ def tv_feedback_factory(ff, gg, xx, uu, clcp_coeffs, use_exisiting_so="smart"):
         nu = len(xxuu) - len(xx)
 
         # additional metadata
-        amd = dict(input_data_hash=input_data_hash,
-                   variables=xxuu)
+        amd = dict(input_data_hash=input_data_hash, variables=xxuu)
 
-        L_matrix_func = sp2c.convert_to_c(xxuu, L_matrix_r, cfilepath=cfilepath,
-                                          use_exisiting_so=False, additional_metadata=amd)
+        L_matrix_func = sp2c.convert_to_c(
+            xxuu, L_matrix_r, cfilepath=cfilepath, use_exisiting_so=False, additional_metadata=amd
+        )
 
     # noinspection PyShadowingNames
     def tv_feedback_gain(xref, uuref=None):
 
         if uuref is None:
-            args = list(xref) + [0]*nu
+            args = list(xref) + [0] * nu
         else:
             args = list(xref) + list(uuref)
 
         ll_num_ext = L_matrix_func(*args)
-        ll_num = ll_num_ext[:n+1, :]
+        ll_num = ll_num_ext[: n + 1, :]
 
         # extract kappa which we inserted into the L_matrix for convenience
-        kappa = ll_num_ext[n+1, 0]
+        kappa = ll_num_ext[n + 1, 0]
 
-        k = np.dot(clcp_coeffs, ll_num)/kappa
+        k = np.dot(clcp_coeffs, ll_num) / kappa
 
         return k
 
@@ -349,17 +349,17 @@ def tv_feedback_factory(ff, gg, xx, uu, clcp_coeffs, use_exisiting_so="smart"):
 
 
 # test tracking control
-l = 5.
+l = 5.0
 g = 9.81
 x1, x2, x3, x4 = xx = st.symb_vector("x1:5")
-u1,  = uu = st.symb_vector("u1:2")
-ff_o = sp.Matrix([x3, x4, 0, -g/l*sin(x2)])
-gg_o = sp.Matrix([ 0,  0, 1, -1/l*cos(x2)])
+(u1,) = uu = st.symb_vector("u1:2")
+ff_o = sp.Matrix([x3, x4, 0, -g / l * sin(x2)])
+gg_o = sp.Matrix([0, 0, 1, -1 / l * cos(x2)])
 
 A = ff_o.jacobian(xx).subz0(xx)
 bb = gg_o.subz0(xx)
 
-ffl = A*xx
+ffl = A * xx
 ggl = bb
 
 
@@ -374,8 +374,8 @@ clcp_coeffs = st.coeffs((x1 + 2) ** 4)[::-1]
 tv_feedback_gain = tv_feedback_factory(ff, gg, xx, uu, clcp_coeffs)
 
 if 0:
-    ff2 = st.multi_taylor_matrix(ff, xx, x0=[0]*4, order=2)
-    gg2 = st.multi_taylor_matrix(gg, xx, x0=[0]*4, order=2)
+    ff2 = st.multi_taylor_matrix(ff, xx, x0=[0] * 4, order=2)
+    gg2 = st.multi_taylor_matrix(gg, xx, x0=[0] * 4, order=2)
 
     feedback_gain_func = feedback_factory(ff, gg, xx, clcp_coeffs)
     # feedback_gain_func(xx0)
@@ -388,7 +388,7 @@ detQc_func = sp.lambdify(xx, detQc, modules="numpy")
 
 # calculate ref-input for swingup:
 
-ffl = sp.lambdify(list(xx)+list(uu), list(ff+gg*u1), modules=["sympy"])
+ffl = sp.lambdify(list(xx) + list(uu), list(ff + gg * u1), modules=["sympy"])
 
 
 def pytraj_f(xx, uu, uuref, t, pp):
@@ -399,6 +399,7 @@ def pytraj_f(xx, uu, uuref, t, pp):
 
 from pytrajectory import TransitionProblem
 from pytrajectory import log, aux
+
 log.console_handler.setLevel(10)
 
 a = 0.0
@@ -415,9 +416,10 @@ Tend = b + 0  # ensure meaningfull input if increasing
 
 pfname = "swingup_splines.pcl"
 if 0:
-    first_guess = {'seed': 20}
-    S = TransitionProblem(pytraj_f, a, b, xa, xb, ua, ub, first_guess=first_guess, kx=2, eps=5e-2,
-                          use_chains=False) # , sol_steps=1300
+    first_guess = {"seed": 20}
+    S = TransitionProblem(
+        pytraj_f, a, b, xa, xb, ua, ub, first_guess=first_guess, kx=2, eps=5e-2, use_chains=False
+    )  # , sol_steps=1300
 
     # time to run the iteration
     solC = S.solve(return_format="info_container")
@@ -449,11 +451,11 @@ if 0:
     exit()
 
 # Vorgehen: alle höheren Ableitungen 0 setzen
-zerof = lambda tt: 0*tt
+zerof = lambda tt: 0 * tt
 # ggf. Eingang mit Gauss-Prozess interpolieren, um C-inf Verlauf zu bekommen)
 
 
-refinput_list = [uuf, uuf.df, uuf.ddf, uuf.dddf] + [zerof]*10
+refinput_list = [uuf, uuf.df, uuf.ddf, uuf.dddf] + [zerof] * 10
 
 
 def refinput_const(t, difforder=0):
@@ -462,9 +464,10 @@ def refinput_const(t, difforder=0):
     else:
         return 0
 
-w = 2*sp.pi*0.3
+
+w = 2 * sp.pi * 0.3
 ts = sp.Symbol("t")
-uexpr = 0.3*sp.cos(w*ts)
+uexpr = 0.3 * sp.cos(w * ts)
 uu_funcs = [sp.lambdify(ts, uexpr.diff(ts, i), modules="numpy") for i in range(10)]
 
 
@@ -486,7 +489,7 @@ rhs1 = mod1.create_simfunction(input_function=refinput)
 
 
 tt = np.linspace(0, Tend, 1000)
-xx0 = np.array([0, .2, 0, 0])
+xx0 = np.array([0, 0.2, 0, 0])
 xx0 = np.array(xa)
 
 res1 = odeint(rhs1, xx0, tt)
@@ -504,10 +507,10 @@ def controller(x, t):
     uuref = [refinput(t, i) for i in range(nu)]
 
     # u_corr = - np.dot(feedback_gain_func(xref), (x-xref))
-    u_corr = - np.dot(tv_feedback_gain(xref, uuref), (x-xref))
-    print(t, uuref, u_corr, np.linalg.norm(x-xref))
+    u_corr = -np.dot(tv_feedback_gain(xref, uuref), (x - xref))
+    print(t, uuref, u_corr, np.linalg.norm(x - xref))
 
-    u_total = refinput(t) + u_corr*1
+    u_total = refinput(t) + u_corr * 1
 
     limit = 1e5
 
@@ -539,14 +542,13 @@ def ll_ext_values(tt):
     return np.array(res)
 
 
-
 rhs2 = mod1.create_simfunction(controller_function=controller)
 
 # rhs2 = st.SimulationModel.exceptionwrapper(rhs2)
 
 # slight deviation which we want to correct
-xx0b = xx0 + np.array([0, 0.1*np.pi/180, 0, 0])
-tto = tt*1
+xx0b = xx0 + np.array([0, 0.1 * np.pi / 180, 0, 0])
+tto = tt * 1
 
 tmax = 1.9
 tt = tto[tto < tmax]
@@ -558,9 +560,9 @@ Nplots = 4
 
 ax1 = plt.subplot(Nplots, 1, 1)
 
-plt.plot(tto, res1, '--', label="orig")
+plt.plot(tto, res1, "--", label="orig")
 plt.plot(tt, res2, label="new")
-plt.plot(tto, tto*0+np.pi, 'k:')
+plt.plot(tto, tto * 0 + np.pi, "k:")
 plt.legend()
 
 
@@ -595,10 +597,9 @@ elif 1:
     plt.title("ll")
 
     plt.subplot(Nplots, 1, 4, sharex=ax1)
-    plt.plot(tt, 1/kappa)
+    plt.plot(tt, 1 / kappa)
 
-    plt.plot(tto, 1/detQc_func(*res1.T))
-
+    plt.plot(tto, 1 / detQc_func(*res1.T))
 
     plt.title("1/det")
 
@@ -612,7 +613,7 @@ if 0:
     Q1 = st.nl_cont_matrix(ff, gg, xx)
     q = Q1.inverse_ADJ()[-1, :]
 
-    k_ack = sum([c*q*A**i for i, c in enumerate(clcp_coeffs)], q*0)
+    k_ack = sum([c * q * A**i for i, c in enumerate(clcp_coeffs)], q * 0)
 
 
 IPS()
@@ -628,6 +629,3 @@ LTI-Vergleich (klassische Ackermann-Formel)
 
 
 """
-
-
-

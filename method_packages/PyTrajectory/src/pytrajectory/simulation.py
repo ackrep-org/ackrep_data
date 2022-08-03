@@ -59,7 +59,7 @@ class Simulator(object):
         # initialise our ode solver
         self.solver = ode(self.rhs)
         self.solver.set_initial_value(x_start)
-        self.solver.set_integrator('vode', method='adams', rtol=1e-6)
+        self.solver.set_integrator("vode", method="adams", rtol=1e-6)
         # self.solver.set_integrator('lsoda', rtol=1e-6)
         # self.solver.set_integrator('dop853', rtol=1e-6)
 
@@ -79,7 +79,7 @@ class Simulator(object):
         u = self.calc_input(t)
         p = self.pt
         dx = self.ff(x, u, t, p)
-        
+
         return dx
 
     def calcstep(self):
@@ -128,26 +128,25 @@ class Simulator(object):
         n_input = len(self.u_col_fnc(0))
         N = n_state
 
-
         u0 = np.zeros(N + 1)  # + 1 -> extra value at the end of the interval (prevents errors)
 
         # TODO: find out if this is necessary
         # if we are close to the beginning or end
-        if not self.dt*12 < t <= self.T - self.dt*N:
+        if not self.dt * 12 < t <= self.T - self.dt * N:
             return 0
 
-        idx = int(t/self.dt)
+        idx = int(t / self.dt)
 
         if idx in self.mpc_cache:
             return self.mpc_cache[idx]
 
-        tt = np.arange(0, (N+1)*self.dt, self.dt)
+        tt = np.arange(0, (N + 1) * self.dt, self.dt)
 
         def cost_functional(u_corr_values):
             xx_mpc = odeint(self.mpc_rhs, self.x_col_fnc(t), tt, args=(self, t, u_corr_values))[-1, :]
             err = self.x_col_fnc(tt[-1]) - xx_mpc
             # print(np.linalg.norm(err))
-            J = 1e-5*np.linalg.norm(u_corr_values) + np.linalg.norm(err)
+            J = 1e-5 * np.linalg.norm(u_corr_values) + np.linalg.norm(err)
             return J
 
         u_corr_opt = optimize.fmin(cost_functional, u0, maxiter=10, disp=False)
@@ -164,7 +163,7 @@ class Simulator(object):
         """
         Retruns the right hand side (vector field) of the ode system.
         """
-        idx = min(int(t/simulator.dt), len(u_corr)-1)
+        idx = min(int(t / simulator.dt), len(u_corr) - 1)
 
         u = simulator.u_col_fnc(t_base + t) + u_corr[idx]
         p = simulator.pt
