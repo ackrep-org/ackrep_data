@@ -65,7 +65,13 @@
 	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%	
 	
 	\section{Derivation and Explanation} % SHOULD
-
+	Weak form:
+	\begin{align*}
+		0 &= \frac{1}{c^2} \int_{z=0}^{z=l} \ddot{x}(z,t)\varphi(z)\,dz - \int_{z=0}^{z=l} x''(z,t)\varphi(z)\,dz\\
+		&\text{with partial integration}\\
+		0 &= \frac{1}{c^2} \int_0^l \ddot{x}\varphi \,dz - [x'\varphi]_0^l +\int_0^l x'\varphi' \,dz\\
+		0 &= \frac{1}{c^2} \int_0^l \ddot{x}\varphi \,dz - u(t)\varphi(l)+x'(0,t)\varphi(0) + \int_0^l x'\varphi' \,dz
+	\end{align*}
 
 
 	
