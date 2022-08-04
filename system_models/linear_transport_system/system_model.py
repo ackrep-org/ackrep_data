@@ -13,7 +13,7 @@ class Model:
     # Import parameter_file
     params = import_parameters()
 
-    v, l = [int(i[1]) for i in params.get_default_parameters().items()]
+    v, l = [float(i[1]) for i in params.get_default_parameters().items()]
     T = 5
     spat_bounds = (0, l)
     spat_domain = pi.Domain(bounds=spat_bounds, num=51)

@@ -14,7 +14,7 @@ class Model:
 
     # Import parameter_file
     params = import_parameters()
-    a2, l = [int(i[1]) for i in params.get_default_parameters().items()]
+    a2, l = [float(i[1]) for i in params.get_default_parameters().items()]
 
     n_fem = 17
     T = 1

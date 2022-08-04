@@ -1,0 +1,80 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+
+%link to documentation: 
+%https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+
+\begin{document}
+	\part*{Model Documentation of the 1D Wave Equation} % MUST - Add Model Name 
+	
+	%%%%%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Nomenclature} % MUST
+	\subsection{Nomenclature for Model Equations} % MUST
+	
+	%variables for model equations
+	\begin{tabular}{ll}
+		$t$ & time \\
+		$z$ & space \\
+		$c$ & propagation speed \\
+		$u(z, t)$ & input function \\
+		$x(z, t)$ & wanted function describing the material transport
+				
+	\end{tabular}
+	 
+	
+	%variables which are used additional to those in the model equations
+	\begin{tabular}{ll}
+
+	\end{tabular}
+	
+	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Model Equations} % MUST
+	
+	\noindent System Equations:			
+	\begin{subequations}
+	\begin{align*}
+		\frac{1}{c^2}\ddot{x}(z,t) -  x''&(z,t) = 0 && z\in (0, l), t>0\\
+		x(0,t) &= 0 && t>0\\
+		\dot{x}(l, t) &= u(t)\\
+		x(z,0) &=0\\
+		x'(z,0) &=0
+	\end{align*}
+	\end{subequations}
+
+	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent
+	Parameters: $c, l$ % variables with constant, predefined value
+	
+	%%%%%%%%%%%%%%%%%%%%%% ASSUMPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\subsection{Exemplary parameter values}
+	\input{parameters.tex}
+
+	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\section{Derivation and Explanation} % SHOULD
+
+
+
+	
+	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\begin{thebibliography}{10}		
+		\bibitem{pyinduct}Stefan Ecklebe, Marcus Riesmeier: \\
+		\href{https://pyinduct.readthedocs.io/en/master/readme.html}{https://pyinduct.readthedocs.io/en/master/readme.html}
+	\end{thebibliography}
+
+\end{document}
+

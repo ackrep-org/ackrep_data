@@ -51,7 +51,7 @@ col_alignment = ["left", "center", "center"]
 
 # Define Entries of all columns before the Symbol-Column
 # --- Entries need to be latex code
-col_1 = ["velocity-constant", "spatial bounds"]
+col_1 = ["velocity-constant", "spatial bound"]
 
 # contains all lists of the columns before the "Symbol" Column
 # --- Empty list, if there are no columns before the "Symbol" Column

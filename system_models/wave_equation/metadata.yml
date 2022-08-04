@@ -1,0 +1,18 @@
+key: IKNYP
+predecessor_key: ''
+type: system_model
+name: 'Wave Equation 1D'
+short_description: 'PDE describing the one-dimensional propagation of a wave'
+version: 0.1.0
+tag_list:
+    - ''
+creator: 'Stefan Ecklebe <stefan.ecklebe@tu-dresden.de>'
+editor_list:
+    - 'Julius Fiedler <julius.fiedler@tu-dresden.de'
+creation_date: '04.08.2022'
+external_references: ''
+notes: ''
+estimated_runtime: ''
+compatible_environment: ""
+system_model_file: system_model.py
+simulation_file: simulation.py

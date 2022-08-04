@@ -15,19 +15,21 @@ import tabulate as tab
 # tailing "_nv" stands for "numerical value"
 
 
-model_name = "Heat_Equation"
+model_name = "Wave_Equation"
 
 # CREATE SYMBOLIC PARAMETERS
-pp_symb = [alpha, l] = sp.symbols("alpha, l", real=True)
+pp_symb = [c, l] = sp.symbols("c, l", real=True)
 
 
 # SYMBOLIC PARAMETER FUNCTIONS
-alpha_sf = 1
-l_sf = 1
+c_sf = 1
+l_sf = 2 * np.pi
+
+
 
 
 # List of symbolic parameter functions
-pp_sf = [alpha_sf, l_sf]
+pp_sf = [c_sf, l_sf]
 
 
 # List for Substitution
@@ -36,7 +38,7 @@ pp_subs_list = []
 # OPTONAL: Dictionary which defines how certain variables shall be written
 # in the tabular - key: Symbolic Variable, Value: LaTeX Representation/Code
 # useful for example for complex variables: {Z: r"\underline{Z}"}
-latex_names = {alpha: r"\alpha"}
+latex_names = {}
 
 
 # ---------- CREATE BEGIN OF LATEX TABULAR
@@ -50,10 +52,7 @@ col_alignment = ["left", "center", "center"]
 
 # Define Entries of all columns before the Symbol-Column
 # --- Entries need to be latex code
-col_1 = [
-    "thermal diffusivity",
-    "spatial bound"
-]
+col_1 = ["propagation speed of the wave", "spatial bound"]
 
 # contains all lists of the columns before the "Symbol" Column
 # --- Empty list, if there are no columns before the "Symbol" Column
