@@ -1,0 +1,84 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+
+%link to documentation: 
+%https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+
+\begin{document}
+	\part*{Model Documentation of the Lotka-Volterra (Predator-Prey) Model} % MUST - Add Model Name 
+	
+	%%%%%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Nomenclature} % MUST
+	\subsection{Nomenclature for Model Equations} % MUST
+	
+	%variables for model equations
+	\begin{tabular}{ll}
+		$x_1$ & population of prey \\
+		$x_2$ & population of predators				
+	\end{tabular}
+	 
+	
+	%variables which are used additional to those in the model equations
+	\begin{tabular}{ll}
+
+	\end{tabular}
+	
+	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Model Equations} % MUST
+	
+	\noindent State Vector:
+	\begin{align*}
+		\underline{x} &= (x_1 \ x_2)^T \\
+	\end{align*}
+	
+	\noindent System Equations:			
+	\begin{subequations}
+	\begin{align}
+		\dot{x}_1 &= \alpha x_1 - \beta x_1 x_2 \\
+		\dot{x}_2 &= \gamma x_1 x_2 - \delta x_2
+	\end{align}
+	\end{subequations}
+
+	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent
+	Parameters: $\alpha, \beta, \gamma, \delta$ % variables with constant, predefined value
+	
+	%%%%%%%%%%%%%%%%%%%%%% ASSUMPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	% \subsection{Assumptions} % MAY 
+	% 	\begin{enumerate} %possible list type for the Assumptions
+	% 		\item The prey population finds ample food at all times.
+	% 		\item The food supply of the predator population depends entirely on the size of the prey population.
+	% 		\item The rate of change of population is proportional to its size.
+	% 		\item During the process, the environment does not change in favour of one species, and genetic adaptation is inconsequential.
+	% 		\item Predators have limitless appetite.
+	% 	\end{enumerate}
+	
+	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\subsection{Exemplary parameter values}
+	\input{parameters.tex}
+
+	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	% \section{Derivation and Explanation} % SHOULD
+	
+	% \textit{Not available}
+	
+	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	% \begin{thebibliography}{10}		
+	% 	\bibitem{But21}Author: 
+	% 	\textit{titel}, published year
+	% \end{thebibliography}
+
+\end{document}
+
