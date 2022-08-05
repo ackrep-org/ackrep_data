@@ -1,0 +1,22 @@
+key: QWRHA
+predecessor_key: ''
+type: problem_solution
+name: 'SINDy for Lotka Volterra Model'
+short_description: 'reconstructs lotka volterra equations from data using PySINDy'
+version: 0.1.0
+tag_list:
+    - ''
+creator: 'Julius Fiedler <julius.fiedler{ät}mailbox.tu-dresden.de>'
+editor_list:
+    - ''
+creation_date: '2022-08-05'
+external_references: ''
+notes: ''
+solved_problem_list:
+    - QN99J
+method_package_list:
+    - ''
+compatible_environment:
+estimated_runtime: '10s'
+solution_file: solution.py
+postprocessing_file: ''

@@ -1,0 +1,20 @@
+key: QN99J
+merge_request: ''
+predecessor_key: ''
+type: problem_specification
+name: 'SINDy for Lotka Volterra Model'
+short_description: 'try to identify the governing equations of the volterra dgl using PySINDy'
+version: 0.1.0
+tag_list:
+    - ''
+creator: 'Julius Fiedler <julius.fiedler@tu-dresden.de>'
+editor_list:
+    - ''
+creation_date: '05.08.2022'
+external_references: ''
+notes: ''
+problemclass_list:
+    - ''
+problem_file: problem.py
+related_system_models_list:
+    - 'DRZGT'
