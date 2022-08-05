@@ -4,6 +4,7 @@
 _solution_data
 system_models/*/_system_model_data/*.png
 notebooks/*/*.html
+_test.py
 
 # general:
 # -------
@@ -15,6 +16,14 @@ _build/
 
 # C extensions
 *.so
+
+# Latex
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
 
 # Distribution / packaging
 .Python

@@ -13,8 +13,9 @@ class Model:
     # Import parameter_file
     params = import_parameters()
 
-    v, l = [float(i[1]) for i in params.get_default_parameters().items()]
+    v = [float(i[1]) for i in params.get_default_parameters().items()][0]
     T = 5
+    l = 5
     spat_bounds = (0, l)
     spat_domain = pi.Domain(bounds=spat_bounds, num=51)
     temp_domain = pi.Domain(bounds=(0, T), num=100)

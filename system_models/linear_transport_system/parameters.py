@@ -18,17 +18,16 @@ import tabulate as tab
 model_name = "Transport_System"
 
 # CREATE SYMBOLIC PARAMETERS
-pp_symb = [v, l] = sp.symbols("v, l", real=True)
+pp_symb = [v] = [sp.symbols("v", real=True)]
 
 
 # SYMBOLIC PARAMETER FUNCTIONS
 v_sf = 4
-l_sf = 5
 
 
 
 # List of symbolic parameter functions
-pp_sf = [v_sf, l_sf]
+pp_sf = [v_sf]
 
 
 # List for Substitution
@@ -51,7 +50,7 @@ col_alignment = ["left", "center", "center"]
 
 # Define Entries of all columns before the Symbol-Column
 # --- Entries need to be latex code
-col_1 = ["velocity-constant", "spatial bound"]
+col_1 = ["velocity-constant"]
 
 # contains all lists of the columns before the "Symbol" Column
 # --- Empty list, if there are no columns before the "Symbol" Column

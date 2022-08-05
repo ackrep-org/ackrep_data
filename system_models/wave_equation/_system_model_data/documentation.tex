@@ -42,17 +42,17 @@
 	\noindent System Equations:			
 	\begin{subequations}
 	\begin{align*}
-		\frac{1}{c^2}\ddot{x}(z,t) -  x''&(z,t) = 0 && z\in (0, l), t>0\\
+		\frac{1}{c^2}\ddot{x}(z,t) -  x''&(z,t) = 0 && z\in (0, l], t>0\\
 		x(0,t) &= 0 && t>0\\
-		\dot{x}(l, t) &= u(t)\\
-		x(z,0) &=0\\
-		x'(z,0) &=0
+		\dot{x}(l, t) &= u(t) && t>0\\
+		x(z,0) &=0 && z\in  [0, l]\\
+		x'(z,0) &=0 && z\in  [0, l]
 	\end{align*}
 	\end{subequations}
 
 	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\noindent
-	Parameters: $c, l$ % variables with constant, predefined value
+	Parameters: $c$ % variables with constant, predefined value
 	
 	%%%%%%%%%%%%%%%%%%%%%% ASSUMPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	

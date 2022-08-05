@@ -18,16 +18,15 @@ import tabulate as tab
 model_name = "Heat_Equation"
 
 # CREATE SYMBOLIC PARAMETERS
-pp_symb = [alpha, l] = sp.symbols("alpha, l", real=True)
+pp_symb = [alpha] = [sp.symbols("alpha", real=True)]
 
 
 # SYMBOLIC PARAMETER FUNCTIONS
 alpha_sf = 1
-l_sf = 1
 
 
 # List of symbolic parameter functions
-pp_sf = [alpha_sf, l_sf]
+pp_sf = [alpha_sf]
 
 
 # List for Substitution
@@ -50,10 +49,7 @@ col_alignment = ["left", "center", "center"]
 
 # Define Entries of all columns before the Symbol-Column
 # --- Entries need to be latex code
-col_1 = [
-    "thermal diffusivity",
-    "spatial bound"
-]
+col_1 = ["thermal diffusivity"]
 
 # contains all lists of the columns before the "Symbol" Column
 # --- Empty list, if there are no columns before the "Symbol" Column

@@ -18,18 +18,16 @@ import tabulate as tab
 model_name = "Wave_Equation"
 
 # CREATE SYMBOLIC PARAMETERS
-pp_symb = [c, l] = sp.symbols("c, l", real=True)
+pp_symb = [c] = [sp.symbols("c", real=True)]
 
 
 # SYMBOLIC PARAMETER FUNCTIONS
 c_sf = 1
-l_sf = 2 * np.pi
-
 
 
 
 # List of symbolic parameter functions
-pp_sf = [c_sf, l_sf]
+pp_sf = [c_sf]
 
 
 # List for Substitution
@@ -52,7 +50,7 @@ col_alignment = ["left", "center", "center"]
 
 # Define Entries of all columns before the Symbol-Column
 # --- Entries need to be latex code
-col_1 = ["propagation speed of the wave", "spatial bound"]
+col_1 = ["propagation speed of the wave"]
 
 # contains all lists of the columns before the "Symbol" Column
 # --- Empty list, if there are no columns before the "Symbol" Column

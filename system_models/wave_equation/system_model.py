@@ -22,11 +22,11 @@ class Model:
     # Import parameter_file
     params = import_parameters()
 
-    c, l = [float(i[1]) for i in params.get_default_parameters().items()]
-    print(l - 2*np.pi)
+    c = [float(i[1]) for i in params.get_default_parameters().items()][0]
     sys_name = 'wave equation'
 
     T = 50
+    l = 2 * np.pi
     n = 101
     spat_bounds = (0, l)
     spat_domain = pi.Domain(bounds=spat_bounds, num=n)
