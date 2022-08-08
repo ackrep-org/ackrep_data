@@ -21,12 +21,12 @@ class ProblemSpecification(object):
     tolerance = 1e-1
 
     # plotting parameters
-    titles_state = ['temperature of resistance']
-    titles_output = ['temperature of resistance']
-    x_label = ['time [s]']
-    y_label_state = ['temperature [k]']
-    y_label_output = ['temperature [k]']
-    graph_color = 'r'
+    titles_state = ["temperature of resistance"]
+    titles_output = ["temperature of resistance"]
+    x_label = ["time [s]"]
+    y_label_state = ["temperature [k]"]
+    y_label_output = ["temperature [k]"]
+    graph_color = "r"
     row_number = 1  # the number of images in each row
 
     @staticmethod
