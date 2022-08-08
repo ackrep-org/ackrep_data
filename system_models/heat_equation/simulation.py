@@ -67,12 +67,11 @@ def save_plot(simulation_data):
     :param simulation_data: simulation_data of system_model
     :return: None
     """
-    # todo: implement functionality to support multiple plots --> core
-    # win0 = pi.surface_plot(der_eval_d, zlabel="x'(z,t)")
-
     matplotlib.use("Agg")
-    win1 = pi.surface_plot(simulation_data.eval_d, zlabel="x(z,t)")
-    save_plot_in_dir()
+    win0 = pi.surface_plot(simulation_data.eval_d, zlabel="x(z,t)")
+    save_plot_in_dir("plot_1.png")
+    win1 = pi.surface_plot(simulation_data.der_eval_d, zlabel="x'(z,t)")
+    save_plot_in_dir("plot_2.png")
 
     # win2 = pi.PgAnimatedPlot(simulation_data.eval_d,
     #                          labels=dict(left='x(z,t)', bottom='z'))

@@ -1,8 +1,7 @@
 # ackrep-specific
 # ---------------
 
-_solution_data
-system_models/*/_system_model_data/*.png
+_data/*.png
 notebooks/*/*.html
 _test.py
 

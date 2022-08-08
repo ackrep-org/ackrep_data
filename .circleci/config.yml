@@ -79,8 +79,8 @@ jobs: # A basic unit of work in a run
             cd ..
             git clone https://github.com/ackrep-org/ackrep_ci_results.git
             cd ackrep_ci_results
-            name=$(ls ../artifacts/ackrep_ci_results)
-            cp ../artifacts/ackrep_ci_results/$name history
+            name=$(ls ../artifacts/ackrep_ci_results/history)
+            cp ../artifacts/ackrep_ci_results/history/$name history
             git add .
             git commit -m "automatic results upload"
             git push

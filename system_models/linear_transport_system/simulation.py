@@ -10,6 +10,8 @@ import matplotlib.pyplot as plt
 import matplotlib
 import os
 
+from ipydex import IPS
+
 # link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
 
 
@@ -57,19 +59,17 @@ def save_plot(simulation_data):
     :param simulation_data: simulation_data of system_model
     :return: None
     """
-    # todo: implement functionality to support multiple plots --> core
-    # imput data
-    # win0 = plt.plot(np.array(simulation_data.eval_data[0].input_data[0]).flatten(),
-    #             simulation_data.u)
-    # plt.title("Input function at z=0")
-    # plt.xlabel("t [s]")
-    # plt.ylabel("u(t)")
-    # save_plot_in_dir("input.png")
-
     matplotlib.use("Agg")
+    # imput data
+    win0 = plt.plot(np.array(simulation_data.eval_data[0].input_data[0]).flatten(),
+                simulation_data.u)
+    plt.title("Input function at z=0")
+    plt.xlabel("t [s]")
+    plt.ylabel("u(t)")
+    save_plot_in_dir("plot_1.png")
+
     win1 = pi.surface_plot(simulation_data.evald_x, zlabel=simulation_data.evald_x.name)
-    # save_plot_in_dir("sim.png")
-    save_plot_in_dir()
+    save_plot_in_dir("plot_2.png")
 
     # Animation, try it yourself!
     # win1 = pi.PgAnimatedPlot(simulation_data.eval_data,

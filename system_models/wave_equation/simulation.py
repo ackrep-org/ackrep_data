@@ -58,13 +58,17 @@ def save_plot(simulation_data):
     :param simulation_data: simulation_data of system_model
     :return: None
     """
-    # todo: implement functionality to support multiple plots --> core
+    # input visualization
+    win0 = pg.plot(np.array(simulation_data.eval_data[0].input_data[0]).flatten(),
+                    simulation_data.u,
+                    labels=dict(left='u(t)', bottom='t'), pen='b')
+    win0.showGrid(x=False, y=True, alpha=0.5)
+    save_plot_in_dir("plot_1.png")
 
-    # pyqtgraph visualization
-    # win0 = pg.plot(np.array(simulation_data.eval_data[0].input_data[0]).flatten(),
-    #                 simulation_data.u,
-    #                 labels=dict(left='u(t)', bottom='t'), pen='b')
-    # win0.showGrid(x=False, y=True, alpha=0.5)
+    matplotlib.use("Agg")
+    win1 = pi.surface_plot(simulation_data.evald_x, zlabel=simulation_data.evald_x.name)
+    save_plot_in_dir("plot_2.png")
+    
     # vis.save_2d_pg_plot(win0, 'transport_system')
     # win1 = pi.PgAnimatedPlot(simulation_data.eval_data,
     #                             title=simulation_data.eval_data[0].name,
@@ -72,9 +76,6 @@ def save_plot(simulation_data):
     #                             labels=dict(left='x(z,t)', bottom='z'))
     # pi.show()
 
-    matplotlib.use("Agg")
-    win1 = pi.surface_plot(simulation_data.evald_x, zlabel=simulation_data.evald_x.name)
-    save_plot_in_dir()
 
 
 def evaluate_simulation(simulation_data):

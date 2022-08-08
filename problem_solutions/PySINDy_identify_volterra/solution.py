@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from click import style
 import matplotlib.pyplot as plt
 import symbtools as st
 from scipy.integrate import solve_ivp
