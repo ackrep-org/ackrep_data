@@ -17,6 +17,6 @@ solved_problem_list:
 method_package_list:
     - ''
 compatible_environment:
-estimated_runtime: '10s'
+estimated_runtime: '15s'
 solution_file: solution.py
 postprocessing_file: ''

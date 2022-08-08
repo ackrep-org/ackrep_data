@@ -12,7 +12,7 @@ editor_list:
 creation_date: '03.08.2022'
 external_references: ''
 notes: ''
-estimated_runtime: ''
+estimated_runtime: '20s'
 compatible_environment: ""
 system_model_file: system_model.py
 simulation_file: simulation.py

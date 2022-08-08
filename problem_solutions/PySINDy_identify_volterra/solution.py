@@ -50,11 +50,12 @@ def solve(problem_spec):
     axs[0].plot(tt_test, xx_test[:, 1], color="tab:orange", label="$x_2$ (predators) base model")
     axs[0].plot(tt_test, xx_sim[:, 1], color="tab:red", linestyle=(0, (5, 5)), label="$x_2$ (predators) identified model")
     axs[0].legend()
-    axs[0].set(xlabel="Time", ylabel="Number of Animals", ylim=(0,10))
+    axs[0].set(ylabel="Number of Animals", ylim=(0, 8.5))
 
     axs[1].plot(tt_test, xx_test[:, 0] - xx_sim[:, 0], color="tab:blue", label="$\Delta x_1$ (prey)")
     axs[1].plot(tt_test, xx_test[:, 1] - xx_sim[:, 1], color="tab:red", label="$\Delta x_2$ (predators)")
     axs[1].legend()
+    axs[1].set(xlabel="Time", ylabel="Error between Models")
 
     solution_data = SolutionData()
     solution_data.xx_sim = xx_sim.transpose()

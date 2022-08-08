@@ -19,6 +19,11 @@ pp_symb = [a, b, c] = sp.symbols("a, b, c", real=True)
 
 
 # SYMBOLIC PARAMETER FUNCTIONS
+# spiral-type chaos
+# a_sf = 0.32
+# b_sf = 0.3
+# c_sf = 4.5
+# screw-type chaos
 a_sf = 0.38
 b_sf = 0.3
 c_sf = 4.84

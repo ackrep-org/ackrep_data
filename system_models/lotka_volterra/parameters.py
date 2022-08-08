@@ -25,12 +25,20 @@ b_nv = 0.9
 c_nv = 0.8
 d_nv = 1.8
 
-
-
 # list of symbolic parameter functions
 # tailing "_sf" stands for "symbolic parameter function"
 pp_sf = [a_nv, b_nv, c_nv, d_nv]
 
+#OPTIONAL
+# range of parameters
+a_range = (0, np.inf)
+b_range = (0, np.inf)
+c_range = (0, np.inf)
+d_range = (0, np.inf)
+
+#OPTIONAL
+# list of ranges
+pp_range_list = [a_range, b_range, c_range, d_range]
 
 #  ---------- list for substitution
 # -- entries are tuples like: (independent symbolic parameter, numerical value)
@@ -57,9 +65,9 @@ col_alignment = ["left", "center", "left"]
 # Define Entries of all columns before the Symbol-Column
 # --- Entries need to be latex code
 col_1 = [
-    "reproduction rate of prey alone and with plenty of food", 
+    "reproduction rate of prey alone", 
     "mortality rate of prey per predator", 
-    "mortality rate of predators, if no prey is present",
+    "mortality rate of predators",
     "reproduction rate of predators per prey"
     ]
 

@@ -39,13 +39,12 @@ def simulate():
 
 
 def save_plot(simulation_data):
-    plt.plot(simulation_data.y[0], simulation_data.y[1], label="", lw=1)
-
-    plt.title("x-y Phaseplane")
-    plt.xlabel("x", fontsize=15)
-    plt.ylabel("y", fontsize=15)
-    plt.legend()
-    plt.grid()
+    fig = plt.figure(figsize=(10, 4.5))
+    ax = plt.axes(projection="3d")
+    ax.plot(simulation_data.y[0], simulation_data.y[1], simulation_data.y[2])
+    ax.set(xlabel="$x_1$", ylabel="$x_2$", zlabel="$x_3$")
+    plt.title("Full Simulation")
+    
     plt.tight_layout()
 
     save_plot_in_dir()
@@ -58,7 +57,7 @@ def evaluate_simulation(simulation_data):
     :return:
     """
 
-    expected_final_state = [-0.522566539750587, -0.830457089853563, 14.033163222999248]
+    expected_final_state = [ 3.30299301, 4.43659481, 17.91529214]
     rc = ResultContainer(score=1.0)
     simulated_final_state = simulation_data.y[:, -1]
     rc.final_state_errors = [

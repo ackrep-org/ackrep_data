@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-system description: model description of the lorenz attractor
+system description: model description of a PVTOL aircraft
 """
 import numpy as np
 import sympy as sp
