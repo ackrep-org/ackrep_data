@@ -60,10 +60,8 @@ def save_plot(simulation_data):
     """
     # input visualization
     matplotlib.use("Agg")
-    win0 = pg.plot(np.array(simulation_data.eval_data[0].input_data[0]).flatten(),
-                    simulation_data.u,
-                    labels=dict(left='u(t)', bottom='t'), pen='b')
-    win0.showGrid(x=False, y=True, alpha=0.5)
+    win0 = plt.plot(np.array(simulation_data.eval_data[0].input_data[0]).flatten(),
+                simulation_data.u)
     save_plot_in_dir("plot_1.png")
 
     win1 = pi.surface_plot(simulation_data.evald_x, zlabel=simulation_data.evald_x.name)
