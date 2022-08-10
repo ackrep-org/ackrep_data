@@ -59,16 +59,25 @@ def save_plot(simulation_data):
     :param simulation_data: simulation_data of system_model
     :return: None
     """
+    # Note: plotting in pyinduct is usually done with pyqtgraph which causes issues during CI.
+    # This is why the plotting part doesnt look as clean.
+    # Pyinduct has its own plotting methods, feel free to use them in your own implementation.
     matplotlib.use("Agg")
+    
     # imput data
     win0 = plt.plot(np.array(simulation_data.eval_data[0].input_data[0]).flatten(),
                 simulation_data.u)
-    plt.title("Input function at z=0")
-    plt.xlabel("t [s]")
-    plt.ylabel("u(t)")
+    plt.title("Input Trajectory at $z=0$")
+    plt.xlabel("$Time t$")
+    plt.ylabel("$u(t)$")
+    plt.tight_layout()
     save_plot_in_dir("plot_1.png")
 
-    win1 = pi.surface_plot(simulation_data.evald_x, zlabel=simulation_data.evald_x.name)
+    win1 = pi.surface_plot(simulation_data.evald_x, zlabel="$x(z,t)$")
+    plt.title("Concentration Development in Time and Space")
+    plt.ylabel("Time $t$")
+    plt.xlabel("Space $z$")
+    plt.tight_layout()
     save_plot_in_dir("plot_2.png")
 
     # Animation, try it yourself!

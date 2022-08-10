@@ -58,13 +58,25 @@ def save_plot(simulation_data):
     :param simulation_data: simulation_data of system_model
     :return: None
     """
-    # input visualization
+    # Note: plotting in pyinduct is usually done with pyqtgraph which causes issues during CI.
+    # This is why the plotting part doesnt look as clean.
+    # Pyinduct has its own plotting methods, feel free to use them in your own implementation.
     matplotlib.use("Agg")
+
+    # input visualization
     win0 = plt.plot(np.array(simulation_data.eval_data[0].input_data[0]).flatten(),
                 simulation_data.u)
+    plt.title("Input Trajectory at $z=2\pi$")
+    plt.xlabel("Time $t$")
+    plt.ylabel("$u(t)$")
+    plt.tight_layout()
     save_plot_in_dir("plot_1.png")
 
-    win1 = pi.surface_plot(simulation_data.evald_x, zlabel=simulation_data.evald_x.name)
+    win1 = pi.surface_plot(simulation_data.evald_x, zlabel="$x(z,t)$")
+    plt.title("Propagation of the Wave in Time and Space")
+    plt.ylabel("Time $t$")
+    plt.xlabel("Space $z$")
+    plt.tight_layout()
     save_plot_in_dir("plot_2.png")
     
     # vis.save_2d_pg_plot(win0, 'transport_system')

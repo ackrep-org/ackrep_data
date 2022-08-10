@@ -27,7 +27,7 @@ class Model:
     # coefs of pde
     coefs = [1, 0, 0, None, None]
     # or try these:
-    # coefs = [1, -0.5, -8, None, None]   #  :)))
+    # coefs = [1, -0.5, -8, None, None]
     _, a1, a0, _, _ = coefs
 
 

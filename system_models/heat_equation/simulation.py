@@ -51,6 +51,7 @@ def simulate():
     sim = ResultContainer()
     sim.eval_d = eval_d
     sim.der_eval_d = der_eval_d
+    sim.u = model.u
 
     save_plot(sim)
 
@@ -67,10 +68,24 @@ def save_plot(simulation_data):
     :param simulation_data: simulation_data of system_model
     :return: None
     """
+    # Note: plotting in pyinduct is usually done with pyqtgraph which causes issues during CI.
+    # This is why the plotting part doesnt look as clean.
+    # Pyinduct has its own plotting methods, feel free to use them in your own implementation.
     matplotlib.use("Agg")
-    win0 = pi.surface_plot(simulation_data.eval_d, zlabel="x(z,t)")
+    
+    # input vis
+    plt.plot(simulation_data.u._time_storage, simulation_data.u.get_results(simulation_data.u._time_storage))
+    plt.xlabel("Time $t$")
+    plt.ylabel("$u(t)$")
+    plt.title("Input Trajectory at $z=l=1$")
+    plt.tight_layout()
     save_plot_in_dir("plot_1.png")
-    win1 = pi.surface_plot(simulation_data.der_eval_d, zlabel="x'(z,t)")
+
+    win0 = pi.surface_plot(simulation_data.eval_d, zlabel="x(z,t)")
+    plt.title("Temperature Development in Time and Space")
+    plt.ylabel("Time $t$")
+    plt.xlabel("Space $z$")
+    plt.tight_layout()
     save_plot_in_dir("plot_2.png")
 
     # win2 = pi.PgAnimatedPlot(simulation_data.eval_d,
