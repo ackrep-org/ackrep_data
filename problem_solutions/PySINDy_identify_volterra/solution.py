@@ -44,6 +44,7 @@ def solve(problem_spec):
 
     # Evolve the new initial condition in time with the SINDy model
     fig, axs = plt.subplots(2, 1, sharex=True, figsize=(7, 9))
+    fig.suptitle("Identification of the Lotca-Volterra-ODE. \nDataset with Additive white Gaussian noise $(\sigma=0.05)$")
     axs[0].plot(tt_test, xx_test[:, 0], color="tab:cyan", label="$x_1$ (prey) base model")
     axs[0].plot(tt_test, xx_sim[:, 0], color="tab:blue", linestyle=(0, (5, 5)), label="$x_1$ (prey) identified model")
     axs[0].plot(tt_test, xx_test[:, 1], color="tab:orange", label="$x_2$ (predators) base model")
