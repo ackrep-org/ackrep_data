@@ -67,7 +67,7 @@ jobs: # A basic unit of work in a run
           name: Check all Entities
           command: |
             . venv/bin/activate
-            ackrep --check-all-entities
+            ackrep --check-all-entities --fast
       - store_artifacts:
           path: ../artifacts
       - run:
