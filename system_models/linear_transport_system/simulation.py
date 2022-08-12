@@ -68,7 +68,7 @@ def save_plot(simulation_data):
     win0 = plt.plot(np.array(simulation_data.eval_data[0].input_data[0]).flatten(),
                 simulation_data.u)
     plt.title("Input Trajectory at $z=0$")
-    plt.xlabel("$Time t$")
+    plt.xlabel("Time $t$")
     plt.ylabel("$u(t)$")
     plt.tight_layout()
     save_plot_in_dir("plot_1.png")
