@@ -67,7 +67,7 @@ jobs: # A basic unit of work in a run
           name: Check all Entities
           command: |
             . venv/bin/activate
-            ackrep --check-all-entities
+            ackrep --check-all-entities --fast
       - store_artifacts:
           path: ../artifacts
       - run:
@@ -79,8 +79,8 @@ jobs: # A basic unit of work in a run
             cd ..
             git clone https://github.com/ackrep-org/ackrep_ci_results.git
             cd ackrep_ci_results
-            name=$(ls ../artifacts/ackrep_ci_results/history)
-            cp ../artifacts/ackrep_ci_results/history/$name history
+            name=$(ls ../artifacts/ci_results)
+            cp ../artifacts/ci_results/$name history
             git add .
             git commit -m "automatic results upload"
             git push
