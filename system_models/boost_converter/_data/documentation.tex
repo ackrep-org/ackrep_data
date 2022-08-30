@@ -1,0 +1,92 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+
+%link to documentation: 
+%https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+
+\begin{document}
+	\part*{Model Documentation of the \\ Boost Converter} % MUST - Add Model Name 
+	
+	%%%%%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Nomenclature} % MUST
+	\subsection{Nomenclature for Model Equations} % MUST
+	
+	%variables for model equations
+	\begin{tabular}{ll}
+		$L$ & inductivity of the inductor \\
+		$C$ & capacity of the capacitor \\
+		$R$ & resistance of the load \\
+		$U_E$ & input voltage \\
+		$i_L$ & current through the inductor \\
+		$u_C$ & voltage over the capatitor \\
+		$d$ & duty ratio of the switch \\
+
+		
+				
+	\end{tabular}
+	 
+	
+	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Model Equations} % MUST
+	
+	State Vector and Input Vector:
+	\begin{align*}
+		\underline{x} &= (x_1 \ x_2)^T = (i_L \ u_C)^T \\
+		\underline{u} &= d
+	\end{align*}
+	
+	\noindent System Equations:			
+	\begin{subequations}
+	\begin{align}
+		\dot{x}_1 &= -(1-u)\frac{1}{L}x_2 + \frac{U_E}{L} \\
+		\dot{x}_2 &= (1-u)\frac{1}{C}x_1 - \frac{1}{RC}x_2
+	\end{align}
+	\end{subequations}
+
+	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent
+	Parameters: $L, C, R, U_E$ % variables with constant, predefined value
+	\\
+	Outputs: $x_2 = u_C$
+	
+	%%%%%%%%%%%%%%%%%%%%%% ASSUMPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\subsection{Assumptions} % MAY 
+		\begin{enumerate} %possible list type for the Assumptions
+			\item The switching frequency is high enough, to prevent the inductor from fully discharging beween charging stages.
+		\end{enumerate}
+	
+	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\subsection{Exemplary parameter values}
+	\input{parameters.tex}
+
+	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\section{Derivation and Explanation} % SHOULD
+	Using PWM (puls width modulation), instead of only discrete values $d\in\{0,1\}$ representing an \textit{open} or \textit{closed} switch, 
+	any value of the interval $[0,1]$ can be modeled. This is done by using the averaged values for states and inputs:
+	\begin{align*}
+		\bar{d} &= \frac{1}{T}\int_t^{t+T} d(\tau)d\tau \\
+		\bar{x}_i &= \frac{1}{T}\int_t^{t+T} x_i(\tau)d\tau \quad i=1,2
+	\end{align*}
+	with the switching period $T$. For $T\rightarrow 0$, which is achieved by a high enough switching frequency, an averaged model can be obtained.
+	
+	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\begin{thebibliography}{10}		
+		\bibitem{Röb17}K. Röbenack, Nichtlineare Regelungssysteme: Theorie und Anwendung der exakten Linearisierung. Berlin, Heidelberg: Springer Berlin Heidelberg, 2017. doi: 10.1007/978-3-662-44091-9.
+		\bibitem{Sira}Sira-Ramirez, H.: A geometric approach to pulse-width modulated control in nonlinear dynamical systems. IEEE Trans. on Automatic Control, 34(2):184–187, Februar 1989.
+		\bibitem{TanHoo15}R. H. G. Tan and L. Y. H. Hoo, “DC-DC converter modeling and simulation using state space approach,” in 2015 IEEE Conference on Energy Conversion (CENCON), Oct. 2015, pp. 42–47. doi: 10.1109/CENCON.2015.7409511.
+	\end{thebibliography}
+
+\end{document}
+

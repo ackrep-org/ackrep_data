@@ -1,0 +1,20 @@
+#link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+
+key: KAHFE
+predecessor_key: ''
+type: system_model
+name: 'boost converter'
+short_description: 'DC-DC power converter that steps up voltage on output compared to input (by decreasing current)'
+version: 0.1.0
+tag_list:
+    - ''
+creator: 'Julius Fiedler <julius.fiedler@tu-dresden.de>'
+editor_list:
+    - ''
+creation_date: '29.08.2022'
+external_references: ''
+notes: ''
+estimated_runtime: '10s'
+compatible_environment: ""
+system_model_file: system_model.py
+simulation_file: simulation.py
