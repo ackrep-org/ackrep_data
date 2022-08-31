@@ -24,7 +24,7 @@
 		$C$ & capacity of the capacitor \\
 		$R$ & resistance of the load \\
 		$U_E$ & input voltage \\
-		$v$ & transmission ratio of the transformer \\
+		$k$ & transmission ratio of the transformer \\
 		$i_L$ & current through the inductor \\
 		$u_C$ & voltage over the capatitor \\
 		$d$ & duty ratio of the switch \\
@@ -33,6 +33,10 @@
 				
 	\end{tabular}
 	 
+	\subsection{Circuit Diagram}
+	\begin{figure}[H]
+		\includegraphics[width=70mm]{Flyback_converter_circuit.pdf}
+	\end{figure}
 	
 	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
@@ -47,14 +51,14 @@
 	\noindent System Equations:			
 	\begin{subequations}
 	\begin{align}
-		\dot{x}_1 &= -(1-u)\frac{v}{L}x_2 + \frac{U_E}{L}u \\
-		\dot{x}_2 &= (1-u)\frac{v}{C}x_1 - \frac{1}{RC}x_2
+		\dot{x}_1 &= -(1-u)\frac{k}{L}x_2 + \frac{U_E}{L}u \\
+		\dot{x}_2 &= (1-u)\frac{k}{C}x_1 - \frac{1}{RC}x_2
 	\end{align}
 	\end{subequations}
 
 	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\noindent
-	Parameters: $L, C, R, U_E$ % variables with constant, predefined value
+	Parameters: $L, C, R, U_E, k$ % variables with constant, predefined value
 	\\
 	Outputs: $x_2 = u_C$
 	
@@ -73,19 +77,13 @@
 	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%	
 	
 	\section{Derivation and Explanation} % SHOULD
-	Using PWM (puls width modulation), instead of only discrete values $d\in\{0,1\}$ representing an \textit{open} or \textit{closed} switch, 
-	any value of the interval $[0,1]$ can be modeled. This is done by using the averaged values for states and inputs:
-	\begin{align*}
-		\bar{d} &= \frac{1}{T}\int_t^{t+T} d(\tau)d\tau \\
-		\bar{x}_i &= \frac{1}{T}\int_t^{t+T} x_i(\tau)d\tau \quad i=1,2
-	\end{align*}
-	with the switching period $T$. For $T\rightarrow 0$, which is achieved by a high enough switching frequency, an averaged model can be obtained.
+	See boost converter.
 	
 	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	\begin{thebibliography}{10}		
-		\bibitem{Salimi13}M. Salimi, J. Soltani, A. Zakipour, and V. Hajbani, “Sliding mode control of the DC-DC flyback converter with zero steady-state error,” in 4th Annual International Power Electronics, Drive Systems and Technologies Conference, Feb. 2013, pp. 158–163. doi: 10.1109/PEDSTC.2013.6506695.
-		\bibitem{Röb17}K. Röbenack, Nichtlineare Regelungssysteme: Theorie und Anwendung der exakten Linearisierung. Berlin, Heidelberg: Springer Berlin Heidelberg, 2017. doi: 10.1007/978-3-662-44091-9.
+		\bibitem{Salimi13}M. Salimi, J. Soltani, A. Zakipour, and V. Hajbani, Sliding mode control of the DC-DC flyback converter with zero steady-state error, in 4th Annual International Power Electronics, Drive Systems and Technologies Conference, Feb. 2013, pp. 158–163. doi: 10.1109/PEDSTC.2013.6506695.
+		\bibitem{Roeb17}K. Röbenack, Nichtlineare Regelungssysteme: Theorie und Anwendung der exakten Linearisierung. Berlin, Heidelberg: Springer Berlin Heidelberg, 2017. doi: 10.1007/978-3-662-44091-9.
 	\end{thebibliography}
 
 \end{document}

@@ -33,8 +33,8 @@ pp_sf = [r_sf, b_sf, sigma_sf]
 #OPTIONAL
 # range of parameters
 r_range = (24.74, 99)
-b_range = (0, np.inf)
-sigma_range = (0, np.inf)
+b_range = None
+sigma_range = None
 
 #OPTIONAL
 # list of ranges

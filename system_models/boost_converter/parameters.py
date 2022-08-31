@@ -39,7 +39,7 @@ pp_subs_list = []
 # OPTONAL: Dictionary which defines how certain variables shall be written
 # in the table - key: Symbolic Variable, Value: LaTeX Representation/Code
 # useful for example for complex variables: {Z: r"\underline{Z}"}
-latex_names = {U_E: r"$U_E$"}
+latex_names = {U_E: r"U_E"}
 
 
 # ---------- Define LaTeX table
@@ -63,8 +63,8 @@ start_columns_list = [col_1]
 
 # Define Entries of the columns after the Value-Column
 # --- Entries need to be latex code
-col_4 = []
+col_4 = ["H", "F", "$\Omega$", "V"]
 
 # contains all lists of columns after the FIX ENTRIES
 # --- Empty list, if there are no columns after the "Value" column
-end_columns_list = []
+end_columns_list = [col_4]

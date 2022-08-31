@@ -76,13 +76,13 @@ class Model(GenericModel):
 
         # ---------start of edit section--------------------------------------
         x1, x2 = self.xx_symb   #state components
-        L, C, R, U_E, v = self.pp_symb   #parameters
+        L, C, R, U_E, k = self.pp_symb   #parameters
     
         u = self.uu_symb[0]   # inputs
 
         # define symbolic rhs functions
-        dx1_dt = - v * x2 / L + (U_E + v * x2) * u / L
-        dx2_dt = (1 - u) * v / C * x1 - x2 / R / C 
+        dx1_dt = - k * x2 / L + (U_E + k * x2) * u / L
+        dx2_dt = (1 - u) * k / C * x1 - x2 / R / C 
 
         # rhs functions matrix
         self.dxx_dt_symb = sp.Matrix([dx1_dt, dx2_dt])
