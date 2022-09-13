@@ -14,7 +14,7 @@ erk_data:
     - I8978["time continuity"]
     - I8316["bifurcation"]:
         R6["has defining mathematical relation"]: "rho=1"
-    _R2928["has model representation"]:
+    R2928["has model representation"]:
         I6886["general ode state space representation"]:
             R16["has property"]:
                 - I4478["strict nonlinearity"]
