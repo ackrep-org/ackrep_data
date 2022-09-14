@@ -6,6 +6,18 @@ short_description: 'PDE describing the one-dimensional propagation of a wave'
 version: 0.1.0
 tag_list:
     - ''
+erk_data:
+    R9125["has input dimension"]: 1
+    R16["has property"]:
+    - I7733["time invariance"]
+    - I8978["time continuity"]
+    R2928["has model representation"]:
+        I8063["partial differential equation"]:
+            - I4704["hyperbolic"]
+            R3898["has system order"]: 2
+            R6134["has highest time derivative"]: 2
+            R9746["has boundary condition"]: I7095["robin boundary condition"]
+    R8316["belongs to domain"]: I1696["physical domain"]
 creator: 'Stefan Ecklebe <stefan.ecklebe@tu-dresden.de>'
 editor_list:
     - 'Julius Fiedler <julius.fiedler@tu-dresden.de'
