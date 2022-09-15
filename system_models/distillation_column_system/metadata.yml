@@ -1,0 +1,20 @@
+#link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+
+key: JBTRZ
+predecessor_key: ''
+type: system_model
+name: 'distillation column'
+short_description: 'conrol the filling level and temperature of the ground of the distillation column by the supply of the heat steam and the drain of the product'
+version: 0.1.0
+tag_list:
+    - 'distillation column'
+creator: 'Anne Harloff <anne.harloff{ät}mailbox.tu-dresden.de>'
+editor_list:
+    - ''
+creation_date: '2022-09-12'
+external_references: ''
+notes: ''
+estimated_runtime: '10s'
+compatible_environment: ""
+system_model_file: system_model.py
+simulation_file: simulation.py
