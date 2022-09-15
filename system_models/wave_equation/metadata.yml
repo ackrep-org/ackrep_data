@@ -13,7 +13,8 @@ erk_data:
     - I8978["time continuity"]
     R2928["has model representation"]:
         I8063["partial differential equation"]:
-            - I4704["hyperbolic"]
+            R16["has property"]:
+                - I4704["hyperbolic"]
             R3898["has system order"]: 2
             R6134["has highest time derivative"]: 2
             R9746["has boundary condition"]: I7095["robin boundary condition"]
