@@ -1,5 +1,5 @@
 jobs: # A basic unit of work in a run
-  Validate_Data: 
+  Validate_Data:
     # directory where steps are run
     working_directory: ~/ackrep_data
     docker: # run the steps with Docker
@@ -8,6 +8,7 @@ jobs: # A basic unit of work in a run
         environment: # environment variables for primary container
           NO_IPS_EXCEPTHOOK: "True"
           CI: "True"
+          ACKREP_ENVIRONMENT_NAME: "dont import pyerk"
 
     steps: # steps that comprise the `build` job
       - checkout # check out source code to working directory
@@ -16,7 +17,7 @@ jobs: # A basic unit of work in a run
             - 3c:8c:da:be:18:78:9a:cc:c7:d2:bc:73:94:98:04:0e
       - run:
           name: Clone Core
-          command: | 
+          command: |
             python -m venv venv
             . venv/bin/activate
             cd ../
@@ -28,7 +29,7 @@ jobs: # A basic unit of work in a run
           key: deps1--{{ checksum "../ackrep_core/requirements.txt" }}
       - run:
           name: Install Core Dependancies
-          command: | 
+          command: |
             . venv/bin/activate
             cd ../ackrep_core
             pip install -r requirements.txt
@@ -49,7 +50,7 @@ jobs: # A basic unit of work in a run
       - setup_remote_docker:
           version: 20.10.14
           docker_layer_caching: true
-      - run: 
+      - run:
           name: Setup Containers
           command: |
             . venv/bin/activate
@@ -67,7 +68,7 @@ jobs: # A basic unit of work in a run
           name: Check all Entities
           command: |
             . venv/bin/activate
-            ackrep --check-all-entities --fast
+            ackrep --check-all-entities
       - store_artifacts:
           path: ../artifacts
       - run:
@@ -85,7 +86,7 @@ jobs: # A basic unit of work in a run
             git commit -m "automatic results upload"
             git push
 workflows:
-  version: 2 
+  version: 2
   build_and_test:
     jobs:
       - Validate_Data
