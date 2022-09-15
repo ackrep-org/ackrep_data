@@ -6,18 +6,6 @@ short_description: 'PDE modeling the concentration of a substance flowing in a l
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
-    R9125["has input dimension"]: 1
-    R16["has property"]:
-    - I7733["time invariance"]
-    - I8978["time continuity"]
-    R2928["has model representation"]:
-        I8063["partial differential equation"]:
-            R16["has property"]:
-                - I3863["linearity"]
-            R3898["has system order"]: 1
-            R6134["has highest time derivative"]: 1
-    R8316["belongs to domain"]: I1696["physical domain"]
 creator: 'Stefan Ecklebe <stefan.ecklebe@tu-dresden.de>'
 editor_list:
     - 'Julius Fiedler <julius.fiedler@tu-dresden.de'
