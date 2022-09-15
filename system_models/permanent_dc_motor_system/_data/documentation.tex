@@ -1,0 +1,98 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+
+%link to documentation: 
+%https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+
+\begin{document}
+	\part*{Model Documentation of the \\ Permanent Magnet DC Motor} % MUST - Add Model Name 
+	
+	%%%%%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Nomenclature} % MUST
+	\subsection{Nomenclature for Model Equations} % MUST
+	
+	%variables for model equations
+	\begin{tabular}{ll}
+		$c\phi$ & motor constant \\
+		$J$ & moment of inertia \\
+		$L_A$ & armature inductance \\
+		$R_A$ & armature resistance \\
+		$i_A$ & armature current \\
+		$\omega$ & angular velocity \\
+		$u_A$ & armature voltage \\
+		$\xi_L$ & load moment \\
+				
+	\end{tabular}
+	 
+	
+	%variables which are used additional to those in the model equations
+	\begin{tabular}{ll}
+
+	\end{tabular}
+	
+	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Model Equations} % MUST
+	
+	State Vector and Input Vector:
+	\begin{align*}
+		\underline{x} &= (\omega \ i_A)^T &= (x_1 \ x_2)^T \\
+		\underline{u} &= (u_A \ \xi_L)^T &= (u_1 \ u_2)^T \\
+	\end{align*}
+	
+	\noindent System Equations:			
+	\begin{subequations}
+	\begin{align}
+		\dot{x}_1 &= \frac{c\phi}{J}x_2 - \frac{1}{J}u_2 \\
+		\dot{x}_2 &= -\frac{R_A}{L_A}x_2 - \frac{c\phi}{L_A}x_1 + \frac{1}{L_A}u_1
+	\end{align}
+	\end{subequations}
+
+	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent
+	Parameters: $c\phi$ $J$ $L_A$ $R_A$% variables with constant, predefined value
+	\\
+	Output: $\omega$ \\ % MAY
+	
+
+	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\subsection{Exemplary parameter values}
+	\input{parameters.tex}
+
+	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\section{Derivation and Explanation} % SHOULD
+	The function of the electrical motor is based on the interaction between the electromechanical power law and Faraday's law of induction.
+	\begin{align}
+		\xi (t) &= c\phi i_A(t) \\
+		u(t) &= c\phi \omega(t)
+	\end{align}
+	The following applies to the voltage drops in the electrical armature circuit: 
+	\begin{align}
+		u_A(t) &= u(t) + R_A i_A(t) + L_A\frac{di_A(t)}{dt}. 
+	\end{align}
+	For the mechanical system, Newton's law for rotational motion provides
+	\begin{align}
+		\frac{\omega(t)}{dt} &= \frac{1}{J}\xi_b(t). 
+	\end{align}
+	Furthermore: 
+	\begin{align}
+		\xi_b(t) = \xi(t) - \xi_L(t). 
+	\end{align}
+	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\begin{thebibliography}{10}		
+		\bibitem{But21}TU Dresden – Institut für Regelungs- und Steuerungstheorie: 
+		\textit{Regelungstechnikpraktikum, Praktikumsanleitung}, published on OPAL April 2022.
+	\end{thebibliography}
+
+\end{document}
+
