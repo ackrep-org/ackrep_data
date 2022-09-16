@@ -10,7 +10,6 @@ erk_data:
     R9125["has input dimension"]: 0
     R16["has property"]:
     - I7733["time invariance"]
-    - I5247["polynomial"]
     - I8978["time continuity"]
     - I5718["autonomy"] # todo: this should be redundant
     - I8316["bifurcation"]:
