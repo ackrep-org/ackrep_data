@@ -62,11 +62,11 @@ def save_plot(simulation_data):
 
     # print in axes top left
     plt.plot(
-        simulation_data.t, simulation_data.y[0] + 1.8 * np.sin(simulation_data.y[1]), label="x position of the last"
+        simulation_data.t, simulation_data.y[0] + 1.8 * np.sin(simulation_data.y[1]), label="x position of the load"
     )
     plt.plot(simulation_data.t, simulation_data.y[0], label="x postion of the wagon")
-    plt.ylabel("x[m]")  # y-label
-    plt.xlabel("Time[s]")  # x-label
+    plt.ylabel("x [m]")  # y-label
+    plt.xlabel("Time [s]")  # x-label
     plt.grid()
     plt.legend()
 
