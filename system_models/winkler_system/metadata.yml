@@ -1,0 +1,21 @@
+#link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+
+key: JPCL5
+predecessor_key: ''
+type: system_model
+name: 'Winkler System'
+short_description: 'nonlinear instable system'
+version: 0.1.0
+tag_list:
+    - 'winkler'
+    - 'nonlinear'
+creator: 'Anne Harloff anne.harloff{ät}mailbox.tu-dresden.de'
+editor_list:
+    - ''
+creation_date: '2022-09-15'
+external_references: ''
+notes: ''
+estimated_runtime: '10s'
+compatible_environment: ""
+system_model_file: system_model.py
+simulation_file: simulation.py
