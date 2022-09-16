@@ -1,0 +1,83 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+
+%link to documentation: 
+%https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+
+\begin{document}
+	\part*{Model Documentation of the \\ Hysteresis System} % MUST - Add Model Name 
+	
+	%%%%%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Nomenclature} % MUST
+	\subsection{Nomenclature for Model Equations} % MUST
+	
+	%variables for model equations
+	\begin{tabular}{ll}
+		$s_1$ & switching treshold down \\
+		$s_2$ & switching treshold up \\
+		$y_i$ & output values of the hysteresis system for i = 1,2 \\
+		$T_{storage}$ & time constant of the internal PT1 \\
+		$w$ & input signal \\
+					
+	\end{tabular}
+	 
+	
+	%variables which are used additional to those in the model equations
+	\begin{tabular}{ll}
+
+	\end{tabular}
+	
+	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Model Equations} % MUST
+	
+	Input Vector:
+	\begin{align*}
+		u &= w
+	\end{align*}
+	
+	\noindent Equations:			
+	\begin{subequations}
+	\begin{align}
+		[..]
+	\end{align}
+	\end{subequations}
+
+	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent
+	Parameters: $s1$ $s2$ $y1$ $y2$ $T_{storage}$% variables with constant, predefined value
+	\\
+	Outputs: $y$ % MAY
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\subsection{Exemplary parameter values}
+	\input{parameters.tex}
+
+	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\section{Derivation and Explanation} % SHOULD
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=70mm]{hysteresis.pdf}
+		\caption{block diagram}
+	\end{figure}
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\begin{thebibliography}{10}		
+		\bibitem{But21}Knoll, Carsten: 
+		\textit{Approximation of a simple hysteresis system.}, Python script published 2021.
+	\end{thebibliography}
+
+\end{document}
+
