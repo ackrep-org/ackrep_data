@@ -7,6 +7,23 @@ version: 0.1.0
 tag_list:
     - 'roessler'
     - 'attractor'
+erk_data:
+    R9125["has input dimension"]: 0
+    R16["has property"]:
+    - I7733["time invariance"]
+    - I8978["time continuity"]
+    - I5718["autonomy"] # todo: this should be redundant
+    R2928["has model representation"]:
+        I6886["general ode state space representation"]:
+            R16["has property"]:
+                - I4478["strict nonlinearity"]
+                - I5247["polynomial"]
+            R3898["has system order"]: 1 # todo: this should be redundant
+            R2112["has state dimension"]: 3
+    R8316["belongs to domain"]: I4498["artifical domain"]
+    R5031["has trajectory"]:
+        I7062["trajectory"]:
+            R16["has property"]: I3241["chaotic behavior"]
 creator: 'Anne Harloff <anne.harloff{ät}mailbox.tu-dresden.de>'
 editor_list:
     - ''
