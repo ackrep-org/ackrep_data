@@ -8,6 +8,21 @@ short_description: 'DC-DC power converter that steps down voltage on output comp
 version: 0.1.0
 tag_list:
     - ''
+erk_data:
+    R9125["has input dimension"]: 1
+    R16["has property"]:
+    - I7733["time invariance"]
+    - I8978["time continuity"]
+    - I7864["controllability"]
+    - I3227["observability"]
+    R2928["has model representation"]:
+        I6886["general ode state space representation"]:
+            R16["has property"]:
+                - I4478["strict nonlinearity"]
+                - I5247["polynomial"]
+            R3898["has system order"]: 1 # todo: this should be redundant
+            R2112["has state dimension"]: 2
+    R8316["belongs to domain"]: I1052["electrical domain"]
 creator: 'Julius Fiedler <julius.fiedler@tu-dresden.de>'
 editor_list:
     - ''
