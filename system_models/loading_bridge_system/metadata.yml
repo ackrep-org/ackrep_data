@@ -11,11 +11,11 @@ erk_data:
     R8978["has output dimension"]: 2
     R16["has property"]:
         - I7733["time invariance"]
-        - I8978["time continuity"]
         - I7864["controllability"]
     R2928["has model representation"]:
         I6886["general ode state space representation"]:
             R16["has property"]:
+                - I8978["time continuity"]
                 - I4478["strict nonlinearity"]
             R3898["has system order"]: 1 # todo: this should be redundant
             R2112["has state dimension"]: 4
@@ -32,5 +32,5 @@ compatible_environment: ""
 system_model_file: system_model.py
 simulation_file: simulation.py
 
-#link to documentation with examples: 
+#link to documentation with examples:
 #

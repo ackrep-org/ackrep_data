@@ -13,10 +13,10 @@ erk_data:
     R9125["has input dimension"]: 1
     R16["has property"]:
     - I7733["time invariance"]
-    - I8978["time continuity"]
     R2928["has model representation"]:
         I2865["differential algebraic system of equation"]:
             R16["has property"]:
+                - I8978["time continuity"]
                 - I4478["strict nonlinearity"]
                 - I6091["control affine"]
             R3898["has system order"]: 2

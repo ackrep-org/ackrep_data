@@ -13,12 +13,12 @@ erk_data:
     R9125["has input dimension"]: 1
     R16["has property"]:
     - I7733["time invariance"]
-    - I8978["time continuity"]
     - I5357["differential flatness"]
     # - I7864["controllability"]
     R2928["has model representation"]:
         I6886["general ode state space representation"]:
             R16["has property"]:
+                - I8978["time continuity"]
                 - I4478["strict nonlinearity"]
                 - I5247["polynomial"]
             R3898["has system order"]: 1 # todo: this should be redundant

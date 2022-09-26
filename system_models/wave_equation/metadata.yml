@@ -10,10 +10,10 @@ erk_data:
     R9125["has input dimension"]: 1
     R16["has property"]:
     - I7733["time invariance"]
-    - I8978["time continuity"]
     R2928["has model representation"]:
         I8063["partial differential equation"]:
             R16["has property"]:
+                - I8978["time continuity"]
                 - I4704["hyperbolic"]
             R3898["has system order"]: 2
             R6134["has highest time derivative"]: 2
