@@ -55,10 +55,13 @@ def save_plot(simulation_data):
     fig, ax = plt.subplots(2, 1)
     ax[0].plot(simulation_data.t, simulation_data.y[0], label="$x_1=i_L$")
     ax[0].legend()
+    ax[0].grid()
     ax[0].set_title(f"Boost Converter Simulation, Duty Ratio d={simulation_data.u}")
     ax[1].plot(simulation_data.t, np.ones_like(simulation_data.t) * simulation_data.U_E , label="$U_E$")
     ax[1].plot(simulation_data.t, simulation_data.y[1], label="$x_2=u_C$")
+    ax[1].set_xlabel("Time [s]")  # x-Label
     ax[1].legend()
+    ax[1].grid()
     
     # ---------end of edit section----------------------------------------
 

@@ -57,18 +57,16 @@ def save_plot(simulation_data):
     fig1, axs = plt.subplots(nrows=3, ncols=1, figsize=(12.8, 9.6))
 
     axs[0].plot(simulation_data.t, simulation_data.y[1])
-    axs[0].set_ylabel("Height of the ball[m]")  # y-label
-    axs[0].set_xlabel("Time[s]")  # x-label
+    axs[0].set_ylabel("Height of the ball [m]")  # y-label
     axs[0].grid()
 
     axs[1].plot(simulation_data.t, simulation_data.y[2])
-    axs[1].set_ylabel("Velocity of the ball[m/s]")  # y-label
-    axs[1].set_xlabel("Time[s]")  # x-Label
+    axs[1].set_ylabel("Velocity of the ball [m/s]")  # y-label
     axs[1].grid()
 
     axs[2].plot(simulation_data.t, simulation_data.y[0])
-    axs[2].set_ylabel("Rotation speed[U/min]")  # y-label
-    axs[2].set_xlabel("Time[s]")  # x-Label
+    axs[2].set_ylabel("Rotation speed [U/min]")  # y-label
+    axs[2].set_xlabel("Time [s]")  # x-Label
     axs[2].grid()
 
     # ---------end of edit section----------------------------------------

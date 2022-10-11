@@ -6,6 +6,7 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{url}
 
 %link to documentation: 
 %https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
@@ -30,6 +31,13 @@
 		$w$ & supply of heat steam, equivalent to  $M_H$ \\
 				
 	\end{tabular}
+	
+	\subsection{Signal Flowchart}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=70mm]{flowchart.pdf}
+		\caption{Signal Flowchart}
+	\end{figure}
 	 
 	
 	%variables which are used additional to those in the model equations
@@ -80,16 +88,15 @@
 	\begin{align*}
 		\frac{X_S}{M_H} = \frac{K_1}{s};\ \frac{X_T}{M_A} = \frac{K_2}{s};\ \frac{X_S}{M_A} = \frac{K_3}{s};\ \frac{X_T}{M_H} = \frac{K_4}{1 + sT}.
 	\end{align*}
-	$M_H$ is standing for the supply of the heat steam and $M_A$ represents the drain of the product. The system model is based on the following signal flowchart.
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=70mm]{flowchart.pdf}
-		\caption{Signal flowchart}
-	\end{figure}
+	$M_H$ is standing for the supply of the heat steam and $M_A$ represents the drain of the product. The system model is based on the signal flowchart.
+	
 	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	\begin{thebibliography}{10}		
-		\bibitem{But21}Institut für Regelungs- und Steuerungstheorie TU Dresden: \textit{Regelungstechnikpratikum, Praktikumsanleitung}, published in OPAL April 2022. 
+		\bibitem{But21}Institut für Regelungs- und Steuerungstheorie TU Dresden: \textit{Regelungstechnikpratikum, Praktikumsanleitung}, published in OPAL April 2022. \\
+		(not publicly accessible)
+		\bibitem{But21}Knoll, Carsten: \textit{Example2 : linear system consiting of various blocks}, Python Script published 2019. \\
+		\url{https://github.com/TUD-RST/pyblocksim/blob/master/examples/example2.py}  
 	\end{thebibliography}
 
 \end{document}

@@ -63,6 +63,7 @@ def save_plot(simulation_data):
     axs[1].plot(simulation_data[2], simulation_data[1])
     axs[1].set_ylabel("Input signal")  # y-label
     axs[1].set_xlabel("Hysteresis-output")  # x-Label
+    axs[1].grid(1)
 
     # ---------end of edit section----------------------------------------
 

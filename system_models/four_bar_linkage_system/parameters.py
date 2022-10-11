@@ -102,7 +102,7 @@ col_4 = [
     "m",
     "m",
     "m",
-    r"$\frac{m}{s^2}$",
+    r"$\frac{m}{s^2}$"
 ]
 
 # contains all lists of columns after the FIX ENTRIES
