@@ -9,19 +9,6 @@ short_description: 'two link manipulator + one link manipulator + rigid coupling
 version: 0.1.0
 tag_list:
     - 'Four-bar'
-erk_data:
-    R9125["has input dimension"]: 1
-    R16["has property"]:
-    - I7733["time invariance"]
-    R2928["has model representation"]:
-        I2865["differential algebraic system of equation"]:
-            R16["has property"]:
-                - I8978["time continuity"]
-                - I4478["strict nonlinearity"]
-                - I6091["control affine"]
-            R3898["has system order"]: 2
-            R2112["has state dimension"]: 8
-    R8316["belongs to domain"]: I1696["physical domain"]
 creator: 'Anne Harloff <anne.harloff{ät}mailbox.tu-dresden.de>'
 editor_list:
     - ''
