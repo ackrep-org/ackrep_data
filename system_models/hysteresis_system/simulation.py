@@ -55,7 +55,7 @@ def save_plot(simulation_data):
 
     axs[0].plot(simulation_data[0], simulation_data[2], label='input')
     axs[0].plot(simulation_data[0], simulation_data[1], label='hyst. output')
-    axs[0].set_xlabel("Time[s]")  # x-label
+    axs[0].set_xlabel("Time [s]")  # x-label
     axs[0].grid(1)
     axs[0].legend()
 

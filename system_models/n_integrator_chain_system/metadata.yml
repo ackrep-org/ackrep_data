@@ -1,7 +1,7 @@
 key: CAS0M 
 predecessor_key: ''
 type: system_model
-name: 'N Integrator Chain'
+name: 'n integrator chain'
 short_description: 'a chain of n integrators'
 version: 0.1.0
 tag_list:

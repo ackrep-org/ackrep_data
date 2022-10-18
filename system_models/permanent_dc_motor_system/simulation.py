@@ -57,14 +57,14 @@ def save_plot(simulation_data):
 
 
     axs[0].plot(simulation_data.t, simulation_data.y[0])
-    axs[0].set_ylabel("Angular velocity[rad/s]")  # y-label
-    axs[0].set_xlabel("Time[s]")  # x-label
+    axs[0].set_ylabel("Angular velocity [rad/s]")  # y-label
+    axs[0].set_xlabel("Time [s]")  # x-label
     axs[0].grid()
 
     # print in axes top right
     axs[1].plot(simulation_data.t, simulation_data.y[1])
-    axs[1].set_ylabel("Armature current[A]")  # y-label
-    axs[1].set_xlabel("Time[s]")  # x-Label
+    axs[1].set_ylabel("Armature current [A]")  # y-label
+    axs[1].set_xlabel("Time [s]")  # x-Label
     axs[1].grid()
 
     # ---------end of edit section----------------------------------------

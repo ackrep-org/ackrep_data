@@ -49,17 +49,17 @@ def save_plot(simulation_data):
     axs[0].plot(simulation_data.t, np.real(simulation_data.y[2]), label="y-Position")
     axs[0].plot(simulation_data.t, np.real(simulation_data.y[4] * 180 / np.pi), label="angle")
     axs[0].set_title("Position")
-    axs[0].set_ylabel("Position[m]")  # y-label Nr 1
-    axs[0].set_xlabel("Time[s]")
+    axs[0].set_ylabel("Position [m]")  # y-label Nr 1
+    axs[0].set_xlabel("Time [s]")
     axs[0].grid()
     axs[0].legend()
 
-    axs[1].plot(simulation_data.t, simulation_data.y[1], label="v_x")
-    axs[1].plot(simulation_data.t, simulation_data.y[3], label="v_y")
+    axs[1].plot(simulation_data.t, simulation_data.y[1], label="$v_x$")
+    axs[1].plot(simulation_data.t, simulation_data.y[3], label="$v_y$")
     axs[1].plot(simulation_data.t, simulation_data.y[5] * 180 / np.pi, label="angular velocity")
     axs[1].set_title("Velocities")
-    axs[1].set_ylabel("Velocity[m/s]")
-    axs[1].set_xlabel("Time[s]")
+    axs[1].set_ylabel("Velocity [m/s]")
+    axs[1].set_xlabel("Time [s]")
     axs[1].grid()
     axs[1].legend()
 
@@ -67,8 +67,8 @@ def save_plot(simulation_data):
     axs[2].plot(simulation_data.t, simulation_data.uu[0], label="Force left")
     axs[2].plot(simulation_data.t, simulation_data.uu[1], label="Force right")
     axs[2].set_title("Normalized Input Forces")
-    axs[2].set_ylabel("Forces normalized to F_g")  # y-label Nr 1
-    axs[2].set_xlabel("Time[s]")
+    axs[2].set_ylabel("Forces normalized to $F_g$")  # y-label Nr 1
+    axs[2].set_xlabel("Time [s]")
     axs[2].grid()
     axs[2].legend()
 

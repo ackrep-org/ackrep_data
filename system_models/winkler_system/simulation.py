@@ -55,7 +55,7 @@ def save_plot(simulation_data):
     # plot of your data
     plt.plot(simulation_data.t, simulation_data.y[0], label = 'x')
     plt.plot(simulation_data.t, simulation_data.y[1], label = 'y')
-    plt.xlabel('Time[s]')
+    plt.xlabel('Time [s]')
     plt.grid()
     plt.legend()
 

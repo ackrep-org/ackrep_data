@@ -38,9 +38,8 @@ def simulate():
     tt = np.linspace(0, t_end, 10000)
     simulation_data = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
 
-    # define inputfunction
-    # uu = ...        #uu = model.uu_func(simulation_data.t, ...)
-    # simulation_data.uu = uu
+    uu = model.uu_func(simulation_data.t, )
+
     # ---------end of edit section----------------------------------------
 
     save_plot(simulation_data)
@@ -64,9 +63,9 @@ def save_plot(simulation_data):
     plt.plot(
         simulation_data.t, simulation_data.y[0] + 1.8 * np.sin(simulation_data.y[1]), label="x position of the last"
     )
-    plt.plot(simulation_data.t, simulation_data.y[0], label="x postion of the wagon")
-    plt.ylabel("x[m]")  # y-label
-    plt.xlabel("Time[s]")  # x-label
+    plt.plot(simulation_data.t, simulation_data.y[0], label="x postion of the cart")
+    plt.ylabel("x [m]")  # y-label
+    plt.xlabel("Time [s]")  # x-label
     plt.grid()
     plt.legend()
 

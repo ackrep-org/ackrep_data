@@ -51,9 +51,10 @@ def save_plot(simulation_data):
     :return: None
     """
     # plot of your data
-    plt.plot(simulation_data.t, simulation_data.y[0], label="x1 (prey)")
-    plt.plot(simulation_data.t, simulation_data.y[1], label="x2 (predators)")
+    plt.plot(simulation_data.t, simulation_data.y[0], label="$x_1$ (prey)")
+    plt.plot(simulation_data.t, simulation_data.y[1], label="$x_2$ (predators)")
     plt.legend()
+    plt.grid()
     plt.xlabel("Time")
     plt.ylabel("Number of Animals")
     plt.title("Lotka-Volterra (Predator-Prey) Dynamics")
