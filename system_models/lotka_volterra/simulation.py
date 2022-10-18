@@ -55,7 +55,7 @@ def save_plot(simulation_data):
     plt.plot(simulation_data.t, simulation_data.y[1], label="$x_2$ (predators)")
     plt.legend()
     plt.grid()
-    plt.xlabel("Time")
+    plt.xlabel("Time [s]")
     plt.ylabel("Number of Animals")
     plt.title("Lotka-Volterra (Predator-Prey) Dynamics")
 
