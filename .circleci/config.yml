@@ -24,21 +24,6 @@ jobs: # A basic unit of work in a run
             git clone https://github.com/ackrep-org/ackrep_core.git
             cd ackrep_core
             git checkout develop
-      - restore_cache:
-      # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-          key: deps1--{{ checksum "../ackrep_core/requirements.txt" }}
-      - run:
-          name: Install Core Dependancies
-          command: |
-            . venv/bin/activate
-            cd ../ackrep_core
-            pip install -r requirements.txt
-            pip install -e .
-            python manage.py makemigrations
-      - save_cache: # cache Python dependencies using checksum of requirements as the cache-key
-          key: deps1--{{ checksum "../ackrep_core/requirements.txt" }}
-          paths:
-            - "venv"
       - run:
           name: Load ERK Modules
           command: |
@@ -60,6 +45,21 @@ jobs: # A basic unit of work in a run
             mv erk-data-control-theory control-theory
             cd control-theory
             git checkout develop
+      - restore_cache:
+      # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+          key: deps1--{{ checksum "../ackrep_core/requirements.txt" }}
+      - run:
+          name: Install Core Dependancies
+          command: |
+            . venv/bin/activate
+            cd ../ackrep_core
+            pip install -r requirements.txt
+            pip install -e .
+            python manage.py makemigrations
+      - save_cache: # cache Python dependencies using checksum of requirements as the cache-key
+          key: deps1--{{ checksum "../ackrep_core/requirements.txt" }}
+          paths:
+            - "venv"
       - run:
           name: Change Permissions
           command: |
