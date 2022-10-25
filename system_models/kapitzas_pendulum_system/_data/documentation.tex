@@ -6,6 +6,7 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{caption}
 
 %< > ... dummy content zur Veranschaulichung
 
@@ -29,10 +30,13 @@
 	\end{tabular}
 	 
 	
-	%variables which are used additional to those in the model equations
-	\begin{tabular}{ll}
-
-	\end{tabular}
+	\subsection{Graphic of the Structure}	
+	\begin{figure}[H]
+		\centering
+		\captionsetup{justification=centering, margin=1cm}
+		\includegraphics[width=45mm]{kapitza_pendulum.pdf}
+		\caption{Structure of the Pendulum. \\ \footnotesize{Source: Bello, Thomas; Huang, Emily; Lopez, Fabian; Rumsey, Kellin; Tao, Tao / Pendulum With Vibrating Base}}
+	\end{figure}
 	
 	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
@@ -89,6 +93,9 @@
 	\begin{thebibliography}{10}		
 		\bibitem{But21}Butikov, E. I.: 
 		\textit{Kapitza’s Pendulum: A Physically Transparent Simple Treatment}, published 2017.
-	\end{thebibliography}
+		\bibitem{Fig1}Bello, Thomas; Huang, Emily; Lopez, Fabian; Rumsey, Kellin; Tao Tao: 
+		\textit{Pendulum With Vibrating Base}, published 2014.
+	\end{thebibliography}	
+		
 
 \end{document}

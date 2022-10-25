@@ -6,6 +6,7 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{caption}
 
 %link to documentation: 
 %https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
@@ -32,10 +33,13 @@
 	\end{tabular}
 	 
 	
-	%variables which are used additional to those in the model equations
-	\begin{tabular}{ll}
-
-	\end{tabular}
+	\subsection{Graphic of the Structure}	
+	\begin{figure}[H]
+		\centering
+		\captionsetup{justification=centering, margin=1cm}
+		\includegraphics[width=70mm]{motor.pdf}
+		\caption{Structure of the Permanent Magnet DC Motor Model. \\ \footnotesize{Source: Institut of Control Theory TU Dresden: Regelungstechnikpraktikum, Praktikumsanleitung}}
+	\end{figure}
 	
 	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
@@ -90,7 +94,7 @@
 	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	\begin{thebibliography}{10}		
-		\bibitem{But21}TU Dresden – Institut für Regelungs- und Steuerungstheorie: 
+		\bibitem{But21}Institut of Control Theory TU Dresden: 
 		\textit{Regelungstechnikpraktikum, Praktikumsanleitung}, published on OPAL April 2022. \\
 		(not publicly accessible)
 	\end{thebibliography}

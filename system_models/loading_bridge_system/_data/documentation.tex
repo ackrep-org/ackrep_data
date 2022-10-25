@@ -6,6 +6,7 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{caption}
 
 %< > ... dummy content zur Veranschaulichung
 \begin{document}
@@ -28,6 +29,14 @@
 		$f$ & force that pushes the cart \\
 				
 	\end{tabular}
+	
+	\subsection{Graphic of the Structure}	
+	\begin{figure}[H]
+		\centering
+		\captionsetup{justification=centering, margin=1cm}
+		\includegraphics[width=70mm]{loading_bridge.pdf}
+		\caption{Structure of the Loading Bridge Model. \\ \footnotesize{Source: Institut of Control Theory TU Dresden/Regelungstechnik II, Übungsmaterial}}
+	\end{figure}
 	 
 	
 	%variables which are used additional to those in the model equations
@@ -83,7 +92,7 @@
 	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	\begin{thebibliography}{10}	
-		\bibitem{But21}Institut für Regelungs- und Steuerungstheorie TU Dresden: 
+		\bibitem{But21}Institut of Control Theory TU Dresden: 
 		\textit{Regelungstechnik II, Übungsmaterial}, published in OPAL April 2020.	\\
 		(not publicly accessible)
 	\end{thebibliography}
