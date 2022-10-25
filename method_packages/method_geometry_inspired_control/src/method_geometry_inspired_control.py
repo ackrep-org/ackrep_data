@@ -72,12 +72,15 @@ def shortest_curve(problem_spec):
     """
     v1, v2 = vv = problem_spec.vv
 
-    r1, dz3 = sp.symbols("r1, \Delta{}z_3", positive=True)
+    r1, dz3, x = sp.symbols("r1, \Delta{}z_3, x", positive=True)
 
     # Formula for the length of the curve in dependence of Δz3 and r1
     Le = sp.expand(2 * r1 + (r1 * v2) * sp.sqrt(1 + r1**2) * dz3 / r1**2 / v2)
 
-    sol = sp.solve(Le.diff(r1), r1)
+    Led = Le.diff(r1)
+    Ledx = Led.subs(r1**2, x)
+    sol1, sol2, sol3 = sp.solve(Ledx, x)            # sol = sp.solve(Le.diff(r1), r1) takes too much time
+    sol = [sol1**0.5, sol2**0.5, sol3**0.5]
 
     # Speedup the evaluation later (prepare values for interpolation)
     zz3 = np.logspace(-3, 3, 100)
