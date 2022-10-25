@@ -29,9 +29,9 @@ def simulate():
 
     # ---------start of edit section--------------------------------------
     # initial state values
-    xx0 = [0.02, 0.052, 0, 0]
+    xx0 = [0.02, 0.02, 0, 0]                     #0.02, 0.052, 0, 0]
 
-    t_end = 40
+    t_end = 2
     tt = np.linspace(0, t_end, 10000)
     simulation_data = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
 
@@ -54,15 +54,19 @@ def save_plot(simulation_data):
     """
     # ---------start of edit section--------------------------------------
     # plot of your data
-    plt.plot(simulation_data.t, simulation_data.y[0], label="")
-    plt.ylabel("")  # y-label
-    plt.xlabel("Time[s]")  # x-label
+    plt.plot(simulation_data.t, simulation_data.y[0], label="position of the iron ball in x-direction")
+    plt.plot(simulation_data.t, simulation_data.y[1], label="position of the brass ball in x-direction")
+    plt.plot(simulation_data.t, simulation_data.y[2], label="velocity of the iron ball in x-direction")
+    plt.plot(simulation_data.t, simulation_data.y[3], label="velocity of the brass ball in x-direction")
+    plt.xlabel("Time [s]")  # x-label
     plt.grid()
     plt.legend()
 
     # ---------end of edit section----------------------------------------
 
     plt.tight_layout()
+
+    plt.show()
 
     save_plot_in_dir()
 
@@ -77,7 +81,7 @@ def evaluate_simulation(simulation_data):
     # ---------start of edit section--------------------------------------
     # fill in final states of simulation to check your model
     # simulation_data.y[i][-1]
-    expected_final_state = [7842.281652263154, 7837.14937259626, 368.1695835700449, 421.78612604425365]
+    expected_final_state = [14.623557063331738, 14.696058924396356, 16.881612845239694, 16.981880259096393]
 
     # ---------end of edit section----------------------------------------
 
