@@ -1,14 +1,14 @@
 jobs: # A basic unit of work in a run
   Validate_Data:
     # directory where steps are run
-    working_directory: ~/ackrep_data
+    working_directory: ~/ackrep/ackrep_data
     docker: # run the steps with Docker
       # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
       - image: cimg/python:3.8
         environment: # environment variables for primary container
           NO_IPS_EXCEPTHOOK: "True"
           CI: "True"
-          ACKREP_ENVIRONMENT_NAME: "dont import pyerk"
+          # ACKREP_ENVIRONMENT_NAME: "dont import pyerk"
 
     steps: # steps that comprise the `build` job
       - checkout # check out source code to working directory
@@ -39,6 +39,27 @@ jobs: # A basic unit of work in a run
           key: deps1--{{ checksum "../ackrep_core/requirements.txt" }}
           paths:
             - "venv"
+      - run:
+          name: Load ERK Modules
+          command: |
+            . venv/bin/activate
+            echo Cloning pyerk
+            cd ../../
+            mkdir erk
+            cd erk
+            git clone https://github.com/ackrep-org/pyerk-core.git
+            cd pyerk-core
+            git checkout develop
+            pip install -r requirements.txt
+            pip install -e .
+            echo Cloning erk-data
+            cd ../
+            mkdir erk-data
+            cd erk-data
+            git clone https://github.com/ackrep-org/erk-data-control-theory.git
+            mv erk-data-control-theory control-theory
+            cd control-theory
+            git checkout develop
       - run:
           name: Change Permissions
           command: |
