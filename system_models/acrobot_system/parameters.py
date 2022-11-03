@@ -81,8 +81,8 @@ col_4 = [
         "m",
         "kg",
         "kg",
-        r"$\frac{kg}{m^2}$",
-        r"$\frac{kg}{m^2}$",
+        r"$kg \cdot m^2$",
+        r"$kg \cdot m^2$",
         "m",
         r"$\frac{m}{s^2}$"
         ]
