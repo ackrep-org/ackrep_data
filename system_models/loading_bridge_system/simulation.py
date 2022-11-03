@@ -38,7 +38,7 @@ def simulate():
     tt = np.linspace(0, t_end, 10000)
     simulation_data = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
 
-    uu = model.uu_func(simulation_data.t, )
+    #uu = model.uu_func(simulation_data.t, )
 
     # ---------end of edit section----------------------------------------
 
