@@ -57,19 +57,19 @@ def save_plot(simulation_data):
 
     # print in axes top left
     axs[0].plot(simulation_data.t, simulation_data.y[0])
-    axs[0].set_ylabel(r"$x_1 [m]$")  # y-label
+    axs[0].set_ylabel(r"$x_1 \, [m]$")  # y-label
     axs[0].grid()
 
     axs[1].plot(simulation_data.t, simulation_data.y[1])
-    axs[1].set_ylabel(r"$x_2 [rad]$")  # y-label
+    axs[1].set_ylabel(r"$x_2 \, [rad]$")  # y-label
     axs[1].grid()
 
     axs[2].plot(simulation_data.t, simulation_data.y[2])
-    axs[2].set_ylabel(r"$x_3 [m/s^2]$")  # y-label
+    axs[2].set_ylabel(r"$x_3 \, [m/s]$")  # y-label
     axs[2].grid()
 
     axs[3].plot(simulation_data.t, simulation_data.y[3])
-    axs[3].set_ylabel(r"$x_4 [m/s^2]$")  # y-label
+    axs[3].set_ylabel(r"$x_4 \, [rad/s]$")  # y-label
     axs[3].set_xlabel("Time [s]")  # x-label
     axs[3].grid()
     # ---------end of edit section----------------------------------------
