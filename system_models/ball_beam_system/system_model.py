@@ -90,23 +90,22 @@ class Model(GenericModel):
         q = sp.Matrix([[x1], [x2]])
         xdot1, xdot2 = sp.symbols('xdot1, xdot2')
 
-        # Geometrie: (Einheitsvektoren)>>>Spezial
         ex = sp.Matrix([1,0])
         ey = sp.Matrix([0,1])
 
-        # Koordinaten der Schwerpunkte der zwei Koerper
+        # coordinates of the centers of gravity
         S1 = 0
         S2 = x1*mt.Rz(x2)*ex
 
-        # Geschwindigkeiten der Koerper
+        # velocity of the ball
         Sd2 = st.time_deriv(S2, q)
 
-        # Kinetische Energie
-        T_trans = (m1*Sd2.T*Sd2) /2 # Translationsenergie
-        T_rot = (J1*xdot2**2+J2*xdot2**2+J2*(xdot1/r)**2)/2 # Rotationsenergie
-        T = T_trans[0] + T_rot #Kinetische Energie
+        # kinetic energy
+        T_trans = (m1*Sd2.T*Sd2) /2 # translation energy 
+        T_rot = (J1*xdot2**2+J2*xdot2**2+J2*(xdot1/r)**2)/2 # rotation energy
+        T = T_trans[0] + T_rot 
 
-        # Potentielle Energie
+        # potential Energie
         V = m1*g*S2[1]
 
         external_forces = sp.Matrix([[0, u2]])
