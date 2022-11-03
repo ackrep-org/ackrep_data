@@ -1,0 +1,21 @@
+#link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+
+key: XHINE
+predecessor_key: ''
+type: system_model
+name: 'ball beam'
+short_description: 'ball on a beam, in the middle of which a torque is applied'
+version: 0.1.0
+tag_list:
+    - 'ball'
+    - 'beam'
+creator: 'Anne Harloff <anne.harloff{ät}mailbox.tu-dresden.de>'
+editor_list:
+    - ''
+creation_date: '2022-11-03'
+external_references: ''
+notes: ''
+estimated_runtime: '10s'
+compatible_environment: ""
+system_model_file: system_model.py
+simulation_file: simulation.py
