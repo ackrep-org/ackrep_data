@@ -64,22 +64,22 @@ col_alignment = ["left", "center", "left", "center"]
 
 # Define Entries of all columns before the Symbol-Column
 # --- Entries need to be latex code
-col_1 = [
-    "center of gravity distance of first bar",
-    "center of gravity distance of second bar",
-    "center of gravity distance of third bar",
-    "mass of first bar",
-    "mass of second bar",
-    "mass of third bar",
-    "moment of inertia",
-    "moment of inertia",
-    "moment of inertia",
-    "length of first bar",
-    "length of second bar",
-    "length of third bar",
-    "length of fourth bar",
-    "acceleration due to gravity",
-]
+col_1 = ["distance from the joint to the center of gravity of link 1",
+         "distance from the joint to the center of gravity of link 2",
+         "distance from the joint to the center of gravity of link 3",
+         "mass of link 1",
+         "mass of link 2",
+         "mass of link 3",
+         "moment of inertia of link 1",
+         "moment of inertia of link 2",
+         "moment of inertia of link 3",
+         "length of link 1",
+         "length of link 2",
+         "length of link 3",
+         "length of link 4",
+         "acceleration due to gravity"
+         ] 
+
 
 # contains all lists of the columns before the "Symbol" Column
 # --- Empty list, if there are no columns before the "Symbol" Column
