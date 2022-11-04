@@ -1,0 +1,41 @@
+# 
+
+#link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+
+key: COM43
+predecessor_key: ''
+type: system_model
+name: 'Heat flow in a thin rod 1D model'
+short_description: HF1 Heat flow in a thin rod 1D model A. S. Hodel, K. P. Poolla and B. Tension, "Numerical Solution of the Lyapunpv Equation by Approximate Power Iteration", Linear Algebra Appl., Vol. 236, pp. 205-230, 1996
+version: 0.1.0
+tag_list:
+    - ''
+erk_data:
+    R9125["has input dimension"]: 1
+    R8978["has output dimension"]: 2
+    R2928["has model representation"]:
+        I6850["state space model representation"]:
+            R2112["has state dimension"]: 130
+            R3898["has system order"]: 1 # todo: this should be redundant
+            R16["has property"]:
+                - I1898["lti"]
+                - I8978["time continuity"]
+    
+    R16["has property"]:
+        
+        - I7864["controllability"]
+        
+        - I3227["observability"]
+        
+    
+    
+creator: F. Leibfritz, also see <http://www.compleib.de/>
+editor_list:
+    - This entity was automatically generated.
+creation_date: 2022-10-10 15:53:36
+external_references: ''
+notes: ''
+estimated_runtime: 10s
+compatible_environment: ""
+system_model_file: system_model.py
+simulation_file: simulation.py
