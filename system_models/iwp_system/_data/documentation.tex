@@ -1,0 +1,104 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+
+%link to documentation: 
+%https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+
+\begin{document}
+	\part*{Model Documentation of the \\ Inertia Wheel Pendulum} % MUST - Add Model Name 
+	
+	%%%%%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Nomenclature} % MUST
+	\subsection{Nomenclature for Model Equations} % MUST
+	
+	%variables for model equations
+	\begin{tabular}{ll}
+		$m_1$ & mass of the pendulum \\
+		$m_2$ & mass of the wheel \\
+		$l_1$ & length of the pendulum \\
+		$s_1$ & distance of the center of gravity \\
+		$J_1$ & moment of inertia of the pendulum \\
+		$J_2$ & moment of inertia of the wheel \\		
+		$g$ & acceleration due to gravity \\
+		
+				
+	\end{tabular}
+	 
+	
+	\subsection{Graphic of the Structure}	
+	\begin{figure}[H]
+		\centering
+		\captionsetup{justification=centering, margin=1cm}
+		\includegraphics[width=70mm]{iwp.pdf}
+		\caption{Structure of the IWP. \\ \footnotesize{Source: Wang, Yang/Erstellung eines regelungstheoretischen Katalogs unteraktuierter mechanischer Systeme}}
+	\end{figure}
+	
+	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Model Equations} % MUST
+	
+	State Vector and Input Vector:
+	\begin{align*}
+		\underline{x} &= (q_1 \ q_2 \ \dot{q}_1 \ \dot{q}_2)^T &= (x_1 \ x_2 \ x_3 \ x_4)^T \\
+		u &= \tau
+	\end{align*}
+	
+	\noindent System Equations:			
+	\begin{subequations}
+	\begin{align}
+		\dot{x}_1 &= x_3 \\
+		\dot{x}_2 &= x_4 \\
+		\dot{x}_3 &= \frac{J_2(m_1s_1 + m_2l_1)g \sin x_1 - J_2u}{J_2(m_1s_1^2 + m_2l_1^2 + J_1)} \\
+		\dot{x}_4 &= \frac{-J_2(m_1s_1 + m_2l_1)g \sin x_1 + (m_1s_1^2 + m_2l_1^2 + J_1 + J_2)u}{J_2(m_1s_1^2 + m_2l_1^2 + J_1)}
+	\end{align}
+	\end{subequations}
+
+	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent
+	Parameters: $m_1, \, m_2, \, l_1, \, s_1, \, J_1, \, J_2, \, g$ % variables with constant, predefined value
+	\\
+	Outputs: \underline{x}
+	
+	%%%%%%%%%%%%%%%%%%%%%% ASSUMPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\subsection{Assumptions} % MAY 
+		\begin{enumerate} %possible list type for the Assumptions
+			\item The dissipative forces are not taken into account. 
+		\end{enumerate}
+	
+	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\subsection{Exemplary parameter values}
+	\input{parameters.tex}
+
+	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\section{Derivation and Explanation} % SHOULD
+	The Lagrangian mechanics was used for the solution. \\
+	Kinetic Energy: 
+	\begin{align}
+		T &= \frac{1}{2}(m_1s_1^2 + m_2l_1^2 + J_1 + J_2)x_3^2 + J_2x_3x_4 + \frac{1}{2}J_2x_4^2
+	\end{align}
+	Potential Energy: 
+	\begin{align}
+		V = (m_1s_1 - m_2l_1)g(\cos x_1 -1)
+	\end{align}
+	
+	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\begin{thebibliography}{10}		
+		\bibitem{But21}Wang, Yang:  
+		\textit{Erstellung eines regelungstheoretischen Katalogs unteraktuierter mechanischer Systeme}, master thesis at the Institut of Control Theory TU Dresden, published 2016. \\
+		(not publicly accessible)
+	\end{thebibliography}
+
+\end{document}
+
