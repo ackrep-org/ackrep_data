@@ -23,10 +23,11 @@
 	\begin{tabular}{ll}
 		$s_1$ & switching treshold down \\
 		$s_2$ & switching treshold up \\
-		$y_i$ & output values of the hysteresis system for i = 1,2 \\
-		$T_{storage}$ & time constant of the internal PT1 \\
+		$y_i$ & output values of the hysteresis system for i = 1, 2 \\
+		$T_{storage}$ & time constant of the internal linear first order system (PT1) \\
 		$w$ & input signal \\
-					
+		$x_1$ & state signal\\
+		$a_i$ & auxiliary signals for i = 1, 2, 3, 4, 5 \\			
 	\end{tabular}
 	 
 	
@@ -47,7 +48,28 @@
 	\noindent Equations:			
 	\begin{subequations}
 	\begin{align}
-		[..]
+		a_1 &= 
+		\begin{cases}
+        -1, & \text{for } w < 4\\
+        0, & \text{for } w\geq 4\\
+        \end{cases} \\
+        a_2 &= 
+		\begin{cases}
+        0, & \text{for } w < 8\\
+        1, & \text{for } w\geq 8\\
+        \end{cases} \\
+        a_3 &= a_1 + a_2 + x_1 \\
+        a_4 &= 
+		\begin{cases}
+        0, & \text{for } w < 4 \\
+        & \text{ or } w < 8 \text{ in case w decreased under 4} \\
+        & \text{ and did not rise over 8 since then}\\
+        1, & \text{for } w > 8 \\
+        & \text{ or } w > 4 \text{ in case w increased over 8} \\
+        & \text{ and did not sink under 4 since then} \\
+        \end{cases} \\
+        x_1 &= [0, 1] \\
+        a_5 &= [2, 11]        
 	\end{align}
 	\end{subequations}
 
@@ -68,7 +90,7 @@
 	\section{Derivation and Explanation} % SHOULD
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=70mm]{hysteresis.pdf}
+		\includegraphics[width=120mm]{hysteresis_block.pdf}
 		\caption{Block Diagram}
 	\end{figure}
 	
