@@ -58,8 +58,10 @@ class Model(GenericModel):
             """ 
             if t < 1: 
                 u_num_2 = 0
-            elif 1 < t < 2:
-                u_num_2 = 2
+            elif 1 < t < 1.5:
+                u_num_2 = -0.2
+            elif 1.5 < t < 3:
+                u_num_2 = 0.5
             else: 
                 u_num_2 = 0
             u_num_1 = 0

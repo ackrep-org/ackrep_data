@@ -34,6 +34,11 @@ def simulate():
     tt = np.linspace(0, t_end, 10000)
     simulation_data = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
 
+    u =[]
+    for i in range(len(simulation_data.t)):
+        u.append(model.uu_func(simulation_data.t[i], xx0)[1])
+    simulation_data.uu = u
+
     # ---------end of edit section----------------------------------------
 
     save_plot(simulation_data)
@@ -53,7 +58,7 @@ def save_plot(simulation_data):
     """
     # ---------start of edit section--------------------------------------
     # plot of your data
-    fig1, axs = plt.subplots(nrows=4, ncols=1, figsize=(12.8, 9))
+    fig1, axs = plt.subplots(nrows=5, ncols=1, figsize=(12.8, 9))
 
     # print in axes top left
     axs[0].plot(simulation_data.t, simulation_data.y[0])
@@ -70,8 +75,12 @@ def save_plot(simulation_data):
 
     axs[3].plot(simulation_data.t, simulation_data.y[3])
     axs[3].set_ylabel(r"$x_4 \, [rad/s]$")  # y-label
-    axs[3].set_xlabel("Time [s]")  # x-label
     axs[3].grid()
+
+    axs[4].plot(simulation_data.t, simulation_data.uu)
+    axs[4].set_ylabel(r"$u \, [Nm]$")  # y-label
+    axs[4].set_xlabel("Time [s]")  # x-label
+    axs[4].grid()
     # ---------end of edit section----------------------------------------
 
     plt.tight_layout()
@@ -89,7 +98,7 @@ def evaluate_simulation(simulation_data):
     # ---------start of edit section--------------------------------------
     # fill in final states of simulation to check your model
     # simulation_data.y[i][-1]
-    expected_final_state = [-82.79824824127192, 7.084734449727672, -32.326758580503466, 0.16880093998221923]
+    expected_final_state = [50.46180780370284, -1.4107500985143662, 26.73084675897836, -0.044207917732603755]
 
     # ---------end of edit section----------------------------------------
 
