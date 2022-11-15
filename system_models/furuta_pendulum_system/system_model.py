@@ -85,21 +85,21 @@ class Model(GenericModel):
     
         u1, u2 = self.uu_symb   # inputs
 
-        # Koordinaten der Schwerpunkte zwei Korper
+        # positions
         S1 = 0
         G1= sp.Matrix([l1*sp.sin(x1),l1*sp.cos(x1),0])
 
         S2 = G1 + sp.Matrix([l2*sp.sin(x2)*sp.cos(x1),-l2*sp.sin(x2)*sp.sin(x1),l2*sp.cos(x2)])
 
-        # Geschwindigkeit der Körper
+        # velocities
         Sd2 = st.time_deriv(S2, x)
 
-        # Kinetische Energie
-        T_trans = (m2*Sd2.T*Sd2) /2 #Translationsenergie
-        T_rot = (J1*xdot1**2 + J2*xdot2**2)/2 #Rotationsenergie
-        T = T_trans[0] + T_rot #Kinetische Energie
+        # kinetic energy
+        T_trans = (m2*Sd2.T*Sd2) /2 
+        T_rot = (J1*xdot1**2 + J2*xdot2**2)/2 
+        T = T_trans[0] + T_rot 
 
-        # Potentielle Energie
+        # potential energy
         V =  m2*g*l2*(sp.cos(x2)-1)
 
         external_forces = sp.Matrix([[u1, 0]])
