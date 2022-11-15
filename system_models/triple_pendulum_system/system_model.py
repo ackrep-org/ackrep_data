@@ -132,10 +132,10 @@ class Model(GenericModel):
             mod.calc_coll_part_lin_state_eq()
             
             # write the model to disk to save time in the next run of the notebook
-            with open("pendulum.pcl", "wb") as pfile:
+            with open(fpath, "wb") as pfile:
                 pickle.dump(mod, pfile)
         else:
-            with open("pendulum.pcl", "rb") as pfile:
+            with open(fpath, "rb") as pfile:
                 mod = pickle.load(pfile)
 
         mod.eqns = mod.eqns.subs([(xdot1, x5), (xdot2, x6), (xdot3, x7), (xdot4, x8)])
@@ -155,9 +155,7 @@ class Model(GenericModel):
 
         mod = self.get_rhs_symbolic()
 
-        #parameter_values = list(self.pp_str_dict.items())
-        self._create_subs_list()
-        parameter_values = self.pp_subs_list
+        parameter_values = list(self.pp_str_dict.items())
 
         ff = mod.ff.subs(parameter_values)
         xx = mod.xx.subs(parameter_values)
