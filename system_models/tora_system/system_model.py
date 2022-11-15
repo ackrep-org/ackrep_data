@@ -85,24 +85,23 @@ class Model(GenericModel):
     
         u1, u2 = self.uu_symb   # inputs
 
-        # Geometrie: (Einheitsvektoren)>>>Spezial
         ex = sp.Matrix([1,0])
         ey = sp.Matrix([0,-1])
 
-        # Positionsvektor der zwei Körper
+        # positions
         S1 = x[0]*ex
         S2 = S1 + mt.Rz(x[1])*ey*l1
 
-        # Geschwindigkeit der zwei Korper
+        # velocities
         Sd1 = st.time_deriv(S1, x)
         Sd2 = st.time_deriv(S2, x)
 
-        # Kinetische Energie
-        T_trans = (m1*Sd1.T*Sd1  +  m2*Sd2.T*Sd2) /2 #Translationsenergie
-        T_rot = (J1*xdot2**2)/2  #Rotationsenergie
+        # kinetic energy
+        T_trans = (m1*Sd1.T*Sd1  +  m2*Sd2.T*Sd2) /2 
+        T_rot = (J1*xdot2**2)/2 
         T = T_trans[0] + T_rot 
 
-        # Potentielle Energie
+        # potential energy
         V = (a*x1**2)/2
 
         external_forces = sp.Matrix([[0, u2]])
