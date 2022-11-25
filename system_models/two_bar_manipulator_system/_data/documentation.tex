@@ -1,0 +1,108 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{url}
+
+%link to documentation: 
+%https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+
+\begin{document}
+	\part*{Model Documentation of the \\ Underactuated Manipulator with Two Revolute Joints} % MUST - Add Model Name 
+	
+	%%%%%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Nomenclature} % MUST
+	\subsection{Nomenclature for Model Equations} % MUST
+	
+	%variables for model equations
+	\begin{tabular}{ll}
+		$s_i$ & distance from the joint to the center of gravity of link $i$, where $i = 1,2$ \\
+		$m_i$ & mass of the link $i$, where $i = 1,2$ \\
+		$J_i$ & moment of inertia of the link $i$, where $i = 1,2$ \\
+		$l_1$ & length of link 1 \\
+		$\tau$ & torque \\
+		$q_1$ & angle between basis and link 1\\
+		$p_1$ & angle between link 1 and link 2\\
+		
+	\end{tabular}
+	 
+	
+	\subsection{Graphic of the Structure}	
+	\begin{figure}[H]
+		\centering
+		\captionsetup{justification=centering, margin=1cm}
+		\includegraphics[width=70mm]{two_manipulator.pdf}
+		\caption{Structure of the manipulator. \\ \footnotesize{Source: Knoll, Carsten/ Betrachtetes System: unteraktuierten Zweigelenkmanipulator.}}
+	\end{figure}
+	
+	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Model Equations} % MUST
+	
+	State Vector and Input Vector:
+	\begin{align*}
+		\underline{x} &= (p_1 \ q_1 \ \dot{p}_1 \ \dot{q}_1)^T &= (x_1 \ x_2 \ x_3 \ x_4)^T \\
+		\underline{u} &= (\tau \ 0)^T &= (u_1 \ u_2)^T 
+	\end{align*}
+	
+	\noindent Kinetic Energy:			
+	\begin{subequations}
+	\begin{align*}
+		T_{trans} &= \frac{1}{2} m_1s_1^2x_3^2 \sin^2 x_1+ \frac{1}{2} m_1s_1^2x_3^2 \cos^2 x_1 \\
+		&+ \frac{m_2}{2}(-l_1x_3 \sin x_1 - s_2(x_3 + x_4) \sin(x_1 + x_2))^2 \\
+		&+ \frac{m_2}{2}(l_1x_3 \cos x_1 + s_2(x_3 + x_4) \cos(x_1 + x_2))^2 \\
+		T_{rot} &= \frac{1}{2} J_1x_3^2 + \frac{1}{2} J_2(x_3 + x_4)^2	
+	\end{align*}
+	\end{subequations}
+		
+	
+	\noindent Potential Energy:			
+	\begin{subequations}
+	\begin{align*}
+		V &= 0
+	\end{align*}
+	\end{subequations}
+
+	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent
+	Parameters: $s_1, \, s_2, \, m_1, \, m_2, \, J_1, \, J_2, \, l_1$ % variables with constant, predefined value
+	\\
+	Outputs: \underline{x} % MAY
+	
+	%%%%%%%%%%%%%%%%%%%%%% ASSUMPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\subsection{Assumptions} % MAY 
+		\begin{enumerate} %possible list type for the Assumptions
+			\item Friction is not taken into account. 
+		\end{enumerate}
+	
+	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\subsection{Exemplary parameter values}
+	\input{parameters.tex}
+
+	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\section{Derivation and Explanation} % SHOULD
+	
+	The Lagrangian mechanics was used for the solution.
+	
+	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\begin{thebibliography}{10}	
+		\bibitem{ck1}Knoll, Carsten: 
+		\textit{Betrachtetes System: unteraktuierten Zweigelenkmanipulator.}, Jupyter Notebook published 2016. \\
+		\url{https://github.com/cknoll/beispiele/blob/master/zweigelenk_manipulator.ipynb}	
+		\bibitem{But21}Wang, Yang: 
+		\textit{Erstellung eines regelungstheoretischen Katalogs unteraktuierter mechanischer Systeme}, master thesis at the Institut of Control Theory TU Dresden, published 2016. \\
+		(not publicly accessible)
+	\end{thebibliography}
+
+\end{document}
+
