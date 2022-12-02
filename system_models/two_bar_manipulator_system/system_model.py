@@ -103,10 +103,6 @@ class Model(GenericModel):
         T = T_trans[0] + T_rot #kinetic energy
         V = 0 #potential energy
 
-        print(T_trans)
-        print('luecke')
-        print(T_rot)
-
         external_forces = sp.Matrix([[u1, 0]])
         mod = mt.generate_symbolic_model(T, V, x, external_forces)
 
