@@ -30,7 +30,7 @@ def simulate():
     # initial state values
     xx0 = [0, 0, 0, 0]
 
-    t_end = 6
+    t_end = 4
     tt = np.linspace(0, t_end, 10000)
     simulation_data = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
 
@@ -97,7 +97,7 @@ def evaluate_simulation(simulation_data):
     # ---------start of edit section--------------------------------------
     # fill in final states of simulation to check your model
     # simulation_data.y[i][-1]
-    expected_final_state = [33.10950221144625, -1.8267733502557093, 8.29553452969469, 2.0069651968321747]
+    expected_final_state = [19.015649974691552, -1.202449781113003, 12.595701644537405, -13.002839497886463  ]
         #33.10950221144625, -1.8267733502557093, 8.29553452969469, 2.0069651968321747                   6
         #19.015649974691552, -1.202449781113003, 12.595701644537405, -13.002839497886463                4
         #21.23859822,   1.43608975,  12.0658569,  -10.03688427]                                         4.5
