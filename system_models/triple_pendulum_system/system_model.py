@@ -27,7 +27,7 @@ class Model(GenericModel):
         
         # ---------start of edit section--------------------------------------
         # Define number of inputs -- MODEL DEPENDENT
-        self.u_dim = 4
+        self.u_dim = 1
 
         # Set "sys_dim" to constant value, if system dimension is constant 
         self.sys_dim = 8
@@ -57,12 +57,9 @@ class Model(GenericModel):
             :param xx_nv:(vector or array of vectors) numeric state vector
             :return:(list) numeric inputs 
             """ 
-            u1 = 0
-            u2 = 0
-            u3 = 0
             u4 = 1
             
-            return [u1, u2, u3, u4]
+            return [u4]
         # ---------end of edit section----------------------------------------
 
         return uu_rhs
@@ -80,7 +77,7 @@ class Model(GenericModel):
         x1, x2, x3, x4, x5, x6, x7, x8 = self.xx_symb   #state components
         m0, m1, m2, m3, J1, J2, J3, l1, l2, l3, a1, a2, a3, g = self.pp_symb   #parameters
     
-        u1, u2, u3, u4 = self.uu_symb   # inputs
+        u4 = self.uu_symb[0]   # inputs
 
         ttheta = sp.Matrix([[x1], [x2], [x3], [x4]])
         xdot1, xdot2, xdot3, xdot4 = sp.symbols('xdot1, xdot2, xdot3, xdot4')

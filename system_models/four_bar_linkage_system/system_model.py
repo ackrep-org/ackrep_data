@@ -28,7 +28,7 @@ class Model(GenericModel):
 
         # ---------start of edit section--------------------------------------
         # Define number of inputs -- MODEL DEPENDENT
-        self.u_dim = 3
+        self.u_dim = 1
 
         # Set "sys_dim" to constant value, if system dimension is constant
         self.sys_dim = 8

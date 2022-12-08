@@ -26,7 +26,7 @@ class Model(GenericModel):
         
         # ---------start of edit section--------------------------------------
         # Define number of inputs -- MODEL DEPENDENT
-        self.u_dim = 2
+        self.u_dim = 1
 
         # Set "sys_dim" to constant value, if system dimension is constant 
         self.sys_dim = 4
@@ -60,9 +60,8 @@ class Model(GenericModel):
                 u1 = 0.5
             else: 
                 u1 = 0
-            u2 = 0
 
-            return [u1, u2]
+            return [u1]
         # ---------end of edit section----------------------------------------
 
         return uu_rhs
@@ -85,7 +84,7 @@ class Model(GenericModel):
 
         s1, s2, m1, m2, J1, J2, l1 = self.pp_symb   #parameters
     
-        u1, u2 = self.uu_symb   # inputs
+        u1 = self.uu_symb[0]   # inputs
 
         ex = sp.Matrix([1,0])
 

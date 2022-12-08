@@ -26,7 +26,7 @@ class Model(GenericModel):
         
         # ---------start of edit section--------------------------------------
         # Define number of inputs -- MODEL DEPENDENT
-        self.u_dim = 2
+        self.u_dim = 1
 
         # Set "sys_dim" to constant value, if system dimension is constant 
         self.sys_dim = 4
@@ -56,10 +56,9 @@ class Model(GenericModel):
             :param xx_nv:(vector or array of vectors) numeric state vector
             :return:(list) numeric inputs 
             """ 
-            u1 = 0
             u2 = 0.5
             
-            return [u1, u2]
+            return [u2]
         # ---------end of edit section----------------------------------------
 
         return uu_rhs
@@ -83,7 +82,7 @@ class Model(GenericModel):
 
         m1, m2, l1, J1, a = self.pp_symb   #parameters
     
-        u1, u2 = self.uu_symb   # inputs
+        u2 = self.uu_symb[0]   # inputs
 
         ex = sp.Matrix([1,0])
         ey = sp.Matrix([0,-1])

@@ -35,7 +35,7 @@ def simulate():
     simulation_data = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
     u =[]
     for i in range(len(simulation_data.t)):
-        u.append(model.uu_func(simulation_data.t[i], xx0)[1])
+        u.append(model.uu_func(simulation_data.t[i], xx0)[0])
     simulation_data.uu = u
 
     # ---------end of edit section----------------------------------------

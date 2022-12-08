@@ -36,7 +36,7 @@ def simulate():
 
     u =[]
     for i in range(len(simulation_data.t)):
-        u.append(model.uu_func(simulation_data.t[i], xx0)[1])
+        u.append(model.uu_func(simulation_data.t[i], xx0)[0])
     simulation_data.uu = u
 
     # ---------end of edit section----------------------------------------
