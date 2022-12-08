@@ -47,7 +47,7 @@
 	State Vector and Input Vector:
 	\begin{align*}
 		\underline{x} &= (q_1 \ q_2 \ \dot{q}_1 \ \dot{q}_2)^T &= (x_1 \ x_2 \ x_3 \ x_4)^T \\
-		\underline{u} &= (0 \ \tau)^T &= (u_1 \ u_2)^T
+		u &= \tau 
 	\end{align*}
 	
 	\noindent System Equations:			
@@ -55,8 +55,8 @@
 	\begin{align}
 		\dot{x}_1 &= x_3 \\
 		\dot{x}_2 &= x_4 \\
-		\dot{x}_3 &= \frac{(m_2l_1^2 + J_1)(-\alpha x_1 + m_2l_1x_4^2 \sin x_2) - m_2l_1 \cos x_2 \tau}{(m_1 + m_2)(m_2l_1^2 + J_1) - m_2^2l_1^2 \cos^2 x_2} \\
-		\dot{x}_4 &= \frac{-m_2l_1 \cos x_2(-\alpha x_1 + m_2l_1x_4^2 \sin x_2) + (m_1 + m_2)\tau}{(m_1 + m_2)(m_2l_1^2 + J_1) - m_2^2l_1^2 \cos^2 x_2}		
+		\dot{x}_3 &= \frac{(m_2l_1^2 + J_1)(-\alpha x_1 + m_2l_1x_4^2 \sin x_2) - m_2l_1 \cos x_2 u}{(m_1 + m_2)(m_2l_1^2 + J_1) - m_2^2l_1^2 \cos^2 x_2} \\
+		\dot{x}_4 &= \frac{-m_2l_1 \cos x_2(-\alpha x_1 + m_2l_1x_4^2 \sin x_2) + (m_1 + m_2)u}{(m_1 + m_2)(m_2l_1^2 + J_1) - m_2^2l_1^2 \cos^2 x_2}		
 	\end{align}
 	\end{subequations}
 
