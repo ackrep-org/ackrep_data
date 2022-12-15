@@ -3,11 +3,10 @@
 key: VVAHU
 predecessor_key: ''
 type: system_model
-name: 'two bar manipulator'
+name: 'pendubot'
 short_description: 'underactuated manipulator with 2 revolute joints'
 version: 0.1.0
 tag_list:
-    - 'manipulator'
     - 'underactuated'
 creator: 'Anne Harloff <anne.harloff{ät}mailbox.tu-dresden.de>'
 editor_list:

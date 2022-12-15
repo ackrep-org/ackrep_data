@@ -11,7 +11,7 @@ import tabulate as tab
 
 
 # set model name
-model_name = ".."
+model_name = "pendubot"
 
 
 # ---------- create symbolic parameters
