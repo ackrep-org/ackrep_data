@@ -24,26 +24,6 @@ jobs: # A basic unit of work in a run
             git clone https://github.com/ackrep-org/ackrep_core.git
             cd ackrep_core
             git checkout develop
-      - run:
-          name: Load ERK Modules
-          command: |
-            . venv/bin/activate
-            echo Cloning pyerk
-            cd ../../
-            mkdir erk
-            cd erk
-            git clone https://github.com/ackrep-org/pyerk-core.git
-            cd pyerk-core
-            git checkout main
-            pip install -r requirements.txt
-            pip install -e .
-            echo Cloning erk-data
-            cd ../
-            mkdir erk-data
-            cd erk-data
-            git clone https://github.com/ackrep-org/ocse.git
-            cd ocse
-            git checkout develop
       - restore_cache:
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
           key: deps1--{{ checksum "../ackrep_core/requirements.txt" }}
@@ -59,6 +39,23 @@ jobs: # A basic unit of work in a run
           key: deps1--{{ checksum "../ackrep_core/requirements.txt" }}
           paths:
             - "venv"
+      - run:
+          name: bootstrap Config
+          command: |
+            . venv/bin/activate
+            cd ..
+            ackrep --bootstrap-config
+      - run:
+          name: Load ERK Modules
+          command: |
+            . venv/bin/activate
+            echo Cloning erk_data
+            cd ~
+            mkdir -p erk/erk_data
+            cd erk/erk_data
+            git clone https://github.com/ackrep-org/ocse.git
+            cd ocse
+            git checkout develop
       - run:
           name: Change Permissions
           command: |
