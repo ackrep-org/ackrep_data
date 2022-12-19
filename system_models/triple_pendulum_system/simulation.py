@@ -19,7 +19,7 @@ def simulate():
 
     model = system_model.Model()
 
-    mod = model.get_rhs_symbolic()
+    mod = model.get_symbolic_model()
     print("Computational Equations:\n")
     for i, eq in enumerate(mod.eqns):
         print(f"dot_x{i+1} =", eq)
@@ -27,7 +27,7 @@ def simulate():
     rhs = model.get_rhs_odeint_fnc()
 
     # initial state values
-    xx0 = np.array([2, 2, 2, 0,  0, 0, 0, 0])
+    xx0 = np.array([2, 2, 2, 0, 0, 0, 0, 0])
 
     t_end = 15
     tt = np.linspace(0, t_end, 10000)

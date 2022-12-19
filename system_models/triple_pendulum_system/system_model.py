@@ -57,9 +57,9 @@ class Model(GenericModel):
             :param xx_nv:(vector or array of vectors) numeric state vector
             :return:(list) numeric inputs 
             """ 
-            u4 = 1
+            u1 = 1
             
-            return [u4]
+            return [u1]
         # ---------end of edit section----------------------------------------
 
         return uu_rhs
@@ -67,9 +67,9 @@ class Model(GenericModel):
 
     # ----------- SYMBOLIC RHS FUNCTION ---------- # 
 
-    def get_rhs_symbolic(self):
+    def get_symbolic_model(self):
         """
-        define symbolic equations of the model
+        define model 
 
         :return: model 
         """
@@ -77,7 +77,7 @@ class Model(GenericModel):
         x1, x2, x3, x4, x5, x6, x7, x8 = self.xx_symb   #state components
         m0, m1, m2, m3, J1, J2, J3, l1, l2, l3, a1, a2, a3, g = self.pp_symb   #parameters
     
-        u4 = self.uu_symb[0]   # inputs
+        u1 = self.uu_symb[0]   # inputs
 
         ttheta = sp.Matrix([[x1], [x2], [x3], [x4]])
         xdot1, xdot2, xdot3, xdot4 = sp.symbols('xdot1, xdot2, xdot3, xdot4')
@@ -116,7 +116,7 @@ class Model(GenericModel):
         # total potential energy
         V = g * (m1 * S1[1] + m2 * S2[1] + m3 * S3[1])
 
-        external_forces = [0, 0, 0, u4]
+        external_forces = [0, 0, 0, u1]
 
         dir_of_this_file = os.path.dirname(os.path.abspath(sys.modules.get(__name__).__file__))
         fpath = os.path.join(dir_of_this_file, "pendulum.pcl")
@@ -150,9 +150,9 @@ class Model(GenericModel):
         :return: rhs function
         """
 
-        mod = self.get_rhs_symbolic()
+        mod = self.get_symbolic_model()
 
-        parameter_values = list(self.pp_str_dict.items())
+        parameter_values = list(self.pp_dict.items())
 
         ff = mod.ff.subs(parameter_values)
         xx = mod.xx.subs(parameter_values)
