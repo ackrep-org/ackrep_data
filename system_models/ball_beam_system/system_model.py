@@ -86,7 +86,7 @@ class Model(GenericModel):
         x1, x2, x3, x4 = self.xx_symb   #state components
         m1, J1, J2, r, g = self.pp_symb   #parameters
     
-        u2 = self.uu_symb[0]   # inputs
+        u1 = self.uu_symb[0]   # inputs
 
         q = sp.Matrix([[x1], [x2]])
         xdot1, xdot2 = sp.symbols('xdot1, xdot2')
@@ -109,7 +109,7 @@ class Model(GenericModel):
         # potential Energie
         V = m1*g*S2[1]
 
-        external_forces = sp.Matrix([[0, u2]])
+        external_forces = sp.Matrix([[0, u1]])
 
         mod = mt.generate_symbolic_model(T, V, q, external_forces)
         

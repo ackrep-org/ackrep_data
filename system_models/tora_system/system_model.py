@@ -56,9 +56,9 @@ class Model(GenericModel):
             :param xx_nv:(vector or array of vectors) numeric state vector
             :return:(list) numeric inputs 
             """ 
-            u2 = 0.5
+            u1 = 0.5
             
-            return [u2]
+            return [u1]
         # ---------end of edit section----------------------------------------
 
         return uu_rhs
@@ -82,7 +82,7 @@ class Model(GenericModel):
 
         m1, m2, l1, J1, a = self.pp_symb   #parameters
     
-        u2 = self.uu_symb[0]   # inputs
+        u1 = self.uu_symb[0]   # inputs
 
         ex = sp.Matrix([1,0])
         ey = sp.Matrix([0,-1])
@@ -103,7 +103,7 @@ class Model(GenericModel):
         # potential energy
         V = (a*x1**2)/2
 
-        external_forces = sp.Matrix([[0, u2]])
+        external_forces = sp.Matrix([[0, u1]])
         mod = mt.generate_symbolic_model(T, V, x, external_forces)
 
         mod.calc_state_eq(simplify=False)

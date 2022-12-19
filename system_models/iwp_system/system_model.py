@@ -57,15 +57,15 @@ class Model(GenericModel):
             :return:(list) numeric inputs 
             """ 
             if t < 1: 
-                u2 = 0
+                u1 = 0
             elif 1 < t < 2:
-                u2 = 2
+                u1 = 2
             elif 2 < t < 3:
-                u2 = -2
+                u1 = -2
             else: 
-                u2 = 0
+                u1 = 0
             
-            return [u2]
+            return [u1]
         # ---------end of edit section----------------------------------------
 
         return uu_rhs
@@ -85,7 +85,7 @@ class Model(GenericModel):
         x1, x2, x3, x4 = self.xx_symb   #state components
         m1, m2, l1, s1, J1, J2, g = self.pp_symb   #parameters
     
-        u2 = self.uu_symb[0]   # inputs
+        u1 = self.uu_symb[0]   # inputs
 
         q = sp.Matrix([[x1], [x2]])
         xdot1, xdot2 = sp.symbols('xdot1, xdot2')
@@ -106,7 +106,7 @@ class Model(GenericModel):
         #potential energy
         V = (m1*s1+m2*l1)*g*(sp.cos(q[0])-1) 
 
-        external_forces = sp.Matrix([[0, u2]])
+        external_forces = sp.Matrix([[0, u1]])
         mod = mt.generate_symbolic_model(T, V, q, external_forces)
 
         mod.calc_state_eq(simplify=False)
