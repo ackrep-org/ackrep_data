@@ -113,7 +113,7 @@ class Model(GenericModel):
         dxn_dt = (K_symb * u1 - inv_laplace) * 1 / sum_vec[-1]
         dxx_dt = dxx_dt + [dxn_dt]
         # put rhs functions into a vector
-        self.dxx_dt_symb = dxx_dt
+        self.dxx_dt_symb = sp.Matrix(dxx_dt)
 
         return self.dxx_dt_symb
 

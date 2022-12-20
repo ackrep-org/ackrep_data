@@ -82,6 +82,6 @@ class Model(GenericModel):
         dxx_dt_symb[:-1] = self.xx_symb[1:]
         dxx_dt_symb[-1] = self.uu_symb[0]
 
-        self.dxx_dt_symb = dxx_dt_symb
+        self.dxx_dt_symb = sp.Matrix(dxx_dt_symb)
 
         return self.dxx_dt_symb

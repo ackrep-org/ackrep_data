@@ -24,7 +24,7 @@ class Model:
 
     init_funcs = pi.LagrangeFirstOrder.cure_interval(spat_domain)
     func_label = "init_funcs"
-    pi.register_base(func_label, init_funcs)
+    pi.register_base(func_label, init_funcs, overwrite=True)
     # inpuc function
     u = pi.SimulationInputSum(
         [
