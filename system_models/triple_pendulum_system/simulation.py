@@ -19,12 +19,12 @@ def simulate():
 
     model = system_model.Model()
 
-    mod = model.get_symbolic_model()
-    print("Computational Equations:\n")
-    for i, eq in enumerate(mod.eqns):
-        print(f"dot_x{i+1} =", eq)
+    eqns, ff, xx, gg = model.get_symbolic_model()
+    print("Lagrange Equations:\n")
+    for i, eq in enumerate(eqns):
+        print(f"0 =", eq)
 
-    rhs = model.get_rhs_odeint_fnc()
+    rhs = model.get_rhs_odeint_fnc(ff, xx, gg)
 
     # initial state values
     xx0 = np.array([2, 2, 2, 0, 0, 0, 0, 0])

@@ -135,28 +135,25 @@ class Model(GenericModel):
             with open(fpath, "rb") as pfile:
                 mod = pickle.load(pfile)
 
-        mod.eqns = mod.eqns.subs([(xdot1, x5), (xdot2, x6), (xdot3, x7), (xdot4, x8)])
+        eqns = mod.eqns.subs([(xdot1, x5), (xdot2, x6), (xdot3, x7), (xdot4, x8)])
 
-        mod.ff = mod.ff.subs([(xdot1, x5), (xdot2, x6), (xdot3, x7), (xdot4, x8)])
-        mod.xx = mod.xx.subs([(xdot1, x5), (xdot2, x6), (xdot3, x7), (xdot4, x8)])
-        mod.gg = mod.gg.subs([(xdot1, x5), (xdot2, x6), (xdot3, x7), (xdot4, x8)])
+        ff = mod.ff.subs([(xdot1, x5), (xdot2, x6), (xdot3, x7), (xdot4, x8)])
+        xx = mod.xx.subs([(xdot1, x5), (xdot2, x6), (xdot3, x7), (xdot4, x8)])
+        gg = mod.gg.subs([(xdot1, x5), (xdot2, x6), (xdot3, x7), (xdot4, x8)])
 
-        return mod         
+        return [eqns, ff, xx, gg]         
 
-    def get_rhs_odeint_fnc(self):
+    def get_rhs_odeint_fnc(self, ff, xx, gg):
         """
         Creates an executable function of the model for the odeint solver
 
         :return: rhs function
         """
-
-        mod = self.get_symbolic_model()
-
         parameter_values = list(self.pp_dict.items())
 
-        ff = mod.ff.subs(parameter_values)
-        xx = mod.xx.subs(parameter_values)
-        gg = mod.gg.subs(parameter_values)
+        ff = ff.subs(parameter_values)
+        xx = xx.subs(parameter_values)
+        gg = gg.subs(parameter_values)
         simmod = st.SimulationModel(ff, gg, xx)
         rhs = simmod.create_simfunction()
 
