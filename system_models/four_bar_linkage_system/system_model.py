@@ -162,3 +162,7 @@ class Model(GenericModel):
         dae_mod_func = dae.model_func
 
         return dae_mod_func
+    
+    def get_rhs_symbolic(self):
+        """This model is not represented by the standard rhs equations."""
+        return False

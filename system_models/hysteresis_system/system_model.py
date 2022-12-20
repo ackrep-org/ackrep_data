@@ -68,6 +68,10 @@ class Model(GenericModel):
     def get_rhs_func(self):
         msg = "This DAE model has no rhs func like ODE models."
         raise NotImplementedError(msg)
+    
+    def get_rhs_symbolic(self):
+        """This model is not represented by the standard rhs equations."""
+        return False
    
 
     def get_blockfnc(self):

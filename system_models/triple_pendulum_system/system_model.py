@@ -141,7 +141,8 @@ class Model(GenericModel):
         xx = mod.xx.subs([(xdot1, x5), (xdot2, x6), (xdot3, x7), (xdot4, x8)])
         gg = mod.gg.subs([(xdot1, x5), (xdot2, x6), (xdot3, x7), (xdot4, x8)])
 
-        return [eqns, ff, xx, gg]         
+        return [eqns, ff, xx, gg]        
+
 
     def get_rhs_odeint_fnc(self, ff, xx, gg):
         """
@@ -158,6 +159,10 @@ class Model(GenericModel):
         rhs = simmod.create_simfunction()
 
         return rhs
+    
+    def get_rhs_symbolic(self):
+        """This model is not represented by the standard rhs equations."""
+        return False
 
 
 
