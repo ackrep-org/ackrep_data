@@ -26,7 +26,7 @@ def simulate():
 
     model = system_model.Model()
 
-    mod = model.get_rhs_symbolic()
+    mod = model.get_mod()
     print("Constraints:\n")
     for i, eq in enumerate(mod.constraints):
         print(eq)
@@ -36,7 +36,7 @@ def simulate():
         print(eq)
     print("\n")
 
-    dae_model_func = model.get_dae_model_func()
+    dae_model_func = model.get_dae_model_func(mod)
     # number of configuration coordinates
     ntt = len(mod.tt)
 

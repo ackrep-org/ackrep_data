@@ -69,7 +69,7 @@ class Model(GenericModel):
 
     # ----------- SYMBOLIC RHS FUNCTION ---------- #
 
-    def get_rhs_symbolic(self):
+    def get_mod(self):
         """
         define symbolic model
         return: object of class SymbolicModel from symbtools
@@ -148,13 +148,12 @@ class Model(GenericModel):
         msg = "This DAE model has no rhs func like ODE models."
         raise NotImplementedError(msg)
 
-    def get_dae_model_func(self):
+    def get_dae_model_func(self, mod):
         """
         generate dae system out of the symbolic model
         return: function
         """
         parameter_values = list(self.pp_str_dict.items())
-        mod = self.get_rhs_symbolic()
         dae = mod.calc_dae_eq(parameter_values)
 
         dae.generate_eqns_funcs()
