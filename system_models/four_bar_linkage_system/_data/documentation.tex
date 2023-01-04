@@ -6,6 +6,14 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{hyperref}
+\usepackage[dvipsnames]{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
 
 
 
@@ -15,6 +23,10 @@
 \begin{document}
 	\part*{Model Documentation of the \\ Four-Bar Linkage} % MUST - Add Model Name 
 	
+	%%%%%%%%%%%%%%%%%%%%%% NOTE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%notice.tex is part of all documentations and automatically generated to explain the origin of these pdf-files
+	\input{notice.tex}
+	
 	%%%%%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	\section{Nomenclature} % MUST
@@ -22,24 +34,15 @@
 	
 	%variables for model equations
 	\begin{tabular}{ll}
-		$s_1$ & center of gravity distance of first bar \\
-		$s_2$ & center of gravity distance of second bar \\
-		$s_3$ & center of gravity distance of third bar \\
-		$m_1$ & mass of first bar \\
-		$m_2$ & mass of second bar \\
-		$m_3$ & mass of third bar \\
-		$J_1$ & moment of inertia of first bar\\
-		$J_2$ & moment of inertia of second bar\\
-		$J_3$ & moment of inertia of third bar\\
-		$l_1$ & length of first bar\\
-		$l_2$ & length of second bar\\
-		$l_3$ & length of third bar\\
-		$l_4$ & length of fourth bar\\
+		$s_i$ & distance from the joint to the center of gravity of link $i$, where $i = 1,2,3$ \\
+		$m_i$ & mass of link $i$, where $i = 1,2,3$ \\
+		$J_i$ & moment of inertia of link $i$, where $i = 1,2,3$ \\
+		$l_i$ & length of (distance between joints) of link $i$, where $i = 1,2,3,4$ \\
 		$g$ & acceleration due to gravity\\
-		$p_1$ & angle of between th bars of the two link mainpulator\\
-		$p_2$ & angle of one link manipulator\\
-		$p_2$ & angle of two link manipulator\\
-		$u_1$ & external force\\
+		$p_1$ & angle between basis and link 1 (joint 1)\\
+		$p_2$ & angle between link 1 and link 2 (joint 2)\\
+		$q_1$ & angle between basis and link 3 (joint 4)\\
+		$u_1$ & external torgue applied to joint 1\\
 		$y$ & array of angles\\
 		$\dot{y}$ & array of angular velocities\\
 				

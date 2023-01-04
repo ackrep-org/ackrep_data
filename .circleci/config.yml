@@ -1,14 +1,14 @@
 jobs: # A basic unit of work in a run
   Validate_Data:
     # directory where steps are run
-    working_directory: ~/ackrep_data
+    working_directory: ~/ackrep/ackrep_data
     docker: # run the steps with Docker
       # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
       - image: cimg/python:3.8
         environment: # environment variables for primary container
           NO_IPS_EXCEPTHOOK: "True"
           CI: "True"
-          ACKREP_ENVIRONMENT_NAME: "dont import pyerk"
+          # ACKREP_ENVIRONMENT_NAME: "dont import pyerk"
 
     steps: # steps that comprise the `build` job
       - checkout # check out source code to working directory
@@ -40,6 +40,23 @@ jobs: # A basic unit of work in a run
           paths:
             - "venv"
       - run:
+          name: bootstrap Config
+          command: |
+            . venv/bin/activate
+            cd ..
+            ackrep --bootstrap-config
+      - run:
+          name: Load ERK Modules
+          command: |
+            . venv/bin/activate
+            echo Cloning erk_data
+            cd ~
+            mkdir -p erk/erk_data
+            cd erk/erk_data
+            git clone https://github.com/ackrep-org/ocse.git
+            cd ocse
+            git checkout develop
+      - run:
           name: Change Permissions
           command: |
             cd ../
@@ -63,7 +80,9 @@ jobs: # A basic unit of work in a run
             echo Create dummy container
             docker create -v /code/ackrep_data --name dummy alpine:3.4 /bin/true
             echo Copy ackrep_data to dummy
-            docker cp /home/circleci/ackrep_data dummy:/code
+            docker cp /home/circleci/ackrep/ackrep_data dummy:/code
+            echo containers:
+            docker container ps
       - run:
           name: Check all Entities
           command: |
