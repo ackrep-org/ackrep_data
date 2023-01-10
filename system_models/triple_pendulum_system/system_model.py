@@ -141,7 +141,7 @@ class Model(GenericModel):
         xx = mod.xx.subs([(xdot1, x5), (xdot2, x6), (xdot3, x7), (xdot4, x8)])
         gg = mod.gg.subs([(xdot1, x5), (xdot2, x6), (xdot3, x7), (xdot4, x8)])
 
-        return [eqns, ff, xx, gg]        
+        return [eqns, ff, xx, gg, mod]        
 
 
     def get_rhs_odeint_fnc(self, ff, xx, gg):
@@ -161,8 +161,18 @@ class Model(GenericModel):
         return rhs
     
     def get_rhs_symbolic(self):
-        """This model is not represented by the standard rhs equations."""
-        return False
+        """
+        define symbolic rhs function
+
+        :return: matrix of symbolic rhs-functions
+        """
+
+        _, _, _, _, mod = self.get_symbolic_model()
+        mod.calc_state_eq(simplify=False)
+        x5, x6, x7, x8, xdot1, xdot2, xdot3, xdot4 = sp.symbols('x5, x6, x7, x8, xdot1, xdot2, xdot3, xdot4')
+        state_eq = mod.state_eq.subs([(xdot1, x5), (xdot2, x6), (xdot3, x7), (xdot4, x8)])
+
+        return state_eq
 
 
 

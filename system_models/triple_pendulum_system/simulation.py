@@ -19,7 +19,7 @@ def simulate():
 
     model = system_model.Model()
 
-    eqns, ff, xx, gg = model.get_symbolic_model()
+    eqns, ff, xx, gg, _ = model.get_symbolic_model()
     print("Lagrange Equations:\n")
     for i, eq in enumerate(eqns):
         print(f"0 =", eq)
