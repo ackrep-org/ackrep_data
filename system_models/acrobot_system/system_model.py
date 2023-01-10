@@ -69,8 +69,9 @@ class Model(GenericModel):
 
     def get_rhs_symbolic(self):
         """
-        define symbolic model
-        return: object of class SymbolicModel from symbtools
+        define symbolic rhs function
+
+        :return: matrix of symbolic rhs-functions
         """
 
         np = 1
