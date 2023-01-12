@@ -57,7 +57,7 @@ class Model(GenericModel):
             :return:(list) numeric inputs 
             """ 
             if 1 < t < 2: 
-                u1 = 0.5
+                u1 = 0.2
             else: 
                 u1 = 0
 
