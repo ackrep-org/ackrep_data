@@ -83,7 +83,7 @@ def save_plot(simulation_data):
     axs[4].grid()
 
     plt.tight_layout()
-    plt.show()
+    # plt.show()
 
     save_plot_in_dir()
 
