@@ -1,7 +1,7 @@
 key: U6B7N
 predecessor_key: ''
 type: system_model
-name: "kapitza's pendulum"
+name: 'kapitza's pendulum'
 short_description: 'nonlinear physical system, rigid pendulum in which the pivot point vibrates in a vertical direction'
 version: 0.1.0
 tag_list:

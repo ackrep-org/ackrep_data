@@ -1,7 +1,7 @@
 key: IKNYP
 predecessor_key: ''
 type: system_model
-name: 'Wave Equation 1D'
+name: 'wave equation 1D'
 short_description: 'PDE describing the one-dimensional propagation of a wave'
 version: 0.1.0
 tag_list:

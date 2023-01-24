@@ -1,7 +1,7 @@
 key: UXMFA
 predecessor_key: ''
 type: system_model
-name: 'Lorenz System'
+name: 'lorenz system'
 short_description: 'ODEs describing the lorenz system'
 version: 0.1.0
 tag_list:
