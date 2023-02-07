@@ -66,7 +66,7 @@ def save_plot(simulation_data):
     axs[3].set_ylabel("Angle velocity 2[rad/s]")  # y-label
     axs[3].set_xlabel("Time[s]")  # x-label
     axs[3].grid()
- 
+
     # ---------end of edit section----------------------------------------
 
     plt.tight_layout()
