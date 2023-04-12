@@ -54,9 +54,9 @@ def save_plot(simulation_data):
     """
     # ---------start of edit section--------------------------------------
     # plot of your data
-    plt.plot(simulation_data[0], simulation_data[1], label='Filling level')
-    plt.plot(simulation_data[0], simulation_data[2], label='Temperature')
-    plt.xlabel('Time[s]')
+    plt.plot(simulation_data[0], simulation_data[1], label="Filling level")
+    plt.plot(simulation_data[0], simulation_data[2], label="Temperature")
+    plt.xlabel("Time [s]")
     plt.legend()
     plt.grid()
     # ---------end of edit section----------------------------------------

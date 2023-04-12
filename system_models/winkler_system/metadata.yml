@@ -3,7 +3,7 @@
 key: JPCL5
 predecessor_key: ''
 type: system_model
-name: 'Winkler System'
+name: 'winkler system'
 short_description: 'nonlinear instable system'
 version: 0.1.0
 tag_list:

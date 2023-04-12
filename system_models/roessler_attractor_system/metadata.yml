@@ -1,7 +1,7 @@
 key: FD5RW
 predecessor_key: ''
 type: system_model
-name: 'Roessler Attractor'
+name: 'roessler attractor'
 short_description: 'continuous-time dynamical system with chaotic dynamics'
 version: 0.1.0
 tag_list:

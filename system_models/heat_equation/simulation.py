@@ -78,6 +78,7 @@ def save_plot(simulation_data):
     plt.xlabel("Time $t$")
     plt.ylabel("$u(t)$")
     plt.title("Input Trajectory at $z=l=1$")
+    plt.grid()
     plt.tight_layout()
     save_plot_in_dir("plot_1.png")
 

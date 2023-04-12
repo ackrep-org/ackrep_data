@@ -6,6 +6,8 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{caption}
+
 
 \begin{document}
 	\part*{Model Documentation of the \\Modular Multilevel Converter}
@@ -47,6 +49,14 @@
 		$g_0$, $g_\alpha$, $g_\beta$ & clark transform constants \\
 		$\underline{g}_{\alpha\beta}$ & complex constant using $g_\alpha$, $g_\beta$ and $\theta$ 
 	\end{tabular}
+	
+	\subsection{Circuit Graphic}	
+	\begin{figure}[H]
+		\centering
+		\captionsetup{justification=centering, margin=1cm}
+		\includegraphics[width=70mm]{mmc.pdf}
+		\caption{Circuit. \\ \footnotesize{Source: Fehr, H.; Gensior, A./ Improved Energy Balancing of Grid-Side Modular Multilevel Converters by Optimized Feedforward Circulating Currents and Common-Mode Voltage}}
+	\end{figure}
 
 	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
@@ -154,7 +164,7 @@
 		\bibitem{FG18}Fehr, H.; Gensior, A.: 
 		\textit{Improved Energy Balancing of Grid-Side Modular
 			Multilevel Converters by Optimized Feedforward
-			Circulating Currents and Common-Mode Voltage}, IEEE 2018
+			Circulating Currents and Common-Mode Voltage}, IEEE 2018.
 	\end{thebibliography}
 
 \end{document}

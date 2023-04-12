@@ -1,7 +1,7 @@
 key: IG3GA
 predecessor_key: ''
 type: system_model
-name: 'Linear Transport System'
+name: 'linear transport system'
 short_description: 'PDE modeling the concentration of a substance flowing in a liquid with constant speed'
 version: 0.1.0
 tag_list:

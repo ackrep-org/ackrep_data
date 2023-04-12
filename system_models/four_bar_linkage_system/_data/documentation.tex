@@ -6,38 +6,32 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{float}
-\usepackage{hyperref}
-\usepackage[dvipsnames]{xcolor}
-\hypersetup{
-    colorlinks,
-    linkcolor={red!50!black},
-    citecolor={blue!50!black},
-    urlcolor={blue!80!black}
-}
+\usepackage{url}
+\usepackage{caption}
 
 
 
-%link to documentation: 
+%link to documentation:
 %https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
 
 \begin{document}
-	\part*{Model Documentation of the \\ Four-Bar Linkage} % MUST - Add Model Name 
-	
+	\part*{Model Documentation of the \\ Four-Bar Linkage} % MUST - Add Model Name
+
 	%%%%%%%%%%%%%%%%%%%%%% NOTE %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%notice.tex is part of all documentations and automatically generated to explain the origin of these pdf-files
 	\input{notice.tex}
-	
+
 	%%%%%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%
-	
+
 	\section{Nomenclature} % MUST
 	\subsection{Nomenclature for Model Equations} % MUST
-	
+
 	%variables for model equations
 	\begin{tabular}{ll}
 		$s_i$ & distance from the joint to the center of gravity of link $i$, where $i = 1,2,3$ \\
 		$m_i$ & mass of link $i$, where $i = 1,2,3$ \\
 		$J_i$ & moment of inertia of link $i$, where $i = 1,2,3$ \\
-		$l_i$ & length of (distance between joints) of link $i$, where $i = 1,2,3,4$ \\
+		$l_i$ & length (distance between joints) of link $i$, where $i = 1,2,3,4$ \\
 		$g$ & acceleration due to gravity\\
 		$p_1$ & angle between basis and link 1 (joint 1)\\
 		$p_2$ & angle between link 1 and link 2 (joint 2)\\
@@ -45,38 +39,40 @@
 		$u_1$ & external torgue applied to joint 1\\
 		$y$ & array of angles\\
 		$\dot{y}$ & array of angular velocities\\
-				
 	\end{tabular}
-	 
-	
-	%variables which are used additional to those in the model equations
-	\begin{tabular}{ll}
 
-	\end{tabular}
-	
+	 \subsection{Graphic of the Structure}
+	\begin{figure}[H]
+		\centering
+		\captionsetup{justification=centering, margin=1cm}
+		\includegraphics[width=100mm]{viergelenk.pdf}
+		\caption{Structure of the Four-Bar Linkage. \\ \footnotesize{Source: Knoll, Carsten/ private illustration}}
+	\end{figure}
+
+
 	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
-	
+
 	\section{Model Equations} % MUST
-	
+
 	DAE Variables and Input Vector:
 	\begin{align*}
-		\underline{x} &= (x_1 \ x_2 \ x_3 \ \dot{x}_1 \ \dot{x}_2 \ \dot{x}_3 \ \lambda_1 \ \lambda_2)^T &= (p_1 \ p_2 \ q_1 \ \dot{p}_1 \ \dot{p}_2 \ \dot{q}_1 \ \lambda_1 \ \lambda_2)^T \\
+		\underline{x} &= (p_1 \ p_2 \ q_1 \ \dot{p}_1 \ \dot{p}_2 \ \dot{q}_1 \ \lambda_1 \ \lambda_2)^T &= (x_1 \ x_2 \ x_3 \ \dot{x}_1 \ \dot{x}_2 \ \dot{x}_3 \ \lambda_1 \ \lambda_2)^T \\
 		\underline{u} &= u_1
 	\end{align*}
-	
-	\noindent Constraints:			
+
+	\noindent Constraints:
 	\begin{subequations}
 	\begin{align}
 		\l_1\cos(x_3) + l_2\cos(x_1 + x_3) - l_3\cos(x_2) - l_4 \\
 		\l_1\sin(x_3) + l_2\sin(x_1 + x_3) - l_3\sin(x_2)
 	\end{align}
 	\end{subequations}
-	
-	\noindent System Equations:			
+
+	\noindent System Equations:
 	\begin{subequations}
 	\begin{align*}
 	0 &= J_2\ddot{x}_1 + J_2\ddot{x}_3 + g m_2 s_2\cos(x_1 + x_3) + l_1 m_2 \ddot{x}_3 s_2 \cos(x_1) + l_1 m_2 \dot{x}_3^2 s_2 \sin(x_1) \\
-	&+ l_2 \lambda_1 \sin(x_1 + x_3) - l_2 \lambda_2 \cos(x_1 + x_3) + m_2 \ddot{x}_1 s_2^2 + m_2 \ddot{x}_3 s_2^2 \\ 
+	&+ l_2 \lambda_1 \sin(x_1 + x_3) - l_2 \lambda_2 \cos(x_1 + x_3) + m_2 \ddot{x}_1 s_2^2 + m_2 \ddot{x}_3 s_2^2 \\
 	\\
 	0 &= J_3 \ddot{x}_2 + g m_3 s_3 \cos(x_2) - l_3 \lambda_1 \sin(x_2) + l_3 \lambda_2 \cos(x_2) + m_3 \ddot{x}_2 s_3^2 \\
 	\\
@@ -84,34 +80,34 @@
 	&+ l_1^2 m_2 \ddot{x}_3 + l_1 \lambda_1 \sin(x_3) - l_1 \lambda_2 \cos(x_3) + l_1 m_2 \ddot{x}_1 s_2 \cos(x_1)- l_1 m_2 \dot{x}_1^2 s_2 \sin(x_1) \\
 	&- 2 l_1 m_2 \dot{x}_1 \dot{x}_3 s_2 \sin(x_1) + 2 l_1 m_2 \ddot{x}_3 s_2 \cos(x_1)+ l_2 \lambda_1 \sin(x_1 + x_3) - l2 \lambda_2 \cos(x_1 + x_3) \\
 	&+ m_1 \ddot{x}_3 s_1^2 + m_2 \ddot{x}_1 s_2^2 + m_2 \ddot{x}_3 s_2^2 - u_1 \\
-	\end{align*}       
+	\end{align*}
 	\end{subequations}
 
 	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\noindent
-	Parameters: $s_1$ $s_2$ $s_3$ $m_1$ $m_2$ $m_3$ $J_1$ $J_2$ $J_3$ $l_1$ $l_2$ $l_3$ $l_4$ $g$% variables with constant, predefined value
+	Parameters: $s_1, \, s_2, \, s_3, \, m_1, \, m_2, \, m_3, \, J_1, \, J_2, \, J_3, \, l_1, \, l_2, \, l_3, \, l_4, \, g$% variables with constant, predefined value
 	\\
-	Outputs: $y$ $\dot{y}$ % MAY
-	
+	Outputs: $y, \, \dot{y}$ % MAY
+
 	%%%%%%%%%%%%%%%%%%%%%% ASSUMPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
-	
-	
-	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%	
-	
+
+
+	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 	\subsection{Exemplary parameter values}
 	\input{parameters.tex}
 
-	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%	
-	
+	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 	\section{Derivation and Explanation} % SHOULD
-	
-	\textit{Not available}
-	
+	The Lagrangian mechanics was used for the solution.
+
 	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
-	
-	\begin{thebibliography}{10}		
-		\bibitem{But21}Knoll, Carsten: 
-		\textit{Considered model: four-bar linkage (= two link manipulator + one link manipulator + rigid coupling)}, Jupyter Notebook published 2019
+
+	\begin{thebibliography}{10}
+		\bibitem{But21}Knoll, Carsten:
+		\textit{Considered model: four-bar linkage (= two link manipulator + one link manipulator + rigid coupling)}, Jupyter Notebook published 2019. \\
+		\url{https://github.com/TUD-RST/symbtools/blob/main/docs/demo_notebooks/modeltools/four-bar_linkage_model_and_simulation.ipynb}
 	\end{thebibliography}
 
 \end{document}

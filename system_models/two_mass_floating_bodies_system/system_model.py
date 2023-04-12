@@ -45,9 +45,9 @@ class Model(GenericModel):
         :return:(function with 2 args - t, xx_nv) default input function
         """
 
-        T = 10
-        f1 = 1 * sp.sin(2 * sp.pi * self.t_symb / T)
-        u_num_func = st.expr_to_func(self.t_symb, f1)
+        # T = 10
+        # f1 = 0.2 * sp.sin(self.t_symb) + 0.74
+        # u_num_func = st.expr_to_func(self.t_symb, f1)
 
         # ---------start of edit section--------------------------------------
         def uu_rhs(t, xx_nv):
@@ -58,7 +58,13 @@ class Model(GenericModel):
             :param xx_nv:(vector or array of vectors) numeric state vector
             :return:(list) numeric inputs
             """
-            u = u_num_func(t)
+            #u = u_num_func(t)
+            #u = 0.745
+
+            if t < 0.25:
+                u = 8.877
+            else: 
+                u = 0.7
 
             return [u]
 

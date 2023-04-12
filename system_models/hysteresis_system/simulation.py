@@ -55,14 +55,15 @@ def save_plot(simulation_data):
 
     axs[0].plot(simulation_data[0], simulation_data[2], label='input')
     axs[0].plot(simulation_data[0], simulation_data[1], label='hyst. output')
-    axs[0].set_xlabel("Time[s]")  # x-label
+    axs[0].set_xlabel("Time [s]")  # x-label
     axs[0].grid(1)
     axs[0].legend()
 
     # print in axes top right
     axs[1].plot(simulation_data[2], simulation_data[1])
-    axs[1].set_ylabel("Input signal")  # y-label
-    axs[1].set_xlabel("Hysteresis-output")  # x-Label
+    axs[1].set_xlabel("Input signal")  # y-label
+    axs[1].set_ylabel("Hysteresis-output")  # x-Label
+    axs[1].grid(1)
 
     # ---------end of edit section----------------------------------------
 

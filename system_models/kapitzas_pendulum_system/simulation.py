@@ -46,20 +46,18 @@ def save_plot(sim):
     fig1, axs = plt.subplots(nrows=2, ncols=1, figsize=(12.8, 9.6))
 
     # print in axes top left
-    axs[0].plot(sim.t, np.real(sim.y[0] * 360 / (2 * np.pi)), label="Phi")
+    axs[0].plot(sim.t, np.real(sim.y[0] * 360 / (2 * np.pi)), label= r"$\varphi$")
 
-    axs[0].plot(sim.t, list(sim.uu), label="periodic excitation cos(omega*t)")
-    axs[0].set_ylabel("Angle[rad]")  # y-label
-    axs[0].set_xlabel("Time[s]")  # x-label
+    axs[0].plot(sim.t, list(sim.uu), label= r"periodic excitation $\cos(\omega*t)$")
+    axs[0].set_ylabel("Angle [rad]")  # y-label
     axs[0].grid()
     axs[0].legend()
 
     # print in axes top right
-    axs[1].plot(sim.t, np.real(sim.y[1]), label="Phi_dot")
-    axs[1].set_ylabel("Angular velocity[rad/s]")  # y-label
-    axs[1].set_xlabel("Time[s]")  # x-Label
+    axs[1].plot(sim.t, np.real(sim.y[1]))
+    axs[1].set_ylabel("Angular velocity [rad/s]")  # y-label
+    axs[1].set_xlabel("Time [s]")  # x-Label
     axs[1].grid()
-    axs[1].legend()
 
     plt.tight_layout()
 

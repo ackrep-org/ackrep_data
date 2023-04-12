@@ -1,0 +1,93 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+
+%link to documentation: 
+%https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+
+\begin{document}
+	\part*{Model Documentation of the \\ Translational Oscillator with Rotational Actuator  (TORA)} % MUST - Add Model Name 
+	
+	%%%%%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Nomenclature} % MUST
+	\subsection{Nomenclature for Model Equations} % MUST
+	
+	%variables for model equations
+	\begin{tabular}{ll}
+		$m_1$ & mass of the cart \\
+		$m_2$ & mass of the pendulum \\
+		$l_1$ & length of the pendulum \\
+		$J_1$ & moment of inertia of the pendulum \\	
+		$\alpha$ & spring constant \\
+		$\tau$ & torque \\
+		$q_1$ & position of the cart \\
+		$q_2$ & angel of the pendulum \\
+				
+	\end{tabular}
+	 
+	\subsection{Graphic of the Structure}	
+	\begin{figure}[H]
+		\centering
+		\captionsetup{justification=centering, margin=1cm}
+		\includegraphics[width=70mm]{tora.pdf}
+		\caption{Structure of the TORA. \\ \footnotesize{Source: Wang, Yang/Erstellung eines regelungstheoretischen Katalogs unteraktuierter mechanischer Systeme}}
+	\end{figure}
+	
+	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Model Equations} % MUST
+	
+	State Vector and Input Vector:
+	\begin{align*}
+		\underline{x} &= (q_1 \ q_2 \ \dot{q}_1 \ \dot{q}_2)^T &= (x_1 \ x_2 \ x_3 \ x_4)^T \\
+		u &= \tau 
+	\end{align*}
+	
+	\noindent System Equations:			
+	\begin{subequations}
+	\begin{align}
+		\dot{x}_1 &= x_3 \\
+		\dot{x}_2 &= x_4 \\
+		\dot{x}_3 &= \frac{(m_2l_1^2 + J_1)(-\alpha x_1 + m_2l_1x_4^2 \sin x_2) - m_2l_1 \cos x_2 u}{(m_1 + m_2)(m_2l_1^2 + J_1) - m_2^2l_1^2 \cos^2 x_2} \\
+		\dot{x}_4 &= \frac{-m_2l_1 \cos x_2(-\alpha x_1 + m_2l_1x_4^2 \sin x_2) + (m_1 + m_2)u}{(m_1 + m_2)(m_2l_1^2 + J_1) - m_2^2l_1^2 \cos^2 x_2}		
+	\end{align}
+	\end{subequations}
+
+	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent
+	Parameters: $m_1, \, m_2, \, l_1, \, J_1, \, \alpha$ % variables with constant, predefined value
+	\\
+	Outputs: \underline{x}
+	
+	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\subsection{Exemplary parameter values}
+	\input{parameters.tex}
+
+	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\section{Derivation and Explanation} % SHOULD
+	
+	The Lagrangian mechanics was used for the solution.
+	
+	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\begin{thebibliography}{10}		
+		\bibitem{But21}C.-J. Wan, D. Bernstein und V. Coppola: 
+		\textit{Global stabilization of the oscillating
+eccentric rotor.} In: \textit{Decision and Control, 1994., Proceedings of the 33rd IEEE
+Conference on}, Bd. 4, S. 4024–4029 vol.4, Dec 1994.
+		\bibitem{But21}Wang, Yang:  
+		\textit{Erstellung eines regelungstheoretischen Katalogs unteraktuierter mechanischer Systeme}, master thesis at the Institut of Control Theory TU Dresden, published 2016. \\
+		(not publicly accessible)
+	\end{thebibliography}
+
+\end{document}
+

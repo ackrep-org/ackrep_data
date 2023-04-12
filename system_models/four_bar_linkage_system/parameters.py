@@ -20,7 +20,7 @@ pp_symb = [s1, s2, s3, m1, m2, m3, J1, J2, J3, l1, l2, l3, l4, g] = sp.symbols("
 
 
 # ---------- create symbolic parameter functions
-# parameter values can be constant/fixed values OR set in relation to other parameters (for example: a = 2*b)  
+# parameter values can be constant/fixed values OR set in relation to other parameters (for example: a = 2*b)
 s1_sf=1/2
 s2_sf=1/2
 s3_sf=1/2
@@ -54,7 +54,7 @@ latex_names = {}
 
 # ---------- Define LaTeX table
 
-# Define table header 
+# Define table header
 # DON'T CHANGE FOLLOWING ENTRIES: "Symbol", "Value"
 tabular_header = ["Parameter Name", "Symbol", "Value", "Unit"]
 
@@ -78,7 +78,7 @@ col_1 = ["distance from the joint to the center of gravity of link 1",
          "length of link 3",
          "length of link 4",
          "acceleration due to gravity"
-         ] 
+         ]
 
 # contains all lists of the columns before the "Symbol" Column
 # --- Empty list, if there are no columns before the "Symbol" Column
@@ -87,21 +87,22 @@ start_columns_list = [col_1]
 
 # Define Entries of the columns after the Value-Column
 # --- Entries need to be latex code
-col_4 = ["m",
-         "m",
-         "m",
-         "kg",
-         "kg",
-         "kg",
-         r"$\frac{kg}{m^2}$",
-         r"$\frac{kg}{m^2}$",
-         r"$\frac{kg}{m^2}$",
-         "m",
-         "m",
-         "m",
-         "m",
-         r"$\frac{m}{s^2}$"
-         ]
+col_4 = [
+    "m",
+    "m",
+    "m",
+    "kg",
+    "kg",
+    "kg",
+    r"$kg \cdot m^2$",
+    r"$kg \cdot m^2$",
+    r"$kg \cdot m^2$",
+    "m",
+    "m",
+    "m",
+    "m",
+    r"$\frac{m}{s^2}$"
+]
 
 # contains all lists of columns after the FIX ENTRIES
 # --- Empty list, if there are no columns after the "Value" column

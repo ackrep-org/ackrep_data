@@ -1,7 +1,7 @@
 key: BID9I
 predecessor_key: ''
 type: system_model
-name: 'Loading Bridge'
+name: 'loading bridge'
 short_description: 'nonlinear model, four ODEs and one input'
 version: 0.1.0
 tag_list:

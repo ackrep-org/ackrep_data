@@ -1,7 +1,7 @@
 key: DRZGT
 predecessor_key: ''
 type: system_model
-name: 'Lotka Volterra'
+name: 'lotka volterra'
 short_description: 'predator-prey model, used to describe the population dynamics of biological systems'
 version: 0.1.0
 tag_list:

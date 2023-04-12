@@ -1,7 +1,7 @@
 key: OV6ND
 predecessor_key: ''
 type: system_model
-name: 'Stable PTn System'
+name: 'stable PTn system'
 short_description: 'stable PTn element'
 version: 0.1.0
 tag_list:

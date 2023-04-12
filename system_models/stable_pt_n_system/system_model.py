@@ -91,7 +91,7 @@ class Model(GenericModel):
         if self.dxx_dt_symb is not None:
             return self.dxx_dt_symb
         xx_symb = self.xx_symb
-        u_symb = self.uu_symb[0]
+        u1 = self.uu_symb[0]
         K_symb = self.pp_symb[0]
         TT_symb = self.pp_symb[1:]
         # create symbolic rhs functions
@@ -110,10 +110,10 @@ class Model(GenericModel):
         for i in range(len(sum_vec) - 1):
             inv_laplace = inv_laplace + sum_vec[i] * xx_symb[i]
 
-        dxn_dt = (K_symb * u_symb - inv_laplace) * 1 / sum_vec[-1]
+        dxn_dt = (K_symb * u1 - inv_laplace) * 1 / sum_vec[-1]
         dxx_dt = dxx_dt + [dxn_dt]
         # put rhs functions into a vector
-        self.dxx_dt_symb = dxx_dt
+        self.dxx_dt_symb = sp.Matrix(dxx_dt)
 
         return self.dxx_dt_symb
 

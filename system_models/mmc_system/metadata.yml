@@ -1,7 +1,7 @@
 key: YHS5B
 predecessor_key: ''
 type: system_model
-name: 'Modular Multilevel Converters (MMC)'
+name: 'modular multilevel converter (MMC)'
 short_description: 'MMC with 3 phases, 1 Submodule per Arm and output to grid. Used to generate multilevel Voltages'
 version: 0.1.0
 tag_list:

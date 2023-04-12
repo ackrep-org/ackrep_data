@@ -6,77 +6,101 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{url}
 
-%link to documentation: 
+%link to documentation:
 %https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
 
 \begin{document}
-	\part*{Model Documentation of the \\ Hysteresis System} % MUST - Add Model Name 
-	
+	\part*{Model Documentation of the \\ Hysteresis System} % MUST - Add Model Name
+
 	%%%%%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%
-	
+
 	\section{Nomenclature} % MUST
 	\subsection{Nomenclature for Model Equations} % MUST
-	
+
 	%variables for model equations
 	\begin{tabular}{ll}
 		$s_1$ & switching treshold down \\
 		$s_2$ & switching treshold up \\
-		$y_i$ & output values of the hysteresis system for i = 1,2 \\
-		$T_{storage}$ & time constant of the internal PT1 \\
+		$y_i$ & output values of the hysteresis system for i = 1, 2 \\
+		$T_{storage}$ & time constant of the internal linear first order system (PT1) \\
 		$w$ & input signal \\
-					
+		$x_1$ & state signal\\
+		$a_i$ & auxiliary signals for i = 1, 2, 3, 4, 5 \\
 	\end{tabular}
-	 
-	
+
+
 	%variables which are used additional to those in the model equations
 	\begin{tabular}{ll}
 
 	\end{tabular}
-	
+
 	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
-	
+
 	\section{Model Equations} % MUST
-	
+
 	Input Vector:
 	\begin{align*}
 		u &= w
 	\end{align*}
-	
-	\noindent Equations:			
+
+	\noindent Equations:
 	\begin{subequations}
 	\begin{align}
-		[..]
+		a_1 &=
+		\begin{cases}
+        -1, & \text{for } w < 4\\
+        0, & \text{for } w\geq 4\\
+        \end{cases} \\
+        a_2 &=
+		\begin{cases}
+        0, & \text{for } w < 8\\
+        1, & \text{for } w\geq 8\\
+        \end{cases} \\
+        a_3 &= a_1 + a_2 + x_1 \\
+        a_4 &=
+		\begin{cases}
+        0, & \text{for } w < 4 \\
+        & \text{ or } w < 8 \text{ in case w decreased under 4} \\
+        & \text{ and did not rise over 8 since then}\\
+        1, & \text{for } w > 8 \\
+        & \text{ or } w > 4 \text{ in case w increased over 8} \\
+        & \text{ and did not sink under 4 since then} \\
+        \end{cases} \\
+        x_1 &= [0, 1] \\
+        a_5 &= [2, 11]
 	\end{align}
 	\end{subequations}
 
 	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\noindent
-	Parameters: $s1$ $s2$ $y1$ $y2$ $T_{storage}$% variables with constant, predefined value
+	Parameters: $s_1, \, s_2, \, y_1, \, y_2, \, T_{storage}$% variables with constant, predefined value
 	\\
 	Outputs: $y$ % MAY
-	
-	
-	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%	
-	
+
+
+	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 	\subsection{Exemplary parameter values}
 	\input{parameters.tex}
 
-	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%	
-	
+	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 	\section{Derivation and Explanation} % SHOULD
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=\linewidth]{hysteresis.pdf}
-		\caption{block diagram}
+		\includegraphics[width=120mm]{hysteresis_block.pdf}
+		\caption{Block Diagram}
 	\end{figure}
-	
-	
+
+
 	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
-	
-	\begin{thebibliography}{10}		
-		\bibitem{But21}Knoll, Carsten: 
-		\textit{Approximation of a simple hysteresis system.}, Python script published 2021.
+
+	\begin{thebibliography}{10}
+		\bibitem{But21}Knoll, Carsten:
+		\textit{Approximation of a simple hysteresis system.}, Python script published 2021. \\
+		\url{https://github.com/TUD-RST/pyblocksim/blob/master/examples/example-hysteresis.py}
 	\end{thebibliography}
 
 \end{document}

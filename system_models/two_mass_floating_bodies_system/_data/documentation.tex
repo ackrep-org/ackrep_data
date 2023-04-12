@@ -6,7 +6,7 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{float}
-
+\usepackage{caption}
 
 \begin{document}
 	\part*{Model Documentation of the \\ Two Mass Floating Bodies} % MUST - Add Model Name 
@@ -30,7 +30,14 @@
 		$v_1$ & velocity of the iron ball in x-direction \\
 		$v_2$ & velocity of the brass ball in x-direction \\		
 	\end{tabular}
-	 
+	
+	\subsection{Graphic of the Structure}	
+	\begin{figure}[H]
+		\centering
+		\captionsetup{justification=centering, margin=1cm}
+		\includegraphics[width=70mm]{two_mass_floating_bodies.pdf}
+		\caption{Structure of the Two Mass Floating Bodies Model. \\ \footnotesize{Source: Wang, Xinyu/Erstellung eines Katalogs regelungstechnischer Problemstellungen mit ausführbaren Beispiellösungen }}
+	\end{figure}
 	
 	%variables which are used additional to those in the model equations
 	\begin{tabular}{ll}
@@ -59,7 +66,7 @@
 
 	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\noindent
-	Parameters: $m_1$ $m_2$ $k_1$ $k_2$ $k_f$ $g$  % variables with constant, predefined value
+	Parameters: $m_1, \, m_2, \, k_1, \, k_2, \, k_f, \, g$  % variables with constant, predefined value
 	\\
 	Outputs: $s_2$ % MAY
 	
@@ -67,8 +74,8 @@
 	
 	\subsection{Assumptions} % MAY 
 		\begin{enumerate} %possible list type for the Assumptions
-			\item Mass of the iron ball is a pointmass
-			\item Mass of the brass ball is a pointmass
+			\item Mass of the iron ball is a pointmass.
+			\item Mass of the brass ball is a pointmass.
 		\end{enumerate}
 	
 	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%	
@@ -80,13 +87,14 @@
 	
 	\section{Derivation and Explanation} % SHOULD
 	
-	\textit{Not available}
+	The Lagrangian mechanics was used for the solution.
 	
 	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	\begin{thebibliography}{10}		
-		\bibitem{But21}Xinyu Wang: 
-		\textit{Erstellung eines Katalogs regelungstechnischer Problemstellungen mit ausführbaren Beispiellösungen}
+		\bibitem{But21}Wang, Xinyu: 
+		\textit{Erstellung eines Katalogs regelungstechnischer Problemstellungen mit ausführbaren Beispiellösungen}, student research project at the Institut of Control Theory TU Dresden, 2021. \\
+		(not publicly accessible)
 	\end{thebibliography}
 
 \end{document}

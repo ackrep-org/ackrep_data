@@ -1,0 +1,20 @@
+#link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+
+key: VVAHU
+predecessor_key: ''
+type: system_model
+name: 'pendubot'
+short_description: 'underactuated manipulator with 2 revolute joints'
+version: 0.1.0
+tag_list:
+    - 'underactuated'
+creator: 'Anne Harloff <anne.harloff{ät}mailbox.tu-dresden.de>'
+editor_list:
+    - ''
+creation_date: '2022-11-15'
+external_references: ''
+notes: ''
+estimated_runtime: '10s'
+compatible_environment: ""
+system_model_file: system_model.py
+simulation_file: simulation.py

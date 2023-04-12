@@ -1,0 +1,98 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+
+%link to documentation: 
+%https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+
+\begin{document}
+	\part*{Model Documentation of the \\ Furuta Pendulum} % MUST - Add Model Name 
+	
+	%%%%%%%%%%%%%%%%%%%%%% NOMENCLATURE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Nomenclature} % MUST
+	\subsection{Nomenclature for Model Equations} % MUST
+	
+	%variables for model equations
+	\begin{tabular}{ll}
+		$m_2$ & mass of the pendulum \\
+		$l_1$ & length of the arm \\		
+		$l_2$ & length of the pendulum \\
+		$J_1$ & moment of inertia of the arm \\
+		$J_2$ & moment of inertia of the pendulum about the axis of rotation \\
+		& through the center of mass \\
+		$g$ & acceleration due to gravity \\
+		$q_1$ & angel of the arm \\
+		$q_2$ & angel of the pendulum \\
+		$\tau$ & torque on the arm\\	
+	\end{tabular}
+	 
+	
+	\subsection{Graphic of the Structure}	
+	\begin{figure}[H]
+		\centering
+		\captionsetup{justification=centering, margin=1cm}
+		\includegraphics[width=70mm]{furuta.pdf}
+		\caption{Structure of the Furuta Pendulum. \\ \footnotesize{Source: Wang, Yang/Erstellung eines regelungstheoretischen Katalogs unteraktuierter mechanischer Systeme}}
+	\end{figure}
+	
+	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{Model Equations} % MUST
+	
+	State Vector and Input Vector:
+	\begin{align*}
+		\underline{x} &= (q_1 \ q_2 \ \dot{q}_1 \ \dot{q}_2)^T &= (x_1 \ x_2 \ x_3 \ x_4)^T \\
+		u &= \tau\\
+	\end{align*}
+	
+	\noindent Kinetic Energy:			
+	\begin{subequations}
+	\begin{align}
+		T = \frac{1}{2}J_2x_3^2 + \frac{1}{2}m_2[(l_1^2 + l_2^2 \sin^2 x_2)x_3^2 + l_2^2x_4^2 + 2l_1l_2 \cos x_2x_3x_4] \\
+	\end{align}
+	\end{subequations}
+	
+	\noindent Potential Energy:			
+	\begin{subequations}
+	\begin{align}
+		V = m_2gl_2(\cos x_2 - 1) \\
+	\end{align}
+	\end{subequations}
+
+	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent
+	Parameters: $m_2, \, l_1, \, l_2, \, J_1, \, J_2, \, g$ % variables with constant, predefined value
+	\\
+	Outputs: \underline{x}
+
+	
+	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\subsection{Exemplary parameter values}
+	\input{parameters.tex}
+
+	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\section{Derivation and Explanation} % SHOULD
+	
+	The Lagrangian mechanics was used for the solution.
+	
+	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\begin{thebibliography}{10}	
+		\bibitem{bib1}K. Furuta: 
+		\textit{Swing-up control of inverted pendulum using pseudo-state feedback.}, Journal of Systems and Control Engineering, S. 263–269, published 1992.
+		\bibitem{bib2}Wang, Yang:  
+		\textit{Erstellung eines regelungstheoretischen Katalogs unteraktuierter mechanischer Systeme}, master thesis at the Institut of Control Theory TU Dresden, published 2016. \\
+		(not publicly accessible)
+	\end{thebibliography}
+
+\end{document}
+

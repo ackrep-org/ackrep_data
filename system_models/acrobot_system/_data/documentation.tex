@@ -6,6 +6,8 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{url}
+\usepackage{caption}
 
 %link to documentation: 
 %https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
@@ -32,8 +34,15 @@
 		$\tau_1$ & input force at the joint \\
 				
 	\end{tabular}
-	 
 	
+	\subsection{Graphic of the Structure}	
+	\begin{figure}[H]
+		\centering
+		\captionsetup{justification=centering, margin=1cm}
+		\includegraphics[width=70mm]{acrobot.pdf}
+		\caption{Acrobot \\ \footnotesize{Source: Knoll, Carsten/Acrobot (=unteraktuierter Zweigelenkmanipulator, Stellglied im Ellenbogengelenk)}}
+	\end{figure}
+	 
 	%variables which are used additional to those in the model equations
 	\begin{tabular}{ll}
 
@@ -67,7 +76,7 @@
 
 	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\noindent
-	Parameters: $s_1$ $s_2$ $m_1$ $m_2$ $J_1$ $J_2$ $l_1$ $g$ % variables with constant, predefined value
+	Parameters: $s_1, \, s_2, \, m_1, \, m_2, \, J_1 , \, J_2, \, l_1, \, g$ % variables with constant, predefined value
 	\\
 	Outputs: $\underline{x}$ % MAY
 	
@@ -86,17 +95,15 @@
 	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%	
 	
 	\section{Derivation and Explanation} % SHOULD
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=70mm]{acrobot.pdf}
-		\caption{Acrobot}
-	\end{figure}
+	The Lagrangian mechanics was used for the solution.
+	
 	
 	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	\begin{thebibliography}{10}		
 		\bibitem{But21}Knoll, Carsten: 
-		\textit{Acrobot (=unteraktuierter Zweigelenkmanipulator, Stellglied im Ellenbogengelenk)}, Jupyter Notebook published 2017.
+		\textit{Acrobot (=unteraktuierter Zweigelenkmanipulator, Stellglied im Ellenbogengelenk)}, Jupyter Notebook published 2017. \\
+		\url{https://github.com/cknoll/beispiele/blob/master/acrobot_rwa.ipynb}
 	\end{thebibliography}
 
 \end{document}

@@ -6,6 +6,7 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{caption}
 
 %< > ... dummy content zur Veranschaulichung
 \begin{document}
@@ -26,6 +27,20 @@
 		$l$ & rope length \\
 		$g$ & acceleration due to gravitation \\
 		$f$ & force that pushes the cart \\
+
+	\end{tabular}
+
+	\subsection{Graphic of the Structure}
+	\begin{figure}[H]
+		\centering
+		\captionsetup{justification=centering, margin=1cm}
+		\includegraphics[width=70mm]{loading_bridge.pdf}
+		\caption{Structure of the Loading Bridge Model. \\ \footnotesize{Source: Institut of Control Theory TU Dresden/Regelungstechnik II, Übungsmaterial}}
+	\end{figure}
+
+
+	%variables which are used additional to those in the model equations
+	\begin{tabular}{ll}
 
 	\end{tabular}
 
@@ -58,17 +73,28 @@
 
 	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\noindent
-	Parameters: $m$ $M$ $l$ $g$ % variables with constant, predefined value
+	Parameters: $m, \, M, \, l, \,g$ % variables with constant, predefined value
 	\\
+<<<<<<< HEAD
 	Outputs: $x_m$ $x_M$ % MAY
 
+=======
+	Outputs: $x_m, \, x_M$ % MAY
+
+>>>>>>> feature_more_models
 	%%%%%%%%%%%%%%%%%%%%%% ASSUMPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 	\subsection{Assumptions} % MAY
 		\begin{enumerate} %possible list type for the Assumptions
+<<<<<<< HEAD
 			\item The friction is neglected
 			\item Mass of the load is a pointmass
 			\item Mass of the cart is a pointmass
+=======
+			\item The friction is neglected.
+			\item Mass of the load is a pointmass.
+			\item Mass of the cart is a pointmass.
+>>>>>>> feature_more_models
 		\end{enumerate}
 
 	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -79,6 +105,7 @@
 	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 	\section{Derivation and Explanation} % SHOULD
+<<<<<<< HEAD
 
 	\textit{Not available}
 
@@ -87,6 +114,16 @@
 	\begin{thebibliography}{10}
 		\bibitem{But21}Institut für Regelungs- und Steuerungstheorie TU Dresden:
 		\textit{Regelungstechnik II, Übungsmaterial}, published in OPAL April 2020.
+=======
+	The Lagrangian mechanics was used for the solution.
+
+	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\begin{thebibliography}{10}
+		\bibitem{But21}Institut of Control Theory TU Dresden:
+		\textit{Regelungstechnik II, Übungsmaterial}, published in OPAL April 2020.	\\
+		(not publicly accessible)
+>>>>>>> feature_more_models
 	\end{thebibliography}
 
 \end{document}

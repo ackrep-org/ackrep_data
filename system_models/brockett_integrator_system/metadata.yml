@@ -1,7 +1,7 @@
 key: GKKTM
 predecessor_key: ''
 type: system_model
-name: 'Brockett Integrator'
+name: 'brockett integrator'
 short_description: 'a 3-dimensional system with a non-holonomic constraint'
 version: 0.1.0
 tag_list:

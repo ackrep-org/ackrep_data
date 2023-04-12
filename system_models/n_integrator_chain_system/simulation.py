@@ -67,8 +67,8 @@ def save_plot(sim):
     plt.plot(sim.t, sim.y[4], label="x5", lw=1)
 
     plt.title("State progress")
-    plt.xlabel("Time[s]", fontsize=15)
-    plt.ylabel("y", fontsize=15)
+    plt.xlabel("Time [s]")
+    plt.ylabel("y")
     plt.legend()
     plt.grid()
 

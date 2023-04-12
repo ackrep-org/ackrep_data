@@ -1,0 +1,20 @@
+#link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+
+key: BZJ3K
+predecessor_key: ''
+type: system_model
+name: 'tora'
+short_description: 'translational oscillator with rotational actuator'
+version: 0.1.0
+tag_list:
+    - ''
+creator: 'Anne Harloff <anne.harloff{ät}mailbox.tu-dresden.de>'
+editor_list:
+    - ''
+creation_date: '2022-11-15'
+external_references: ''
+notes: ''
+estimated_runtime: '10s'
+compatible_environment: ""
+system_model_file: system_model.py
+simulation_file: simulation.py

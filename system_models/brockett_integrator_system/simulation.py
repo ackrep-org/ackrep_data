@@ -41,12 +41,12 @@ def simulate():
 
 def save_plot(sol):
 
-    pyplot.plot(sol.t, sol.y[0], label="x1")
-    pyplot.plot(sol.t, sol.y[1], label="x2")
-    pyplot.plot(sol.t, sol.y[2], label="x3")
+    pyplot.plot(sol.t, sol.y[0], label="$x_1$")
+    pyplot.plot(sol.t, sol.y[1], label="$x_2$")
+    pyplot.plot(sol.t, sol.y[2], label="$x_3$")
 
-    pyplot.title("State progress")
-    pyplot.xlabel("Time[s]", fontsize=15)
+    pyplot.title("State Progress")
+    pyplot.xlabel("Time [s]")
     pyplot.legend()
     pyplot.grid()
 

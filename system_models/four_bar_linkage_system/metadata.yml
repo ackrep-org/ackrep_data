@@ -4,7 +4,7 @@
 key: CK7EX
 predecessor_key: ''
 type: system_model
-name: 'Four-bar Linkage'
+name: 'four-bar linkage'
 short_description: 'two link manipulator + one link manipulator + rigid coupling'
 version: 0.1.0
 tag_list:

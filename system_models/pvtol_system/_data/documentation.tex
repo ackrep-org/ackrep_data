@@ -6,6 +6,8 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{url}
+\usepackage{caption}
 
 %< > ... dummy content zur Veranschaulichung
 
@@ -29,10 +31,15 @@
 		$J$ & moment of inertia of the PVTOL		
 	\end{tabular}
 
-	
-	%variables which are used additional to those in the model equations
-	\begin{tabular}{ll}
-	\end{tabular}
+
+	\subsection{Graphic of the Structure}	
+	\begin{figure}[H]
+		\centering
+		\captionsetup{justification=centering, margin=1cm}
+		\includegraphics[width=70mm]{pvtol.pdf}
+		\caption{Structure of the PVTOL Model. \\ 
+		\footnotesize{Source: Knoll, Carsten / \protect\url{https://nbviewer.org/github/cknoll/beispiele/blob/master/senkrechtstarter_pvtol_koordinatentransformation.ipynb}}}
+	\end{figure}
 	
 	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
@@ -66,7 +73,7 @@
 	
 	\subsection{Assumptions} % MAY 
 		\begin{enumerate} %possible list type for the Assumptions - mögliche Formatierung für die Annahmen
-			\item forces target the body of the PVTOL in a 90° angle
+			\item Forces target the body of the PVTOL in a 90° angle.
 		\end{enumerate}
 	
 	%%%%%%%%%%%%%%%%%%%%%% EXEMPLARY PARAMETER VALUES %%%%%%%%%%%%%%%%%%%%%%%%%%%	
@@ -77,13 +84,15 @@
 	%%%%%%%%%%%%%%%%%%%%%% DERIVATION & EXPLANATION %%%%%%%%%%%%%%%%%%%%%%%%%%%	
 	
 	\section{Derivation and Explanation} % SHOULD
-	
-	\textit{Not available}
+	The Lagrangian mechanics was used for the solution.
 	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	\begin{thebibliography}{10}		
-		\bibitem{KNOLL16}Knoll, C: 
-		\textit{Regelungstheoretische Analyse- und Entwurfsansätze für unteraktuierte mechanische Systeme}, p. 169, TU Dresden, 2016
+		\bibitem{KNOLL16}Knoll, Carsten: 
+		\textit{Regelungstheoretische Analyse- und Entwurfsansätze für unteraktuierte mechanische Systeme}, p. 169, TU Dresden, 2016.
+		\bibitem{KNOLL2}Knoll, Carsten: 
+		\textit{Senkrechtstarter in der vertikalen Ebene}, Jupyter Notebook published 2016. \\
+		\url{https://nbviewer.org/github/cknoll/beispiele/blob/master/senkrechtstarter_pvtol_koordinatentransformation.ipynb}
 	\end{thebibliography}
 
 \end{document}

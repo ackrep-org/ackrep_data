@@ -69,28 +69,24 @@ def save_plot(sim):
     axs[0, 0].plot(sim[0].t, sim[0].y[0], label="PT1")
     axs[0, 0].plot(sim[1].t, sim[1].y[0], label="PT2")
     axs[0, 0].set_ylabel("Amplitude")  # y-label
-    axs[0, 0].set_xlabel("Time[s]]")  # x-Label
     axs[0, 0].grid()
     axs[0, 0].legend()
 
     # print in axes top right
     axs[1, 0].plot(sim[2].t, sim[2].y[0], label="PT3")
     axs[1, 0].set_ylabel("Amplitude")  # y-label
-    axs[1, 0].set_xlabel("Time[s]")  # x-Label f
+    axs[1, 0].set_xlabel("Time [s]")  # x-Label
     axs[1, 0].grid()
     axs[1, 0].legend()
 
     # print in axes bottom left
     axs[0, 1].plot(sim[3].t, sim[3].y[0], label="PT4")
-    axs[0, 1].set_ylabel("Amplitude")  # y-label
-    axs[0, 1].set_xlabel("Time[s]")  # x-Label
     axs[0, 1].grid()
     axs[0, 1].legend()
 
     # print in axes bottom right
     axs[1, 1].plot(sim[4].t, sim[4].y[0], label="PT5")
-    axs[1, 1].set_ylabel("Amplitude")  # y-label
-    axs[1, 1].set_xlabel("Time[s]")  # x-Label
+    axs[1, 1].set_xlabel("Time [s]")  # x-Label
     axs[1, 1].grid()
     axs[1, 1].legend()
 

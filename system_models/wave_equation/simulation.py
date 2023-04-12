@@ -70,6 +70,7 @@ def save_plot(simulation_data):
     plt.xlabel("Time $t$")
     plt.ylabel("$u(t)$")
     plt.tight_layout()
+    plt.grid()
     save_plot_in_dir("plot_1.png")
 
     win1 = pi.surface_plot(simulation_data.evald_x, zlabel="$x(z,t)$")

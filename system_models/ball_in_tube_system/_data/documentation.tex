@@ -6,6 +6,7 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{caption}
 
 %link to documentation: 
 %https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
@@ -26,22 +27,24 @@
 		$g$ & acceleration due to gravitation \\
 		$T_M$ & time constant of the motor model\\
 		$k_M$ & amplification of the motor model\\
-		$k_V$ & proportional factor between the volume flow of the fan and the absolute speed rotation\\
-		$k_L$ & parameter, describes the relation between the air gap velocity and the flow resistance force\\
+		$k_V$ & proportional factor between the volume flow of the fan \\
+		& and the absolute speed rotation\\
+		$k_L$ & parameter, describes the relation between the air gap \\
+		& velocity and the flow resistance force\\
 		$\eta$ & rotation speed \\
 		$\eta_0$ & basic rotation speed\\
 		$h$ & height of the ball \\
 		$\dot{h}$ & velocity of the ball \\
-		$u_{PWM}$ & motor control voltage \\
-		
-				
+		$u_{PWM}$ & motor control voltage \\		
 	\end{tabular}
 	 
-	
-	%variables which are used additional to those in the model equations
-	\begin{tabular}{ll}
-
-	\end{tabular}
+	\subsection{Graphic of the Structure}	
+	\begin{figure}[H]
+		\centering
+		\captionsetup{justification=centering, margin=1cm}
+		\includegraphics[width=70mm]{ball_in_tube.pdf}
+		\caption{Model Structure. \\ \footnotesize{Source: Institut of Control Theory TU Dresden: Regelungstechnikpraktikum, Praktikumsanleitung}}
+	\end{figure}
 	
 	%%%%%%%%%%%%%%%%%%%%%% MDOEL EQUATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
@@ -64,7 +67,7 @@
 
 	%%%%%%%%%%%%%%%%%%%%%% PARAMETERS | OUTPUTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\noindent
-	Parameters: $A_B$ $A_{SP}$ $m$ $g$ $T_M$ $k_M$ $k_V$ $k_L$ $n_0$ % variables with constant, predefined value
+	Parameters: $A_B, \, A_{SP}, \, m, \, g, \, T_M, \, k_M, \, k_V, \, k_L, \, n_0$ % variables with constant, predefined value
 	\\
 	Outputs: $h$ \\ 
 	
@@ -108,8 +111,10 @@
 	%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	\begin{thebibliography}{10}		
-		\bibitem{But21}TU Dresden – Institut für Regelungs- und Steuerungstheorie: 
-		\textit{Regelungstechnikpraktikum, Praktikumsanleitung}, published on OPAL April 2022.
+		\bibitem{But21}Institut of Control Theory TU Dresden: 
+		\textit{Regelungstechnikpraktikum, Praktikumsanleitung}, published on OPAL April 2022. \\
+		(not publicly accessible)
+		
 	\end{thebibliography}
 
 \end{document}
