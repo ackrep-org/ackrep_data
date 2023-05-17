@@ -8,6 +8,20 @@ short_description: 'translational oscillator with rotational actuator'
 version: 0.1.0
 tag_list:
     - ''
+erk_data:
+    R9125["has input dimension"]: 1
+    R16["has property"]:
+        - I7733["time invariance"]
+    R2928["has model representation"]:
+        I6886["general ode state space representation"]:
+            R16["has property"]:
+                - I6091["control affine"]
+                - I8978["time continuity"]
+                - I4478["strict nonlinearity"]
+            R3898["has system order"]: 1
+            R2112["has state dimension"]: 4
+    R8316["belongs to domain"]: I9223["mechanical domain"]
+    R5031["has trajectory"]: I9820["equilibrium point"]
 creator: 'Anne Harloff <anne.harloff{ät}mailbox.tu-dresden.de>'
 editor_list:
     - ''
