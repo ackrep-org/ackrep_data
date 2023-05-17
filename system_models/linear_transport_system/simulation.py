@@ -63,10 +63,9 @@ def save_plot(simulation_data):
     # This is why the plotting part doesnt look as clean.
     # Pyinduct has its own plotting methods, feel free to use them in your own implementation.
     matplotlib.use("Agg")
-    
+
     # imput data
-    win0 = plt.plot(np.array(simulation_data.eval_data[0].input_data[0]).flatten(),
-                simulation_data.u)
+    win0 = plt.plot(np.array(simulation_data.eval_data[0].input_data[0]).flatten(), simulation_data.u)
     plt.title("Input Trajectory at $z=0$")
     plt.xlabel("Time $t$")
     plt.ylabel("$u(t)$")

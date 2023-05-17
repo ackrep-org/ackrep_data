@@ -43,7 +43,7 @@ def simulate():
 
 def save_plot(simulation_data):
     """
-    plot your data and save the plot 
+    plot your data and save the plot
 
     :param simulation_data: simulation_data of system_model
     :return: None
@@ -54,7 +54,6 @@ def save_plot(simulation_data):
     fig1, axs = plt.subplots(nrows=2, ncols=1, figsize=(12.8, 9.6))
 
     # print in axes top left
-
 
     axs[0].plot(simulation_data.t, simulation_data.y[0])
     axs[0].set_ylabel("Angular velocity [rad/s]")  # y-label

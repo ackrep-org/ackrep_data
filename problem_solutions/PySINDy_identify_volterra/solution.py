@@ -11,6 +11,7 @@ from ackrep_core.system_model_management import save_plot_in_dir
 import pysindy as ps
 from ipydex import IPS
 
+
 class SolutionData:
     pass
 
@@ -25,14 +26,14 @@ def solve(problem_spec):
         differentiation_method=differentiation_method,
         feature_library=feature_library,
         optimizer=optimizer,
-        feature_names=["x1", "y2"]
+        feature_names=["x1", "y2"],
     )
     # add some noise to training data
     xx_train_clean = problem_spec.xx_train.y.transpose()
     np.random.seed(1)
     xx_train_noisy = xx_train_clean + np.random.normal(scale=0.05, size=xx_train_clean.shape)
-    
-    sindy_model.fit(xx_train_noisy, t=.002)
+
+    sindy_model.fit(xx_train_noisy, t=0.002)
     print("Identified Equations:")
     sindy_model.print()
 
@@ -44,11 +45,15 @@ def solve(problem_spec):
 
     # Evolve the new initial condition in time with the SINDy model
     fig, axs = plt.subplots(2, 1, sharex=True, figsize=(7, 9))
-    fig.suptitle("Identification of the Lotca-Volterra-ODE. \nDataset with Additive white Gaussian noise $(\sigma=0.05)$")
+    fig.suptitle(
+        "Identification of the Lotca-Volterra-ODE. \nDataset with Additive white Gaussian noise $(\sigma=0.05)$"
+    )
     axs[0].plot(tt_test, xx_test[:, 0], color="tab:cyan", label="$x_1$ (prey) base model")
     axs[0].plot(tt_test, xx_sim[:, 0], color="tab:blue", linestyle=(0, (5, 5)), label="$x_1$ (prey) identified model")
     axs[0].plot(tt_test, xx_test[:, 1], color="tab:orange", label="$x_2$ (predators) base model")
-    axs[0].plot(tt_test, xx_sim[:, 1], color="tab:red", linestyle=(0, (5, 5)), label="$x_2$ (predators) identified model")
+    axs[0].plot(
+        tt_test, xx_sim[:, 1], color="tab:red", linestyle=(0, (5, 5)), label="$x_2$ (predators) identified model"
+    )
     axs[0].legend()
     axs[0].set(ylabel="Number of Animals", ylim=(0, 8.5))
 

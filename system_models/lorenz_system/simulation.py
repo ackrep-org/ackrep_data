@@ -44,7 +44,7 @@ def save_plot(simulation_data):
     ax.plot(simulation_data.y[0], simulation_data.y[1], simulation_data.y[2])
     ax.set(xlabel="$x_1$", ylabel="$x_2$", zlabel="$x_3$")
     plt.title("Full Simulation")
-    
+
     plt.tight_layout()
 
     save_plot_in_dir()
@@ -57,7 +57,7 @@ def evaluate_simulation(simulation_data):
     :return:
     """
 
-    expected_final_state = [ 3.30299301, 4.43659481, 17.91529214]
+    expected_final_state = [3.30299301, 4.43659481, 17.91529214]
     rc = ResultContainer(score=1.0)
     simulated_final_state = simulation_data.y[:, -1]
     rc.final_state_errors = [

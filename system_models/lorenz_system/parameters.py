@@ -23,20 +23,20 @@ pp_symb = [r, b, sigma] = sp.symbols("r, b, sigma", real=True)
 
 # SYMBOLIC PARAMETER FUNCTIONS
 r_sf = 28
-b_sf = 8/3
+b_sf = 8 / 3
 sigma_sf = 10
 
 
 # List of symbolic parameter functions
 pp_sf = [r_sf, b_sf, sigma_sf]
 
-#OPTIONAL
+# OPTIONAL
 # range of parameters
 r_range = (24.74, 99)
 b_range = None
 sigma_range = None
 
-#OPTIONAL
+# OPTIONAL
 # list of ranges
 pp_range_list = [r_range, b_range, sigma_range]
 

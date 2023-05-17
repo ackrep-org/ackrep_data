@@ -1,4 +1,3 @@
-
 import sys
 import os
 import numpy as np
@@ -7,7 +6,7 @@ import sympy as sp
 import tabulate as tab
 
 
-#link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+# link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
 
 
 # set model name
@@ -15,26 +14,27 @@ model_name = "four-bar linkage"
 
 
 # ---------- create symbolic parameters
-pp_symb = [s1, s2, s3, m1, m2, m3, J1, J2, J3, l1, l2, l3, l4, g] = sp.symbols("s1, s2, s3, m1, m2, m3, J1, J2, J3, l1, l2, l3, l4, g", real=True)
-
+pp_symb = [s1, s2, s3, m1, m2, m3, J1, J2, J3, l1, l2, l3, l4, g] = sp.symbols(
+    "s1, s2, s3, m1, m2, m3, J1, J2, J3, l1, l2, l3, l4, g", real=True
+)
 
 
 # ---------- create symbolic parameter functions
 # parameter values can be constant/fixed values OR set in relation to other parameters (for example: a = 2*b)
-s1_sf=1/2
-s2_sf=1/2
-s3_sf=1/2
-m1_sf=1
-m2_sf=1
-m3_sf=3
-J1_sf=1/12
-J2_sf=1/12
-J3_sf=1/12
-l1_sf=0.8
-l2_sf=1.5
-l3_sf=1.5
-l4_sf=2
-g_sf=9.81
+s1_sf = 1 / 2
+s2_sf = 1 / 2
+s3_sf = 1 / 2
+m1_sf = 1
+m2_sf = 1
+m3_sf = 3
+J1_sf = 1 / 12
+J2_sf = 1 / 12
+J3_sf = 1 / 12
+l1_sf = 0.8
+l2_sf = 1.5
+l3_sf = 1.5
+l4_sf = 2
+g_sf = 9.81
 
 # list of symbolic parameter functions
 # trailing "_sf" stands for "symbolic parameter function"
@@ -64,21 +64,22 @@ col_alignment = ["left", "center", "left", "center"]
 
 # Define Entries of all columns before the Symbol-Column
 # --- Entries need to be latex code
-col_1 = ["distance from the joint to the center of gravity of link 1",
-         "distance from the joint to the center of gravity of link 2",
-         "distance from the joint to the center of gravity of link 3",
-         "mass of link 1",
-         "mass of link 2",
-         "mass of link 3",
-         "moment of inertia of link 1",
-         "moment of inertia of link 2",
-         "moment of inertia of link 3",
-         "length of link 1",
-         "length of link 2",
-         "length of link 3",
-         "length of link 4",
-         "acceleration due to gravity"
-         ]
+col_1 = [
+    "distance from the joint to the center of gravity of link 1",
+    "distance from the joint to the center of gravity of link 2",
+    "distance from the joint to the center of gravity of link 3",
+    "mass of link 1",
+    "mass of link 2",
+    "mass of link 3",
+    "moment of inertia of link 1",
+    "moment of inertia of link 2",
+    "moment of inertia of link 3",
+    "length of link 1",
+    "length of link 2",
+    "length of link 3",
+    "length of link 4",
+    "acceleration due to gravity",
+]
 
 # contains all lists of the columns before the "Symbol" Column
 # --- Empty list, if there are no columns before the "Symbol" Column
@@ -101,7 +102,7 @@ col_4 = [
     "m",
     "m",
     "m",
-    r"$\frac{m}{s^2}$"
+    r"$\frac{m}{s^2}$",
 ]
 
 # contains all lists of columns after the FIX ENTRIES

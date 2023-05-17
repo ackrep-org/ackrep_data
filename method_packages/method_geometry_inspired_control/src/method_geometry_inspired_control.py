@@ -79,7 +79,7 @@ def shortest_curve(problem_spec):
 
     Led = Le.diff(r1)
     Ledx = Led.subs(r1**2, x)
-    sol1, sol2, sol3 = sp.solve(Ledx, x)            # sol = sp.solve(Le.diff(r1), r1) takes too much time
+    sol1, sol2, sol3 = sp.solve(Ledx, x)  # sol = sp.solve(Le.diff(r1), r1) takes too much time
     sol = [sol1**0.5, sol2**0.5, sol3**0.5]
 
     # Speedup the evaluation later (prepare values for interpolation)

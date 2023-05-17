@@ -1,11 +1,11 @@
-
 import sympy as sp
 import symbtools as st
 import importlib
 import sys, os
 import pickle
 from symbtools import modeltools as mt
-#from ipydex import IPS, activate_ips_on_exception  
+
+# from ipydex import IPS, activate_ips_on_exception
 
 from ackrep_core.system_model_management import GenericModel, import_parameters
 
@@ -13,23 +13,22 @@ from ackrep_core.system_model_management import GenericModel, import_parameters
 params = import_parameters()
 
 
-#link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+# link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
 
 
-class Model(GenericModel): 
-
+class Model(GenericModel):
     def initialize(self):
         """
         this function is called by the constructor of GenericModel
 
         :return: None
         """
-        
+
         # ---------start of edit section--------------------------------------
         # Define number of inputs -- MODEL DEPENDENT
         self.u_dim = 1
 
-        # Set "sys_dim" to constant value, if system dimension is constant 
+        # Set "sys_dim" to constant value, if system dimension is constant
         self.sys_dim = 8
 
         # ---------end of edit section----------------------------------------
@@ -37,17 +36,16 @@ class Model(GenericModel):
         # check existence of params file
         self.has_params = True
         self.params = params
-        
 
-    # ----------- SET DEFAULT INPUT FUNCTION ---------- # 
+    # ----------- SET DEFAULT INPUT FUNCTION ---------- #
     # --------------- Only for non-autonomous Systems
     def uu_default_func(self):
         """
         define input function
-    
-        :return:(function with 2 args - t, xx_nv) default input function 
-        """ 
-        
+
+        :return:(function with 2 args - t, xx_nv) default input function
+        """
+
         # ---------start of edit section--------------------------------------
         def uu_rhs(t, xx_nv):
             """
@@ -55,51 +53,51 @@ class Model(GenericModel):
 
             :param t:(scalar or vector) time
             :param xx_nv:(vector or array of vectors) numeric state vector
-            :return:(list) numeric inputs 
-            """ 
+            :return:(list) numeric inputs
+            """
             u1 = 1
-            
+
             return [u1]
+
         # ---------end of edit section----------------------------------------
 
         return uu_rhs
 
-
-    # ----------- SYMBOLIC RHS FUNCTION ---------- # 
+    # ----------- SYMBOLIC RHS FUNCTION ---------- #
 
     def get_symbolic_model(self):
         """
-        define model 
+        define model
 
-        :return: model 
+        :return: model
         """
 
-        x1, x2, x3, x4, x5, x6, x7, x8 = self.xx_symb   #state components
-        m0, m1, m2, m3, J1, J2, J3, l1, l2, l3, a1, a2, a3, g = self.pp_symb   #parameters
-    
-        u1 = self.uu_symb[0]   # inputs
+        x1, x2, x3, x4, x5, x6, x7, x8 = self.xx_symb  # state components
+        m0, m1, m2, m3, J1, J2, J3, l1, l2, l3, a1, a2, a3, g = self.pp_symb  # parameters
+
+        u1 = self.uu_symb[0]  # inputs
 
         ttheta = sp.Matrix([[x1], [x2], [x3], [x4]])
-        xdot1, xdot2, xdot3, xdot4 = sp.symbols('xdot1, xdot2, xdot3, xdot4')
+        xdot1, xdot2, xdot3, xdot4 = sp.symbols("xdot1, xdot2, xdot3, xdot4")
 
         ex = sp.Matrix([1, 0])
         ey = sp.Matrix([0, 1])
 
         Rz = mt.Rz
 
-        S0 = G0 = ex*x4
+        S0 = G0 = ex * x4
 
-        G1 = G0 + Rz(x1)*ey*l1
-        S1 = G0 + Rz(x1)*ey*a1
+        G1 = G0 + Rz(x1) * ey * l1
+        S1 = G0 + Rz(x1) * ey * a1
 
-        G2 = G1 + Rz(x2)*ey*l2
-        S2 = G1 + Rz(x2)*ey*a2 
+        G2 = G1 + Rz(x2) * ey * l2
+        S2 = G1 + Rz(x2) * ey * a2
 
-        G3 = G2 + Rz(x3)*ey*l3 
-        S3 = G2 + Rz(x3)*ey*a2
+        G3 = G2 + Rz(x3) * ey * l3
+        S3 = G2 + Rz(x3) * ey * a2
 
         # Time derivatives of coordinates of the centers of masses
-        S0dt, S1dt, S2dt, S3dt = st.col_split(st.time_deriv(st.col_stack(S0, S1, S2, S3), ttheta)) 
+        S0dt, S1dt, S2dt, S3dt = st.col_split(st.time_deriv(st.col_stack(S0, S1, S2, S3), ttheta))
 
         # kinetic energy of the cart
         T0 = 0.5 * m0 * xdot4**2
@@ -124,10 +122,10 @@ class Model(GenericModel):
         if not os.path.isfile(fpath):
             # Calculate the model based on lagrange equation (about 30s)
             mod = mt.generate_symbolic_model(T, V, ttheta, external_forces)
-            
+
             # perform patial linearization such that system input is acceleration and not force (about 9min)
             mod.calc_coll_part_lin_state_eq()
-            
+
             # write the model to disk to save time in the next run of the notebook
             with open(fpath, "wb") as pfile:
                 pickle.dump(mod, pfile)
@@ -141,8 +139,7 @@ class Model(GenericModel):
         xx = mod.xx.subs([(xdot1, x5), (xdot2, x6), (xdot3, x7), (xdot4, x8)])
         gg = mod.gg.subs([(xdot1, x5), (xdot2, x6), (xdot3, x7), (xdot4, x8)])
 
-        return [eqns, ff, xx, gg, mod]        
-
+        return [eqns, ff, xx, gg, mod]
 
     def get_rhs_odeint_fnc(self, ff, xx, gg):
         """
@@ -159,7 +156,7 @@ class Model(GenericModel):
         rhs = simmod.create_simfunction()
 
         return rhs
-    
+
     def get_rhs_symbolic(self):
         """
         define symbolic rhs function
@@ -169,12 +166,7 @@ class Model(GenericModel):
 
         _, _, _, _, mod = self.get_symbolic_model()
         mod.calc_state_eq(simplify=False)
-        x5, x6, x7, x8, xdot1, xdot2, xdot3, xdot4 = sp.symbols('x5, x6, x7, x8, xdot1, xdot2, xdot3, xdot4')
+        x5, x6, x7, x8, xdot1, xdot2, xdot3, xdot4 = sp.symbols("x5, x6, x7, x8, xdot1, xdot2, xdot3, xdot4")
         state_eq = mod.state_eq.subs([(xdot1, x5), (xdot2, x6), (xdot3, x7), (xdot4, x8)])
 
         return state_eq
-
-
-
-    
-    

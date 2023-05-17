@@ -25,7 +25,6 @@ pp_symb = [c] = [sp.symbols("c", real=True)]
 c_sf = 1
 
 
-
 # List of symbolic parameter functions
 pp_sf = [c_sf]
 

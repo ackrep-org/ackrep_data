@@ -31,7 +31,7 @@ def simulate():
 
     t_end = 15
     tt = np.linspace(0, t_end, 10000)
-    simulation_data = odeint(rhs, xx0, tt) 
+    simulation_data = odeint(rhs, xx0, tt)
 
     save_plot(simulation_data, tt)
 
@@ -50,11 +50,11 @@ def save_plot(simulation_data, tt):
     """
     # ---------start of edit section--------------------------------------
     # plot of your data
-    for i in range(len(simulation_data[0,:])):
-        plt.plot(tt, simulation_data[:,i], label='$x_{}$'.format(i+1))
+    for i in range(len(simulation_data[0, :])):
+        plt.plot(tt, simulation_data[:, i], label="$x_{}$".format(i + 1))
     plt.grid()
     plt.legend()
-    plt.xlabel('Time [s]')
+    plt.xlabel("Time [s]")
 
     # ---------end of edit section----------------------------------------
 
@@ -73,7 +73,16 @@ def evaluate_simulation(simulation_data):
     # ---------start of edit section--------------------------------------
     # fill in final states of simulation to check your model
     # simulation_data.y[i][-1]
-    expected_final_state = [3.3544161195899775, 3.6128436581303522, 4.184663788192004, 0.0, -2.0778538809498333, -5.473145553078993, -2.3347177255025864, 0.0]
+    expected_final_state = [
+        3.3544161195899775,
+        3.6128436581303522,
+        4.184663788192004,
+        0.0,
+        -2.0778538809498333,
+        -5.473145553078993,
+        -2.3347177255025864,
+        0.0,
+    ]
 
     # ---------end of edit section----------------------------------------
 

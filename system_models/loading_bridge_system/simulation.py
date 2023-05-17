@@ -38,7 +38,7 @@ def simulate():
     tt = np.linspace(0, t_end, 10000)
     simulation_data = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
 
-    u =[]
+    u = []
     for i in range(len(simulation_data.t)):
         u.append(model.uu_func(simulation_data.t[i], xx0)[0])
     simulation_data.uu = u
@@ -64,7 +64,9 @@ def save_plot(simulation_data):
     fig1, axs = plt.subplots(nrows=2, ncols=1, figsize=(12.8, 9))
 
     # print in axes top left
-    axs[0].plot(simulation_data.t, simulation_data.y[0] + 1.8 * np.sin(simulation_data.y[1]), label="x position of the last")
+    axs[0].plot(
+        simulation_data.t, simulation_data.y[0] + 1.8 * np.sin(simulation_data.y[1]), label="x position of the last"
+    )
     axs[0].plot(simulation_data.t, simulation_data.y[0], label="x postion of the cart")
     axs[0].set_ylabel("x [m]")  # y-label
     axs[0].grid()
@@ -72,7 +74,7 @@ def save_plot(simulation_data):
 
     axs[1].plot(simulation_data.t, simulation_data.uu)
     axs[1].set_ylabel("u [N]")  # y-label
-    axs[1].set_xlabel("Time [s]") # x-label
+    axs[1].set_xlabel("Time [s]")  # x-label
     axs[1].grid()
 
     # ---------end of edit section----------------------------------------

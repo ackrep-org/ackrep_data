@@ -13,7 +13,7 @@ import os
 
 def simulate():
     """
-    simulate the system model 
+    simulate the system model
 
     :return: simulation data
     """
@@ -25,14 +25,13 @@ def simulate():
     # for i, eq in enumerate(rhs_xx_pp_symb):
     #     print(f"dot_x{i+1} =", eq)
 
-    
     # ---------start of edit section--------------------------------------
 
     SUM1, SUM2, u3 = model.get_Blockfnc()
 
     thestep = stepfnc(1.0, 1)
 
-    t, states = blocksimulation(40, (u3, thestep), dt=.05)
+    t, states = blocksimulation(40, (u3, thestep), dt=0.05)
 
     bo = compute_block_ouptputs(states)
 

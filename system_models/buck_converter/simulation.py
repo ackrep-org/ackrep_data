@@ -34,7 +34,7 @@ def simulate():
     tt = np.linspace(0, t_end, 10000)
     simulation_data = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
     simulation_data.U_E = model.params.UE_sf
-    simulation_data.u = model.uu_func(0,0)[0]
+    simulation_data.u = model.uu_func(0, 0)[0]
     save_plot(simulation_data)
     # print(simulation_data.y[:,-1])
 
@@ -58,7 +58,7 @@ def save_plot(simulation_data):
     ax[0].legend()
     ax[0].grid()
     ax[0].set_title(f"Buck Converter Simulation, Duty Ratio d={simulation_data.u}")
-    ax[1].plot(simulation_data.t, np.ones_like(simulation_data.t) * simulation_data.U_E , label="$U_E$")
+    ax[1].plot(simulation_data.t, np.ones_like(simulation_data.t) * simulation_data.U_E, label="$U_E$")
     ax[1].plot(simulation_data.t, simulation_data.y[1], label="$x_2=u_C$")
     ax[1].legend()
     ax[1].grid()

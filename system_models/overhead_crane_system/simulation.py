@@ -99,7 +99,7 @@ def save_plot(simulation_data):
 
     plt.tight_layout()
 
-    #plt.show()
+    # plt.show()
 
     save_plot_in_dir()
 

@@ -46,9 +46,9 @@ def save_plot(sim):
     fig1, axs = plt.subplots(nrows=2, ncols=1, figsize=(12.8, 9.6))
 
     # print in axes top left
-    axs[0].plot(sim.t, np.real(sim.y[0] * 360 / (2 * np.pi)), label= r"$\varphi$")
+    axs[0].plot(sim.t, np.real(sim.y[0] * 360 / (2 * np.pi)), label=r"$\varphi$")
 
-    axs[0].plot(sim.t, list(sim.uu), label= r"periodic excitation $\cos(\omega*t)$")
+    axs[0].plot(sim.t, list(sim.uu), label=r"periodic excitation $\cos(\omega*t)$")
     axs[0].set_ylabel("Angle [rad]")  # y-label
     axs[0].grid()
     axs[0].legend()

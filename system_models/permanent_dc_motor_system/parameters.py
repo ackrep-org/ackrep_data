@@ -1,4 +1,3 @@
-
 import sys
 import os
 import numpy as np
@@ -7,7 +6,7 @@ import sympy as sp
 import tabulate as tab
 
 
-#link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+# link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
 
 
 # set model name
@@ -19,7 +18,7 @@ pp_symb = [c_phi, J, La, Ra] = sp.symbols("c_phi, J, La, Ra", real=True)
 
 
 # ---------- create symbolic parameter functions
-# parameter values can be constant/fixed values OR set in relation to other parameters (for example: a = 2*b)  
+# parameter values can be constant/fixed values OR set in relation to other parameters (for example: a = 2*b)
 c_phi_sf = 0.169
 J_sf = 1.7e-3
 La_sf = 0.0256
@@ -43,7 +42,7 @@ latex_names = {}
 
 # ---------- Define LaTeX table
 
-# Define table header 
+# Define table header
 # DON'T CHANGE FOLLOWING ENTRIES: "Symbol", "Value"
 tabular_header = ["Parameter Name", "Symbol", "Value", "Unit"]
 
@@ -53,11 +52,7 @@ col_alignment = ["left", "center", "left", "center"]
 
 # Define Entries of all columns before the Symbol-Column
 # --- Entries need to be latex code
-col_1 = [
-        "motor constant",
-        "moment of inertia",
-        "armature inductance",
-        "armature resistance"] 
+col_1 = ["motor constant", "moment of inertia", "armature inductance", "armature resistance"]
 
 # contains all lists of the columns before the "Symbol" Column
 # --- Empty list, if there are no columns before the "Symbol" Column
@@ -66,11 +61,7 @@ start_columns_list = [col_1]
 
 # Define Entries of the columns after the Value-Column
 # --- Entries need to be latex code
-col_4 = [ 
-        "Vs",
-        r"$Ws^3$",
-        "H",
-        r"$\Omega$"]
+col_4 = ["Vs", r"$Ws^3$", "H", r"$\Omega$"]
 
 # contains all lists of columns after the FIX ENTRIES
 # --- Empty list, if there are no columns after the "Value" column

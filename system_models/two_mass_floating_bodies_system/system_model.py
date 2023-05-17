@@ -58,12 +58,12 @@ class Model(GenericModel):
             :param xx_nv:(vector or array of vectors) numeric state vector
             :return:(list) numeric inputs
             """
-            #u = u_num_func(t)
-            #u = 0.745
+            # u = u_num_func(t)
+            # u = 0.745
 
             if t < 0.25:
                 u = 8.877
-            else: 
+            else:
                 u = 0.7
 
             return [u]

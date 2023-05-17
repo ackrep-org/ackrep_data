@@ -34,7 +34,7 @@ def simulate():
     tt = np.linspace(0, t_end, 10000)
     simulation_data = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
 
-    print(simulation_data.y[:,-1])
+    print(simulation_data.y[:, -1])
     save_plot(simulation_data)
 
     return simulation_data
@@ -59,7 +59,6 @@ def save_plot(simulation_data):
     plt.ylabel("Number of Animals")
     plt.title("Lotka-Volterra (Predator-Prey) Dynamics")
 
-
     plt.tight_layout()
 
     save_plot_in_dir()
@@ -73,8 +72,6 @@ def evaluate_simulation(simulation_data):
     :return:
     """
     expected_final_state = [3.02762979, 0.06256621]
-
-
 
     rc = ResultContainer(score=1.0)
     simulated_final_state = simulation_data.y[:, -1]

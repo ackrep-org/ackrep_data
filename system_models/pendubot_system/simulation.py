@@ -26,7 +26,6 @@ def simulate():
 
     rhs = model.get_rhs_func()
 
-
     # initial state values
     xx0 = [0, 0, 0, 0]
 
@@ -34,7 +33,7 @@ def simulate():
     tt = np.linspace(0, t_end, 10000)
     simulation_data = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
 
-    u =[]
+    u = []
     for i in range(len(simulation_data.t)):
         u.append(model.uu_func(simulation_data.t[i], xx0)[0])
     simulation_data.uu = u
@@ -99,7 +98,6 @@ def evaluate_simulation(simulation_data):
     # fill in final states of simulation to check your model
     # simulation_data.y[i][-1]
     expected_final_state = [19.644185589553743, 0.9214290935529142, -4.742075975976034, 12.53264069449659]
-
 
     # ---------end of edit section----------------------------------------
 

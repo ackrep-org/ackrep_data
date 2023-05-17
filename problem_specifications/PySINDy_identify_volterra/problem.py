@@ -18,7 +18,7 @@ class ProblemSpecification(object):
     tt_train = np.linspace(0, 10, 5000)
     # data for validation
     xx0_test = [4.6, 0.4]
-    tt_test = np.linspace(0, 20, 20000)  
+    tt_test = np.linspace(0, 20, 20000)
 
     model = Model()
 
@@ -27,7 +27,7 @@ class ProblemSpecification(object):
 
     xx_train = solve_ivp(rhs, [tt_train[0], tt_train[-1]], xx0_train, method="RK45", t_eval=tt_train)
     xx_test = solve_ivp(rhs, [tt_test[0], tt_test[-1]], xx0_test, method="RK45", t_eval=tt_test)
-    
+
 
 def evaluate_solution(solution_data):
     """

@@ -29,7 +29,7 @@ def simulate():
 
     # ---------start of edit section--------------------------------------
     # initial state values
-    xx0 = [0.02, 0.02, 0, 0]                     #0.02, 0.052, 0, 0]
+    xx0 = [0.02, 0.02, 0, 0]  # 0.02, 0.052, 0, 0]
 
     t_end = 2
     tt = np.linspace(0, t_end, 10000)

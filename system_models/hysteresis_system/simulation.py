@@ -20,12 +20,12 @@ def simulate():
 
     model = system_model.Model()
 
-    #input
+    # input
     uu = model.input_ramps
 
     Result_block, hyst_in = model.get_blockfnc()
-    
-    tt, states = blocksimulation(25, {hyst_in: uu}) # simulate
+
+    tt, states = blocksimulation(25, {hyst_in: uu})  # simulate
     tt = tt.flatten()
 
     bo = compute_block_ouptputs(states)
@@ -33,7 +33,6 @@ def simulate():
     input_signal = [uu(t) for t in tt]
 
     simulation_data = [tt, bo[Result_block], input_signal]
-
 
     save_plot(simulation_data)
 
@@ -53,8 +52,8 @@ def save_plot(simulation_data):
 
     # print in axes top left
 
-    axs[0].plot(simulation_data[0], simulation_data[2], label='input')
-    axs[0].plot(simulation_data[0], simulation_data[1], label='hyst. output')
+    axs[0].plot(simulation_data[0], simulation_data[2], label="input")
+    axs[0].plot(simulation_data[0], simulation_data[1], label="hyst. output")
     axs[0].set_xlabel("Time [s]")  # x-label
     axs[0].grid(1)
     axs[0].legend()
@@ -94,5 +93,3 @@ def evaluate_simulation(simulation_data):
     rc.success = np.allclose(expected_final_state, simulated_final_state, rtol=0, atol=1e-2)
 
     return rc
-
-

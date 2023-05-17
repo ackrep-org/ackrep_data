@@ -33,7 +33,6 @@ def simulate():
     tt = np.linspace(0, t_end, 10000)
     simulation_data = solve_ivp(rhs, (0, t_end), xx0, t_eval=tt)
 
-
     save_plot(simulation_data)
 
     return simulation_data

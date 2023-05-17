@@ -1,9 +1,9 @@
-
 import sympy as sp
 import symbtools as st
 import importlib
 import sys, os
-#from ipydex import IPS, activate_ips_on_exception  
+
+# from ipydex import IPS, activate_ips_on_exception
 
 from ackrep_core.system_model_management import GenericModel, import_parameters
 
@@ -11,23 +11,22 @@ from ackrep_core.system_model_management import GenericModel, import_parameters
 params = None
 
 
-#link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+# link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
 
 
-class Model(GenericModel): 
-
+class Model(GenericModel):
     def initialize(self):
         """
         this function is called by the constructor of GenericModel
 
         :return: None
         """
-        
+
         # ---------start of edit section--------------------------------------
         # Define number of inputs -- MODEL DEPENDENT
         self.u_dim = 0
 
-        # Set "sys_dim" to constant value, if system dimension is constant 
+        # Set "sys_dim" to constant value, if system dimension is constant
         self.sys_dim = 2
 
         # ---------end of edit section----------------------------------------
@@ -35,9 +34,8 @@ class Model(GenericModel):
         # check existence of params file
         self.has_params = False
         self.params = params
-        
 
-    # ----------- SYMBOLIC RHS FUNCTION ---------- # 
+    # ----------- SYMBOLIC RHS FUNCTION ---------- #
 
     def get_rhs_symbolic(self):
         """
@@ -48,19 +46,15 @@ class Model(GenericModel):
         if self.dxx_dt_symb is not None:
             return self.dxx_dt_symb
 
-
         # ---------start of edit section--------------------------------------
-        x1, x2 = self.xx_symb   #state components
-
+        x1, x2 = self.xx_symb  # state components
 
         # define symbolic rhs functions
-        dx1_dt = 2*x2
-        dx2_dt = (x1 + x2)*(-(x1 -x2)**2 + 1)
+        dx1_dt = 2 * x2
+        dx2_dt = (x1 + x2) * (-((x1 - x2) ** 2) + 1)
 
         # rhs functions matrix
         self.dxx_dt_symb = sp.Matrix([dx1_dt, dx2_dt])
         # ---------end of edit section----------------------------------------
 
-
         return self.dxx_dt_symb
-    

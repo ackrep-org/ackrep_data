@@ -19,7 +19,7 @@ class Model:
     n_fem = 17
     l = 1
     T = 1
-    
+
     # start and end of input trajectory
     y0 = -1
     y1 = 4
@@ -29,7 +29,6 @@ class Model:
     # or try these:
     # coefs = [1, -0.5, -8, None, None]
     _, a1, a0, _, _ = coefs
-
 
     temp_domain = pi.Domain(bounds=(0, T), num=100)
     spat_domain = pi.Domain(bounds=(0, l), num=n_fem * 11)

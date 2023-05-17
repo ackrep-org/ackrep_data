@@ -1,4 +1,3 @@
-
 import sys
 import os
 import numpy as np
@@ -7,7 +6,7 @@ import sympy as sp
 import tabulate as tab
 
 
-#link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+# link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
 
 
 # set model name
@@ -15,7 +14,7 @@ model_name = "Lotka_Volterra"
 
 
 # ---------- create symbolic parameters
-pp_symb = [a, b, c , d] = sp.symbols("a, b, c, d", real=True)
+pp_symb = [a, b, c, d] = sp.symbols("a, b, c, d", real=True)
 
 
 # set numerical values of auxiliary parameters
@@ -29,14 +28,14 @@ d_nv = 1.8
 # tailing "_sf" stands for "symbolic parameter function"
 pp_sf = [a_nv, b_nv, c_nv, d_nv]
 
-#OPTIONAL
+# OPTIONAL
 # range of parameters
 a_range = (0, np.inf)
 b_range = (0, np.inf)
 c_range = (0, np.inf)
 d_range = (0, np.inf)
 
-#OPTIONAL
+# OPTIONAL
 # list of ranges
 pp_range_list = [a_range, b_range, c_range, d_range]
 
@@ -65,11 +64,11 @@ col_alignment = ["left", "center", "left"]
 # Define Entries of all columns before the Symbol-Column
 # --- Entries need to be latex code
 col_1 = [
-    "reproduction rate of prey alone", 
-    "mortality rate of prey per predator", 
+    "reproduction rate of prey alone",
+    "mortality rate of prey per predator",
     "mortality rate of predators",
-    "reproduction rate of predators per prey"
-    ]
+    "reproduction rate of predators per prey",
+]
 
 # contains all lists of the columns before the "Symbol" Column
 # --- Empty list, if there are no columns before the "Symbol" Column

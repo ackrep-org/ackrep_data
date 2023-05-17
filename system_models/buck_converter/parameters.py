@@ -1,4 +1,3 @@
-
 import sys
 import os
 import numpy as np
@@ -7,7 +6,7 @@ import sympy as sp
 import tabulate as tab
 
 
-#link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+# link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
 
 
 # set model name
@@ -19,11 +18,11 @@ pp_symb = [L, C, R, U_E] = sp.symbols("L, C, R, U_E", real=True)
 
 
 # ---------- create symbolic parameter functions
-# parameter values can be constant/fixed values OR set in relation to other parameters (for example: a = 2*b)  
-L_sf = 180 * 1e-6 # uH
-C_sf = 20 * 1e-6 # uF
-R_sf = 10 # Ohm
-UE_sf = 24 # V
+# parameter values can be constant/fixed values OR set in relation to other parameters (for example: a = 2*b)
+L_sf = 180 * 1e-6  # uH
+C_sf = 20 * 1e-6  # uF
+R_sf = 10  # Ohm
+UE_sf = 24  # V
 
 
 # list of symbolic parameter functions
@@ -44,7 +43,7 @@ latex_names = {U_E: r"U_E"}
 
 # ---------- Define LaTeX table
 
-# Define table header 
+# Define table header
 # DON'T CHANGE FOLLOWING ENTRIES: "Symbol", "Value"
 tabular_header = ["Symbol", "Value"]
 
@@ -54,7 +53,7 @@ col_alignment = ["center", "left"]
 
 # Define Entries of all columns before the Symbol-Column
 # --- Entries need to be latex code
-col_1 = ["Inductiviy", "Capacity", "Resistence", "Input Voltage"] 
+col_1 = ["Inductiviy", "Capacity", "Resistence", "Input Voltage"]
 
 # contains all lists of the columns before the "Symbol" Column
 # --- Empty list, if there are no columns before the "Symbol" Column
