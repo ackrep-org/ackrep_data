@@ -112,6 +112,7 @@ def save_plot(problem_spec, solution_data):
         else:
             plt.ylabel("angular velocity [rad/s]")
     plt.tight_layout()
+    save_plot_in_dir("plot1.png")
 
     plt.figure(2)
     plt.plot(problem_spec.tt, solution_data.yy)
@@ -122,4 +123,4 @@ def save_plot(problem_spec, solution_data):
     plt.tight_layout()
 
     # save image
-    save_plot_in_dir()
+    save_plot_in_dir("plot2.png")

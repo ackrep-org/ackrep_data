@@ -82,6 +82,8 @@ def save_plot(problem_spec, solution_data):
     plt.title("x-position of pendulum")
     plt.legend(loc=1)
 
+    save_plot_in_dir("plot1.png")
+
     plt.figure(2)
     plt.plot(problem_spec.tt1, solution_data.u(problem_spec.tt1))
     plt.xlabel("time [s]")
@@ -90,4 +92,4 @@ def save_plot(problem_spec, solution_data):
 
     plt.tight_layout()
 
-    save_plot_in_dir()
+    save_plot_in_dir("plot2.png")
