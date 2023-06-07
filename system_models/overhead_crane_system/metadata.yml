@@ -10,12 +10,12 @@ tag_list:
     - 'crane'
 erk_data:
     R9125["has input dimension"]: 4
-    R16["has property"]:
+    R8303["has general system property"]:
         - I7733["time invariance"]
         - I5357["differential flatness"]
     R2928["has model representation"]:
         I6886["general ode state space representation"]:
-            R16["has property"]:
+            R5100["has model representation property"]:
                 - I6091["control affine"]
                 - I8978["time continuity"]
                 - I4478["strict nonlinearity"]

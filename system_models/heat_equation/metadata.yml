@@ -8,11 +8,11 @@ tag_list:
     - ''
 erk_data:
     R9125["has input dimension"]: 1
-    R16["has property"]:
+    R8303["has general system property"]:
     - I7733["time invariance"]
     R2928["has model representation"]:
         I8063["partial differential equation"]:
-            R16["has property"]:
+            R8303["has general system property"]:
                 - I8978["time continuity"]
                 - I8844["parabolic"]
             R3898["has system order"]: 2
