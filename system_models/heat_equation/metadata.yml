@@ -18,7 +18,9 @@ erk_data:
             R3898["has system order"]: 2
             R6134["has highest time derivative"]: 1
             R9746["has boundary condition"]: I6830["dirichlet boundary condition"]
-    R8316["belongs to domain"]: I1696["physical domain"]
+    R8316["belongs to domain"]:
+        - I1696["physical domain"]
+        - I7667["thermal domain"]
 creator: 'Stefan Ecklebe <stefan.ecklebe@tu-dresden.de>'
 editor_list:
     - 'Julius Fiedler <julius.fiedler@tu-dresden.de'

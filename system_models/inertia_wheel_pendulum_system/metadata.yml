@@ -3,7 +3,7 @@
 key: AVCTR
 predecessor_key: ''
 type: system_model
-name: 'iwp'
+name: 'inertia wheel pendulum'
 short_description: 'inertia wheel pendulum, nonlinear underactuated system'
 version: 0.1.0
 tag_list:
