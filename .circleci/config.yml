@@ -34,17 +34,18 @@ jobs: # A basic unit of work in a run
             cd ../ackrep_core
             pip install -r requirements.txt
             pip install -e .
-            python manage.py makemigrations
       - save_cache: # cache Python dependencies using checksum of requirements as the cache-key
           key: deps1--{{ checksum "../ackrep_core/requirements.txt" }}
           paths:
             - "venv"
       - run:
-          name: bootstrap Config
+          name: bootstrap Config, Migrate
           command: |
             . venv/bin/activate
             cd ..
             ackrep --bootstrap-config
+            cd ackrep_core
+            python manage.py makemigrations
       - run:
           name: Load ERK Modules
           command: |
