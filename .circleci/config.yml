@@ -40,14 +40,6 @@ jobs: # A basic unit of work in a run
           paths:
             - "venv"
       - run:
-          name: bootstrap Config, Migrate
-          command: |
-            . venv/bin/activate
-            cd ..
-            ackrep --bootstrap-config
-            cd ackrep_core
-            python manage.py makemigrations
-      - run:
           name: Load ERK Modules
           command: |
             . venv/bin/activate
@@ -66,6 +58,14 @@ jobs: # A basic unit of work in a run
             sudo chmod -R g+rw ackrep_data
             ls -n
             id
+      - run:
+          name: bootstrap Config, Migrate
+          command: |
+            . venv/bin/activate
+            cd ..
+            ackrep --bootstrap-config
+            cd ackrep_core
+            python manage.py makemigrations
       - setup_remote_docker:
           version: 20.10.14
           docker_layer_caching: true
