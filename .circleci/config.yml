@@ -8,6 +8,7 @@ jobs: # A basic unit of work in a run
         environment: # environment variables for primary container
           NO_IPS_EXCEPTHOOK: "True"
           CI: "True"
+          ACKREP_DATA_UT: "True"
           # ACKREP_ENVIRONMENT_NAME: "dont import pyerk"
 
     steps: # steps that comprise the `build` job
