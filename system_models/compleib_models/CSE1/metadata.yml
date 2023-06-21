@@ -1,4 +1,4 @@
-# 
+#
 
 #link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
 
@@ -17,21 +17,20 @@ erk_data:
         I6850["state space model representation"]:
             R2112["has state dimension"]: 20
             R3898["has system order"]: 1 # todo: this should be redundant
-            R16["has property"]:
+            R5100["has model representation property"]:
                 - I1898["lti"]
                 - I8978["time continuity"]
-    
-    R16["has property"]:
-        
+
+    R8303["has general system property"]:
         - I7864["controllability"]
-        
-    
-    
-    R61["does not have property"]:
-        
+
+
+
+    R6458["does not have general system property"]:
+
         - I3227["observability"]
-        
-    
+
+
 creator: F. Leibfritz, also see <http://www.compleib.de/>
 editor_list:
     - This entity was automatically generated.
