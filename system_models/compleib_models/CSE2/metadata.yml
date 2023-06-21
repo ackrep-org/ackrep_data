@@ -1,0 +1,44 @@
+# 
+
+#link to documentation with examples: https://ackrep-doc.readthedocs.io/en/latest/devdoc/contributing_data.html
+
+key: COM50
+predecessor_key: ''
+type: system_model
+name: 'Coupled spring experiment, l=30 2nd order system'
+short_description: CSE2 Coupled spring experiment, l=30 2nd order system J. Abels and P. Benner, "CAREX - A Collection of Benchmark Examples for Continuous-Time Algebraic Riccati Equations Version 2.0", SLICOT Working Note 1999-14, Ex. 4.3 available via ftp wgs.esat.kuleuven.ac.be/ pub/WGS/REPORTS/SLWN1999-14.ps.Z",
+version: 0.1.0
+tag_list:
+    - ''
+erk_data:
+    R9125["has input dimension"]: 2
+    R8978["has output dimension"]: 32
+    R2928["has model representation"]:
+        I6850["state space model representation"]:
+            R2112["has state dimension"]: 60
+            R3898["has system order"]: 1 # todo: this should be redundant
+            R16["has property"]:
+                - I1898["lti"]
+                - I8978["time continuity"]
+    
+    R16["has property"]:
+        
+        - I7864["controllability"]
+        
+    
+    
+    R61["does not have property"]:
+        
+        - I3227["observability"]
+        
+    
+creator: F. Leibfritz, also see <http://www.compleib.de/>
+editor_list:
+    - This entity was automatically generated.
+creation_date: 2022-10-10 15:53:53
+external_references: ''
+notes: ''
+estimated_runtime: 10s
+compatible_environment: ""
+system_model_file: system_model.py
+simulation_file: simulation.py
