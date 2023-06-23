@@ -99,6 +99,7 @@ class ConstraintHandler(object):
         tensor_shape = self.Jac_Gamma.shape + (len(self.z),)
         self.dJac_Gamma = np.empty(tensor_shape, dtype=object)
         for i, zi in enumerate(self.z):
+            zi = sp.Symbol(zi)
             tmp = self.Jac_Gamma.diff(zi)
             self.dJac_Gamma[:, :, i] = aux.to_np(tmp, object)
 
