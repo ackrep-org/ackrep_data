@@ -13,7 +13,7 @@ import sympy as sp
 from sympy import cos, sin
 from math import pi
 from ackrep_core import ResultContainer
-from system_models.loading_bridge_system.system_model import Model
+from system_models.cartpole_system.system_model import Model
 
 
 class ProblemSpecification(object):
