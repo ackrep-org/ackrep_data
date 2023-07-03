@@ -24,7 +24,7 @@ erk_data:
     R8316["belongs to domain"]: I4498["artifical domain"]
     R5031["has trajectory"]:
         I7062["trajectory"]:
-            R8303["has general system property"]: I3241["chaotic behavior"]
+            R7062["has general trajectory property"]: I3241["chaotic behavior"]
 creator: 'Julius Fiedler <julius.fiedler{ät}mailbox.tu-dresden.de>'
 editor_list:
     - ''
