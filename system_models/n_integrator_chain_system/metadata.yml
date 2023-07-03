@@ -7,6 +7,10 @@ version: 0.1.0
 tag_list:
     - 'integrator'
     - 'chain'
+erk_data:
+    R9125["has input dimension"]: 1
+    R8978["has output dimension"]: 1
+    R8316["belongs to domain"]: I4498["artificial domain"]
 creator: 'Anne Harloff <anne.harloff{ät}mailbox.tu-dresden.de>'
 editor_list:
     - ''

@@ -9,6 +9,19 @@ version: 0.1.0
 tag_list:
     - 'inertia wheel'
     - 'pendulum'
+erk_data:
+    R9125["has input dimension"]: 1
+    R8303["has general system property"]:
+        - I7733["time invariance"]
+    R2928["has model representation"]:
+        I6886["general ode state space representation"]:
+            R5100["has model representation property"]:
+                - I8978["time continuity"]
+                - I6091["control affine"]
+            R3898["has system order"]: 1
+            R2112["has state dimension"]: 4
+    R8316["belongs to domain"]: I9223["mechanical domain"]
+    R5031["has trajectory"]: I9820["equilibrium point"]
 creator: 'Anne Harloff <anne.harloff{ät}mailbox.tu-dresden.de>'
 editor_list:
     - ''

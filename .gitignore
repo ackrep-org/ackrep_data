@@ -2,6 +2,7 @@
 # ---------------
 
 */*/_data/*.png
+*/*/*/_data/*.png
 notebooks/*/*.html
 _test.py
 

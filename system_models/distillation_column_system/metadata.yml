@@ -8,6 +8,10 @@ short_description: 'conrol the filling level and temperature of the ground of th
 version: 0.1.0
 tag_list:
     - 'distillation column'
+erk_data:
+    R9125["has input dimension"]: 7
+    R8978["has output dimension"]: 2
+    R8316["belongs to domain"]: I6203["chemical domain"]
 creator: 'Anne Harloff <anne.harloff{ät}mailbox.tu-dresden.de>'
 editor_list:
     - ''
