@@ -82,7 +82,7 @@ jobs: # A basic unit of work in a run
             echo Create dummy container
             docker create -v /code/ackrep_data --name dummy alpine:3.4 /bin/true
             echo Copy ackrep_data to dummy
-            docker cp /home/circleci/ackrep/ackrep_data dummy:/code
+            docker cp /home/circleci/ackrep/ackrep_data dummy:/code/ackrep
             echo containers:
             docker container ps
       - run:
