@@ -25,7 +25,7 @@ class ProblemSpecification(object):
     u = [model.uu_symb[0]]  # input of system
 
     # equilibrium point
-    eqrt = [(x1, 0), (x2, 0), (x3, 0), (x4, 0), (u, 0)]
+    eqrt = [(x1, 0), (x2, 0), (x3, 0), (x4, 0), (u[0], 0)]
     xx0 = np.array([0.2, pi / 6, 0.5, 0.2])  # initial condition
     yr = 0.5  # reference position
     tt = np.linspace(0, 8, 1000)  # vector for the time axis for simulating
