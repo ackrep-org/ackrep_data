@@ -1,14 +1,12 @@
-key: XRV9G
+key: JC2OP
 predecessor_key: ''
 type: problem_solution
-name: 'controller design via LQR for loading bridge'
+name: 'linear trajectory planning for a cartpole system'
 short_description: ''
 version: 0.1.0
 tag_list:
     - 'ocse:State_Space_System'
-    - 'ocse:Closed_Loop_Control'
-    - 'ocse:State_Feedback'
-    - 'ocse:Linear_Quadratic_Control'
+    - 'ocse:Trajectory_Generation'
 creator: 'A student supervised by Carsten Knoll <carsten.knoll{ät}posteo.de>'
 editor_list:
     - ''
@@ -16,10 +14,11 @@ creation_date: '2020-12-30'
 external_references: ''
 notes: 'Created during a student project'
 solved_problem_list:
-    - 4MYUV
+    - O9QN7
 method_package_list:
     - DEI1Q
-    - IEINI
+    - 79A0X
+    - OYNK3
 compatible_environment: ''
 estimated_runtime: '10s'
 solution_file: solution.py

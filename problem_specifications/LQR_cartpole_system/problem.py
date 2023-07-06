@@ -1,5 +1,5 @@
 """
-system description: A loading bridge is considered, which consists of a wagon with the mass M,
+system description: A cartpole system is considered, which consists of a wagon with the mass M,
 a rope with the constant length l, which is attached to the wagon, and a load,
 which is located at the free end of the rope. The force that can be impressed on the wagon
 is available as a manipulated variable.

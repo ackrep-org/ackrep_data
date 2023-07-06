@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-system description: A loading bridge is considered, which consists of a wagon with the mass M,
+""""
+system description: A cartpole system is considered, which consists of a wagon with the mass M,
 a rope with the constant length l, which is attached to the wagon, and a load,
 which is located at the free end of the rope. The force that can be applied to the wagon
 is available as a manipulated variable.
 
-problem specification for control problem: design of a full state feedback controller to control
-the x-position of the load to 1.5m.
+problem specification for control problem: design of a full observer to estimate all states of the system.
 """
-
 import numpy as np
 import sympy as sp
 from sympy import cos, sin
@@ -27,10 +25,11 @@ class ProblemSpecification(object):
 
     # equilibrium point for linearization of the nonlinear system
     eqrt = [(x1, 0), (x2, 0), (x3, 0), (x4, 0), (u, 0)]
-    xx0 = np.array([0.2, pi / 6, 1, 0.2])  # initial condition for simulation
+    xx0 = np.array([0.2, 0.5, 0.2, 0.1, 0, 0, 0, 0])  # initial condition
     tt = np.linspace(0, 5, 1000)  # vector for the time axis for simulating
-    poles_cl = [-3, -3, -3, -3]  # desired poles of closed loop
-    yr = 1.5  # reference output
+    poles_cl = [-3, -3, -3, -3]  # desired poles for closed loop
+    poles_o = [-10, -10, -6, -6]  # poles of the observer dynamics
+    yr = 0  # target value pf output
 
     # plotting parameters
     titles_state = ["x1", "x2", "x1_dot", "x2_dot"]
@@ -46,26 +45,28 @@ class ProblemSpecification(object):
         """Right hand side of the equation of motion in nonlinear state space form
         :return:     nonlinear state space
         """
+
         return sp.Matrix(cls.model.get_rhs_symbolic_num_params())
 
     @classmethod
     def output_func(cls):
-        """output equation of the system: x-position of the load
+        """output equation of the system
         :return:     output equation y = x1
         """
         x1, x2, x3, x4 = cls.xx
         u = cls.u
-        l = cls.model.pp_str_dict["l"]  # geometry constant
+        l = cls.model.pp_str_dict["l"]
 
         return sp.Matrix([x1 + l * sin(x2)])
 
 
 def evaluate_solution(solution_data):
     """
-    Condition: the x-position of the load reaches 1.5m after at least 4 seconds
-    :param solution_data: solution data of problem of solution
+    Condition: all estimated states correspond to the true states after 4 seconds at the latest
     :return:
     """
-    P = ProblemSpecification
-    success = all(abs(solution_data.yy[800:] - [P.yr] * 200) < 1e-2)
+    res_eva = []
+    for i in range(4):
+        res_eva.append(all(abs(solution_data.res[400:, i] - solution_data.res[400:, i + 4] < 1e-2)))
+    success = all(res_eva)
     return ResultContainer(success=success, score=1.0)
