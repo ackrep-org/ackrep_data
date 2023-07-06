@@ -35,11 +35,11 @@ def coprime_decomposition(n_func, d_func, poles) -> CD_ControllerResult:
     # find the minial degree for controller by solving aforementioned inequality constraints
     """
     (1) num_order + den_order + 2 = m + 1 + n (m: maximal order of controller, n: maximal order of original system)
-    gard of characteristic polynomial of closed system is m + n, so m + n + 1 scalar equations must be fulfilled 
+    gard of characteristic polynomial of closed system is m + n, so m + n + 1 scalar equations must be fulfilled
     for comparing coefficients.
     (2) num_order m
     (3) den_order <= m
-    
+
     function (1) is switched to m -> m = num_order + den_order + 1 - n (4)
     m in (4) is substituted by (2) and (3) ->
     num_order <= num_order + den_order + 1 - n (5)
@@ -49,9 +49,10 @@ def coprime_decomposition(n_func, d_func, poles) -> CD_ControllerResult:
     num_order >= n - 1 -> num_order - n + 1 >= 0
     """
     x1, x2 = sp.symbols("x1, x2")  # x1, x2 are symbols for num_order and den_order in inequality constraints
-    res = sp.solve([x1 - max_order + 1 >= 0, x2 - max_order + 1 >= 0], [x1, x2])
-    order_n = (res.args[0]).args[0]
-    order_d = (res.args[1]).args[0]
+    res1 = sp.solve([x1 - max_order + 1 >= 0], [x1])
+    res2 = sp.solve([x2 - max_order + 1 >= 0], [x2])
+    order_n = (res1.args[0]).args[0]
+    order_d = (res2.args[0]).args[0]
     m = max(order_n, order_d)
     order_f1 = order_n + 1
     order_h1 = order_d + 1
