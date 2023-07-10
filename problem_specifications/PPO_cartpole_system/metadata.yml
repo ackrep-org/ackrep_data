@@ -1,0 +1,18 @@
+key: CAWK2
+predecessor_key: ''
+type: problem_specification
+name: 'reinforcement learning for cartpole system'
+short_description: 'traing neural net to control and stabilize upper equilibrium of cartpole system'
+version: 0.1.0
+tag_list:
+creator: 'Julius Fiedler <julius.fiedler{ät}tu-dresden.de>'
+editor_list:
+    - ''
+creation_date: '2023-07-07'
+external_references: ''
+notes:
+problemclass_list:
+    - ''
+problem_file: problem.py
+related_system_models_list:
+    - 'BID9I'

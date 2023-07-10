@@ -1,0 +1,21 @@
+key: P5MZW
+predecessor_key: ''
+type: problem_solution
+name: 'reinforcement learning for cartpole system'
+short_description: ''
+version: 0.1.0
+tag_list:
+creator: 'Julius Fiedler <julius.fiedler{ät}tu-dresden.de>'
+editor_list:
+    - ''
+creation_date: '2023-07-07'
+external_references: ''
+notes:
+solved_problem_list:
+    - CAWK2
+method_package_list:
+    - ""
+compatible_environment: ''
+estimated_runtime: '10s'
+solution_file: solution.py
+postprocessing_file: ''

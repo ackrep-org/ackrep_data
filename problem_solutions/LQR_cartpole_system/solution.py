@@ -46,7 +46,7 @@ def rhs_for_simulation(f, g, xx, controller_func):
     return rhs_eq
 
 
-def solve(problem_spec):
+def solve(problem_spec, kwargs=None):
     """the design of a linear full observer is based on a linear system.
     therefore the non-linear system should first be linearized at the beginning
     :param problem_spec: ProblemSpecification object
