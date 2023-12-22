@@ -6,7 +6,7 @@ short_description: 'ODEs describing the lorenz system'
 version: 0.1.0
 tag_list:
     - 'lorenz'
-erk_data:
+irk_data:
     R9125["has input dimension"]: 0
     R8303["has general system property"]:
     - I7733["time invariance"]

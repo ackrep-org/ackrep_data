@@ -10,7 +10,7 @@ short_description: AC1 Y. S. Hung and A. G. J. MacFarlane, "Multivariable feedba
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 3
     R8978["has output dimension"]: 2
     R2928["has model representation"]:

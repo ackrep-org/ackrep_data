@@ -10,7 +10,7 @@ short_description: DLR3 like DLR2, change in matrix C
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 2
     R8978["has output dimension"]: 42
     R2928["has model representation"]:

@@ -8,7 +8,7 @@ short_description: 'DC-DC power converter with galvanic isolation'
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 1
     R8303["has general system property"]:
     - I7733["time invariance"]

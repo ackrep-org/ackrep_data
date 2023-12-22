@@ -10,7 +10,7 @@ short_description: AC3 L-1011 aircraft in cruise flight conditions C. Edwards an
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 2
     R8978["has output dimension"]: 5
     R2928["has model representation"]:

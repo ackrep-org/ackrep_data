@@ -9,7 +9,7 @@ version: 0.1.0
 tag_list:
     - 'winkler'
     - 'nonlinear'
-erk_data:
+irk_data:
     R9125["has input dimension"]: 0
     R8303["has general system property"]:
         - I7733["time invariance"]
@@ -28,17 +28,17 @@ erk_data:
         I7062["trajectory"]:
             R7062["has general trajectory property"]:
                 - I6467["saddle"]
-                - I8303["strict ljapunov instability"] # todo: this should be redundant
+                - I8303["strict Lyapunov instability"] # todo: this should be redundant
     R5031["has trajectory"]:
         I7062["trajectory"]:
             R7062["has general trajectory property"]:
                 - I4610["spiral"]
-                - I8303["strict ljapunov instability"]
+                - I8303["strict Lyapunov instability"]
     R5031["has trajectory"]:
         I7062["trajectory"]:
             R7062["has general trajectory property"]:
                 - I4610["spiral"]
-                - I8303["strict ljapunov instability"]
+                - I8303["strict Lyapunov instability"]
 
 creator: 'Anne Harloff anne.harloff{ät}mailbox.tu-dresden.de'
 editor_list:

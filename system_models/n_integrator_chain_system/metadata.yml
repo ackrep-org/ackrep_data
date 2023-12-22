@@ -1,4 +1,4 @@
-key: CAS0M 
+key: CAS0M
 predecessor_key: ''
 type: system_model
 name: 'n integrator chain'
@@ -7,7 +7,7 @@ version: 0.1.0
 tag_list:
     - 'integrator'
     - 'chain'
-erk_data:
+irk_data:
     R9125["has input dimension"]: 1
     R8978["has output dimension"]: 1
     R8316["belongs to domain"]: I4498["artificial domain"]

@@ -10,7 +10,7 @@ short_description: ISS1 International Space Station SLICOT Working note 2002-2 Y
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 3
     R8978["has output dimension"]: 273
     R2928["has model representation"]:

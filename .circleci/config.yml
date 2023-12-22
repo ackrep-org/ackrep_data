@@ -9,7 +9,7 @@ jobs: # A basic unit of work in a run
           NO_IPS_EXCEPTHOOK: "True"
           CI: "True"
           ACKREP_DATA_UT: "True"
-          # ACKREP_ENVIRONMENT_NAME: "dont import pyerk"
+          # ACKREP_ENVIRONMENT_NAME: "dont import pyirk"
 
     steps: # steps that comprise the `build` job
       - checkout # check out source code to working directory
@@ -40,13 +40,13 @@ jobs: # A basic unit of work in a run
           paths:
             - "venv"
       - run:
-          name: Load ERK Modules
+          name: Load IRK Modules
           command: |
             . venv/bin/activate
-            echo Cloning erk_data
+            echo Cloning irk_data
             cd ~
-            mkdir -p erk/erk_data
-            cd erk/erk_data
+            mkdir -p irk/irk_data
+            cd irk/irk_data
             git clone https://github.com/ackrep-org/ocse.git
             cd ocse
             git checkout develop

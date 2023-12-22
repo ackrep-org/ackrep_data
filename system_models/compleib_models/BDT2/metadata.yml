@@ -10,7 +10,7 @@ short_description: BDT2 Binary distillation tower Test and generate the lineariz
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 4
     R8978["has output dimension"]: 4
     R2928["has model representation"]:

@@ -10,7 +10,7 @@ short_description: HE3 Bell 201A-1 helicopter D.-W. Gu, P. Hr. Petkov and M. M. 
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 4
     R8978["has output dimension"]: 10
     R2928["has model representation"]:

@@ -10,7 +10,7 @@ short_description: NN7 like NN6 with changed B1, C1, D11, D12 and D21 ehemals HB
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 1
     R8978["has output dimension"]: 3
     R2928["has model representation"]:

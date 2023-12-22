@@ -10,7 +10,7 @@ short_description: HE1 Longitudinal motion of a VTOL helicopter S. N. Singh and 
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 2
     R8978["has output dimension"]: 2
     R2928["has model representation"]:

@@ -10,7 +10,7 @@ short_description: HF2D18 reduced version of HF2D9
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 2
     R8978["has output dimension"]: 7
     R2928["has model representation"]:

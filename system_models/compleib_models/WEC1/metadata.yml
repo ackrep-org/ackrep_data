@@ -10,7 +10,7 @@ short_description: WEC1 Wind energy conversion system "Dynamic modelling and rob
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 3
     R8978["has output dimension"]: 10
     R2928["has model representation"]:

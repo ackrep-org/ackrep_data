@@ -10,7 +10,7 @@ short_description: IH Intelligent highway model of position and velocity control
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 11
     R8978["has output dimension"]: 11
     R2928["has model representation"]:

@@ -8,7 +8,7 @@ short_description: 'system of two ODEs'
 version: 0.1.0
 tag_list:
     - 'motor'
-erk_data:
+irk_data:
     R9125["has input dimension"]: 2
     R8978["has output dimension"]: 1
     R8303["has general system property"]:

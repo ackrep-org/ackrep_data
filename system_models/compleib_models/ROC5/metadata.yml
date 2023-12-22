@@ -10,7 +10,7 @@ short_description: ROC5 Free Gyro-stabilized mirror system B. M. Chen, "H_inf Co
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 3
     R8978["has output dimension"]: 2
     R2928["has model representation"]:

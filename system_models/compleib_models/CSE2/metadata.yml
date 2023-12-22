@@ -10,7 +10,7 @@ short_description: CSE2 Coupled spring experiment, l=30 2nd order system J. Abel
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 2
     R8978["has output dimension"]: 32
     R2928["has model representation"]:

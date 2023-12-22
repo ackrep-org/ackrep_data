@@ -7,7 +7,7 @@ version: 0.1.0
 tag_list:
     - 'pvtol'
     - 'uav'
-erk_data:
+irk_data:
     R9125["has input dimension"]: 2
     R8303["has general system property"]:
         - I7733["time invariance"]

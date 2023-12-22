@@ -6,7 +6,7 @@ short_description: 'MMC with 3 phases, 1 Submodule per Arm and output to grid. U
 version: 0.1.0
 tag_list:
     - 'mmc'
-erk_data:
+irk_data:
     R9125["has input dimension"]: 4
     R8316["belongs to domain"]: I1052["electrical domain"]
 creator: 'Anne Harloff <anne.harloff@mailbox.tu-dresden.de>'

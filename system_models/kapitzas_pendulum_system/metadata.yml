@@ -7,7 +7,7 @@ version: 0.1.0
 tag_list:
     - 'kapitza'
     - 'pendulum'
-erk_data:
+irk_data:
     R9125["has input dimension"]: 0 # TODO stimmt das?
     R8303["has general system property"]:
         - I7733["time invariance"]

@@ -10,7 +10,7 @@ short_description: AC2 like AC1 with changed C1, D11, D12
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 3
     R8978["has output dimension"]: 5
     R2928["has model representation"]:

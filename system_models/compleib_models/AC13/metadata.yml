@@ -10,7 +10,7 @@ short_description: AC13 ASTOVL Aircraft, LARGE model save ASTOVL_aug A B1 B2 C1 
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 3
     R8978["has output dimension"]: 28
     R2928["has model representation"]:

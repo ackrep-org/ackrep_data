@@ -382,7 +382,7 @@ if 0:
 
 mod1 = st.SimulationModel(ff, gg, xx)
 
-detQc = st.nl_cont_matrix(ff, gg, xx, n_extra_cols=0).berkowitz_det()
+detQc = st.nl_cont_matrix(ff, gg, xx, n_extra_cols=0).birkowitz_det()
 detQc_func = sp.lambdify(xx, detQc, modules="numpy")
 
 

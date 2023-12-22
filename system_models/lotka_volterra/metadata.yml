@@ -6,7 +6,7 @@ short_description: 'predator-prey model, used to describe the population dynamic
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 0
     R8303["has general system property"]:
     - I7733["time invariance"]

@@ -10,7 +10,7 @@ short_description: JE1 Multivariable servomechanism problem J-100 jet engine E. 
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 3
     R8978["has output dimension"]: 8
     R2928["has model representation"]:

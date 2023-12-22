@@ -6,7 +6,7 @@ short_description: 'PDE describing thermal conduction in matter'
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 1
     R8303["has general system property"]:
     - I7733["time invariance"]
@@ -17,7 +17,7 @@ erk_data:
                 - I8844["parabolic"]
             R3898["has system order"]: 2
             R6134["has highest time derivative"]: 1
-            R9746["has boundary condition"]: I6830["dirichlet boundary condition"]
+            R9746["has boundary condition"]: I6830["Dirichlet boundary condition"]
     R8316["belongs to domain"]:
         - I1696["physical domain"]
         - I7667["thermal domain"]

@@ -10,7 +10,7 @@ short_description: AC5 Boeing B-747 aircraft T. Ishihara, H.-J. Guo and H. Taked
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 2
     R8978["has output dimension"]: 4
     R2928["has model representation"]:

@@ -10,7 +10,7 @@ short_description: EB4 Euler-Bernoulli Beam like EB2 very low damping --> xi=1e-
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 1
     R8978["has output dimension"]: 2
     R2928["has model representation"]:

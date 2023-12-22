@@ -10,7 +10,7 @@ short_description: DIS5 M. C. de Oliveira, J. F. Camino and R. E. Skelton, A Con
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 2
     R8978["has output dimension"]: 3
     R2928["has model representation"]:

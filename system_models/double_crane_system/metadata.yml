@@ -8,7 +8,7 @@ short_description: 'overhead double crane with two indipendent control units'
 version: 0.1.0
 tag_list:
     - 'crane'
-erk_data:
+irk_data:
     R9125["has input dimension"]: 4
     R8303["has general system property"]:
         - I7733["time invariance"]

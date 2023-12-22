@@ -9,7 +9,7 @@ short_description: 'two link manipulator + one link manipulator + rigid coupling
 version: 0.1.0
 tag_list:
     - 'Four-bar'
-erk_data:
+irk_data:
     R9125["has input dimension"]: 1
     R8303["has general system property"]:
         - I7733["time invariance"]

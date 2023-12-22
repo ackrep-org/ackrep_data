@@ -10,7 +10,7 @@ short_description: CM6 To CM1 corresponding example of order 960.
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 1
     R8978["has output dimension"]: 3
     R2928["has model representation"]:

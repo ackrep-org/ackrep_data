@@ -10,7 +10,7 @@ short_description: AC17 Leteral axis dynamic for a L-1011 aircraft A. R. Galimid
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 1
     R8978["has output dimension"]: 4
     R2928["has model representation"]:

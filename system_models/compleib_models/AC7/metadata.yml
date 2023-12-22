@@ -10,7 +10,7 @@ short_description: AC7 Transport Aircraft model Boing flight condition VMIN D. G
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 1
     R8978["has output dimension"]: 1
     R2928["has model representation"]:

@@ -10,7 +10,7 @@ short_description: NN2 Classical example W. S. Levine and M. Athans, "On the det
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 1
     R8978["has output dimension"]: 2
     R2928["has model representation"]:

@@ -10,7 +10,7 @@ short_description: NN6 H. P. Horisberger and P. R. Belanger, "Solution of the Op
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 1
     R8978["has output dimension"]: 9
     R2928["has model representation"]:

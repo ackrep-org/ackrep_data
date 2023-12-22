@@ -10,7 +10,7 @@ short_description: WEC2 like WEC1 at an operation point of v=16m/s v wind speed
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 3
     R8978["has output dimension"]: 10
     R2928["has model representation"]:

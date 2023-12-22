@@ -10,7 +10,7 @@ short_description: TMD 2-degree-of-freedom 2DOF tuned-mass damper TMD L. Zuo and
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 2
     R8978["has output dimension"]: 3
     R2928["has model representation"]:

@@ -10,7 +10,7 @@ short_description: ROC8 Augmented three mass spring system ehemals ROC3 L. El Gh
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 4
     R8978["has output dimension"]: 7
     R2928["has model representation"]:

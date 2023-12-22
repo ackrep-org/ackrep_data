@@ -6,7 +6,7 @@ short_description: 'nonlinear model, four ODEs and one input'
 version: 0.1.0
 tag_list:
     - 'crane'
-erk_data:
+irk_data:
     R9125["has input dimension"]: 1
     R8978["has output dimension"]: 2
     R8303["has general system property"]:

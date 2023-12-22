@@ -10,7 +10,7 @@ short_description: AC10 B767 aircraft at a flutter condition E. J. Davison, "Ben
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 2
     R8978["has output dimension"]: 5
     R2928["has model representation"]:

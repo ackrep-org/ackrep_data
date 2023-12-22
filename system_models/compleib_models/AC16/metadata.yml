@@ -10,7 +10,7 @@ short_description: AC16 like AC15 with changed C and D21 ehemalsNN3
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 2
     R8978["has output dimension"]: 6
     R2928["has model representation"]:

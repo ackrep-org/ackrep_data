@@ -10,7 +10,7 @@ short_description: MFP Moored Floating Platform C. Scherer, P. Gahinet and M. Ch
 version: 0.1.0
 tag_list:
     - ''
-erk_data:
+irk_data:
     R9125["has input dimension"]: 3
     R8978["has output dimension"]: 4
     R2928["has model representation"]:
