@@ -15,6 +15,10 @@ irk_data:
                 - I8978["time continuity"]
                 - I5247["polynomial"]
     R8316["belongs to domain"]: I4498["artificial domain"]
+    R5031["has trajectory"]:
+        I9820["equilibrium point"]:
+            R7062["has general trajectory property"]:
+                I2931["local Lyapunov stability"]
 creator: 'Anne Harloff <anne.harloff{ät}mailbox.tu-dresden.de>'
 editor_list:
     - ''

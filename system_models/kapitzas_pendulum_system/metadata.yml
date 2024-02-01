@@ -19,7 +19,10 @@ irk_data:
             R3898["has system order"]: 1
             R2112["has state dimension"]: 2
     R8316["belongs to domain"]: I9223["mechanical domain"]
-    R5031["has trajectory"]: I9820["equilibrium point"]
+    R5031["has trajectory"]:
+        I9820["equilibrium point"]:
+            R7062["has general trajectory property"]:
+                - I8303["strict Lyapunov instability"]
 creator: 'Anne Harloff <anne.harloff{ät}mailbox.tu-dresden.de>'
 editor_list:
     - ''
